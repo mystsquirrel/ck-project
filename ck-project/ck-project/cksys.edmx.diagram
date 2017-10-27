@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d34145c653dc4b77abe4326d53566490" Name="Diagram1">
+        <EntityTypeShape EntityType="CKsysdb.address" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.branch" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.building_permit" Width="1.5" PointX="9.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.customer" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.delivery_status" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.employee" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.installation" Width="1.5" PointX="9.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.lead_log_file" Width="1.5" PointX="9.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.lead_source" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.lead" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.product" Width="1.5" PointX="9.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.project_class" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.project_status" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.project_type" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.rate" Width="1.5" PointX="12" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.task" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.tasks_installation" Width="1.5" PointX="15" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.tax" Width="1.5" PointX="9.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.total_cost" Width="1.5" PointX="9.75" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKsysdb.users_types" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="CKsysdb.fk_branches_to_addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_Customers_to_addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_employees_to_brancges" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_branches" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_permit_number_to_leads" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_delivery_status" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_employees_to_users_types" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_employees" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_installation_to_leads" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_tasks_installation_to_installation" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_lead_log_file_to_Leads" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_lead_source" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_project_class" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_project_status" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_project_type" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_products_to_leads" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_total_cost_to_leads" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.fk_tasks_installation_to_tasks" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.rates_installation" ManuallyRouted="false" />
+        <AssociationConnector Association="CKsysdb.taxes_leads" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
