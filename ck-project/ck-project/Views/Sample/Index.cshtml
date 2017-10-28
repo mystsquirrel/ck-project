@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("sure?")) {
+                window.location = " /sample/Delete/" + id;
+            }
+        }
+    </script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        @if(ViewBag.employeelist!=null){ 
+            foreach (employee a in ViewBag.employeelist) {
+            <div>@a.users_types.user_type_name</div>
+            <div>the address: @a.branch.address.address1  branch name is @a.branch.branch_name</div>
+            <div>@a.emp_firstname</div>
+            <div>@a.emp_lastname</div>
+            <div>@a.emp_number</div>
+            <div> <a href="javascript:del(@a.emp_number)">delete</a></div>
+        }}
+    </div>
+</body>
+</html>
