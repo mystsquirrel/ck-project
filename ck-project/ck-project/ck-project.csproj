@@ -358,6 +358,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Sample\Index.cshtml" />
     <Content Include="Views\Sample\Mofifyemployee.cshtml" />
+    <Content Include="Views\Sample\Viewemployee.cshtml" />
+    <Content Include="Views\Sample\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

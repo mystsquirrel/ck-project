@@ -1,0 +1,90 @@
+﻿@model ck_project.employee
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Viewemployee</title>
+</head>
+<body>
+    <div>
+        <h4>employee</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.emp_firstname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.emp_firstname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.emp_middlename)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.emp_middlename)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.emp_lastname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.emp_lastname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.emp_username)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.emp_username)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.emp_password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.emp_password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.phone_number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.phone_number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.branch.branch_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.branch.branch_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.users_types.user_type_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.users_types.user_type_name)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.emp_number }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
