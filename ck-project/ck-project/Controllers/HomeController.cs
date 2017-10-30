@@ -8,6 +8,7 @@ namespace ck_project.Controllers
 {
     public class HomeController : Controller
     {
+        ckdatabase db = new ckdatabase();
         public ActionResult Index()
         {
             return View();
@@ -24,6 +25,21 @@ namespace ck_project.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult DisplayProjects()
+        {
+            return View(db.leads.ToList());
+        }
+
+        public ActionResult LeadPage()
+        {
+            return View();
+        }
+
+        public ActionResult LeadTab()
+        {
             return View();
         }
     }

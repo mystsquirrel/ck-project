@@ -1,0 +1,28 @@
+﻿h1 {
+    margin-left: 4%;
+    font-weight: bold;
+}
+
+.top-buffer {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.row {
+    background-image: url(Images/CK_picture.jpg);
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+}
+
+.transBox {
+    background-color: rgba(211, 211, 211, 0.6);
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.form-group {
+}
+
+.footer-copyright {
+    text-align: center;
+}
