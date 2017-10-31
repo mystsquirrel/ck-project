@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
-{
+{   [Authorize]
     public class HomeController : Controller
     {
         ckdatabase db = new ckdatabase();

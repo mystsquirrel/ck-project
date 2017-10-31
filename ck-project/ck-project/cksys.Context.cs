@@ -12,6 +12,8 @@ namespace ck_project
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ckdatabase : DbContext
     {
@@ -46,5 +48,18 @@ namespace ck_project
         public virtual DbSet<tax> taxes { get; set; }
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
+    
+        public virtual int LoginByUsernamePassword(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoginByUsernamePassword", usernameParameter, passwordParameter);
+        }
     }
 }
