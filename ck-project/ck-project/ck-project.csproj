@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\TurkiCustomersController.cs" />
     <Compile Include="customer.cs">
       <DependentUpon>cksys.tt</DependentUpon>
@@ -398,6 +399,17 @@
     <Content Include="Views\Home\LeadPage.cshtml" />
     <Content Include="Views\GroupTest\Index.cshtml" />
     <Content Include="Views\GroupTest\Psge2.cshtml" />
+    <Content Include="Views\Lookup\DeliveryStatus.cshtml" />
+    <Content Include="Views\Lookup\DeliveryStatusAdd.cshtml" />
+    <Content Include="Views\Lookup\Index.cshtml" />
+    <Content Include="Views\Lookup\LeadSource.cshtml" />
+    <Content Include="Views\Lookup\LeadSourceAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectClass.cshtml" />
+    <Content Include="Views\Lookup\ProjectClassAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectStatus.cshtml" />
+    <Content Include="Views\Lookup\ProjectStatusAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectType.cshtml" />
+    <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
