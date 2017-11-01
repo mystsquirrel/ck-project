@@ -215,7 +215,9 @@
       <DependentUpon>cksys.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TurkiCustomersController.cs" />
     <Compile Include="customer.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -394,9 +396,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\LeadTab.cshtml" />
     <Content Include="Views\Home\LeadPage.cshtml" />
+    <Content Include="Views\GroupTest\Index.cshtml" />
+    <Content Include="Views\GroupTest\Psge2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TurkiCustomers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

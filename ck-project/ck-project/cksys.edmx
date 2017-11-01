@@ -135,6 +135,7 @@
           <Property Name="last_status_date" Type="date" />
           <Property Name="project_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tax_exempt" Type="bit" Nullable="false" />
+          <Property Name="Last_update_date" Type="date" />
         </EntityType>
         <EntityType Name="products">
           <Key>
@@ -841,6 +842,7 @@
           <NavigationProperty Name="products" Relationship="Self.fk_products_to_leads" FromRole="leads" ToRole="products" />
           <NavigationProperty Name="total_cost" Relationship="Self.fk_total_cost_to_leads" FromRole="leads" ToRole="total_cost" />
           <NavigationProperty Name="taxes" Relationship="Self.taxes_leads" FromRole="leads" ToRole="taxes" />
+          <Property Name="Last_update_date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -1453,6 +1455,7 @@
           <EntitySetMapping Name="leads">
             <EntityTypeMapping TypeName="CKsysdb.lead">
               <MappingFragment StoreEntitySet="leads">
+                <ScalarProperty Name="Last_update_date" ColumnName="Last_update_date" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
                 <ScalarProperty Name="customer_number" ColumnName="customer_number" />
                 <ScalarProperty Name="class_number" ColumnName="class_number" />
