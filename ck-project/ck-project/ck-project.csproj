@@ -215,6 +215,7 @@
       <DependentUpon>cksys.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
@@ -410,10 +411,11 @@
     <Content Include="Views\Lookup\ProjectStatusAdd.cshtml" />
     <Content Include="Views\Lookup\ProjectType.cshtml" />
     <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
+    <Content Include="Views\TurkiCustomers\AddCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TurkiCustomers\" />
+    <Folder Include="Views\Address\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

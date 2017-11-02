@@ -27,6 +27,36 @@ namespace ck_project.Controllers
             ViewBag.Customerslist = Customers_list;
             return View();
         }
+        public ActionResult AddCustomer() {
+            //var add_dropdown = new List<SelectListItem>();
+            //add_dropdown.AddRange(db.addresses.Select(a => new SelectListItem
+            //{
+            //    Text = a.county + a.city + a.address1,
+            //    Value = a.address_number.ToString()                
+            //}));
+            //ViewBag.add_dropdown = add_dropdown;
+       
 
+
+
+            return View();
+        
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult AddCustomer(FormCollection form) {
+            
+            customer a = new customer();
+            TryUpdateModel(a,);
+            address b = new address();
+            TryUpdateModel(b);
+            var c = a.customer_firstname;
+            var d = b.address_type;
+            
+
+            return View("Customers");
+        }
+
+       
     }
 }
