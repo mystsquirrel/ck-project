@@ -1,0 +1,34 @@
+﻿body {
+    margin: 0;
+}
+
+.t {
+    -webkit-transform-origin: top left;
+    -moz-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    -webkit-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    -o-transform: scale(0.25);
+    -ms-transform: scale(0.25);
+    z-index: 2;
+    position: absolute;
+    white-space: pre;
+    overflow: visible;
+}
+
+.pStart {
+    left: 25px;
+    letter-spacing: 0.3px;
+}
+
+.pagebreak {
+    page-break-after: always;
+}
+
+.wrapper {
+    width: 3500px;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: justify;
+}

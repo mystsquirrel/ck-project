@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CKsysdb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CKsysdb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="addresses">
           <Key>
             <PropertyRef Name="address_number" />
@@ -135,6 +135,7 @@
           <Property Name="last_status_date" Type="date" />
           <Property Name="project_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tax_exempt" Type="bit" Nullable="false" />
+          <Property Name="Last_update_date" Type="date" />
         </EntityType>
         <EntityType Name="products">
           <Key>
@@ -549,6 +550,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="LoginByUsernamePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="CKsysdbStoreContainer">
           <EntitySet Name="addresses" EntityType="Self.addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="branches" EntityType="Self.branches" Schema="dbo" store:Type="Tables" />
@@ -670,8 +675,7 @@
             <End Role="total_cost" EntitySet="total_cost" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CKsysdb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -838,6 +842,7 @@
           <NavigationProperty Name="products" Relationship="Self.fk_products_to_leads" FromRole="leads" ToRole="products" />
           <NavigationProperty Name="total_cost" Relationship="Self.fk_total_cost_to_leads" FromRole="leads" ToRole="total_cost" />
           <NavigationProperty Name="taxes" Relationship="Self.taxes_leads" FromRole="leads" ToRole="taxes" />
+          <Property Name="Last_update_date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -1317,6 +1322,10 @@
             <End Role="leads" EntitySet="leads" />
             <End Role="taxes" EntitySet="taxes" />
           </AssociationSet>
+          <FunctionImport Name="LoginByUsernamePassword">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1446,6 +1455,7 @@
           <EntitySetMapping Name="leads">
             <EntityTypeMapping TypeName="CKsysdb.lead">
               <MappingFragment StoreEntitySet="leads">
+                <ScalarProperty Name="Last_update_date" ColumnName="Last_update_date" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
                 <ScalarProperty Name="customer_number" ColumnName="customer_number" />
                 <ScalarProperty Name="class_number" ColumnName="class_number" />
@@ -1601,6 +1611,7 @@
               <ScalarProperty Name="tax_number" ColumnName="tax_number" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="LoginByUsernamePassword" FunctionName="CKsysdb.Store.LoginByUsernamePassword" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
