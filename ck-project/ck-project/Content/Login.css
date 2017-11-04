@@ -1,6 +1,6 @@
 ﻿h1 {
    text-align: center;
-    font-weight: bold;
+   font-weight: bold;
 }
 
 .top-buffer {
@@ -30,8 +30,4 @@ body {
 
 .footer-copyright {
     text-align: center;
-}
-
-.btn-default {
-
 }
