@@ -28,8 +28,10 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult DisplayProjects()
+        [HttpPost]
+        public ActionResult MainPage(int employeeNbr)
         {
+            //List<lead> leadList = db.leads.Where(l => l.emp_number == employeeNbr).ToList()
             return View(db.leads.ToList());
         }
 
@@ -39,6 +41,11 @@ namespace ck_project.Controllers
         }
 
         public ActionResult LeadTab()
+        {
+            return View();
+        }
+
+        public ActionResult PrintHub()
         {
             return View();
         }

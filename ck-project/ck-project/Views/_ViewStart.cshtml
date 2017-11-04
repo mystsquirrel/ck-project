@@ -1,11 +1,11 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if (controller == "Account")
-    {
-        Layout = "~/Views/Shared/_LoginLayout.cshtml";
-    }
-    else
+    if (controller == "Home")
     {
         Layout = "~/Views/Shared/_MainLayout.cshtml";
+    }
+    else if (controller == "Admin")
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
 }

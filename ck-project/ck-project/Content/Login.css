@@ -1,5 +1,5 @@
 ﻿h1 {
-    margin-left: 4%;
+   text-align: center;
     font-weight: bold;
 }
 
@@ -8,14 +8,19 @@
     margin-bottom: 5%;
 }
 
+body {
+    padding: 10%;
+    margin: 0;
+}
+
 .row {
     background-image: url(Images/CK_picture.jpg);
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
+    padding-top: 2.3%;
+    padding-bottom: 2.3%;
 }
 
 .transBox {
-    background-color: rgba(211, 211, 211, 0.6);
+    background-color: rgba(211, 211, 211, 0.9);
     padding-top: 3%;
     padding-bottom: 3%;
 }
@@ -25,4 +30,8 @@
 
 .footer-copyright {
     text-align: center;
+}
+
+.btn-default {
+
 }

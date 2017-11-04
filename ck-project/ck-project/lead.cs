@@ -41,6 +41,7 @@ namespace ck_project
         public Nullable<System.DateTime> last_status_date { get; set; }
         public string project_name { get; set; }
         public bool tax_exempt { get; set; }
+        public Nullable<System.DateTime> Last_update_date { get; set; }
     
         public virtual address address { get; set; }
         public virtual branch branch { get; set; }

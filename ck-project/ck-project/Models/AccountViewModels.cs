@@ -49,7 +49,7 @@ namespace ck_project.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         public string Email { get; set; }
 
         [Required]

@@ -85,7 +85,13 @@ namespace ck_project.Controllers
                         // Login In.    
                         this.SignInUser(logindetails.emp_username, false);
                         // Info.    
-                        return this.RedirectToLocal(returnUrl);
+                        if (logindetails.users_types.user_type_name == "Administrator")
+                        {
+                            return RedirectToAction("AdminMainPage", "Admin");
+                        } else
+                        {
+                            return RedirectToAction("MainPage", "Home");
+                        }
                     }
                     else
                     {
