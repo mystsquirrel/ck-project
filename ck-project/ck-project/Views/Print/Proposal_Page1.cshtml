@@ -1,0 +1,112 @@
+﻿@model ck_project.Models.ProposalViewModel
+
+@{
+    ViewBag.Title = "Proposal_Page1";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/Print.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="p1">
+        <style type="text/css">
+            #r1 {
+                top: 200px;
+            }
+
+            .s1_1 {
+                FONT-SIZE: 44.6px;
+                FONT-FAMILY: CIDFont-F1_b;
+                color: rgb(0,0,0);
+            }
+
+            .s2_1 {
+                FONT-SIZE: 142.7px;
+                FONT-FAMILY: CIDFont-F2_j;
+                color: rgb(0,0,0);
+            }
+
+            .s3_1 {
+                FONT-SIZE: 53.4px;
+                FONT-FAMILY: CIDFont-F3_r;
+                color: rgb(0,0,0);
+            }
+
+            .s4_1 {
+                FONT-SIZE: 160.3px;
+                FONT-FAMILY: CIDFont-F2_j;
+                color: rgb(0,0,0);
+            }
+
+            .s5_1 {
+                FONT-SIZE: 124.4px;
+                FONT-FAMILY: CIDFont-F2_j;
+                color: rgb(0,0,0);
+            }
+        </style>
+        <div style="display: block"><img src="~/Content/Images/proporal_pic1.png" style="float: left; position: absolute"/></div>
+        <div id="right-content" style="margin-left: 400px; overflow: hidden">
+            <div id="r1">CREATIVE KITCHENS</div>
+            <div id="r2">PROPOSAL</div>
+            <div id="r3">with</div>
+            <div id="r4">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</div>
+            <div id="r5" class="t s3">@Model.Lead.customer.address.address1</div>
+            <div id="r6" class="t s3">@Model.Lead.customer.address.city, @Model.Lead.customer.address.state @Model.Lead.customer.address.zipcode</div>
+            <img src="~/Content/Images/proporal_pic2.png" align="middle" style="position:absolute; left: 22.5%; top:60%">
+            <div id="r7" class="t s1_1">
+                <table>
+                    @{ foreach (var b in Model.Branch)
+                        {
+                            <tr>
+                                <td>@b.address.address1, @b.address.city, @b.address.state @b.address.zipcode</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    @*@{ var branchList = Model.Branch;
+        foreach (var b in branchList)
+        {
+            <tr>
+                <td>@b.address.address1 @b.address.city, @b.address.state @b.address.zipcode @b.phone_number</td>
+            </tr>
+        }
+    }*@
+       
+        
+        @*<div id="t5_1" class="t s3_1">5128 MacCorkle Avenue SE, Charleston, WV 25304 </div>
+        <div id="t6_1" class="t s3_1">304-925-0459</div>
+        <div id="t7_1" class="t s2_1">CREATIVE KITCHENS</div>
+        <div id="t8_1" class="t s4_1">PROPOSAL</div>
+        <div id="t9_1" class="t s5_1">with</div>
+        <div id="ta_1" class="t s5_1">November 1, 2017</div>
+        <div id="tb_1" class="t s3_1">PO Box 962, Lewisburg, WV 24901 </div>
+        <div id="tc_1" class="t s3_1">304-645-4600</div>*@
+        <!-- End text definitions -->
+
+@*<script>
+    var i = 3;
+    $('.address').each(function () {
+        var newID = 't' + i;
+        $(this).attr('id', newID);
+        $(this).val(i);
+        i++;
+    });
+</script>*@
+
+
+
+
+
+

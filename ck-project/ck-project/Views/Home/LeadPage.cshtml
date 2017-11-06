@@ -21,39 +21,27 @@
                     @Html.Action("LeadTab", "Home")
                 </div>
                 <div class="tab-pane" id="customerTab">
-                    Customer Page
+                    Customer Info
                 </div>
                 <div class="tab-pane" id="productsTab">
-                    Products Page
+                    Products Info
                 </div>
                 <div class="tab-pane" id="installTab">
-                    Installation Page
+                    Installation Info
                 </div>
                 <div class="tab-pane" id="summaryTab">
-                    Summary Page
+                    Summary Info
                 </div>
                 <div class="tab-pane" id="printTab">
-                    Print Page
+                    @Html.Action("PrintTab", "Home")
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 
-@section scripts {
-    @*   $(function () {
-        var hash = window.location.hash;
-        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
-
-        $('.nav-tabs a').click(function (e) {
-            $(this).tab('show');
-            var scrollmem = $('body').scrollTop();
-            window.location.hash = this.hash;
-            $('html,body').scrollTop(scrollmem);
-        });
-*@
+<script>
     $('.tab').on('click', function () {
             var info = $(this).data('info');
             switch (info) {
@@ -67,12 +55,9 @@
                     break;
                 case 'summaryInfo': $('#summaryTab p').load('/Views/Home/LeadTab'); //Controller method which returns partial view
                     break;
-                case 'printInfo': $('#printTab p').load('/Views/Home/LeadTab'); //Controller method which returns partial view
+                case 'printInfo': $('#printTab p').load('/Views/Home/PrintTab'); //Controller method which returns partial view
                     break;
-                //Add cases if you want
-                default;
+                default: break;
             }
     });
-
-
-}
+</script>

@@ -1,0 +1,178 @@
+﻿@model ck_project.Models.ProposalViewModel
+
+@{
+    ViewBag.Title = "Proposal_Page4";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/Print.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="p4">
+        <style type="text/css">
+            #p1 {
+                top: 27px;
+            }
+
+            #p2 {
+                top: 157px;
+            }
+
+            #p3 {
+                top: 307px;
+            }
+
+            #p4 {
+                top: 457px;
+            }
+
+            #r1_1 {
+                top: 657px;
+            }
+
+            #r1_2 {
+                left: 487px;
+                top: 657px;
+            }
+
+            #r2_1 {
+                top: 675px;
+                left: 90px;
+                width: 365px;
+                border-top: 1.5px solid black;
+            }
+
+            #r2_2 {
+                top: 675px;
+                left: 552px;
+                width: 365px;
+                border-top: 1.5px solid black;
+            }
+
+            #r3_1 {
+                top: 757px;
+                left: 487px;
+            }
+
+            #r4_1 {
+                top: 775px;
+                left: 552px;
+                width: 365px;
+                border-top: 1.5px solid black;
+            }
+
+            #r5_1 {
+                top: 875px;
+                left: 90px;
+                width: 365px;
+                border-top: 1.5px solid black;
+            }
+
+            #r5_2 {
+                top: 875px;
+                left: 552px;
+                width: 365px;
+                border-top: 1.5px solid black;
+            }
+
+            #r6_1 {
+                left: 550px;
+                top: 930px;
+            }
+
+            #r7_1 {
+                left: 550px;
+                top: 960px;
+            }
+
+            #r8_1 {
+                left: 550px;
+                top: 980px;
+            }
+
+            .sign-text {
+                opacity: 0.5;
+                text-align: center;
+            }
+
+            .s1 {
+                FONT-SIZE: 15px;
+                FONT-FAMILY: CIDFont-F2_j;
+                color: rgb(0,0,0);
+            }
+
+            .s2 {
+                FONT-SIZE: 15px;
+                FONT-FAMILY: CIDFont-F1_b;
+                color: rgb(31,78,120);
+            }
+
+            .s3 {
+                FONT-SIZE: 11px;
+                FONT-FAMILY: CIDFont-F1_b;
+                color: rgb(0,0,0);
+            }
+        </style>
+        <div id="p1" class="t l s1">
+            <p class="wrapper">
+                10. Creative Kitchens anticipates that the delivery date or the date upon which the installation, if appropriate, is to begin may change.
+                The Purchaser understands that these dates, when given, shall be deemed approximate, and performance is subject to delays caused by, but not limited to,
+                strikes, fires, availability of the product at the time of delivery, acts of God, completion of prior job, and/or other reasons not under the reasonable
+                control of Creative Kitchens. In the event delays do occur, Creative Kitchens shall give timely notice explaining the reasons for the delay along with
+                the new anticipated delivery, installation or completion dates to the Purchaser.
+            </p>
+        </div>
+        <div id="p2" class="t l s1">
+            <p class="wrapper">
+                11. This Agreement shall be binding upon and inure to the benefit of the parties, their heirs, personal representatives, successors
+                and assigns, providing however that Purchaser shall not have the right to assign the benefit of this Agreement without the express
+                consent of Creative Kitchens. Any notice required or permitted to be given under this Agreement shall be in writing and be deemed
+                given: (a) if by hand delivery, upon receipt thereof, or (b) if by mail, three (3) days after deposit in the U.S. mail, sent by registered or
+                certified mail, return receipt requested, postage prepaid, delivered or addressed to the addresses set forth herein, or to such other
+                address as provided in advance by written notice to the other party.
+            </p>
+        </div>
+        <div id="p3" class="t l s1">
+            <p class="wrapper">
+                12. This Agreement sets forth the entire agreement between the parties and any and all prior agreements, warranties or
+                representations made by either party are superseded by this Agreement. If any provision of this Agreement is declared invalid or
+                unenforceable by any tribunal, the remaining provisions of the Agreement shall not be affected thereby. All changes in this
+                Agreement shall be made by a separate document and executed by both parties. No agent of Creative Kitchens, unless authorized in
+                writing by Creative Kitchens, has any authority to waive, alter, or enlarge this contract, or to make any new or substituted or different
+                contracts, representations, or warranties.
+            </p>
+        </div>
+        <div id="p4" class="t l s1">
+            <p class="wrapper">
+                13. West Virginia State Law, as set forth in Chapter 21, Article 11A of the West Virginia Code, contains important requirements you
+                must follow before you may file a lawsuit for defective construction against the contractor who made residential improvements to
+                your property. At least ninety days before you file your lawsuit, you must deliver to the contractor a written notice of an construction
+                conditions you allege are defective and provide your contractor and any subcontractors, suppliers or design professionals the
+                opportunity to make an offer to repair or pay for the defects.
+            </p>
+        </div>
+        <div id="r1_1" class="t l s1">Accepted:</div>
+        <div id="r1_2" class="t l s1">Accepted:</div>
+        <div id="r2_1" class="t l s1"><div class="sign-text">Creative Kitchen Incorporated</div></div>
+        <div id="r2_2" class="t l s1"><div class="sign-text">Purchaser</div></div>
+        <div id="r3_1" class="t l s1">Accepted:</div>
+        <div id="r4_1" class="t l s1"><div class="sign-text">Purchaser</div></div>
+        <div id="r5_1" class="t l s1"><div class="sign-text">Date</div></div>
+        <div id="r5_2" class="t l s1"><div class="sign-text">Date</div></div>
+        <div id="r6_1" class="t l s2">Please indicate the Jobsite Location:</div>
+        <div id="r7_1" class="t">
+            <input style="float: left" type="checkbox" id="chk1" value="@Model.Lead.in_city" />
+            <lable class="s3" style="margin-left:5px" for="chk1">Jobsite is <u>within</u> the city limits of @Model.Lead.address.city</lable>
+        </div>
+        <div id="r8_1" class="t">
+            <input style="float: left" type="checkbox" id="chk2" />
+            <lable class="s3" style="margin-left:5px" for="chk2">Jobsite is <u>outside</u> of city limits of @Model.Lead.address.city</lable>
+        </div>
+    </div>
+</body>
+</html>

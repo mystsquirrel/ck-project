@@ -1,0 +1,49 @@
+﻿@{ 
+    ViewBag.Title = "PrintTab";
+    Layout = null;
+}
+
+<style>
+    .btn {
+        width:190px;
+    }
+
+    .column {
+        padding-top: 1%
+    }
+</style>
+
+<div class="container">
+    <div class="row top-buffer">
+        <label class="col-md-4 text-center">FOR CUSTOMER</label>
+        <label class="col-md-4 text-center">FOR INSTALLER</label>
+        <label class="col-md-4 text-center">FOR INTERNAL</label>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Print Proposal" onclick="location.href='@Url.Action("PrintProposal", "Print")'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Installation Details" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Lead Summary" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Products (Exhibit A)" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 col-md-offset-4 column" align="center">
+            <input type="button" value="Products Ordering" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Scope of Work (Exhibit B)" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 col-md-offset-4 column" align="center">
+            <input type="button" value="Installation Details" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 column" align="center">
+            <input type="button" value="Owner Product Agreement" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+        <div class="col-md-4 col-md-offset-4 column" align="center">
+            <input type="button" value="Sold Job Notice" onclick="location.href='@Url.Action()'" class="btn btn-default" />
+        </div>
+    </div>        
+</div>

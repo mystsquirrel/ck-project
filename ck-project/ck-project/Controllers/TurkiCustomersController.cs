@@ -79,13 +79,6 @@ namespace ck_project.Controllers
                 db.customers.Add(a);
                 db.SaveChanges();
             }
-
-            
-
             return View();
-        }
-        
-
-       
     }
 }

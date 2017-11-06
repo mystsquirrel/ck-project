@@ -1,0 +1,26 @@
+﻿body {
+    margin: 0;
+}
+
+.t {
+    -ms-transform: scale(0.25);
+    z-index: 2;
+    position: absolute;
+    overflow: visible;
+}
+
+.l {
+    left: 25px;
+    letter-spacing: 0.3px;
+}
+
+.pagebreak {
+    page-break-after: always;
+}
+
+.wrapper {
+    width: 840px;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: justify;
+}

@@ -29,3 +29,7 @@ textarea {
 ul.dropdown-menu {
     width: 100%;
 }
+
+.tab-content {
+    padding-top:3%;
+}
