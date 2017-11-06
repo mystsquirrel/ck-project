@@ -7,23 +7,25 @@ using System.Web.Mvc;
 namespace ck_project.Controllers
 {
     public class EmpController : Controller
-    {
+    { 
+        
+        //Creating the DB connecton
+        ckdatabase db = new ckdatabase();
         // GET: Emp
         public ActionResult Index()
         {
             return View();
         }
+                   
 
-
-        //Creating the DB connecton
-        ckdatabase db = new ckdatabase();
-
-
-
-        // GET: Employees
+                // GET: Employees
         public ActionResult ListEmp()
         {
             List<employee> Employees_list = db.employees.ToList();
+            foreach (employee a in Employees_list)
+            {
+                a.emp_password = EncryptionHelper.Decrypt(a.emp_password);
+            }
             ViewBag.Employeeslist = Employees_list;
             return View();
         }
@@ -33,6 +35,10 @@ namespace ck_project.Controllers
         public ActionResult Edit(int id)
         {
             List<employee> Employees_list = db.employees.Where(d => d.emp_number == id).ToList();
+            foreach (employee a in Employees_list)
+            {
+                a.emp_password = EncryptionHelper.Decrypt(a.emp_password);
+            }
             ViewBag.Customerslist = Employees_list;
             employee target = Employees_list[0];
               return View(target);
@@ -46,9 +52,14 @@ namespace ck_project.Controllers
         public ActionResult Edit(int id, FormCollection fo)
         {
             List<employee> Employees_list = db.employees.Where(d => d.emp_number == id).ToList();
+            foreach (employee a in Employees_list)
+            {
+                a.emp_password = EncryptionHelper.Decrypt(a.emp_password);
+            }
             ViewBag.Customerslist = Employees_list;
             employee target = Employees_list[0];
             TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username", "user_type_number", "branch_number", "emp_number", "phone_number" }, fo.ToValueProvider());
+            target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
             db.SaveChanges();
             return View(target);
         }
@@ -61,9 +72,7 @@ namespace ck_project.Controllers
         public ActionResult Add(FormCollection form)
         {
             //setting dropdown list for forgern key
-            var utype = new List<SelectListItem> {
-                new SelectListItem{ Text="---select---",Selected=true,Value=""}
-            };
+            var utype = new List<SelectListItem> ();
             utype.AddRange(db.users_types.Select(a => new SelectListItem
             {
                 Text = a.user_type_name,
@@ -71,9 +80,7 @@ namespace ck_project.Controllers
                 Value = a.user_type_number.ToString()
             }));
 
-            var branchtypes = new List<SelectListItem> {
-                new SelectListItem{ Text="---select---",Selected=true,Value=""}
-            };
+            var branchtypes = new List<SelectListItem> ();
             branchtypes.AddRange(db.branches.Select(b => new SelectListItem
             {
                 Text = b.branch_name,
@@ -86,13 +93,14 @@ namespace ck_project.Controllers
             //create instance
             employee target = new employee();
             //get property
-            TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username", "user_type_number", "branch_number", "emp_number", "phone_number" }, form.ToValueProvider());
+            TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username", "user_type_number", "branch_number", "phone_number","emp_password" }, form.ToValueProvider());
             //validate
             if (string.IsNullOrEmpty(target.emp_firstname))
                 ModelState.AddModelError("firstname", "firstname is required");
 
             if (ModelState.IsValid)
             {
+                target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
                 db.employees.Add(target);
                 db.SaveChanges();
             }
@@ -102,9 +110,7 @@ namespace ck_project.Controllers
 
         public ActionResult Add()
         {
-            var utype = new List<SelectListItem> {
-                new SelectListItem{ Text="---select---",Selected=true,Value=""}
-            };
+            var utype = new List<SelectListItem> ();
             utype.AddRange(db.users_types.Select(a => new SelectListItem
             {
                 Text = a.user_type_name,
@@ -112,9 +118,7 @@ namespace ck_project.Controllers
                 Value = a.user_type_number.ToString()
             }));
 
-            var branchtypes = new List<SelectListItem> {
-                new SelectListItem{ Text="---select---",Selected=true,Value=""}
-            };
+            var branchtypes = new List<SelectListItem> ();
             branchtypes.AddRange(db.branches.Select(b => new SelectListItem
             {
                 Text = b.branch_name,
@@ -125,6 +129,14 @@ namespace ck_project.Controllers
             ViewBag.utype = utype;
             ViewBag.branch = branchtypes;
             return View();
+        }
+
+        public ActionResult Delete(int id) {
+            employee target = db.employees.Where(a => a.emp_number == id).FirstOrDefault();
+            db.employees.Remove(target);
+            db.SaveChanges();
+
+            return RedirectToAction("ListEmp");
         }
 
 

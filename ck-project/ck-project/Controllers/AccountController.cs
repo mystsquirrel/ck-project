@@ -75,8 +75,9 @@ namespace ck_project.Controllers
                 // Verification.    
                 if (ModelState.IsValid)
                 {
+                    var password = EncryptionHelper.Encrypt(model.Password);
                     // Initialization.    
-                    var loginInfo = this.databaseManager.employees.Where(a=> a.emp_username.Equals(model.Email) && a.emp_password.Equals(model.Password)).ToList();
+                    var loginInfo = this.databaseManager.employees.Where(a=> a.emp_username.Equals(model.Email) && a.emp_password.Equals(password)).ToList();
                     // Verification.    
                     if (loginInfo != null && loginInfo.Count() > 0)
                     {
