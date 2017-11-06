@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\EmpController.cs" />
     <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
@@ -412,6 +413,9 @@
     <Content Include="Views\Lookup\ProjectType.cshtml" />
     <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
     <Content Include="Views\TurkiCustomers\AddCustomer.cshtml" />
+    <Content Include="Views\Emp\Add.cshtml" />
+    <Content Include="Views\Emp\Edit.cshtml" />
+    <Content Include="Views\Emp\ListEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

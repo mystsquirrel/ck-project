@@ -83,7 +83,7 @@ namespace ck_project.Controllers
                         // Initialization.    
                         var logindetails = loginInfo.First();
                         // Login In.    
-                        this.SignInUser(logindetails.emp_username, false);
+                        this.SignInUser(logindetails.emp_username, false,logindetails.emp_number.ToString(),logindetails.users_types.user_type_name);
                         // Info.    
                         return this.RedirectToLocal(returnUrl);
                     }
@@ -136,7 +136,7 @@ namespace ck_project.Controllers
         /// </summary>  
         /// <param name="username">Username parameter.</param>  
         /// <param name="isPersistent">Is persistent parameter.</param>  
-        private void SignInUser(string username, bool isPersistent)
+        private void SignInUser(string username, bool isPersistent, string uid, string type)
         {
             // Initialization.    
             var claims = new List<Claim>();
@@ -144,6 +144,8 @@ namespace ck_project.Controllers
             {
                 // Setting    
                 claims.Add(new Claim(ClaimTypes.Name, username));
+                claims.Add(new Claim(ClaimTypes.Role, type));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, uid));
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 var ctx = Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;

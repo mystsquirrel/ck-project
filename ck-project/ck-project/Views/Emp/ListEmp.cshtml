@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ck_project.employee>
+
+<p>
+    @Html.ActionLink("Create New", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+First Name        </th>
+        <th>
+Middle Name        </th>
+        <th>
+Last Name        </th>
+        <th>
+System UserName        </th>
+       
+        <th>
+Phone Number        </th>
+        <th>
+Branch        </th>
+        <th>
+User Type        </th>
+        <th></th>
+    </tr>
+
+@foreach (employee item in ViewBag.Employeeslist)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_middlename)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_username)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.phone_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.branch.branch_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users_types.user_type_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.emp_number }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.emp_number })
+        </td>
+    </tr>
+}
+
+</table>
