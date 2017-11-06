@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\EmpController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="employee.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
+    <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -441,6 +443,9 @@
     <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
     <Content Include="Views\Home\PrintTab.cshtml" />
     <Content Include="Views\TurkiCustomers\AddCustomer.cshtml" />
+    <Content Include="Views\Emp\Add.cshtml" />
+    <Content Include="Views\Emp\Edit.cshtml" />
+    <Content Include="Views\Emp\ListEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

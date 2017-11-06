@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,6 +12,10 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
         public ActionResult Index()
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            //IEnumerable<Claim> claims = identity.Claims;
+            ViewBag.uid = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ViewBag.role = identity.FindFirst(ClaimTypes.Role).Value;
             return View();
         }
 

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class LookupController : Controller
     {
         // GET: Lookup
