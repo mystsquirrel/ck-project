@@ -13,7 +13,8 @@ namespace ck_project.Controllers
         // GET: Admin
         public ActionResult AdminMainPage()
         {
-            return View(db.leads.ToList());
+            var lead = (from l in db.leads orderby l.Last_update_date select l).Take(10);
+            return View(lead);
         }
     }
 }

@@ -33,11 +33,10 @@
                     Summary Info
                 </div>
                 <div class="tab-pane" id="printTab">
-                    Print Info
+                    @Html.Action("PrintTab", "Home")
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -56,7 +55,7 @@
                     break;
                 case 'summaryInfo': $('#summaryTab p').load('/Views/Home/LeadTab'); //Controller method which returns partial view
                     break;
-                case 'printInfo': $('#printTab p').load('/Views/Home/LeadTab'); //Controller method which returns partial view
+                case 'printInfo': $('#printTab p').load('/Views/Home/PrintTab'); //Controller method which returns partial view
                     break;
                 default: break;
             }

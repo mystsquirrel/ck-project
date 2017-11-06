@@ -13,6 +13,5 @@ namespace ck_project.Models
         public double AmtDueUponStartWork { get; set; }
         public double AmtDueUponCompletion { get; set; }
         public total_cost TotalCost { get; set; }
-
     }
 }

@@ -75,7 +75,7 @@
       <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <HintPath>..\packages\Rotativa.Core.2.0.2.1\lib\net45\Rotativa.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
@@ -225,8 +225,12 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookupController.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
+    <Compile Include="Controllers\TurkiCustomersController.cs" />
     <Compile Include="customer.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -419,6 +423,24 @@
     <Content Include="Views\Home\LeadTab.cshtml" />
     <Content Include="Views\Admin\AdminMainPage.cshtml" />
     <Content Include="Views\Home\LeadPage.cshtml" />
+    <Content Include="Views\Print\Proposal.cshtml" />
+    <Content Include="Views\Print\Proposal_Page1.cshtml" />
+    <Content Include="Views\Print\Proposal_Page2.cshtml" />
+    <Content Include="Views\Print\Proposal_Page3.cshtml" />
+    <Content Include="Views\Print\Proposal_Page4.cshtml" />
+    <Content Include="Views\Lookup\DeliveryStatus.cshtml" />
+    <Content Include="Views\Lookup\DeliveryStatusAdd.cshtml" />
+    <Content Include="Views\Lookup\Index.cshtml" />
+    <Content Include="Views\Lookup\LeadSource.cshtml" />
+    <Content Include="Views\Lookup\LeadSourceAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectClass.cshtml" />
+    <Content Include="Views\Lookup\ProjectClassAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectStatus.cshtml" />
+    <Content Include="Views\Lookup\ProjectStatusAdd.cshtml" />
+    <Content Include="Views\Lookup\ProjectType.cshtml" />
+    <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
+    <Content Include="Views\Home\PrintTab.cshtml" />
+    <Content Include="Views\TurkiCustomers\AddCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

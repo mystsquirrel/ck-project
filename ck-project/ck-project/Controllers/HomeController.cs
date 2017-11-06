@@ -28,24 +28,23 @@ namespace ck_project.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult MainPage(int employeeNbr)
+        public ActionResult MainPage()
         {
-            //List<lead> leadList = db.leads.Where(l => l.emp_number == employeeNbr).ToList()
-            return View(db.leads.ToList());
+            var lead = (from l in db.leads where l.emp_number == 1 orderby l.Last_update_date select l).Take(10);
+            return View(lead);
         }
 
         public ActionResult LeadPage()
         {
             return View();
         }
-
+        
         public ActionResult LeadTab()
         {
             return View();
         }
 
-        public ActionResult PrintHub()
+        public ActionResult PrintTab()
         {
             return View();
         }

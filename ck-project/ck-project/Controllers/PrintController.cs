@@ -1,12 +1,10 @@
 ﻿using ck_project.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize]
     public class PrintController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -51,7 +49,11 @@ namespace ck_project.Controllers
 
         public ActionResult Proposal_Page4()
         {
-            return View();
+            var proposal = new ProposalViewModel
+            {
+                Lead = db.leads.Where(c => c.lead_number == 1).FirstOrDefault()
+            };
+            return View(proposal);
         }
 
         public ActionResult PrintProposal()

@@ -47,7 +47,7 @@ namespace ck_project.Controllers
         public ActionResult AddCustomer(FormCollection form) {
             
             customer a = new customer();
-            TryUpdateModel(a,);
+            TryUpdateModel(a);
             address b = new address();
             TryUpdateModel(b);
             var c = a.customer_firstname;
