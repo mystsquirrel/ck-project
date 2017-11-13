@@ -193,5 +193,10 @@ namespace ck_project.Controllers
         }
         #endregion
         #endregion
+
+        public ActionResult ForgotPassword()
+        {
+            return View("Please contact your administrator to reset your password.");
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace ck_project
         public string second_phone_number { get; set; }
         public string email { get; set; }
         public Nullable<int> address_number { get; set; }
+        public bool deleted { get; set; }
     
         public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

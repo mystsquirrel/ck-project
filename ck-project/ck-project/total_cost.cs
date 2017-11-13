@@ -19,6 +19,8 @@ namespace ck_project
         public Nullable<double> installation_cost { get; set; }
         public Nullable<double> total_cost1 { get; set; }
         public int lead_number { get; set; }
+        public Nullable<double> tax_cost { get; set; }
+        public Nullable<double> building_permit_cost { get; set; }
     
         public virtual lead lead { get; set; }
     }

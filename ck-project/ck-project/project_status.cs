@@ -22,6 +22,7 @@ namespace ck_project
     
         public int project_status_number { get; set; }
         public string project_status_name { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lead> leads { get; set; }

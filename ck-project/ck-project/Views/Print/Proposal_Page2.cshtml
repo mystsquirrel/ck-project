@@ -8,67 +8,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
     <link href="@Url.Content("~/Content/Print.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="p2">
         <style type="text/css">
             #r1 {
-                top: 120px;
-                width:890px;
+                top: 300px;
+                width:750px;
                 text-align:center;
             }
 
             #r2_1 {
-                top: 180px;
-                left: 200px;
+                top: 50%;
+                left: 150px;
             }
 
             #r2_2 {
                 top: 180px;
-                left: 400px;
+                left: 330px;
             }
 
             #r3 {
                 top: 200px;
-                left: 400px;
+                left: 330px;
             }
 
             #r4 {
                 top: 220px;
-                left: 400px;
+                left: 330px;
             }
 
             #r5_1 {
                 top: 280px;
-                left: 278px;
+                left: 215px;
             }
 
             #r5_2 {
                 top: 280px;
-                left: 400px;
+                left: 330px;
             }
 
             #r6 {
                 top: 300px;
-                left: 400px;
+                left: 330px;
             }
 
             #r7{
                 top: 320px;
-                left: 400px;
+                left: 330px;
             }
             
             #r8_1 {
                 top: 340px;
-                left: 400px;
+                left: 330px;
             }
 
             #r8_2 {
                 top: 340px;
-                left: 550px;
+                left: 465px;
             }
 
             #r9 {
@@ -135,35 +134,30 @@
 
             .s1 {
                 FONT-SIZE: 20px;
-                FONT-FAMILY: CIDFont-F2_j;
                 color: rgb(38,38,38);
             }
 
             .s2 {
-                FONT-SIZE: 16px;
-                FONT-FAMILY: CIDFont-F2_j;
+                FONT-SIZE: 14px;
                 color: rgb(0,0,0);
             }
 
             .s3 {
-                FONT-SIZE: 16px;
-                FONT-FAMILY: CIDFont-F2_j;
+                FONT-SIZE: 14px;
                 color: rgb(0,0,0);
             }
 
             .s4 {
-                FONT-SIZE: 15px;
-                FONT-FAMILY: CIDFont-F2_j;
+                FONT-SIZE: 12px;
                 color: rgb(0,0,0);
             }
 
             .s5 {
-                FONT-SIZE: 11px;
-                FONT-FAMILY: CIDFont-F1_b;
+                FONT-SIZE: 10px;
                 color: rgb(0,0,0);
             }
         </style>
-        <img src="~/Content/Images/proporal_pic2.png" align="middle" style="position:absolute; left: 22.5%">
+        <img src="~/Content/Images/proposal_pic2.png" align="middle" style="position:absolute; left: 30%">
         <div id="r1" class="t s1"><b>Agreement</b></div>
         <div id="r2_1" class="t s2">BETWEEN PURCHASER: </div>
         <div id="r2_2" class="t s3">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</div>

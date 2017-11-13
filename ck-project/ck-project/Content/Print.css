@@ -1,25 +1,31 @@
 ﻿body {
+    min-width: 650px;
+    min-height: 1000px;
     margin: 0;
+    FONT-FAMILY: CIDFont-F1_b;
+    left: 20px;
 }
 
 .t {
-    -ms-transform: scale(0.25);
-    z-index: 2;
-    position: absolute;
-    overflow: visible;
-}
-
-.l {
-    left: 25px;
-    letter-spacing: 0.3px;
+    -webkit-transform-origin: top left;
+    -moz-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left; 
+    -webkit-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    position: relative;
+    overflow: hidden;
 }
 
 .pagebreak {
+    display: block;
+    clear:both;
     page-break-after: always;
+    
 }
 
 .wrapper {
-    width: 840px;
+    width: 650px;
     word-wrap: break-word;
     white-space: normal;
     text-align: justify;

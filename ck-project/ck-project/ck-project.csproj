@@ -52,6 +52,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="evohtmltopdf, Version=7.4.0.0, Culture=neutral, PublicKeyToken=e1fcbb86597de299, processorArchitecture=MSIL">
+      <HintPath>..\packages\evopdf.7.4\lib\net40\evohtmltopdf.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.12\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -71,6 +80,12 @@
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="RazorPDF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorPDF.Legacy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.Legacy.dll</HintPath>
+    </Reference>
     <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
@@ -79,6 +94,9 @@
     </Reference>
     <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=17.3.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.17.3.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -208,6 +226,7 @@
     <Compile Include="building_permit.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
+    <Compile Include="CalculationHelper.cs" />
     <Compile Include="cksys.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,6 +264,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LoginHelper.cs" />
     <Compile Include="installation.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -259,6 +279,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectSummary.cs" />
     <Compile Include="Models\PrintViewModel.cs" />
     <Compile Include="product.cs">
       <DependentUpon>cksys.tt</DependentUpon>
@@ -276,6 +297,9 @@
     <Compile Include="rate.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
+    <Compile Include="rates_installation.cs">
+      <DependentUpon>cksys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>cksys.tt</DependentUpon>
@@ -287,6 +311,9 @@
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
     <Compile Include="tax.cs">
+      <DependentUpon>cksys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="taxes_leads.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
     <Compile Include="total_cost.cs">
@@ -311,9 +338,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\1.svg" />
+    <Content Include="Content\Images\2.svg" />
+    <Content Include="Content\Images\3.svg" />
+    <Content Include="Content\Images\4.svg" />
     <Content Include="Content\Images\CK_picture.jpg" />
-    <Content Include="Content\Images\proporal_pic1.png" />
-    <Content Include="Content\Images\proporal_pic2.png" />
+    <Content Include="Content\Images\proposal_pic1.png" />
+    <Content Include="Content\Images\proposal_pic2.png" />
     <Content Include="Content\Images\ui-icons_444444_256x240.png" />
     <Content Include="Content\Images\ui-icons_555555_256x240.png" />
     <Content Include="Content\Images\ui-icons_777620_256x240.png" />
@@ -327,6 +358,8 @@
     <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Print.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -360,6 +393,8 @@
     <Content Include="fonts\CIDFont-F3_r.woff" />
     <Content Include="fonts\CIDFont-F4_12.woff" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -381,6 +416,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -425,7 +462,7 @@
     <Content Include="Views\Home\LeadTab.cshtml" />
     <Content Include="Views\Admin\AdminMainPage.cshtml" />
     <Content Include="Views\Home\LeadPage.cshtml" />
-    <Content Include="Views\Print\Proposal.cshtml" />
+    <Content Include="Views\Print\Proposal2.cshtml" />
     <Content Include="Views\Print\Proposal_Page1.cshtml" />
     <Content Include="Views\Print\Proposal_Page2.cshtml" />
     <Content Include="Views\Print\Proposal_Page3.cshtml" />
@@ -446,6 +483,20 @@
     <Content Include="Views\Emp\Add.cshtml" />
     <Content Include="Views\Emp\Edit.cshtml" />
     <Content Include="Views\Emp\ListEmp.cshtml" />
+    <Content Include="Views\Print\Proposal_Page4 - Copy.cshtml" />
+    <Content Include="Views\Print\Proposal_Page1Copy.cshtml" />
+    <Content Include="Views\Print\Proposal_Page2Copy.cshtml" />
+    <Content Include="Views\Print\Proposal_Page3 - Copy.cshtml" />
+    <Content Include="Views\Print\Proposal_Page1 - Copy %282%29.cshtml" />
+    <Content Include="Views\Print\Proposal.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_GeneralLayout.cshtml" />
+    <Content Include="Views\Shared\_MainMenu.cshtml" />
+    <Content Include="Views\Home\SummaryTab.cshtml" />
+    <Content Include="Views\Shared\_LeadMenu.cshtml" />
+    <Content Include="Views\Print\SoldJobNotice.cshtml" />
+    <Content Include="Views\Shared\_PdfLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

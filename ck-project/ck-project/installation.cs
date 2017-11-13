@@ -17,8 +17,8 @@ namespace ck_project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public installation()
         {
+            this.rates_installation = new HashSet<rates_installation>();
             this.tasks_installation = new HashSet<tasks_installation>();
-            this.rates = new HashSet<rate>();
         }
     
         public int installation_number { get; set; }
@@ -39,8 +39,8 @@ namespace ck_project
     
         public virtual lead lead { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tasks_installation> tasks_installation { get; set; }
+        public virtual ICollection<rates_installation> rates_installation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rate> rates { get; set; }
+        public virtual ICollection<tasks_installation> tasks_installation { get; set; }
     }
 }

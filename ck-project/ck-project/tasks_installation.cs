@@ -14,6 +14,7 @@ namespace ck_project
     
     public partial class tasks_installation
     {
+        public int tasks_installation_number { get; set; }
         public int task_number { get; set; }
         public int installation_number { get; set; }
         public double hours { get; set; }

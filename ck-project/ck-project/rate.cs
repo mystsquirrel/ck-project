@@ -17,7 +17,7 @@ namespace ck_project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public rate()
         {
-            this.installations = new HashSet<installation>();
+            this.rates_installation = new HashSet<rates_installation>();
         }
     
         public int rate_number { get; set; }
@@ -26,8 +26,9 @@ namespace ck_project
         public double amount { get; set; }
         public System.DateTime start_date { get; set; }
         public Nullable<System.DateTime> end_date { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<installation> installations { get; set; }
+        public virtual ICollection<rates_installation> rates_installation { get; set; }
     }
 }

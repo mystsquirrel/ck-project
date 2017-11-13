@@ -34,7 +34,8 @@ namespace ck_project.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddCustomer(FormCollection form) {
+        public ActionResult AddCustomer(FormCollection form)
+        {
             //init new customer
             customer a = new customer
             {
@@ -48,8 +49,9 @@ namespace ck_project.Controllers
             //check
             if (string.IsNullOrEmpty(a.customer_firstname) ||
                 string.IsNullOrEmpty(a.customer_lastname) ||
-                string.IsNullOrEmpty(a.phone_number)) {
-                ModelState.AddModelError("customer","customer info incomplete");
+                string.IsNullOrEmpty(a.phone_number))
+            {
+                ModelState.AddModelError("customer", "customer info incomplete");
             }
             //int new address
             address b = new address
@@ -66,12 +68,14 @@ namespace ck_project.Controllers
                 string.IsNullOrEmpty(b.address1) ||
                 string.IsNullOrEmpty(b.city) ||
                 string.IsNullOrEmpty(b.county) ||
-                string.IsNullOrEmpty(b.zipcode)) {
+                string.IsNullOrEmpty(b.zipcode))
+            {
                 ModelState.AddModelError("address", "address info incomplete");
                 return View("AddCustomer");
             }
             //write change to db,address first
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 db.addresses.Add(b);
                 db.SaveChanges();
                 //linking 2 table
@@ -80,5 +84,6 @@ namespace ck_project.Controllers
                 db.SaveChanges();
             }
             return View();
+        }
     }
 }

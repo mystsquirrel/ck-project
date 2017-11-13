@@ -4,6 +4,8 @@
     ViewBag.Title = "AdminMainPage";
 }
 
+@Html.Partial("_AdminMenu")
+
 <h2>Projects</h2>
 
 <table class="table table-striped">
@@ -38,14 +40,13 @@
                     @Html.DisplayFor(modelItem => item.project_status.project_status_name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.last_status_date)
+                    @Html.DisplayFor(modelItem => item.Last_update_date)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.lead_number }) |
-                    @Html.ActionLink("View", "View", new { id = item.lead_number })
+                    @Html.ActionLink("Edit", "LeadPage", "Home", new { id = item.lead_number, edit = true }, null) |
+                    @Html.ActionLink("View", "LeadPage", "Home", new { id = item.lead_number, edit = false }, null)
                 </td>
             </tr>
         }
     </tbody>
-
 </table>

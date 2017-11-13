@@ -17,7 +17,7 @@ namespace ck_project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tax()
         {
-            this.leads = new HashSet<lead>();
+            this.taxes_leads = new HashSet<taxes_leads>();
         }
     
         public int tax_number { get; set; }
@@ -29,8 +29,10 @@ namespace ck_project
         public string zipcode { get; set; }
         public System.DateTime start_date { get; set; }
         public Nullable<System.DateTime> end_date { get; set; }
+        public bool deleted { get; set; }
+        public bool in_city { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lead> leads { get; set; }
+        public virtual ICollection<taxes_leads> taxes_leads { get; set; }
     }
 }

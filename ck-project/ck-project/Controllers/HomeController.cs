@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ck_project.Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
@@ -35,23 +36,95 @@ namespace ck_project.Controllers
 
         public ActionResult MainPage()
         {
-            var lead = (from l in db.leads where l.emp_number == 1 orderby l.Last_update_date select l).Take(10);
-            return View(lead);
+            var identity = (ClaimsIdentity)User.Identity;
+            var currUserIDStr = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            try
+            {
+                int currUserID = Int32.Parse(currUserIDStr);
+                var leadList = (from l in db.leads.Take(10) where l.emp_number == currUserID && l.deleted == false orderby l.Last_update_date select l);
+                return View(leadList);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+            return View();
         }
 
-        public ActionResult LeadPage()
+        public ActionResult LeadPage(int id, bool edit)
         {
-            return View();
+            ViewBag.leadNumber = id;
+            ViewBag.editable = edit;
+            return View(ViewBag);           
         }
-        
-        public ActionResult LeadTab()
+
+        public ActionResult LeadTab(int id, bool edit)
         {
             return View();
         }
 
-        public ActionResult PrintTab()
+        public ActionResult PrintTab(int id)
         {
-            return View();
+            ViewBag.leadNumber = id;
+            return View(ViewBag);
+        }
+
+        public ActionResult SummaryTab(int id)
+        {
+            if (id != 0)
+            {
+                var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
+                var projSummary = new ProjectSummary
+                {
+                    Lead = lead,
+                    TotalCost = db.total_cost.Single(c => c.lead_number == id)
+                };
+
+                foreach (var item in lead.installations)
+                {
+                    double catCost = 0;
+                    double catHours = 0;
+                    double catMaterialCost = 0;
+
+                    //get category list
+                    ArrayList catList = new ArrayList();
+                    foreach (var task in item.tasks_installation)
+                    {
+                        string currCat = task.task.task_main_cat;
+                        if (!catList.Contains(currCat)) {
+                            catList.Add(currCat);
+                        }                         
+                    }
+
+                    Dictionary<string, List<double>> installTasks = new Dictionary<string, List<double>>();
+                    List<double> costList = new List<double>();
+                    //calculate each category total cost and hours
+                    foreach (string cat in catList)
+                    {
+                        foreach (var task in item.tasks_installation)
+                        {
+                            string taskCat = task.task.task_main_cat;
+                            if (cat.Equals(taskCat))
+                            {
+                                catCost += (task.labor_cost * task.hours) + task.m_cost;
+                                catHours += task.hours;
+                                catMaterialCost += task.m_cost;
+                                costList.Add(catHours);
+                                costList.Add(catMaterialCost);
+                                costList.Add(catCost);
+                            }
+                        }
+                        installTasks.Add(cat, costList);
+                        projSummary.InstallCategories.Add(installTasks);
+                    }
+                }
+                return View(projSummary);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

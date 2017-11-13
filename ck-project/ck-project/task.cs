@@ -14,12 +14,19 @@ namespace ck_project
     
     public partial class task
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public task()
+        {
+            this.tasks_installation = new HashSet<tasks_installation>();
+        }
+    
         public int task_number { get; set; }
         public bool special_task { get; set; }
         public string task_name { get; set; }
         public string task_main_cat { get; set; }
         public string task_sub_cat { get; set; }
     
-        public virtual tasks_installation tasks_installation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tasks_installation> tasks_installation { get; set; }
     }
 }

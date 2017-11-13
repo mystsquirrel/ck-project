@@ -4,12 +4,12 @@
 }
 
 .top-buffer {
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
 body {
-    padding: 10%;
+    padding: 3%;
     margin: 0;
 }
 
@@ -30,4 +30,5 @@ body {
 
 .footer-copyright {
     text-align: center;
+    top: 90%;
 }

@@ -29,6 +29,7 @@ namespace ck_project
         public string state { get; set; }
         public string county { get; set; }
         public string zipcode { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<branch> branches { get; set; }

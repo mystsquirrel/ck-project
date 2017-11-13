@@ -22,6 +22,7 @@ namespace ck_project
     
         public int user_type_number { get; set; }
         public string user_type_name { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee> employees { get; set; }

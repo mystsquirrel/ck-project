@@ -29,6 +29,7 @@ namespace ck_project
         public string phone_number { get; set; }
         public int user_type_number { get; set; }
         public int branch_number { get; set; }
+        public bool deleted { get; set; }
     
         public virtual branch branch { get; set; }
         public virtual users_types users_types { get; set; }
