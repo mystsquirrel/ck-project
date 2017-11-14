@@ -1,0 +1,187 @@
+﻿@model  Tuple<ck_project.customer, ck_project.address> 
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Adding New Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+   
+
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name">First Name</label>
+                @Html.EditorFor(tuple => tuple.Item1.customer_firstname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.customer_firstname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name">Middle Name</label>
+                @Html.EditorFor(tuple => tuple.Item1.customer_middlename, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.customer_middlename, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name">Last Name</label>
+                @Html.EditorFor(tuple => tuple.Item1.customer_lastname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.customer_lastname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name">Phone Number</label>
+                @Html.EditorFor(tuple => tuple.Item1.phone_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.phone_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name"> Second Phone Number</label>
+                @Html.EditorFor(tuple => tuple.Item1.second_phone_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.second_phone_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name"> Email Address</label>
+                @Html.EditorFor(tuple => tuple.Item1.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item1.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+     
+
+
+
+    </div>
+
+
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        @*<div class='col-xs-4 '>
+            <div class="form-group">
+                <label class="control-label" for="name"> Address Type</label>
+                @Html.EditorFor(tuple => tuple.Item2.address_type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item2.address_type, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class='col-xs-4'>
+            <div class="form-group">
+                <label class="control-label" for="name"> Address</label>
+                @Html.EditorFor(tuple => tuple.Item2.address1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item2.address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class='col-xs-4'>
+            <div class="form-group">
+                <label class="control-label" for="name"> City</label>
+                @Html.EditorFor(tuple => tuple.Item2.city, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(tuple => tuple.Item2.city, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+     
+       @*<div class='col-xs-4 '>
+        <div class="form-group">
+            <label class="control-label" for="name"> State</label>
+            @Html.EditorFor(tuple => tuple.Item2.state, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(tuple => tuple.Item2.state, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+        @Html.DropDownList("States", new List<SelectListItem>
+
+        {
+        new SelectListItem {Text = "IN" , Value = "IN"},
+          new SelectListItem {Text = "WV" , Value = "WV"}
+            },"Select state")
+
+
+
+            @*<div class='col-xs-4 '>
+                <div class="form-group">
+                    <label class="control-label" for="name"> State</label>
+                    @Html.DropDownList("state_number", (IEnumerable<SelectListItem>)ViewBag.s, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(tuple => tuple.Item2.state, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+
+            @*
+
+            <div class='col-xs-4 '>
+                <div class="form-group">
+                    <label class="control-label" for="name"> State</label>
+                        @Html.DropDownList("state_number", (IEnumerable<SelectListItem>)ViewBag.b, htmlAttributes: new { @class = "form-control" })
+                 @Html.ValidationMessageFor(tuple => tuple => tuple.Item2.state, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            *@
+
+            @*
+            <div class="form-group">
+                @Html.LabelFor(model => model.user_type_number, "user_type_number", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("user_type_number", (IEnumerable<SelectListItem>)ViewBag.utype, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.user_type_number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            *@
+
+
+            @*
+                  <div class='col-xs-4 '>
+                <div class="form-group">
+                    <label class="control-label" for="name"> County</label>
+                    @Html.EditorFor(tuple => tuple.Item2.county, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(tuple => tuple.Item2.county, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            *@
+
+            <div class='col-xs-4 '>
+                <div class="form-group">
+                    <label class="control-label" for="name"> Zipcode</label>
+                    @Html.EditorFor(tuple => tuple.Item2.zipcode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(tuple => tuple.Item2.zipcode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+</div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "ListCustomers")
+</div>

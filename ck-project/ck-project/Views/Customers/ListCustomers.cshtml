@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ck_project.customer>
+
+
+<h4> Customers List </h4>
+
+
+@using (Html.BeginForm( "ListCustomers", "Customers", FormMethod.Get))
+{
+
+    @*
+    <b>Search by:</b>@Html.RadioButton("searchBy", "customer_firstname", true)<text> customer_firstname</text>
+    @Html.RadioButton("searchBy", "customer_lastname")<text>customer_lastname</text><br />
+
+    *@
+
+
+    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+    new { placeholder = "Type customer last name" });<input type="submit" value="Search" />
+}
+
+
+    <p>
+        @Html.ActionLink("Add a New Customer", "AddCustomer")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Second Phone Number
+            </th>
+            <th> Email Address        </th>
+          
+            <th></th>
+        </tr>
+
+
+      @if (Model.Count() == 0) 
+        {        
+        <tr>
+            <td colspan="6"> Sorry, There are no cutomers with the entered last name <td>
+        </tr>
+            }
+        else 
+        {
+            foreach (var item in Model)
+            {
+<tr>
+                <td>
+                    @item.customer_firstname
+                </td>
+                <td>
+                    @item.customer_middlename
+                </td>
+                <td>
+                    @item.customer_lastname
+                </td>
+                <td>
+                    @item.phone_number
+                </td>
+                <td>
+                    @item.second_phone_number
+                </td>
+                <td>
+                    @item.email
+                </td>
+         
+                <td>
+                    @Html.ActionLink("Create Lead", "CreateLead", new { id = item.customer_number }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.customer_number }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.customer_number }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.customer_number })
+                </td>
+            </tr>
+        }
+        }
+    </table>
+
+
+<div>
+    @Html.ActionLink("Back to List", "ListCustomers")
+</div>

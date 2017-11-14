@@ -1,4 +1,6 @@
 ﻿using ck_project.Models;
+using SelectPdf;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -125,18 +127,68 @@ namespace ck_project.Controllers
         {
             ViewBag.Lead = db.leads.Where(c => c.lead_number == id).FirstOrDefault();
             ViewBag.TotalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault();
+            return View(ViewBag);
+            //return new Rotativa.ViewAsPdf("SoldJobNotice", ViewBag)
+            //{
+            //    FileName = "SoldJobNotice.pdf",
+            //    PageOrientation = Rotativa.Options.Orientation.Portrait,
+            //    PageSize = Rotativa.Options.Size.A4,
+            //    MinimumFontSize = 10,
+            //    PageMargins = { Left = 7, Right = 7 },
+            //    CustomSwitches = "--disable-smart-shrinking"
 
-            return new Rotativa.ViewAsPdf("SoldJobNotice", ViewBag)
-            {
-                FileName = "SoldJobNotice.pdf",
-                PageOrientation = Rotativa.Options.Orientation.Portrait,
-                PageSize = Rotativa.Options.Size.A4,
-                MinimumFontSize = 10,
-                PageMargins = { Left = 7, Right = 7 },
-                CustomSwitches = "--disable-smart-shrinking"
-
-            };
+            //};
             //           return new RazorPDF.PdfActionResult("SoldJobNotice", ViewBag);
+        }
+
+        [HttpPost]
+        public ActionResult Convert(FormCollection collection)
+        {
+            // read parameters from the webpage
+            string url = collection["TxtUrl"];
+            string pdf_page_size = collection["DdlPageSize"];
+            PdfPageSize pageSize = (PdfPageSize)System.Enum.Parse(typeof(PdfPageSize), pdf_page_size, true);
+
+            string pdf_orientation = collection["DdlPageOrientation"];
+            PdfPageOrientation pdfOrientation = (PdfPageOrientation)Enum.Parse(
+                typeof(PdfPageOrientation), pdf_orientation, true);  
+
+            int webPageWidth = 1024;
+            try
+            {
+                webPageWidth = System.Convert.ToInt32(collection["TxtWidth"]);
+            }
+            catch { }
+
+            int webPageHeight = 0;
+            try
+            {
+                webPageHeight = System.Convert.ToInt32(collection["TxtHeight"]);
+            }
+            catch { }
+
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = pageSize;
+            converter.Options.PdfPageOrientation = pdfOrientation;
+            converter.Options.WebPageWidth = webPageWidth;
+            converter.Options.WebPageHeight = webPageHeight;
+
+            // create a new pdf document converting an url
+            PdfDocument doc = converter.ConvertUrl(url);
+
+            // save pdf document
+            byte[] pdf = doc.Save();
+
+            // close pdf document
+            doc.Close();
+
+            // return resulted pdf document
+            FileResult fileResult = new FileContentResult(pdf, "application/pdf");
+            fileResult.FileDownloadName = "Document.pdf";
+            return fileResult;
         }
     }
 }

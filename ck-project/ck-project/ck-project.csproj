@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -244,13 +246,13 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\EmpController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\GroupTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeadController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\PrintController.cs" />
-    <Compile Include="Controllers\TurkiCustomersController.cs" />
     <Compile Include="customer.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -338,11 +340,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.sandstone.css" />
+    <Content Include="Content\bootstrap.sandstone.min.css" />
     <Content Include="Content\Images\1.svg" />
     <Content Include="Content\Images\2.svg" />
     <Content Include="Content\Images\3.svg" />
     <Content Include="Content\Images\4.svg" />
     <Content Include="Content\Images\CK_picture.jpg" />
+    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\Images\proposal_pic1.png" />
     <Content Include="Content\Images\proposal_pic2.png" />
     <Content Include="Content\Images\ui-icons_444444_256x240.png" />
@@ -350,12 +355,6 @@
     <Content Include="Content\Images\ui-icons_777620_256x240.png" />
     <Content Include="Content\Images\ui-icons_777777_256x240.png" />
     <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
-    <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery-ui.min.css" />
-    <Content Include="Content\jquery-ui.structure.css" />
-    <Content Include="Content\jquery-ui.structure.min.css" />
-    <Content Include="Content\jquery-ui.theme.css" />
-    <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Print.css" />
     <Content Include="Content\toastr.css" />
@@ -368,8 +367,6 @@
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -380,6 +377,13 @@
     <Content Include="cksys.edmx.diagram">
       <DependentUpon>cksys.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\CIDFont-F1_b.woff" />
+    <Content Include="fonts\CIDFont-F2_j.woff" />
+    <Content Include="fonts\CIDFont-F3_r.woff" />
+    <Content Include="fonts\CIDFont-F4_12.woff" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -388,15 +392,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="fonts\CIDFont-F1_b.woff" />
-    <Content Include="fonts\CIDFont-F2_j.woff" />
-    <Content Include="fonts\CIDFont-F3_r.woff" />
-    <Content Include="fonts\CIDFont-F4_12.woff" />
-    <Content Include="App_Browsers\qt.browser" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -404,8 +403,6 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -479,7 +476,6 @@
     <Content Include="Views\Lookup\ProjectType.cshtml" />
     <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
     <Content Include="Views\Home\PrintTab.cshtml" />
-    <Content Include="Views\TurkiCustomers\AddCustomer.cshtml" />
     <Content Include="Views\Emp\Add.cshtml" />
     <Content Include="Views\Emp\Edit.cshtml" />
     <Content Include="Views\Emp\ListEmp.cshtml" />
@@ -490,22 +486,30 @@
     <Content Include="Views\Print\Proposal_Page1 - Copy %282%29.cshtml" />
     <Content Include="Views\Print\Proposal.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
-    <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_GeneralLayout.cshtml" />
     <Content Include="Views\Shared\_MainMenu.cshtml" />
     <Content Include="Views\Home\SummaryTab.cshtml" />
     <Content Include="Views\Shared\_LeadMenu.cshtml" />
-    <Content Include="Views\Print\SoldJobNotice.cshtml" />
+    <Content Include="Views\Print\PrintSoldJobNotice.cshtml" />
     <Content Include="Views\Shared\_PdfLayout.cshtml" />
+    <Content Include="Views\Emp\EditP.cshtml" />
+    <Content Include="Views\Address\Edit.cshtml" />
+    <Content Include="Views\Customers\AddCustomer.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\ListCustomers.cshtml" />
+    <Content Include="Views\Lead\AddLead.cshtml" />
+    <Content Include="Views\Lead\Details.cshtml" />
+    <Content Include="Views\Lead\Edit.cshtml" />
+    <Content Include="Views\Lead\ListLead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Address\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
@@ -513,6 +517,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

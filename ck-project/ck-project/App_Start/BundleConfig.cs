@@ -10,7 +10,6 @@ namespace ck_project
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui.js",
                         "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -26,8 +25,7 @@ namespace ck_project
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/jquery-ui.css",
+                      "~/Content/bootstrap.sandstone.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css"));
         }
