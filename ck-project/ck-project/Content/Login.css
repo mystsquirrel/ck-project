@@ -21,14 +21,17 @@ body {
 
 .transBox {
     background-color: rgba(211, 211, 211, 0.9);
-    padding-top: 3%;
-    padding-bottom: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
-.form-group {
+.btn-default {
+    background-color: #ae3910;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
-.footer-copyright {
-    text-align: center;
-    top: 90%;
+.form-control {
+    height: 30px;
+    padding: 4px 12px;
 }

@@ -1,8 +1,23 @@
 ﻿@model ck_project.customer
 
+@{
+    var uri = new Uri(Request.Url.ToString());
+    string path = uri.Segments[1];
+    if (path.Equals("Customers/"))
+    {
+        if (HttpContext.Current.User.IsInRole("Administrator"))
+        {
+            @Html.Partial("_AdminMenu")
+        }
+        else
+        {
+            @Html.Partial("_MainMenu")
+        }
+    }
 
+}
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Customers", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -132,7 +147,7 @@
     </div>
 }
 <div>
-@Html.ActionLink("edit customer's address","Edit","Address",new { id=Model.customer_number}, new { @class = "btn btn-primary", @style = "color:red" })
+@Html.ActionLink("Edit address info","Edit","Address",new { id=Model.customer_number}, new { @class = "btn btn-primary", @style = "color:white" })
     </div>
 <div>
     @Html.ActionLink("Back to List", "ListCustomers")

@@ -1,0 +1,149 @@
+﻿@model IEnumerable<ck_project.lead>
+
+@using (Html.BeginForm("ListLead", "Lead", FormMethod.Get))
+{
+    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+   new { @class = "form-control ", @type = "date" });<input type="submit" value="Search" />
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                @Html.TextBox("start", null, new { @class = "form-control ", @type = "date" })
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                @Html.TextBox("end", null, new {  @class = "form-control ", @type = "date" })
+            </div>
+        </div>
+
+        <div class="form-group-sm">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" /> <span> </span>
+            </div>
+        </div>
+    </div>
+
+    @*<div class='col-xs-4 '>
+            <label class='control-label'>Lead Date </label>
+            @Html.EditorFor(model => model.lead_date, new { htmlAttributes = new { @class = "form-control ",  @type = "date" } })
+            @Html.ValidationMessageFor(model => model.lead_date, "", new { @class = "text-danger" })
+        </div>*@
+
+
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.in_city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lead_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tax_exempt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_update_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address.address_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.branch.branch_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.customer_firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.delivery_status.delivery_status_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.emp_firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lead_source.source_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_class.class_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_status.project_status_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_type.project_type_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.in_city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lead_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tax_exempt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Last_update_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address.address_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.branch.branch_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer.customer_firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.delivery_status.delivery_status_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employee.emp_firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lead_source.source_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_class.class_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_status.project_status_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_type.project_type_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.lead_number }) |
+            @Html.ActionLink("Details", "Details", new { id=item.lead_number }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.lead_number })
+        </td>
+    </tr>
+}
+
+</table>

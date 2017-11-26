@@ -2,22 +2,46 @@
 
 @{
     ViewBag.Title = "ListLead";
+
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
 }
 
 <h2>Leads</h2>
 
 
 @using (Html.BeginForm("ListLead", "Lead", FormMethod.Get))
+    {
+        @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+        new { placeholder = "Type project name here" });
+        @Html.DropDownList("type", (IEnumerable<SelectListItem>)ViewBag.lead_type, htmlAttributes: null);
+
+
+    
+    <input type="submit" value="Search" />
+   
+    }
+
+@*@using (Html.BeginForm("ListLead2", "Lead", FormMethod.Get))
 {
+  //  @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "Type project name here" });
+    @Html.TextBox("search", ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control ", @type = "date",  placeholder = "2017/01/01 11:11:11" });
 
 
-    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
-    new { placeholder = "Type project name here" });<input type="submit" value="Search" />
+    <input type="submit" value="Search" />
+}*@
 
-
-}
-
-
+@*<div class='col-xs-4 '>
+        <label class='control-label'>Last Status Date </label>
+        @Html.EditorFor(model => model.last_status_date, new { htmlAttributes = new { @class = "form-control ", @type = "date" } })
+        @Html.ValidationMessageFor(model => model.last_status_date, "", new { @class = "text-danger" })
+    </div>*@
 
 <p>
     @Html.ActionLink("Create a New Lead", "ListCustomers", "Customers")
@@ -95,7 +119,20 @@ else
         </td>
 
         <td>
-            @Html.DisplayFor(modelItem => item.Last_update_date)
+            @{
+                if (item.Last_update_date == item.lead_date)
+                {
+                    @Html.DisplayName(" - ")
+
+                }
+                else
+                {
+                    @Html.DisplayName(item.Last_update_date.ToString("dd MMM yyyy"))
+                }
+
+            }
+
+  
      
            
       
@@ -127,6 +164,10 @@ else
 <div>
     @Html.ActionLink("Back to List", "ListLead")
 </div>
-
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+ </script>
 
 

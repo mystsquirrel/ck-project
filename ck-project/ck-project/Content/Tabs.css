@@ -1,0 +1,26 @@
+﻿#printBtn {
+    width:190px;
+}
+
+/* Summary Tab */
+.item_text {
+    border-bottom: 1px solid gray;
+}
+
+.item_price {
+    border-bottom: 1px solid gray;
+    padding-right: 5px;
+    text-align:right;
+}
+
+.section_total {
+    border-top: 2px solid black;
+    padding-right: 5px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.item_data {
+    width:600px;
+    border-bottom: 1px solid gray;
+}

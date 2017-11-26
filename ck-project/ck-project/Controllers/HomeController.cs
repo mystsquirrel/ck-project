@@ -1,13 +1,12 @@
-﻿using ck_project.Models;
+﻿using ck_project.Helpers;
+using ck_project.Models;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
-{   [Authorize]
+{   //[Authorize]
     public class HomeController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -20,29 +19,33 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult MainPage()
+        public ActionResult MainPage(string search, string searchby)
         {
             var identity = (ClaimsIdentity)User.Identity;
             var currUserIDStr = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
             try
             {
                 int currUserID = Int32.Parse(currUserIDStr);
-                var leadList = (from l in db.leads.Take(10) where l.emp_number == currUserID && l.deleted == false orderby l.Last_update_date select l);
-                return View(leadList);
+                if (searchby == "Status" && search != "")
+                {
+                    var result = (from l in db.leads.Take(10)
+                                  join s in db.project_status on l.project_status_number equals s.project_status_number
+                                  where (l.emp_number == currUserID && l.deleted == false)
+                                  where (s.project_status_name != "Closed" && s.project_status_name == search)
+                                  orderby l.Last_update_date
+                                  select l);
+                    return View(result);
+                }
+                else
+                {
+                    var result = (from l in db.leads.Take(10)
+                                  join s in db.project_status on l.project_status_number equals s.project_status_number
+                                  where (l.emp_number == currUserID && l.deleted == false)
+                                  where s.project_status_name != "Closed"
+                                  orderby l.Last_update_date
+                                  select l);
+                    return View(result);
+                }
             }
             catch (FormatException e)
             {
@@ -52,9 +55,10 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult LeadPage(int id, bool edit)
+        public ActionResult LeadPage(int id, int cid, bool edit)
         {
             ViewBag.leadNumber = id;
+            ViewBag.customerNumber = cid;
             ViewBag.editable = edit;
             return View(ViewBag);           
         }
@@ -75,56 +79,21 @@ namespace ck_project.Controllers
             if (id != 0)
             {
                 var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
-                var projSummary = new ProjectSummary
+                if (lead != null)
                 {
-                    Lead = lead,
-                    TotalCost = db.total_cost.Single(c => c.lead_number == id)
-                };
-
-                foreach (var item in lead.installations)
-                {
-                    double catCost = 0;
-                    double catHours = 0;
-                    double catMaterialCost = 0;
-
-                    //get category list
-                    ArrayList catList = new ArrayList();
-                    foreach (var task in item.tasks_installation)
+                    var projSummary = new ProjectSummary
                     {
-                        string currCat = task.task.task_main_cat;
-                        if (!catList.Contains(currCat)) {
-                            catList.Add(currCat);
-                        }                         
-                    }
+                        Lead = lead,
+                        TotalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault()
+                    };
 
-                    Dictionary<string, List<double>> installTasks = new Dictionary<string, List<double>>();
-                    List<double> costList = new List<double>();
-                    //calculate each category total cost and hours
-                    foreach (string cat in catList)
-                    {
-                        foreach (var task in item.tasks_installation)
-                        {
-                            string taskCat = task.task.task_main_cat;
-                            if (cat.Equals(taskCat))
-                            {
-                                catCost += (task.labor_cost * task.hours) + task.m_cost;
-                                catHours += task.hours;
-                                catMaterialCost += task.m_cost;
-                                costList.Add(catHours);
-                                costList.Add(catMaterialCost);
-                                costList.Add(catCost);
-                            }
-                        }
-                        installTasks.Add(cat, costList);
-                        projSummary.InstallCategories.Add(installTasks);
-                    }
+                    projSummary = new ProjSummaryHelper().CalculateInstallCategoryCostMap(lead, projSummary);
+                    projSummary.ProductTotalMap = new ProjSummaryHelper().GetProductTotalMap(lead);
+
+                    return View(projSummary);
                 }
-                return View(projSummary);
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
     }
 }

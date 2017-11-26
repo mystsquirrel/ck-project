@@ -25,7 +25,8 @@ namespace ck_project
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.sandstone.css",
+                      "~/Content/bootstrap.united.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css"));
         }

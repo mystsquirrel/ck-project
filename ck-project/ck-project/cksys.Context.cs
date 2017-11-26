@@ -27,6 +27,8 @@ namespace ck_project
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<rates_installation> rates_installation { get; set; }
+        public virtual DbSet<taxes_leads> taxes_leads { get; set; }
         public virtual DbSet<address> addresses { get; set; }
         public virtual DbSet<branch> branches { get; set; }
         public virtual DbSet<building_permit> building_permit { get; set; }
@@ -42,14 +44,13 @@ namespace ck_project
         public virtual DbSet<project_status> project_status { get; set; }
         public virtual DbSet<project_type> project_type { get; set; }
         public virtual DbSet<rate> rates { get; set; }
-        public virtual DbSet<rates_installation> rates_installation { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<tasks_installation> tasks_installation { get; set; }
         public virtual DbSet<tax> taxes { get; set; }
-        public virtual DbSet<taxes_leads> taxes_leads { get; set; }
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
+        public virtual DbSet<archive_leads> archive_leads { get; set; }
     
         public virtual int LoginByUsernamePassword(string username, string password)
         {

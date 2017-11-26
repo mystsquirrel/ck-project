@@ -18,6 +18,65 @@
           <Property Name="zipcode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_leads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="archive_leads">
+          <Key>
+            <PropertyRef Name="lead_number" />
+            <PropertyRef Name="project_name" />
+            <PropertyRef Name="branch_name" />
+            <PropertyRef Name="customer_firstname" />
+            <PropertyRef Name="customer_lastname" />
+            <PropertyRef Name="phone_number" />
+            <PropertyRef Name="emp_firstname" />
+            <PropertyRef Name="emp_lastname" />
+            <PropertyRef Name="project_status" />
+            <PropertyRef Name="delivery_status" />
+            <PropertyRef Name="source_name" />
+            <PropertyRef Name="class_name" />
+            <PropertyRef Name="project_type" />
+            <PropertyRef Name="jobsite_address" />
+            <PropertyRef Name="jobsite_city" />
+            <PropertyRef Name="jobsite_county" />
+            <PropertyRef Name="jobsite_state" />
+            <PropertyRef Name="jobsite_zipcode" />
+            <PropertyRef Name="lead_date" />
+            <PropertyRef Name="lead_close_date" />
+            <PropertyRef Name="tax_exempt" />
+            <PropertyRef Name="in_city" />
+          </Key>
+          <Property Name="lead_number" Type="int" Nullable="false" />
+          <Property Name="project_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="branch_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_email" Type="varchar" MaxLength="50" />
+          <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emp_firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emp_lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="project_status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="delivery_status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="source_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="class_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="project_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobsite_address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobsite_city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobsite_county" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobsite_state" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobsite_zipcode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lead_email" Type="varchar" MaxLength="50" />
+          <Property Name="lead_phone_number" Type="varchar" MaxLength="50" />
+          <Property Name="second_lead_phone_number" Type="varchar" MaxLength="50" />
+          <Property Name="lead_date" Type="date" Nullable="false" />
+          <Property Name="lead_close_date" Type="date" Nullable="false" />
+          <Property Name="tax_exempt" Type="bit" Nullable="false" />
+          <Property Name="in_city" Type="bit" Nullable="false" />
+          <Property Name="building_permit_cost" Type="float" />
+          <Property Name="installation_cost" Type="float" />
+          <Property Name="product_cost" Type="float" />
+          <Property Name="tax_cost" Type="float" />
+          <Property Name="total_cost" Type="float" />
+        </EntityType>
         <EntityType Name="branches">
           <Key>
             <PropertyRef Name="branch_number" />
@@ -73,7 +132,7 @@
           <Property Name="emp_middlename" Type="varchar" MaxLength="50" />
           <Property Name="emp_lastname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="emp_username" Type="varchar" MaxLength="50" />
-          <Property Name="emp_password" Type="varchar" MaxLength="50" />
+          <Property Name="emp_password" Type="varchar(max)" />
           <Property Name="phone_number" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="user_type_number" Type="int" Nullable="false" />
           <Property Name="branch_number" Type="int" Nullable="false" />
@@ -98,6 +157,17 @@
           <Property Name="total_tile_cost" Type="float" />
           <Property Name="total_travel_cost" Type="float" />
           <Property Name="lead_number" Type="int" Nullable="false" />
+          <Property Name="estimated_date" Type="date" />
+          <Property Name="travel_time_one_way" Type="float" />
+          <Property Name="building_permit_cost" Type="float" />
+          <Property Name="hotel_expense" Type="float" />
+          <Property Name="mileage_expense" Type="float" />
+          <Property Name="tile_installation_days" Type="float" />
+          <Property Name="installation_labor_only_cost" Type="float" />
+          <Property Name="billable_hours" Type="float" />
+          <Property Name="estimated_hours" Type="float" />
+          <Property Name="recommendation" Type="varchar" MaxLength="100" />
+          <Property Name="oneway_mileages_to_destination" Type="float" />
         </EntityType>
         <EntityType Name="lead_log_file">
           <Key>
@@ -109,7 +179,7 @@
           <Property Name="table_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="column_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="action_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="update_date" Type="date" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
           <Property Name="prvious_value" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="new_value" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -139,15 +209,18 @@
           <Property Name="lead_date" Type="date" Nullable="false" />
           <Property Name="project_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tax_exempt" Type="bit" Nullable="false" />
-          <Property Name="Last_update_date" Type="date" />
           <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="Last_update_date" Type="date" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" />
+          <Property Name="second_phone_number" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="products">
           <Key>
             <PropertyRef Name="product_number" />
           </Key>
           <Property Name="product_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cat_anme" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cat_anme" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="model" Type="varchar" MaxLength="20" />
@@ -157,6 +230,7 @@
           <Property Name="location" Type="varchar" MaxLength="50" />
           <Property Name="price" Type="float" Nullable="false" />
           <Property Name="lead_number" Type="int" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="project_class">
           <Key>
@@ -216,9 +290,9 @@
           <Key>
             <PropertyRef Name="task_number" />
           </Key>
-          <Property Name="task_number" Type="int" Nullable="false" />
+          <Property Name="task_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="special_task" Type="bit" Nullable="false" />
-          <Property Name="task_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="task_name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="task_main_cat" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="task_sub_cat" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -593,6 +667,41 @@
           <EntitySet Name="taxes_leads" EntityType="Self.taxes_leads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="total_cost" EntityType="Self.total_cost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_types" EntityType="Self.users_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="archive_leads" EntityType="Self.archive_leads" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [archive_leads].[lead_number] AS [lead_number], 
+    [archive_leads].[project_name] AS [project_name], 
+    [archive_leads].[branch_name] AS [branch_name], 
+    [archive_leads].[customer_firstname] AS [customer_firstname], 
+    [archive_leads].[customer_lastname] AS [customer_lastname], 
+    [archive_leads].[customer_email] AS [customer_email], 
+    [archive_leads].[phone_number] AS [phone_number], 
+    [archive_leads].[emp_firstname] AS [emp_firstname], 
+    [archive_leads].[emp_lastname] AS [emp_lastname], 
+    [archive_leads].[project_status] AS [project_status], 
+    [archive_leads].[delivery_status] AS [delivery_status], 
+    [archive_leads].[source_name] AS [source_name], 
+    [archive_leads].[class_name] AS [class_name], 
+    [archive_leads].[project_type] AS [project_type], 
+    [archive_leads].[jobsite_address] AS [jobsite_address], 
+    [archive_leads].[jobsite_city] AS [jobsite_city], 
+    [archive_leads].[jobsite_county] AS [jobsite_county], 
+    [archive_leads].[jobsite_state] AS [jobsite_state], 
+    [archive_leads].[jobsite_zipcode] AS [jobsite_zipcode], 
+    [archive_leads].[lead_email] AS [lead_email], 
+    [archive_leads].[lead_phone_number] AS [lead_phone_number], 
+    [archive_leads].[second_lead_phone_number] AS [second_lead_phone_number], 
+    [archive_leads].[lead_date] AS [lead_date], 
+    [archive_leads].[lead_close_date] AS [lead_close_date], 
+    [archive_leads].[tax_exempt] AS [tax_exempt], 
+    [archive_leads].[in_city] AS [in_city], 
+    [archive_leads].[building_permit_cost] AS [building_permit_cost], 
+    [archive_leads].[installation_cost] AS [installation_cost], 
+    [archive_leads].[product_cost] AS [product_cost], 
+    [archive_leads].[tax_cost] AS [tax_cost], 
+    [archive_leads].[total_cost] AS [total_cost]
+    FROM [dbo].[archive_leads] AS [archive_leads]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_branches_to_addresses" Association="Self.fk_branches_to_addresses">
             <End Role="addresses" EntitySet="addresses" />
             <End Role="branches" EntitySet="branches" />
@@ -699,6 +808,8 @@
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="rates_installation" EntityType="CKsysdb.rates_installation" />
+          <EntitySet Name="taxes_leads" EntityType="CKsysdb.taxes_leads" />
           <EntitySet Name="addresses" EntityType="CKsysdb.address" />
           <EntitySet Name="branches" EntityType="CKsysdb.branch" />
           <EntitySet Name="building_permit" EntityType="CKsysdb.building_permit" />
@@ -714,14 +825,13 @@
           <EntitySet Name="project_status" EntityType="CKsysdb.project_status" />
           <EntitySet Name="project_type" EntityType="CKsysdb.project_type" />
           <EntitySet Name="rates" EntityType="CKsysdb.rate" />
-          <EntitySet Name="rates_installation" EntityType="CKsysdb.rates_installation" />
           <EntitySet Name="sysdiagrams" EntityType="CKsysdb.sysdiagram" />
           <EntitySet Name="tasks" EntityType="CKsysdb.task" />
           <EntitySet Name="tasks_installation" EntityType="CKsysdb.tasks_installation" />
           <EntitySet Name="taxes" EntityType="CKsysdb.tax" />
-          <EntitySet Name="taxes_leads" EntityType="CKsysdb.taxes_leads" />
           <EntitySet Name="total_cost" EntityType="CKsysdb.total_cost" />
           <EntitySet Name="users_types" EntityType="CKsysdb.users_types" />
+          <EntitySet Name="archive_leads" EntityType="CKsysdb.archive_leads" />
           <AssociationSet Name="fk_branches_to_addresses" Association="CKsysdb.fk_branches_to_addresses">
             <End Role="address" EntitySet="addresses" />
             <End Role="branch" EntitySet="branches" />
@@ -818,7 +928,27 @@
             <End Role="tax" EntitySet="taxes" />
             <End Role="taxes_leads" EntitySet="taxes_leads" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="rates_installation">
+          <Key>
+            <PropertyRef Name="rates_installation_number" />
+          </Key>
+          <Property Name="rates_installation_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rate_number" Type="Int32" Nullable="false" />
+          <Property Name="installation_number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="installation" Relationship="CKsysdb.fk_rates_installation_to_installation" FromRole="rates_installation" ToRole="installation" />
+          <NavigationProperty Name="rate" Relationship="CKsysdb.fk_rates_installation_to_rates" FromRole="rates_installation" ToRole="rate" />
+          </EntityType>
+        <EntityType Name="taxes_leads">
+          <Key>
+            <PropertyRef Name="taxes_leads_number" />
+          </Key>
+          <Property Name="taxes_leads_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tax_number" Type="Int32" Nullable="false" />
+          <Property Name="lead_number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_taxes_leads_to_leads" FromRole="taxes_leads" ToRole="lead" />
+          <NavigationProperty Name="tax" Relationship="CKsysdb.fk_taxes_leads_to_taxes" FromRole="taxes_leads" ToRole="tax" />
+          </EntityType>
         <EntityType Name="address">
           <Key>
             <PropertyRef Name="address_number" />
@@ -897,7 +1027,7 @@
           <Property Name="emp_middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="emp_lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="emp_username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="emp_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="phone_number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_type_number" Type="Int32" Nullable="false" />
           <Property Name="branch_number" Type="Int32" Nullable="false" />
@@ -925,6 +1055,17 @@
           <Property Name="total_tile_cost" Type="Double" />
           <Property Name="total_travel_cost" Type="Double" />
           <Property Name="lead_number" Type="Int32" Nullable="false" />
+          <Property Name="estimated_date" Type="DateTime" Precision="0" />
+          <Property Name="travel_time_one_way" Type="Double" />
+          <Property Name="building_permit_cost" Type="Double" />
+          <Property Name="hotel_expense" Type="Double" />
+          <Property Name="mileage_expense" Type="Double" />
+          <Property Name="tile_installation_days" Type="Double" />
+          <Property Name="installation_labor_only_cost" Type="Double" />
+          <Property Name="billable_hours" Type="Double" />
+          <Property Name="estimated_hours" Type="Double" />
+          <Property Name="recommendation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oneway_mileages_to_destination" Type="Double" />
           <NavigationProperty Name="lead" Relationship="CKsysdb.fk_installation_to_leads" FromRole="installation" ToRole="lead" />
           <NavigationProperty Name="rates_installation" Relationship="CKsysdb.fk_rates_installation_to_installation" FromRole="installation" ToRole="rates_installation" />
           <NavigationProperty Name="tasks_installation" Relationship="CKsysdb.fk_tasks_installation_to_installation" FromRole="installation" ToRole="tasks_installation" />
@@ -939,7 +1080,7 @@
           <Property Name="table_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="column_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="action_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="prvious_value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="new_value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="lead" Relationship="CKsysdb.fk_lead_log_file_to_Leads" FromRole="lead_log_file" ToRole="lead" />
@@ -971,8 +1112,11 @@
           <Property Name="lead_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="project_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="tax_exempt" Type="Boolean" Nullable="false" />
-          <Property Name="Last_update_date" Type="DateTime" Precision="0" />
           <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Last_update_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="second_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="address" Relationship="CKsysdb.fk_leads_to_addresses" FromRole="lead" ToRole="address" />
           <NavigationProperty Name="branch" Relationship="CKsysdb.fk_leads_to_branches" FromRole="lead" ToRole="branch" />
           <NavigationProperty Name="building_permit" Relationship="CKsysdb.fk_permit_number_to_leads" FromRole="lead" ToRole="building_permit" />
@@ -994,7 +1138,7 @@
             <PropertyRef Name="product_number" />
           </Key>
           <Property Name="product_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cat_anme" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cat_anme" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -1004,6 +1148,7 @@
           <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Double" Nullable="false" />
           <Property Name="lead_number" Type="Int32" Nullable="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="lead" Relationship="CKsysdb.fk_products_to_leads" FromRole="product" ToRole="lead" />
         </EntityType>
         <EntityType Name="project_class">
@@ -1046,16 +1191,6 @@
           <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="rates_installation" Relationship="CKsysdb.fk_rates_installation_to_rates" FromRole="rate" ToRole="rates_installation" />
         </EntityType>
-        <EntityType Name="rates_installation">
-          <Key>
-            <PropertyRef Name="rates_installation_number" />
-          </Key>
-          <Property Name="rates_installation_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="rate_number" Type="Int32" Nullable="false" />
-          <Property Name="installation_number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="installation" Relationship="CKsysdb.fk_rates_installation_to_installation" FromRole="rates_installation" ToRole="installation" />
-          <NavigationProperty Name="rate" Relationship="CKsysdb.fk_rates_installation_to_rates" FromRole="rates_installation" ToRole="rate" />
-        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -1070,9 +1205,9 @@
           <Key>
             <PropertyRef Name="task_number" />
           </Key>
-          <Property Name="task_number" Type="Int32" Nullable="false" />
+          <Property Name="task_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="special_task" Type="Boolean" Nullable="false" />
-          <Property Name="task_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="task_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="task_main_cat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="task_sub_cat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tasks_installation" Relationship="CKsysdb.fk_tasks_installation_to_tasks" FromRole="task" ToRole="tasks_installation" />
@@ -1107,16 +1242,6 @@
           <Property Name="in_city" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="taxes_leads" Relationship="CKsysdb.fk_taxes_leads_to_taxes" FromRole="tax" ToRole="taxes_leads" />
         </EntityType>
-        <EntityType Name="taxes_leads">
-          <Key>
-            <PropertyRef Name="taxes_leads_number" />
-          </Key>
-          <Property Name="taxes_leads_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tax_number" Type="Int32" Nullable="false" />
-          <Property Name="lead_number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_taxes_leads_to_leads" FromRole="taxes_leads" ToRole="lead" />
-          <NavigationProperty Name="tax" Relationship="CKsysdb.fk_taxes_leads_to_taxes" FromRole="taxes_leads" ToRole="tax" />
-        </EntityType>
         <EntityType Name="total_cost">
           <Key>
             <PropertyRef Name="cost_number" />
@@ -1126,9 +1251,9 @@
           <Property Name="installation_cost" Type="Double" />
           <Property Name="total_cost1" Type="Double" />
           <Property Name="lead_number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_total_cost_to_leads" FromRole="total_cost" ToRole="lead" />
           <Property Name="tax_cost" Type="Double" />
           <Property Name="building_permit_cost" Type="Double" />
+          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_total_cost_to_leads" FromRole="total_cost" ToRole="lead" />
         </EntityType>
         <EntityType Name="users_types">
           <Key>
@@ -1138,6 +1263,63 @@
           <Property Name="user_type_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="employees" Relationship="CKsysdb.fk_employees_to_users_types" FromRole="users_types" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="archive_leads">
+          <Key>
+            <PropertyRef Name="lead_number" />
+            <PropertyRef Name="project_name" />
+            <PropertyRef Name="branch_name" />
+            <PropertyRef Name="customer_firstname" />
+            <PropertyRef Name="customer_lastname" />
+            <PropertyRef Name="phone_number" />
+            <PropertyRef Name="emp_firstname" />
+            <PropertyRef Name="emp_lastname" />
+            <PropertyRef Name="project_status" />
+            <PropertyRef Name="delivery_status" />
+            <PropertyRef Name="source_name" />
+            <PropertyRef Name="class_name" />
+            <PropertyRef Name="project_type" />
+            <PropertyRef Name="jobsite_address" />
+            <PropertyRef Name="jobsite_city" />
+            <PropertyRef Name="jobsite_county" />
+            <PropertyRef Name="jobsite_state" />
+            <PropertyRef Name="jobsite_zipcode" />
+            <PropertyRef Name="lead_date" />
+            <PropertyRef Name="lead_close_date" />
+            <PropertyRef Name="tax_exempt" />
+            <PropertyRef Name="in_city" />
+          </Key>
+          <Property Name="lead_number" Type="Int32" Nullable="false" />
+          <Property Name="project_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="branch_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="project_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="source_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="class_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="project_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobsite_address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobsite_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobsite_county" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobsite_state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobsite_zipcode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lead_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lead_phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="second_lead_phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lead_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lead_close_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tax_exempt" Type="Boolean" Nullable="false" />
+          <Property Name="in_city" Type="Boolean" Nullable="false" />
+          <Property Name="building_permit_cost" Type="Double" />
+          <Property Name="installation_cost" Type="Double" />
+          <Property Name="product_cost" Type="Double" />
+          <Property Name="tax_cost" Type="Double" />
+          <Property Name="total_cost" Type="Double" />
         </EntityType>
         <Association Name="fk_branches_to_addresses">
           <End Type="CKsysdb.address" Role="address" Multiplicity="1" />
@@ -1427,13 +1609,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CKsysdbStoreContainer" CdmEntityContainer="ckdatabase">
           <FunctionImportMapping FunctionImportName="LoginByUsernamePassword" FunctionName="CKsysdb.Store.LoginByUsernamePassword" />
+          <EntitySetMapping Name="rates_installation">
+            <EntityTypeMapping TypeName="CKsysdb.rates_installation">
+              <MappingFragment StoreEntitySet="rates_installation">
+                <ScalarProperty Name="installation_number" ColumnName="installation_number" />
+                <ScalarProperty Name="rate_number" ColumnName="rate_number" />
+                <ScalarProperty Name="rates_installation_number" ColumnName="rates_installation_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="taxes_leads">
+            <EntityTypeMapping TypeName="CKsysdb.taxes_leads">
+              <MappingFragment StoreEntitySet="taxes_leads">
+                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
+                <ScalarProperty Name="tax_number" ColumnName="tax_number" />
+                <ScalarProperty Name="taxes_leads_number" ColumnName="taxes_leads_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="addresses">
             <EntityTypeMapping TypeName="CKsysdb.address">
               <MappingFragment StoreEntitySet="addresses">
@@ -1517,6 +1717,17 @@
           <EntitySetMapping Name="installations">
             <EntityTypeMapping TypeName="CKsysdb.installation">
               <MappingFragment StoreEntitySet="installation">
+                <ScalarProperty Name="oneway_mileages_to_destination" ColumnName="oneway_mileages_to_destination" />
+                <ScalarProperty Name="recommendation" ColumnName="recommendation" />
+                <ScalarProperty Name="estimated_hours" ColumnName="estimated_hours" />
+                <ScalarProperty Name="billable_hours" ColumnName="billable_hours" />
+                <ScalarProperty Name="installation_labor_only_cost" ColumnName="installation_labor_only_cost" />
+                <ScalarProperty Name="tile_installation_days" ColumnName="tile_installation_days" />
+                <ScalarProperty Name="mileage_expense" ColumnName="mileage_expense" />
+                <ScalarProperty Name="hotel_expense" ColumnName="hotel_expense" />
+                <ScalarProperty Name="building_permit_cost" ColumnName="building_permit_cost" />
+                <ScalarProperty Name="travel_time_one_way" ColumnName="travel_time_one_way" />
+                <ScalarProperty Name="estimated_date" ColumnName="estimated_date" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
                 <ScalarProperty Name="total_travel_cost" ColumnName="total_travel_cost" />
                 <ScalarProperty Name="total_tile_cost" ColumnName="total_tile_cost" />
@@ -1562,8 +1773,11 @@
           <EntitySetMapping Name="leads">
             <EntityTypeMapping TypeName="CKsysdb.lead">
               <MappingFragment StoreEntitySet="leads">
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="second_phone_number" ColumnName="second_phone_number" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="Last_update_date" ColumnName="Last_update_date" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="tax_exempt" ColumnName="tax_exempt" />
                 <ScalarProperty Name="project_name" ColumnName="project_name" />
                 <ScalarProperty Name="lead_date" ColumnName="lead_date" />
@@ -1584,6 +1798,7 @@
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="CKsysdb.product">
               <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="location" ColumnName="location" />
@@ -1638,15 +1853,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="rates_installation">
-            <EntityTypeMapping TypeName="CKsysdb.rates_installation">
-              <MappingFragment StoreEntitySet="rates_installation">
-                <ScalarProperty Name="installation_number" ColumnName="installation_number" />
-                <ScalarProperty Name="rate_number" ColumnName="rate_number" />
-                <ScalarProperty Name="rates_installation_number" ColumnName="rates_installation_number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="CKsysdb.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1698,15 +1904,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="taxes_leads">
-            <EntityTypeMapping TypeName="CKsysdb.taxes_leads">
-              <MappingFragment StoreEntitySet="taxes_leads">
-                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
-                <ScalarProperty Name="tax_number" ColumnName="tax_number" />
-                <ScalarProperty Name="taxes_leads_number" ColumnName="taxes_leads_number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="total_cost">
             <EntityTypeMapping TypeName="CKsysdb.total_cost">
               <MappingFragment StoreEntitySet="total_cost">
@@ -1729,7 +1926,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="archive_leads">
+            <EntityTypeMapping TypeName="CKsysdb.archive_leads">
+              <MappingFragment StoreEntitySet="archive_leads">
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="tax_cost" ColumnName="tax_cost" />
+                <ScalarProperty Name="product_cost" ColumnName="product_cost" />
+                <ScalarProperty Name="installation_cost" ColumnName="installation_cost" />
+                <ScalarProperty Name="building_permit_cost" ColumnName="building_permit_cost" />
+                <ScalarProperty Name="in_city" ColumnName="in_city" />
+                <ScalarProperty Name="tax_exempt" ColumnName="tax_exempt" />
+                <ScalarProperty Name="lead_close_date" ColumnName="lead_close_date" />
+                <ScalarProperty Name="lead_date" ColumnName="lead_date" />
+                <ScalarProperty Name="second_lead_phone_number" ColumnName="second_lead_phone_number" />
+                <ScalarProperty Name="lead_phone_number" ColumnName="lead_phone_number" />
+                <ScalarProperty Name="lead_email" ColumnName="lead_email" />
+                <ScalarProperty Name="jobsite_zipcode" ColumnName="jobsite_zipcode" />
+                <ScalarProperty Name="jobsite_state" ColumnName="jobsite_state" />
+                <ScalarProperty Name="jobsite_county" ColumnName="jobsite_county" />
+                <ScalarProperty Name="jobsite_city" ColumnName="jobsite_city" />
+                <ScalarProperty Name="jobsite_address" ColumnName="jobsite_address" />
+                <ScalarProperty Name="project_type" ColumnName="project_type" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="source_name" ColumnName="source_name" />
+                <ScalarProperty Name="delivery_status" ColumnName="delivery_status" />
+                <ScalarProperty Name="project_status" ColumnName="project_status" />
+                <ScalarProperty Name="emp_lastname" ColumnName="emp_lastname" />
+                <ScalarProperty Name="emp_firstname" ColumnName="emp_firstname" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_lastname" ColumnName="customer_lastname" />
+                <ScalarProperty Name="customer_firstname" ColumnName="customer_firstname" />
+                <ScalarProperty Name="branch_name" ColumnName="branch_name" />
+                <ScalarProperty Name="project_name" ColumnName="project_name" />
+                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

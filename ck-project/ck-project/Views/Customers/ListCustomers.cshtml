@@ -1,6 +1,18 @@
 ﻿@model IEnumerable<ck_project.customer>
 
 
+@{
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
+}
+
+
 <h4> Customers List </h4>
 
 

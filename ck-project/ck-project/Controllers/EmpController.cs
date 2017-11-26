@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -132,14 +133,29 @@ namespace ck_project.Controllers
             employee target = new employee();
             //get property
             TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_password","emp_lastname", "emp_username", "user_type_number", "branch_number", "emp_number", "phone_number" }, form.ToValueProvider());
-           
-            //validate
 
+            //validate
+            double tempPhoneNumber = 0;
+            ViewBag.Error = "";
 
             if (string.IsNullOrEmpty(target.emp_firstname))
-                ModelState.AddModelError("firstname", "firstname is required");
-
-            if (ModelState.IsValid)
+            {
+                ViewBag.Error = "firstname is required";
+            }
+            else if (target.emp_firstname.Length > 35)
+            {
+                ViewBag.Error = "firstname is 35";
+            }
+            else if (string.IsNullOrEmpty(target.phone_number))
+            {
+                ViewBag.Error = "phone number is required";
+            }
+            // ValidatePhoneNumber
+            else if (!Regex.Match(target.phone_number, @"^(\+[0-9]{9})$").Success)
+            {
+                ViewBag.Error = "phone nymber must be numbers";
+            }
+            else
             {
                 target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
                 db.employees.Add(target);

@@ -10,9 +10,8 @@
     }
 }
 
-<h2>Lead Management</h2>
-
 <div class="container">
+    <h2>Lead Management</h2>
     <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#customerTab" class="tab" data-toggle="tab" aria-expanded="true">Customer</a></li>
         <li><a href="#leadTab" class="tab" data-toggle="tab" aria-expanded="true">Lead</a></li>
@@ -22,32 +21,36 @@
         <li><a href="#printTab" class="tab" data-toggle="tab" aria-expanded="true">Print</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
-        <div class="tab-pane" id="customerTab">
-            @{  if (ViewBag.leadNumber == 0)
+        <div class="tab-pane active in" id="customerTab">
+            @{
+                if (ViewBag.customerNumber != 0)
                 {
-                       
+                    @Html.Action("Edit", "Customers", new { id = ViewBag.customerNumber })
+
+                } else
+                {
+                    @Html.Action("AddCustomer", "Customers")
                 }
-                else
+            }
+        </div>
+        <div class="tab-pane" id="leadTab">
+            @{
+                if (ViewBag.leadNumer != 0)
                 {
                     if (ViewBag.editable)
                     {
-
+                        @Html.Action("Edit", "Lead", new { id = ViewBag.leadNumber })
                     }
-                }
-            }
-            @*@Html.Action("CustomerTab", new { id = ViewBag.lead != null ? ViewBag.lead.lead_number : 0, edit = ViewBag.editable })*@
-        </div>
-        <div class="tab-pane active in" id="leadTab">
-            @*@{  if (ViewBag.leadNumber == 0)
-                {
-                    @Html.Action("Add", "Emp", new { id = ViewBag.leadNumber, edit = ViewBag.editable })
+                    else
+                    {
+                        @Html.Action("Details", "Lead", new { id = ViewBag.leadNumber })
+                    }
                 }
                 else
                 {
-                    @Html.Action("Edit", "Emp", new { id = ViewBag.leadNumber, edit = ViewBag.editable })
+                    @Html.ActionLink("Add", "Lead")
                 }
-            }*@
-            @Html.Action("LeadTab", new { id = ViewBag.lead != null ? ViewBag.lead.lead_number : 0, edit = ViewBag.editable })
+            }
         </div>
         <div class="tab-pane" id="productsTab">
             Products Info
@@ -56,10 +59,10 @@
             Installation Info
         </div> 
         <div class="tab-pane" id="summaryTab">
-            @Html.Action("SummaryTab", new { id = ViewBag.lead != null ? ViewBag.lead.lead_number : 0 })
+            @Html.Action("SummaryTab", new { id = ViewBag.leadNumber })
         </div>
         <div class="tab-pane" id="printTab">
-            @Html.Action("PrintTab", new { id = ViewBag.lead != null ? ViewBag.lead.lead_number : 0 })
+            @Html.Action("PrintTab", new { id = ViewBag.leadNumber })
         </div>
     </div>
 </div> 

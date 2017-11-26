@@ -78,7 +78,14 @@ namespace ck_project.Controllers
 
         public ActionResult AddCustomer()
         {
+            var Sstate = new List<SelectListItem> {
+                new SelectListItem{ Text="WV",Selected=true,Value="WV"},
+                 new SelectListItem{ Text="IN",Selected=true,Value="IN"},
+                 new SelectListItem{ Text="NY",Selected=true,Value="NY"},
+                 new SelectListItem{ Text="KY",Selected=true,Value="KY"}
 
+            };
+            ViewBag.Sstate = Sstate;
             return View();
 
         }
@@ -109,19 +116,30 @@ namespace ck_project.Controllers
                 ModelState.AddModelError("customer", "customer info incomplete");
             }
             //int new address
+
+            var Sstate = new List<SelectListItem> {
+                new SelectListItem{ Text="WV",Selected=false,Value="WV"},
+                 new SelectListItem{ Text="IN",Selected=false,Value="IN"},
+                 new SelectListItem{ Text="NY",Selected=false,Value="NY"},
+                 new SelectListItem{ Text="KY",Selected=false,Value="KY"}
+
+            };
+            ViewBag.Sstate = Sstate;
             address b = new address
+
+
             {
-                address1 = form["Item2.address1"],
+              
            //     address_type = form["Item2.address_type"],
                 address_type = "Billing",
+                address1 = form["Item2.address1"],
                 city = form["Item2.city"],
-                state = form["Item2.state"],
-                county = form["Item2.county"],
+                state = form["state_number"],
+                county = "None",
                 zipcode = form["Item2.zipcode"],
                 deleted = false
             };
-
-
+     
 
             //che
 
@@ -137,10 +155,10 @@ namespace ck_project.Controllers
 
 
 
-         
+
 
             //write change to db,address first
-            if (ModelState.IsValid)
+      //      if (ModelState.IsValid)
             {
                 db.addresses.Add(b);
                 db.SaveChanges();
@@ -152,18 +170,31 @@ namespace ck_project.Controllers
 
 
 
-            return RedirectToAction("AddLead/" + a.customer_number, "Lead");
+            return RedirectToAction("AddLeadXX/" + a.customer_number, "Lead");
         }
 
 
         public ActionResult CreateLead(int id)
         {
         //    List<customer> a = db.customers.Where(d => d.customer_number == id).ToList();
-            return RedirectToAction("AddLead/" + id, "Lead");
+            return RedirectToAction("AddLeadXX/" + id, "Lead");
         }
 
 
-      
+        public ActionResult Delete(int id)
+        {
+            List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
+            ViewBag.Customerslist = Customers_list;
+            customer target = Customers_list[0];
+            target.deleted = true;
+            db.SaveChanges();
+            return RedirectToAction("ListCustomers");
+
+
+        }
+
+
+
         //public ActionResult Delete(int id)
         //{
         //    //find target by uid
@@ -183,7 +214,7 @@ namespace ck_project.Controllers
         //    return View(target);
         //}
 
-     
-     
+
+
     }
-    }
+}

@@ -25,6 +25,7 @@ namespace ck_project
         public string location { get; set; }
         public double price { get; set; }
         public int lead_number { get; set; }
+        public bool deleted { get; set; }
     
         public virtual lead lead { get; set; }
     }
