@@ -6,7 +6,8 @@ using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
-{   //[Authorize]
+{
+    [Authorize]
     public class HomeController : Controller
     {
         ckdatabase db = new ckdatabase();

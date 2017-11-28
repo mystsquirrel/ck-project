@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ck_project.Models.Pg>
+
+@Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
+
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <h3 class="panel-heading">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseR" style="color:#8B0000">
+                Add New Product
+            </a>
+        </h3>
+
+        <div id="collapseR" class="panel-collapse collapse">
+            <div class="panel-body">
+                @{
+                    if (Model != null)
+                    {
+                        @Html.Action("Add", new { lid = Model.First().lid })
+                    }
+                } 
+            </div>
+        </div>
+    </div>
+    
+    @foreach (var item in Model)
+    {
+        var cat = item.cat;
+        var lid = item.lid;
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapse@(item.cat)">
+                        @item.cat
+                    </a>
+                  
+                </h4>
+            </div>
+            <div id="collapse@(item.cat)" class="panel-collapse collapse">
+                <div class="panel-body">
+                   
+
+                    @Html.Action("gp", new { cat = cat, lid = lid })
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('#passwordInfo').click(function () {
+            // show when the button is clicked
+            toastr.info('Please contact your administrator to reset your password.');
+        });
+    });
+</script>

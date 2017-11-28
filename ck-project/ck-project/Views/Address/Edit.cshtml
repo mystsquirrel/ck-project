@@ -125,3 +125,16 @@
 <div>
     @Html.ActionLink("Back to List", "ListCustomers", "Customers")
 </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
+    {
+        <script type="text/javascript">
+ $(document).ready(function () {
+toastr.success('@ViewBag.m');
+});
+        </script>
+    }
+}

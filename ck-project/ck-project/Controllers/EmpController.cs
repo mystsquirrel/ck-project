@@ -18,9 +18,7 @@ namespace ck_project.Controllers
 
         //Creating the DB connecton
         ckdatabase db = new ckdatabase();
-
-
-
+        
         // GET: Employees
     //    public ActionResult ListEmp()
       //  {
@@ -32,7 +30,7 @@ namespace ck_project.Controllers
 
         public ActionResult ListEmp(string search)
         {
-            return View(db.employees.Where(x => x.emp_lastname.StartsWith(search) || search == null && x.deleted == false).ToList());
+            return View(db.employees.Where(x => x.emp_lastname.Contains(search) || search == null && x.deleted == false).ToList());
         }
 
 
@@ -103,6 +101,9 @@ namespace ck_project.Controllers
             TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username","emo_password", "user_type_number", "branch_number", "phone_number" }, fo.ToValueProvider());
             target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
             db.SaveChanges();
+
+            ViewBag.m = " The employee was successfully updated " + " on " + System.DateTime.Now;
+
             return View(target);
         }
         
@@ -135,8 +136,8 @@ namespace ck_project.Controllers
             TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_password","emp_lastname", "emp_username", "user_type_number", "branch_number", "emp_number", "phone_number" }, form.ToValueProvider());
 
             //validate
-            double tempPhoneNumber = 0;
-            ViewBag.Error = "";
+          //  double tempPhoneNumber = 0;
+            ViewBag.Error = null;
 
             if (string.IsNullOrEmpty(target.emp_firstname))
             {
@@ -151,16 +152,19 @@ namespace ck_project.Controllers
                 ViewBag.Error = "phone number is required";
             }
             // ValidatePhoneNumber
-            else if (!Regex.Match(target.phone_number, @"^(\+[0-9]{9})$").Success)
-            {
-                ViewBag.Error = "phone nymber must be numbers";
-            }
+            //else if (!Regex.Match(target.phone_number, @"^(\+[0-9]{9})$").Success)
+            //{
+            //    ViewBag.Error = "phone number must be numbers";
+            //}
             else
             {
                 target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
                 db.employees.Add(target);
                 db.SaveChanges();
+                ViewBag.m = " The employee was successfully created " + "on " + System.DateTime.Now;
             }
+
+           
 
             return View(target);
         }
@@ -186,6 +190,16 @@ namespace ck_project.Controllers
             ViewBag.utype = utype;
             ViewBag.branch = branchtypes;
             return View();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            List<employee> Employees_list = db.employees.Where(d => d.emp_number == id).ToList();
+            ViewBag.Customerslist = Employees_list;
+            employee target = Employees_list[0];
+            target.deleted = true;
+            db.SaveChanges();
+            return RedirectToAction("ListEmp");
         }
 
 

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class PrintController : Controller
     {
         ckdatabase db = new ckdatabase();

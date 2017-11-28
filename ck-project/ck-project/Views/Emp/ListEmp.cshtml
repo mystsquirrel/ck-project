@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<ck_project.employee>
-
-@Html.Partial("_AdminMenu")
-
 <h4> Employees List </h4>
 
 
 @using (Html.BeginForm("ListEmp", "Emp", FormMethod.Get))
 {
 
- 
-   
+
+
 
 
     @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
@@ -23,75 +20,75 @@
 <p>
     @Html.ActionLink("Adding a New Employee", "Add")
 </p>
-<table class="table">
-    <tr>
-        <th>
-First Name        </th>
-        <th>
-Middle Name        </th>
-        <th>
-Last Name        </th>
-        <th>
-System UserName        </th>
-       
-        <th>
-Phone Number        </th>
-        <th>
-Branch        </th>
-        <th>
-User Type        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped">
+    <thead class="mdb-color darken-3">
+        <tr>
+    
+            <th>
+                Employee Name
+            </th>
+            <th>
+                System UserName
+            </th>
+
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Branch
+            </th>
+            <th>
+                User Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6"> Sorry, There are no employees with the entered last name
+                <td>
+            </tr>
+        }
+        else
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emp_firstname)
+                        @Html.DisplayFor(modelItem => item.emp_middlename)
+                        @Html.DisplayFor(modelItem => item.emp_lastname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emp_username)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.phone_number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.branch.branch_name)
+                    </td>
 
 
-@if (Model.Count() == 0)
-{
-    <tr>
-        <td colspan="6"> Sorry, There are no employees with the entered last name
-        <td>
-    </tr>
-}
-else
-{
 
-foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp_firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp_middlename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp_lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp_username)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.phone_number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.branch.branch_name)
-        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.users_types.user_type_name)
+                    </td>
 
 
- 
-        <td>
-        @Html.DisplayFor(modelItem => item.users_types.user_type_name)
-    </td>
-  
 
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.emp_number }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.emp_number })
-        </td>
-    </tr>
-}
-}
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.emp_number }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.emp_number },
+            new { onclick = "return confirm('Are you sure you wish to delete the employee?');" })
+                    </td>
+                </tr>
+            }
+        }
 
 </table>
 

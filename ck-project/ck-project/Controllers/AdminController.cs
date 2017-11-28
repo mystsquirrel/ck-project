@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-   // [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -29,7 +29,7 @@ namespace ck_project.Controllers
             {
                 var result = (from l in db.leads.Take(10)
                               join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where (s.project_status_name != "Closed" && s.project_status_name == search)
+                              where (s.project_status_name != "Closed" && s.project_status_name.StartsWith(search))
                               where l.deleted == false
                               orderby l.Last_update_date
                               select l);

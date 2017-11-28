@@ -1,18 +1,35 @@
 ﻿@model IEnumerable<ck_project.lead>
 
 @{
-    ViewBag.Title = "Details";
+    var uri = new Uri(Request.Url.ToString());
+    string path = uri.Segments[1];
+    if (path.Equals("Customers/"))
+    {
+        if (HttpContext.Current.User.IsInRole("Administrator"))
+        {
+            @Html.Partial("_AdminMenu")
+        }
+        else
+        {
+            @Html.Partial("_MainMenu")
+        }
+    }
+
 }
 
 
+<h2>Lead Details</h2>
 
 
-    <h2>Lead Details</h2>
-    <p>
-        @Html.ActionLink("Create New Lead", "AddLead")
-    </p>
-    <table class="table">
+<p>
+    @Html.ActionLink("Create a New Lead", "ListCustomers", "Customers")
+</p>
+
+<table class="table table-striped">
+    <thead class="mdb-color darken-3">
         <tr>
+
+
             <th>
                 Project Name
             </th>
@@ -22,160 +39,247 @@
             <th>
                 SalesPerson
             </th>
-            <th>
-                Project Type
-            </th>
-            <th>
-                Project Status
-            </th>
-            <th>
-                Create Date
-            </th>
-            <th>
-                Last Update Date
-            </th>
 
-            <th>
-                Branch
-            </th>
             <th>
                 JobAddress
             </th>
+
             <th>
-                JobCity
-            </th>
-            <th>
-                JobState
-            </th>
-            <th>
-                In City?
+                Jobsite City
             </th>
 
             <th>
-                Tax Exempt?
-            </th>
-            <th>
-                Address Type
+                Jobsite State
             </th>
 
             <th>
-                Delivery Status
-            </th>
+                Jobsite Zipcode
+            </th>                         
+               
 
-            <th>
-                Lead Source
-            </th>
-            <th>
-                Project Class
-            </th>
+          
+    </thead>
 
 
-            <th></th>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.project_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.customer.customer_lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee.emp_lastname)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.address.address1)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.address.city)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.address.state)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.address.zipcode)
+            </td>
+
+                                           
         </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.customer.customer_lastname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.employee.emp_lastname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_type.project_type_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_status.project_status_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.lead_date)
-                </td>
+    }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Last_update_date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.branch.branch_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.address.address1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.address.city)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.address.state)
-                </td>
 
-                <td>
-                    @{
-                        if (item.in_city == true)
-                        {
-                            @Html.DisplayName("Yes")
+    <tr>
 
-                        }
-                        else
-                        {
-                            @Html.DisplayName("No")
-                        }
+        <th>
+            Create Date
+        </th>
+        <th>
+            Last Update Date
+        </th>
+
+        <th>
+            In City?
+        </th>
+
+        <th>
+            Tax Exempt?
+        </th>
+
+        <th>
+            Phone Number 1
+        </th>
+        <th>
+            Phone Number 2
+        </th>
+        <th>
+            Email
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+
+            <td>
+                @item.lead_date.ToString("dd MMM yyyy")
+            </td>
+
+            <td>
+                @{
+                    if (item.Last_update_date == item.lead_date)
+                    {
+                        @Html.DisplayName(" - ")
 
                     }
+                    else
+                    {
+                        @Html.DisplayName(item.Last_update_date.ToString("dd MMM yyyy"))
+                    }
+
+                }
+            </td>
+            <td>
+                @{
+                    if (item.in_city == true)
+                    {
+                        @Html.DisplayName("Yes")
+
+                    }
+                    else
+                    {
+                        @Html.DisplayName("No")
+                    }
+
+                }
+
+            <td>
+
+                @{
+                    if (item.tax_exempt == true)
+                    {
+                        @Html.DisplayName("Yes")
+
+                    }
+                    else
+                    {
+                        @Html.DisplayName("No")
+                    }
+
+                }
+            </td>
+
+            <td>
+                @item.phone_number
+            </td>
+            <td>
+                @item.second_phone_number
+            </td>
+            <td>
+                @item.email
+            </td>
 
 
-                    @*     <td>
-                            @Html.DisplayFor(modelItem => item.closing_date)
-                        </td>
 
+        </tr>
+                    }
+
+    <tr>        
+
+        <th>
+            Branch
+        </th>
+
+   
+
+        <th>
+            Project Type
+        </th>
+        <th>
+            Project Status
+        </th>
+
+        <th>
+            Project Class
+        </th>
+
+        <th>
+            Delivery Status
+        </th>
+
+
+        <th>
+            Lead Source
+        </th>
+        <th>
+            Project Class
+        </th>
+
+      
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.branch.branch_name)
+            </td>
+
+           
+
+        
+
+            <td>
+                @Html.DisplayFor(modelItem => item.project_type.project_type_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.project_status.project_status_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.project_class.class_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.delivery_status.delivery_status_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.lead_source.source_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.project_class.class_name)
+            </td>
+        </tr>
+                        <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.last_status_date)
+
+                                @Html.ActionLink("Back to List ", "ListLead")|
+                                @Html.ActionLink("Edit", "Edit", new { id = item.lead_number }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.lead_number },
+                new { onclick = "return confirm('Are you sure you wish to delete the lead?');" })
+
                             </td>
-                    *@
-
-                <td>
-                    @{
-                        if (item.tax_exempt == true)
-                        {
-                            @Html.DisplayName("Yes")
-
-                        }
-                        else
-                        {
-                            @Html.DisplayName("No")
-                        }
-
+                        </tr>
                     }
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.address.address_type)
-                </td>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.delivery_status.delivery_status_name)
-                </td>
+</table>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.lead_source.source_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_class.class_name)
-                </td>
-
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.lead_number }) |
-
-                    @Html.ActionLink("Delete", "Delete", new { id = item.lead_number })
-                </td>
-            </tr>
-                        }
-    </table>
-    <div>
-        @Html.ActionLink("Back to List", "ListLead")
-    </div>
 
 

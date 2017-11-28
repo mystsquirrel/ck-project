@@ -13,15 +13,15 @@
 <div class="container">
     <h2>Lead Management</h2>
     <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#customerTab" class="tab" data-toggle="tab" aria-expanded="true">Customer</a></li>
-        <li><a href="#leadTab" class="tab" data-toggle="tab" aria-expanded="true">Lead</a></li>
+        @*<li class="active"><a href="#customerTab" class="tab" data-toggle="tab" aria-expanded="true">Customer</a></li>*@
+        <li class="active"><a href="#leadTab" class="tab" data-toggle="tab" aria-expanded="true">Lead</a></li>
         <li><a href="#productsTab" class="tab" data-toggle="tab" aria-expanded="true">Products and Materials</a></li>
         <li><a href="#installTab" class="tab" data-toggle="tab" aria-expanded="true">Installation</a></li>
         <li><a href="#summaryTab" class="tab" data-toggle="tab" aria-expanded="true">Summary</a></li>
         <li><a href="#printTab" class="tab" data-toggle="tab" aria-expanded="true">Print</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
-        <div class="tab-pane active in" id="customerTab">
+        @*<div class="tab-pane active in" id="customerTab">
             @{
                 if (ViewBag.customerNumber != 0)
                 {
@@ -32,8 +32,8 @@
                     @Html.Action("AddCustomer", "Customers")
                 }
             }
-        </div>
-        <div class="tab-pane" id="leadTab">
+        </div>*@
+        <div class="tab-pane active in" id="leadTab">
             @{
                 if (ViewBag.leadNumer != 0)
                 {
@@ -53,7 +53,7 @@
             }
         </div>
         <div class="tab-pane" id="productsTab">
-            Products Info
+            @*@Html.Action("View", "Product", new { id = ViewBag.leadNumber })*@
         </div>
         <div class="tab-pane" id="installTab">
             Installation Info

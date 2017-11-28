@@ -9,19 +9,14 @@ namespace ck_project.Controllers
 
     public class LeadController : Controller
     {
-
-
-
         //Creating the DB connecton
         ckdatabase db = new ckdatabase();
 
-
-
         // GET: Lead
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         //     GET: Leads
         //      public ActionResult ListLead()
@@ -32,9 +27,7 @@ namespace ck_project.Controllers
         //        return View();
         //   }
 
-
-
-        public ActionResult ListLead(string search=null,int type=-1,string da= "2017/01/01 11:11:11")
+        public ActionResult ListLead(string search = null, int type = -1, string da = "2017/01/01 11:11:11")
         {
             var ClassInfo = new List<SelectListItem> { new SelectListItem() };
             ClassInfo.AddRange(db.project_status.Select(b => new SelectListItem
@@ -45,8 +38,20 @@ namespace ck_project.Controllers
             }));
             ViewBag.lead_type = ClassInfo;
 
-            return View(db.leads.Where(x => x.project_name.StartsWith(search) && x.project_status_number==type || search == null && x.deleted == false).ToList());
+            return View(db.leads.Where(x => x.project_name.Contains(search) && x.project_status_number == type && x.project_status_number != 6 && x.deleted == false || search == null).ToList());
+            //  && x.project_status <> 6) 
         }
+
+        //public ActionResult ListLead(string search = null, int type = -1)
+        //{
+        //    var result = (from l in db.leads.Take(10)
+        //              join s in db.project_status on l.project_status_number equals s.project_status_number
+        //              where (s.project_status_name != "Closed" && s.project_status_name.StartsWith(search))
+        //              where l.deleted == false
+        //              orderby l.Last_update_date
+        //              select l);
+        //    return View(result);
+        //}
 
         //public ActionResult ListLead(string search)
         //{
@@ -72,9 +77,9 @@ namespace ck_project.Controllers
         {
             return View(db.leads.Where(x => x.lead_number == id).ToList());
         }
+        
 
-
-        public ActionResult AddLeadXX(int id)
+        public ActionResult Add(int id)
         {
             List<SelectListItem> CustomerInfo = new List<SelectListItem>();
             CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
@@ -163,19 +168,65 @@ namespace ck_project.Controllers
             ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
 
             var Sstate = new List<SelectListItem> {
-                new SelectListItem{ Text="WV",Selected=false,Value="WV"},
-                 new SelectListItem{ Text="IN",Selected=false,Value="IN"},
-                 new SelectListItem{ Text="NY",Selected=false,Value="NY"},
-                 new SelectListItem{ Text="KY",Selected=false,Value="KY"}
+               new SelectListItem() {Text="Alabama", Value="AL"},
+        new SelectListItem() { Text="Alaska", Value="AK"},
+        new SelectListItem() { Text="Arizona", Value="AZ"},
+        new SelectListItem() { Text="Arkansas", Value="AR"},
+        new SelectListItem() { Text="California", Value="CA"},
+        new SelectListItem() { Text="Colorado", Value="CO"},
+        new SelectListItem() { Text="Connecticut", Value="CT"},
+        new SelectListItem() { Text="District of Columbia", Value="DC"},
+        new SelectListItem() { Text="Delaware", Value="DE"},
+        new SelectListItem() { Text="Florida", Value="FL"},
+        new SelectListItem() { Text="Georgia", Value="GA"},
+        new SelectListItem() { Text="Hawaii", Value="HI"},
+        new SelectListItem() { Text="Idaho", Value="ID"},
+        new SelectListItem() { Text="Illinois", Value="IL"},
+        new SelectListItem() { Text="Indiana", Value="IN"},
+        new SelectListItem() { Text="Iowa", Value="IA"},
+        new SelectListItem() { Text="Kansas", Value="KS"},
+        new SelectListItem() { Text="Kentucky", Value="KY"},
+        new SelectListItem() { Text="Louisiana", Value="LA"},
+        new SelectListItem() { Text="Maine", Value="ME"},
+        new SelectListItem() { Text="Maryland", Value="MD"},
+        new SelectListItem() { Text="Massachusetts", Value="MA"},
+        new SelectListItem() { Text="Michigan", Value="MI"},
+        new SelectListItem() { Text="Minnesota", Value="MN"},
+        new SelectListItem() { Text="Mississippi", Value="MS"},
+        new SelectListItem() { Text="Missouri", Value="MO"},
+        new SelectListItem() { Text="Montana", Value="MT"},
+        new SelectListItem() { Text="Nebraska", Value="NE"},
+        new SelectListItem() { Text="Nevada", Value="NV"},
+        new SelectListItem() { Text="New Hampshire", Value="NH"},
+        new SelectListItem() { Text="New Jersey", Value="NJ"},
+        new SelectListItem() { Text="New Mexico", Value="NM"},
+        new SelectListItem() { Text="New York", Value="NY"},
+        new SelectListItem() { Text="North Carolina", Value="NC"},
+        new SelectListItem() { Text="North Dakota", Value="ND"},
+        new SelectListItem() { Text="Ohio", Value="OH"},
+        new SelectListItem() { Text="Oklahoma", Value="OK"},
+        new SelectListItem() { Text="Oregon", Value="OR"},
+        new SelectListItem() { Text="Pennsylvania", Value="PA"},
+        new SelectListItem() { Text="Rhode Island", Value="RI"},
+        new SelectListItem() { Text="South Carolina", Value="SC"},
+        new SelectListItem() { Text="South Dakota", Value="SD"},
+        new SelectListItem() { Text="Tennessee", Value="TN"},
+        new SelectListItem() { Text="Texas", Value="TX"},
+        new SelectListItem() { Text="Utah", Value="UT"},
+        new SelectListItem() { Text="Vermont", Value="VT"},
+        new SelectListItem() { Text="Virginia", Value="VA"},
+        new SelectListItem() { Text="Washington", Value="WA"},
+        new SelectListItem() { Text="West Virginia", Value="WV"},
+        new SelectListItem() { Text="Wisconsin", Value="WI"},
+        new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
             ViewBag.Sstate = Sstate;
             return View();
         }
-
-
+        
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddLeadXX(FormCollection form, int id)
+        public ActionResult Add(FormCollection form, int id)
         {//setting dropdown list for forgern key
             List<SelectListItem> CustomerInfo = new List<SelectListItem>();
             CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
@@ -260,13 +311,60 @@ namespace ck_project.Controllers
             ViewBag.Emp_Info = EmpInfo;
             ViewBag.Branch_Info = BranchInfo;
             ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
-           
+
 
             var Sstate = new List<SelectListItem> {
-                new SelectListItem{ Text="WV",Selected=false,Value="WV"},
-                 new SelectListItem{ Text="IN",Selected=false,Value="IN"},
-                 new SelectListItem{ Text="NY",Selected=false,Value="NY"},
-                 new SelectListItem{ Text="KY",Selected=false,Value="KY"}
+               new SelectListItem() {Text="Alabama", Value="AL"},
+        new SelectListItem() { Text="Alaska", Value="AK"},
+        new SelectListItem() { Text="Arizona", Value="AZ"},
+        new SelectListItem() { Text="Arkansas", Value="AR"},
+        new SelectListItem() { Text="California", Value="CA"},
+        new SelectListItem() { Text="Colorado", Value="CO"},
+        new SelectListItem() { Text="Connecticut", Value="CT"},
+        new SelectListItem() { Text="District of Columbia", Value="DC"},
+        new SelectListItem() { Text="Delaware", Value="DE"},
+        new SelectListItem() { Text="Florida", Value="FL"},
+        new SelectListItem() { Text="Georgia", Value="GA"},
+        new SelectListItem() { Text="Hawaii", Value="HI"},
+        new SelectListItem() { Text="Idaho", Value="ID"},
+        new SelectListItem() { Text="Illinois", Value="IL"},
+        new SelectListItem() { Text="Indiana", Value="IN"},
+        new SelectListItem() { Text="Iowa", Value="IA"},
+        new SelectListItem() { Text="Kansas", Value="KS"},
+        new SelectListItem() { Text="Kentucky", Value="KY"},
+        new SelectListItem() { Text="Louisiana", Value="LA"},
+        new SelectListItem() { Text="Maine", Value="ME"},
+        new SelectListItem() { Text="Maryland", Value="MD"},
+        new SelectListItem() { Text="Massachusetts", Value="MA"},
+        new SelectListItem() { Text="Michigan", Value="MI"},
+        new SelectListItem() { Text="Minnesota", Value="MN"},
+        new SelectListItem() { Text="Mississippi", Value="MS"},
+        new SelectListItem() { Text="Missouri", Value="MO"},
+        new SelectListItem() { Text="Montana", Value="MT"},
+        new SelectListItem() { Text="Nebraska", Value="NE"},
+        new SelectListItem() { Text="Nevada", Value="NV"},
+        new SelectListItem() { Text="New Hampshire", Value="NH"},
+        new SelectListItem() { Text="New Jersey", Value="NJ"},
+        new SelectListItem() { Text="New Mexico", Value="NM"},
+        new SelectListItem() { Text="New York", Value="NY"},
+        new SelectListItem() { Text="North Carolina", Value="NC"},
+        new SelectListItem() { Text="North Dakota", Value="ND"},
+        new SelectListItem() { Text="Ohio", Value="OH"},
+        new SelectListItem() { Text="Oklahoma", Value="OK"},
+        new SelectListItem() { Text="Oregon", Value="OR"},
+        new SelectListItem() { Text="Pennsylvania", Value="PA"},
+        new SelectListItem() { Text="Rhode Island", Value="RI"},
+        new SelectListItem() { Text="South Carolina", Value="SC"},
+        new SelectListItem() { Text="South Dakota", Value="SD"},
+        new SelectListItem() { Text="Tennessee", Value="TN"},
+        new SelectListItem() { Text="Texas", Value="TX"},
+        new SelectListItem() { Text="Utah", Value="UT"},
+        new SelectListItem() { Text="Vermont", Value="VT"},
+        new SelectListItem() { Text="Virginia", Value="VA"},
+        new SelectListItem() { Text="Washington", Value="WA"},
+        new SelectListItem() { Text="West Virginia", Value="WV"},
+        new SelectListItem() { Text="Wisconsin", Value="WI"},
+        new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
             ViewBag.Sstate = Sstate;
@@ -309,9 +407,28 @@ namespace ck_project.Controllers
                 target.branch =db.branches.Where(ss=> ss.branch_number==gg).FirstOrDefault();
                 int hh = Int32.Parse(form["delivery_status_number"]);
                 target.delivery_status =db.delivery_status.Where(xx=> xx.delivery_status_number==hh).FirstOrDefault() ;
-                target.in_city = true;//Convert.ToBoolean(form["Item1.in_city"]);
+
+
+                // target.in_city = Convert.ToBoolean(form["Item1.in_city"]);
+                //target.in_city = true;//Convert.ToBoolean(form["Item1.in_city"]);
+                // target.tax_exempt = true;//Convert.ToBoolean(form["Item1.tax_exempt"]);
+
+                //    target.in_city = Convert.ToBoolean(Convert.ToInt32(form["Item1.in_city"]));
+                //    target.tax_exempt = Convert.ToBoolean(form["Item1.tax_exempt"]);
+
+                // TryUpdateModel(target, new string[] { "in_city", "tax_exempt" }, form.ToValueProvider());
+                //db.SaveChanges();
+
+
+
+                target.in_city = Convert.ToBoolean(form["Item1.in_city"].Split(',')[0]);
+                string aaa = form["Item1.in_city"];
+                target.tax_exempt = Convert.ToBoolean(form["Item1.tax_exempt"].Split(',')[0]);
                 target.project_name = form["Item1.project_name"];
-                target.tax_exempt = true;//Convert.ToBoolean(form["Item1.tax_exempt"]);
+                target.phone_number = form["Item1.phone_number"];
+                target.second_phone_number = form["Item1.second_phone_number"];
+                target.email = form["Item1.email"];
+
                 target.deleted = false;
                 target.address_number = b.address_number;
                 target.project_status_number = 3;
@@ -321,20 +438,7 @@ namespace ck_project.Controllers
                 
             };
 
-            //create instance
-            //lead target = new lead();
-            //target.customer = db.customers.Where(a => a.customer_number == id).FirstOrDefault();
-            ////get property
-            //TryUpdateModel(target, new string[] { "class_number", "project_type_number", "source_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "project_name", "tax_exempt" }, form.ToValueProvider());
-            //target.deleted = false;
-            //target.address_number = b.address_number;
-            //target.project_status_number = 3;
-            //target.lead_date = System.DateTime.Now;
-            //target.Last_update_date = System.DateTime.Now;
-
-
-
-            //validate
+                //validate
             //      if (string.IsNullOrEmpty(target.emp_firstname))
             //     ModelState.AddModelError("firstname", "firstname is required");
 
@@ -345,277 +449,246 @@ namespace ck_project.Controllers
             db.leads.Add(target);
             db.SaveChanges();
             //    }
-            ViewBag.m = " The lead was successfully created and saved to customer " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
-            return View();      
 
+            ViewBag.m = " The lead was successfully created to " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
 
-
-      
-
-            ////create instance
-            //lead target = new lead();
-            //target.customer = db.customers.Where(a => a.customer_number == id).FirstOrDefault();
-            ////get property
-            //TryUpdateModel(target, new string[] { "class_number", "project_type_number", "source_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "project_name", "tax_exempt" }, form.ToValueProvider());
-            //target.deleted = false;
-            ////  target.address_number = 1;
-            //target.project_status_number = 3;
-            //target.address_number = b.address_number;
-            //target.lead_date = System.DateTime.Now;
-            //target.Last_update_date = System.DateTime.Now;
-
-
-
-
-            ////write change to db,address first
-            //if (ModelState.IsValid)
-            //{
-            //    db.addresses.Add(b);
-            //    db.SaveChanges();
-            //    //linking 2 table
-
-            //    db.leads.Add(target);
-            //    db.SaveChanges();
-            //}
-
-            //ViewBag.m = " The lead was successfully created and saved to customer " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
-            //return View(target);
-        }
-
-
-        public ActionResult AddLead(int id)
-        {
-            List<SelectListItem> CustomerInfo = new List<SelectListItem>();
-            CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
-            {
-                Text = a.customer_lastname,
-                Selected = false,
-                Value = a.customer_number.ToString()
-            }));
-
-            var ClassInfo = new List<SelectListItem> { new SelectListItem() };
-            ClassInfo.AddRange(db.project_class.Select(b => new SelectListItem
-            {
-                Text = b.class_name,
-                Selected = false,
-                Value = b.class_number.ToString()
-            }));
-
-            var StatusInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            StatusInfo.AddRange(db.project_status.Select(c => new SelectListItem
-            {
-                Text = c.project_status_name,
-                Selected = false,
-                Value = c.project_status_number.ToString()
-            }));
-
-            var ProjectTypeInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            ProjectTypeInfo.AddRange(db.project_type.Select(b => new SelectListItem
-            {
-                Text = b.project_type_name,
-                Selected = false,
-                Value = b.project_type_number.ToString()
-            }));
-
-            var SourceInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            SourceInfo.AddRange(db.lead_source.Select(b => new SelectListItem
-            {
-                Text = b.source_name,
-                Selected = false,
-                Value = b.source_number.ToString()
-            }));
-
-            var AddressInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            AddressInfo.AddRange(db.addresses.Select(a => new SelectListItem
-            {
-                Text = a.address_type,
-                Selected = false,
-                Value = a.address_number.ToString()
-            }));
-
-            var AddressCityInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-
-            var EmpInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            EmpInfo.AddRange(db.employees.Select(a => new SelectListItem
-            {
-                Text = a.emp_lastname,
-                Selected = false,
-                Value = a.emp_number.ToString()
-            }));
-
-            var BranchInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            BranchInfo.AddRange(db.branches.Select(a => new SelectListItem
-            {
-                Text = a.branch_name,
-                Selected = false,
-                Value = a.branch_number.ToString()
-            }));
-
-            var DeliveryStatusInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            DeliveryStatusInfo.AddRange(db.delivery_status.Select(a => new SelectListItem
-            {
-                Text = a.delivery_status_name,
-                Selected = false,
-                Value = a.delivery_status_number.ToString()
-            }));
-
-
-            //setting variable passing
-            ViewBag.Customer_Info = CustomerInfo;
-            ViewBag.Class_Info = ClassInfo;
-            ViewBag.Status_Info = StatusInfo;
-            ViewBag.ProjectType_Info = ProjectTypeInfo;
-            ViewBag.Source_Info = SourceInfo;
-            ViewBag.Address_Info = AddressInfo;
-            ViewBag.Emp_Info = EmpInfo;
-            ViewBag.Branch_Info = BranchInfo;
-            ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
-
-
-
-
-
-            return View();
+            return View();          
 
         }
+        
+        //public ActionResult AddLead(int id)
+        //{
+        //    List<SelectListItem> CustomerInfo = new List<SelectListItem>();
+        //    CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
+        //    {
+        //        Text = a.customer_lastname,
+        //        Selected = false,
+        //        Value = a.customer_number.ToString()
+        //    }));
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddLead(FormCollection form, int id)
-        {
-            //setting dropdown list for forgern key
-            List<SelectListItem> CustomerInfo = new List<SelectListItem>();
-            CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
-            {
-                Text = a.customer_lastname,
-                Selected = false,
-                Value = a.customer_number.ToString()
-            }));
+        //    var ClassInfo = new List<SelectListItem> { new SelectListItem() };
+        //    ClassInfo.AddRange(db.project_class.Select(b => new SelectListItem
+        //    {
+        //        Text = b.class_name,
+        //        Selected = false,
+        //        Value = b.class_number.ToString()
+        //    }));
 
-            var ClassInfo = new List<SelectListItem>();
-            ClassInfo.AddRange(db.project_class.Select(b => new SelectListItem
-            {
-                Text = b.class_name,
-                Selected = false,
-                Value = b.class_number.ToString()
-            }));
+        //    var StatusInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    StatusInfo.AddRange(db.project_status.Select(c => new SelectListItem
+        //    {
+        //        Text = c.project_status_name,
+        //        Selected = false,
+        //        Value = c.project_status_number.ToString()
+        //    }));
 
-            var StatusInfo = new List<SelectListItem>();
-            StatusInfo.AddRange(db.project_status.Select(c => new SelectListItem
-            {
-                Text = c.project_status_name,
-                Selected = false,
-                Value = c.project_status_number.ToString()
-            }));
+        //    var ProjectTypeInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    ProjectTypeInfo.AddRange(db.project_type.Select(b => new SelectListItem
+        //    {
+        //        Text = b.project_type_name,
+        //        Selected = false,
+        //        Value = b.project_type_number.ToString()
+        //    }));
 
-            var ProjectTypeInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            ProjectTypeInfo.AddRange(db.project_type.Select(b => new SelectListItem
-            {
-                Text = b.project_type_name,
-                Selected = false,
-                Value = b.project_type_number.ToString()
-            }));
+        //    var SourceInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    SourceInfo.AddRange(db.lead_source.Select(b => new SelectListItem
+        //    {
+        //        Text = b.source_name,
+        //        Selected = false,
+        //        Value = b.source_number.ToString()
+        //    }));
 
-            var SourceInfo = new List<SelectListItem>();
-            SourceInfo.AddRange(db.lead_source.Select(b => new SelectListItem
-            {
-                Text = b.source_name,
-                Selected = false,
-                Value = b.source_number.ToString()
-            }));
+        //    var AddressInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    AddressInfo.AddRange(db.addresses.Select(a => new SelectListItem
+        //    {
+        //        Text = a.address_type,
+        //        Selected = false,
+        //        Value = a.address_number.ToString()
+        //    }));
 
-            var AddressInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            AddressInfo.AddRange(db.addresses.Select(a => new SelectListItem
-            {
-                Text = a.address_type,
-                Selected = false,
-                Value = a.address_number.ToString()
-            }));
+        //    var AddressCityInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
 
-            var EmpInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            EmpInfo.AddRange(db.employees.Select(a => new SelectListItem
-            {
-                Text = a.emp_lastname,
-                Selected = false,
-                Value = a.emp_number.ToString()
-            }));
+        //    var EmpInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    EmpInfo.AddRange(db.employees.Select(a => new SelectListItem
+        //    {
+        //        Text = a.emp_lastname,
+        //        Selected = false,
+        //        Value = a.emp_number.ToString()
+        //    }));
 
-            var BranchInfo = new List<SelectListItem>();
-            BranchInfo.AddRange(db.branches.Select(a => new SelectListItem
-            {
-                Text = a.branch_name,
-                Selected = false,
-                Value = a.branch_number.ToString()
-            }));
+        //    var BranchInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    BranchInfo.AddRange(db.branches.Select(a => new SelectListItem
+        //    {
+        //        Text = a.branch_name,
+        //        Selected = false,
+        //        Value = a.branch_number.ToString()
+        //    }));
 
-            var DeliveryStatusInfo = new List<SelectListItem> {
-                new SelectListItem()
-            };
-            DeliveryStatusInfo.AddRange(db.delivery_status.Select(a => new SelectListItem
-            {
-                Text = a.delivery_status_name,
-                Selected = false,
-                Value = a.delivery_status_number.ToString()
-            }));
+        //    var DeliveryStatusInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    DeliveryStatusInfo.AddRange(db.delivery_status.Select(a => new SelectListItem
+        //    {
+        //        Text = a.delivery_status_name,
+        //        Selected = false,
+        //        Value = a.delivery_status_number.ToString()
+        //    }));
 
 
-            //setting variable passing
-            ViewBag.Customer_Info = CustomerInfo;
-            ViewBag.Class_Info = ClassInfo;
-            ViewBag.Status_Info = StatusInfo;
-            ViewBag.ProjectType_Info = ProjectTypeInfo;
-            ViewBag.Source_Info = SourceInfo;
-            ViewBag.Address_Info = AddressInfo;
-            ViewBag.Emp_Info = EmpInfo;
-            ViewBag.Branch_Info = BranchInfo;
-            ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
-
-            //create instance
-            lead target = new lead();
-            target.customer = db.customers.Where(a => a.customer_number == id).FirstOrDefault();
-            //get property
-            TryUpdateModel(target, new string[] { "class_number", "project_type_number", "source_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "project_name", "tax_exempt" }, form.ToValueProvider());
-            target.deleted = false;
-            target.address_number = 1;
-            target.project_status_number = 3;
-            target.lead_date = System.DateTime.Now;
-            target.Last_update_date = System.DateTime.Now;
+        //    //setting variable passing
+        //    ViewBag.Customer_Info = CustomerInfo;
+        //    ViewBag.Class_Info = ClassInfo;
+        //    ViewBag.Status_Info = StatusInfo;
+        //    ViewBag.ProjectType_Info = ProjectTypeInfo;
+        //    ViewBag.Source_Info = SourceInfo;
+        //    ViewBag.Address_Info = AddressInfo;
+        //    ViewBag.Emp_Info = EmpInfo;
+        //    ViewBag.Branch_Info = BranchInfo;
+        //    ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
 
 
 
-            //validate
-            //      if (string.IsNullOrEmpty(target.emp_firstname))
-            //     ModelState.AddModelError("firstname", "firstname is required");
 
-            //     if (ModelState.IsValid)
-            //    {
-            db.leads.Add(target);
-            db.SaveChanges();
-            //    }
-            ViewBag.m = " The lead was successfully created and saved to customer " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
-            return View(target);
-        }
+
+        //    return View();
+
+        //}
+
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult AddLead(FormCollection form, int id)
+        //{
+        //    //setting dropdown list for forgern key
+        //    List<SelectListItem> CustomerInfo = new List<SelectListItem>();
+        //    CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
+        //    {
+        //        Text = a.customer_lastname,
+        //        Selected = false,
+        //        Value = a.customer_number.ToString()
+        //    }));
+
+        //    var ClassInfo = new List<SelectListItem>();
+        //    ClassInfo.AddRange(db.project_class.Select(b => new SelectListItem
+        //    {
+        //        Text = b.class_name,
+        //        Selected = false,
+        //        Value = b.class_number.ToString()
+        //    }));
+
+        //    var StatusInfo = new List<SelectListItem>();
+        //    StatusInfo.AddRange(db.project_status.Select(c => new SelectListItem
+        //    {
+        //        Text = c.project_status_name,
+        //        Selected = false,
+        //        Value = c.project_status_number.ToString()
+        //    }));
+
+        //    var ProjectTypeInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    ProjectTypeInfo.AddRange(db.project_type.Select(b => new SelectListItem
+        //    {
+        //        Text = b.project_type_name,
+        //        Selected = false,
+        //        Value = b.project_type_number.ToString()
+        //    }));
+
+        //    var SourceInfo = new List<SelectListItem>();
+        //    SourceInfo.AddRange(db.lead_source.Select(b => new SelectListItem
+        //    {
+        //        Text = b.source_name,
+        //        Selected = false,
+        //        Value = b.source_number.ToString()
+        //    }));
+
+        //    var AddressInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    AddressInfo.AddRange(db.addresses.Select(a => new SelectListItem
+        //    {
+        //        Text = a.address_type,
+        //        Selected = false,
+        //        Value = a.address_number.ToString()
+        //    }));
+
+        //    var EmpInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    EmpInfo.AddRange(db.employees.Select(a => new SelectListItem
+        //    {
+        //        Text = a.emp_lastname,
+        //        Selected = false,
+        //        Value = a.emp_number.ToString()
+        //    }));
+
+        //    var BranchInfo = new List<SelectListItem>();
+        //    BranchInfo.AddRange(db.branches.Select(a => new SelectListItem
+        //    {
+        //        Text = a.branch_name,
+        //        Selected = false,
+        //        Value = a.branch_number.ToString()
+        //    }));
+
+        //    var DeliveryStatusInfo = new List<SelectListItem> {
+        //        new SelectListItem()
+        //    };
+        //    DeliveryStatusInfo.AddRange(db.delivery_status.Select(a => new SelectListItem
+        //    {
+        //        Text = a.delivery_status_name,
+        //        Selected = false,
+        //        Value = a.delivery_status_number.ToString()
+        //    }));
+
+
+        //    //setting variable passing
+        //    ViewBag.Customer_Info = CustomerInfo;
+        //    ViewBag.Class_Info = ClassInfo;
+        //    ViewBag.Status_Info = StatusInfo;
+        //    ViewBag.ProjectType_Info = ProjectTypeInfo;
+        //    ViewBag.Source_Info = SourceInfo;
+        //    ViewBag.Address_Info = AddressInfo;
+        //    ViewBag.Emp_Info = EmpInfo;
+        //    ViewBag.Branch_Info = BranchInfo;
+        //    ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
+
+        //    //create instance
+        //    lead target = new lead();
+        //    target.customer = db.customers.Where(a => a.customer_number == id).FirstOrDefault();
+        //    //get property
+        //    TryUpdateModel(target, new string[] { "class_number", "project_type_number", "source_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "project_name", "tax_exempt" }, form.ToValueProvider());
+        //    target.deleted = false;
+        //    target.address_number = 1;
+        //    target.project_status_number = 3;
+        //    target.lead_date = System.DateTime.Now;
+        //    target.Last_update_date = System.DateTime.Now;
+
+
+
+        //    //validate
+        //    //      if (string.IsNullOrEmpty(target.emp_firstname))
+        //    //     ModelState.AddModelError("firstname", "firstname is required");
+
+        //    //     if (ModelState.IsValid)
+        //    //    {
+        //    db.leads.Add(target);
+        //    db.SaveChanges();
+        //    //    }
+        //    ViewBag.m = " The lead was successfully created and saved to customer " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
+        //    return View(target);
+        //}
 
         // read from the DB
         public ActionResult Edit(int id)
@@ -811,10 +884,25 @@ namespace ck_project.Controllers
             ViewBag.Customerslist = Leads_list;
             lead target = Leads_list[0];
 
-            TryUpdateModel(target, new string[] {  "class_number", "project_status_number", "project_type_number",  "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt"}, form.ToValueProvider());
+            TryUpdateModel(target, new string[] {  "class_number", "project_status_number", "project_type_number",  "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email"}, form.ToValueProvider());
             target.Last_update_date = System.DateTime.Now;
             db.SaveChanges();
+
+
+            ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
+
+
             return View(target);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            List<lead> Lead_list = db.leads.Where(d => d.lead_number == id).ToList();
+            ViewBag.Customerslist = Lead_list;
+            lead target = Lead_list[0];
+            target.deleted = true;
+            db.SaveChanges();
+            return RedirectToAction("ListLead");
         }
 
     }
