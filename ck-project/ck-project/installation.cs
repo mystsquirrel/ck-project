@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class installation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +21,13 @@ namespace ck_project
             this.rates_installation = new HashSet<rates_installation>();
             this.tasks_installation = new HashSet<tasks_installation>();
         }
-    
+
         public int installation_number { get; set; }
         public string installation_name { get; set; }
         public string estimated_by { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime statrt_date { get; set; }
         public double mileages_to_destination { get; set; }
         public int required_hotel_nights { get; set; }
@@ -36,6 +40,9 @@ namespace ck_project
         public Nullable<double> total_tile_cost { get; set; }
         public Nullable<double> total_travel_cost { get; set; }
         public int lead_number { get; set; }
+        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> estimated_date { get; set; }
         public Nullable<double> travel_time_one_way { get; set; }
         public Nullable<double> building_permit_cost { get; set; }

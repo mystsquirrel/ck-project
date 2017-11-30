@@ -10,7 +10,9 @@ namespace ck_project
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/toastr.js"));
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/holder.js",
+                        "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -28,7 +30,9 @@ namespace ck_project
                       "~/Content/bootstrap.united.css",
                       "~/Content/font-awesome.css",
                       "~/Content/toastr.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/datetimepicker.css"));
+           
         }
     }
 }

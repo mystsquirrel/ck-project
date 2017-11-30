@@ -208,6 +208,7 @@
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ArcLeadsController.cs" />
+    <Compile Include="Controllers\InstallController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Helpers\InstallationCalculationHelper.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Content\bootstrap.sandstone.min.css" />
     <Content Include="Content\bootstrap.united.css" />
     <Content Include="Content\bootstrap.united.min.css" />
+    <Content Include="Content\datetimepicker.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\CK_picture.jpg" />
@@ -375,8 +377,10 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -488,6 +492,10 @@
     <Content Include="Views\ArcLeads\Details.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead - Copy.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead.cshtml" />
+    <Content Include="Views\Install\cusT.cshtml" />
+    <Content Include="Views\Install\Lis.cshtml" />
+    <Content Include="Views\Install\AddJob.cshtml" />
+    <Content Include="Views\Install\readtask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
