@@ -251,6 +251,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\installconvert.cs" />
     <Compile Include="Helpers\ProjSummaryHelper.cs" />
     <Compile Include="installation.cs">
       <DependentUpon>cksys.tt</DependentUpon>

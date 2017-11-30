@@ -11,12 +11,15 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tasks_installation
     {
         public int tasks_installation_number { get; set; }
         public int task_number { get; set; }
         public int installation_number { get; set; }
+        [Required]
+        []
         public double hours { get; set; }
         public double m_cost { get; set; }
         public double labor_cost { get; set; }

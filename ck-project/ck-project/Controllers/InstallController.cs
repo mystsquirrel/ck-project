@@ -108,6 +108,8 @@ namespace ck_project.Controllers
                 new SelectListItem{ Text="Disclaimers",Value="disclaimers"}
             };
 
+           
+
             
 
             return View(target);
@@ -131,9 +133,7 @@ namespace ck_project.Controllers
         }
 
         public ActionResult AddJob(string maincat,string subcat) {
-            task temp = new task();
-            temp.task_main_cat = maincat;
-            temp.task_sub_cat = subcat;
+            
            
 
 
@@ -142,27 +142,16 @@ namespace ck_project.Controllers
         }
 
         public ActionResult readtask(int lid,string maincat,string subcat) {
-            installation ins = db.installations.Where(a => a.lead_number == lid).First();
-            int ind = ins.installation_number;
-            List<int> target = ins.tasks_installation.Where(c => c.installation_number == ind).Select(d => d.task_number).ToList();
-            List<task> task = new List<task>();
-            try
-            {
-                foreach (int a in target)
-                {
-                    task.Add(db.tasks.Single(x => x.task_number == a && string.Equals(x.task_main_cat, maincat) && string.Equals(x.task_sub_cat, subcat)));
-                }
-            } catch (Exception e) {
-                ViewBag.error = e.Message;
-            }
-           
-
-            return PartialView(task);
+            List<tasks_installation> taskset = db.leads.Where(l => l.lead_number == lid).First().installations.First().tasks_installation.ToList();
+            taskset = taskset.FindAll(x => x.task.task_main_cat == maincat && x.task.task_sub_cat == subcat).ToList();
+            ViewBag.maincat = maincat;
+            ViewBag.subcat = subcat;
+            return PartialView(taskset);
         }
-
+        
         [HttpPost]
         public ActionResult savetask(FormCollection fo) {
-
+            
             return null;
         }
 
