@@ -42,17 +42,21 @@ using (Html.BeginForm())
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => item.labor_cost, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => item.labor_cost, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => item.labor_cost, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Delete", "Delete", new { id = item.tasks_installation_number,lid=item.installation_number },
+            new { onclick = "return confirm('Are you sure you wish to delete the task?');",@class="btn btn-default" })
             </div>
         </div>
     </div>

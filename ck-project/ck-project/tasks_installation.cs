@@ -19,7 +19,6 @@ namespace ck_project
         public int task_number { get; set; }
         public int installation_number { get; set; }
         [Required]
-        []
         public double hours { get; set; }
         public double m_cost { get; set; }
         public double labor_cost { get; set; }

@@ -1,5 +1,7 @@
 ﻿
 @model ck_project.installation
+
+ 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
@@ -104,7 +106,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob","AddJob",new {maincat="kitchen",subcat=kitchen.Text })
+                                    @Html.Action("AddJob",new {maincat="kitchen",subcat=kitchen.Text,insnum=Model.installation_number })
                                     @Html.Action("readtask",new {lid=Model.lead_number,maincat="KITCHEN",subcat=kitchen.Text })
                                 </div>
                             </div>
@@ -125,7 +127,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "FRAMING", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FRAMING", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -146,7 +148,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "DOORS & WINDOWS", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "DOORS & WINDOWS", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -167,7 +169,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "MECHANICALS", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "MECHANICALS", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -188,7 +190,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "ELECTRICAL", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "ELECTRICAL", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -209,7 +211,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "FINISHES", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FINISHES", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -230,7 +232,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob", new { maincat = "CABINETRY INSTALL", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "CABINETRY INSTALL", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -251,7 +253,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "COUNTERTOPS", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "COUNTERTOPS", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -272,7 +274,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -293,7 +295,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "GENERAL", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "GENERAL", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -314,7 +316,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob", new { maincat = "BATH", subcat = kitchen.Text, insnum = Model.installation_number })
                                     @Html.Action("readtask", new { lid = Model.lead_number, maincat = "BATH", subcat = kitchen.Text })
                                 </div>
                             </div>
@@ -335,7 +337,7 @@
                             </div>
                             <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.ActionLink("AddJob", "AddJob", new { maincat = "kitchen", subcat = kitchen.Text })
+                                    @Html.Action("AddJob",  new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number })
                                     
                                 </div>
                             </div>

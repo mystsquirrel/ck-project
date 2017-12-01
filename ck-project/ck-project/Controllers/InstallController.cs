@@ -49,10 +49,10 @@ namespace ck_project.Controllers
             };
 
             ViewBag.framing = new List<SelectListItem> {
-                new SelectListItem{ Text="Wall Framing",Value=""},
-                new SelectListItem{ Text="Ceiling Framing",Value=""},
-                new SelectListItem{ Text="Floor Framing",Value=""},
-                new SelectListItem{ Text="Insulation",Value=""}
+                new SelectListItem{ Text="Wall Framing",Value="WF"},
+                new SelectListItem{ Text="Ceiling Framing",Value="CF"},
+                new SelectListItem{ Text="Floor Framing",Value="FF"},
+                new SelectListItem{ Text="Insulation",Value="ins"}
             };
 
             ViewBag.doorswindows = new List<SelectListItem> {
@@ -85,7 +85,7 @@ namespace ck_project.Controllers
             };
 
             ViewBag.appliance = new List<SelectListItem> {
-                new SelectListItem{ Text="Appliance",Value="app"}
+                new SelectListItem{ Text="Appliances And Fixtures Installation",Value="app"}
             };
             //372
             ViewBag.tbd = new List<SelectListItem> {
@@ -94,8 +94,8 @@ namespace ck_project.Controllers
 
             ViewBag.bath = new List<SelectListItem> {
                 new SelectListItem{ Text="Demo",Value="demo"},
-                new SelectListItem{ Text="Wiring/Drvice",Value="wd"},
-                new SelectListItem{ Text="Walls/Finish",Value="wf"},
+                new SelectListItem{ Text="Wiring/Devices",Value="wd"},
+                new SelectListItem{ Text="Walls/Finishes",Value="wf"},
                 new SelectListItem{ Text="Flooring",Value="flooring"},
                 new SelectListItem{ Text="Plumbing",Value="plumbing"},
                 new SelectListItem{Text="Cabinetry & Trim",Value="ct" },
@@ -132,13 +132,32 @@ namespace ck_project.Controllers
             return RedirectToAction("lis", new { lid = lid });
         }
 
-        public ActionResult AddJob(string maincat,string subcat) {
-            
+        public ActionResult AddJob(string maincat,string subcat,int insnum) {
+            List<task> option = db.tasks.Where(x => x.special_task == false && x.task_main_cat == maincat && x.task_sub_cat == subcat).ToList();
+            List<SelectListItem> taskname = new List<SelectListItem>();
+            foreach (task a in option) {
+                taskname.Add(new SelectListItem { Text = a.task_name, Value =a.task_number.ToString() });
+            }
+            ViewBag.taskname = taskname;
+            ViewBag.insnum = insnum;
            
 
 
             return PartialView();
 
+        }
+
+        [HttpPost]
+        public ActionResult handler(FormCollection fo) {
+            tasks_installation target = new tasks_installation();
+            int lid =int.Parse(fo["installation_number"]);
+            target.hours = float.Parse(fo["hours"]);
+            target.task_number = int.Parse(fo["task_number"]);
+            target.m_cost = float.Parse(fo["m_cost"]);
+
+
+
+            return RedirectToAction("lis", new { lid = lid });
         }
 
         public ActionResult readtask(int lid,string maincat,string subcat) {
@@ -153,6 +172,12 @@ namespace ck_project.Controllers
         public ActionResult savetask(FormCollection fo) {
             
             return null;
+        }
+
+        public ActionResult Delete(int tin,int lid) {
+
+
+            return RedirectToAction("lis", new { lid = lid });
         }
 
        
