@@ -21,7 +21,7 @@ namespace ck_project
         public double m_cost { get; set; }
         public double labor_cost { get; set; }
     
-        public virtual installation installation { get; set; }
         public virtual task task { get; set; }
+        public virtual installation installation { get; set; }
     }
 }

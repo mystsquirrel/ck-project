@@ -61,9 +61,18 @@ namespace ck_project.Helpers
             return 0;
         }
 
-        public double CalculateTotalInstallationDays(double installationdays, double? tileInstallationDays) 
+        public double CalculateTotalInstallationDays(double? installationdays, double? tileInstallationDays) 
         {
-            return tileInstallationDays != null ? installationdays + (double)tileInstallationDays : installationdays;
+            double totalInstallDays = 0;
+            if (tileInstallationDays != null)
+            {
+                totalInstallDays += (double)tileInstallationDays;
+            }
+            else if (installationdays != null)
+            {
+                totalInstallDays += (double)installationdays;
+            }
+            return totalInstallDays;
         }
 
         public double CalculateNumberOfHotelNights(double installationdays, string recommendation)
@@ -107,9 +116,9 @@ namespace ck_project.Helpers
             return installationdays * (onewayMile * 2);
         }
 
-        public double CalculateTotalApplicableTravelHours(double totalMiles, double? traveltimeOneway)
+        public double CalculateTotalApplicableTravelHours(double? totalMiles, double? traveltimeOneway)
         {
-            return totalMiles * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2;
+            return totalMiles != null ? (double)totalMiles * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2 : 0 ;
         }
 
         public double CalculatePerDiem(double installationDays, string recommendation)
@@ -199,6 +208,9 @@ namespace ck_project.Helpers
             return totalLaborCost;
         }
 
-        
+        public string SetRecomm(double onewaymile) {
+            return onewaymile > 89 ? "Hotel" : "Travel";
+        }
     }
+
 }

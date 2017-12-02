@@ -18,11 +18,11 @@
                     {
                         @Html.Action("Add", new { lid = Model.First().lid })
                     }
-                } 
+                }
             </div>
         </div>
     </div>
-    
+
     @foreach (var item in Model)
     {
         var cat = item.cat;
@@ -35,12 +35,12 @@
                        href="#collapse@(item.cat)">
                         @item.cat
                     </a>
-                  
+
                 </h4>
             </div>
             <div id="collapse@(item.cat)" class="panel-collapse collapse">
                 <div class="panel-body">
-                   
+
 
                     @Html.Action("gp", new { cat = cat, lid = lid })
                 </div>

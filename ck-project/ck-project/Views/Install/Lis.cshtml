@@ -1,0 +1,373 @@
+﻿
+@model ck_project.installation
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+}
+
+@using (Html.BeginForm("lis","Install",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>installation</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.installation_number)
+        @Html.Hidden("lead_num",(int)ViewBag.lid)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.estimated_by, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownList("estimated_by", (List<SelectListItem>)ViewBag.emplist, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.estimated_by, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.statrt_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.statrt_date, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.statrt_date, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.total_tile_cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.total_tile_cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.total_tile_cost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.estimated_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.estimated_date, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.estimated_date, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.oneway_mileages_to_destination, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.oneway_mileages_to_destination, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.oneway_mileages_to_destination, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.msg != null)
+{
+    <script type="text/javascript">
+ $(document).ready(function () {
+toastr.success('@ViewBag.msg');
+});
+    </script>
+}
+
+@if (Model != null)
+{
+    <div class="panel-group" id="accordion">
+        @foreach (SelectListItem a in ViewBag.mainc)
+        {
+            <div class="panel panel-default">
+                <h3 class="panel-heading">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(a.Value)" style="color:#8B0000">
+                        @(a.Text)
+                    </a>
+                </h3>
+            </div>
+            <div id="collapse@(a.Value)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @switch (a.Value)
+                    {
+                        case "kitchen":
+                            <div class="panel-group" id="kitchen">
+                                @foreach (SelectListItem kitchen in ViewBag.kitchen)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#kitchen" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "KITCHEN", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Framing":
+                            <div class="panel-group" id="framing">
+                                @foreach (SelectListItem kitchen in ViewBag.framing)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#framing" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "FRAMING", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FRAMING", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Doors_Windows":
+                            <div class="panel-group" id="Doors_Windows">
+                                @foreach (SelectListItem kitchen in ViewBag.doorswindows)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Doors_Windows" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "DOORS & WINDOWS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "DOORS & WINDOWS", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Mechanicals":
+                            <div class="panel-group" id="Mechanicals">
+                                @foreach (SelectListItem kitchen in ViewBag.mech)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Mechanicals" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "MECHANICALS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "MECHANICALS", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Electrical":
+                            <div class="panel-group" id="Electrical">
+                                @foreach (SelectListItem kitchen in ViewBag.elect)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Electrical" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "ELECTRICAL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "ELECTRICAL", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Finish":
+                            <div class="panel-group" id="Finish">
+                                @foreach (SelectListItem kitchen in ViewBag.finish)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Finish" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "FINISHES", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FINISHES", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Cabinetry":
+                            <div class="panel-group" id="Cabinetry">
+                                @foreach (SelectListItem kitchen in ViewBag.cabin)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Cabinetry" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "CABINETRY INSTALL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "CABINETRY INSTALL", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Countertops":
+                            <div class="panel-group" id="Countertops">
+                                @foreach (SelectListItem kitchen in ViewBag.counter)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Countertops" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "COUNTERTOPS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "COUNTERTOPS", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "Appliance":
+                            <div class="panel-group" id="Appliance">
+                                @foreach (SelectListItem kitchen in ViewBag.appliance)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#Appliance" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "372":
+                            <div class="panel-group" id="372">
+                                @foreach (SelectListItem kitchen in ViewBag.tbd)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#372" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "GENERAL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "GENERAL", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "BATH":
+                            <div class="panel-group" id="BATH">
+                                @foreach (SelectListItem kitchen in ViewBag.bath)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#BATH" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "BATH", subcat = kitchen.Text, insnum = Model.installation_number })
+                                            @Html.Action("readtask", new { lid = Model.lead_number, maincat = "BATH", subcat = kitchen.Text })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+                        case "MISC":
+                            <div class="panel-group" id="MISC">
+                                @foreach (SelectListItem kitchen in ViewBag.misc)
+                                {
+                                    <div class="panel panel-default">
+                                        <h4 class="panel-heading" align="center">
+                                            <a data-toggle="collapse" data-parent="#MISC" href="#collapse@(a.Value+kitchen.Value)">
+                                                @(kitchen.Text)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number })
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            break;
+
+                    }
+
+
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+}
+
+
+

@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class installation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,20 +23,24 @@ namespace ck_project
         }
     
         public int installation_number { get; set; }
-        public string installation_name { get; set; }
         public string estimated_by { get; set; }
-        public System.DateTime statrt_date { get; set; }
-        public double mileages_to_destination { get; set; }
-        public int required_hotel_nights { get; set; }
-        public double mileages_from_hotel { get; set; }
-        public double installation_days { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public Nullable<System.DateTime> statrt_date { get; set; }
+        public int lead_number { get; set; }
+        public string recommendation { get; set; }
+        public Nullable<double> mileages_to_destination { get; set; }
+        public Nullable<double> required_hotel_nights { get; set; }
+        public Nullable<double> mileages_from_hotel { get; set; }
+        public Nullable<double> installation_days { get; set; }
         public Nullable<double> total_per_diem_cost { get; set; }
         public Nullable<double> total_installation_labor_cost { get; set; }
         public Nullable<double> total_operational_expenses { get; set; }
         public Nullable<double> total_construction_materials_cost { get; set; }
-        public Nullable<double> total_tile_cost { get; set; }
+        public double total_tile_cost { get; set; }
         public Nullable<double> total_travel_cost { get; set; }
-        public int lead_number { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> estimated_date { get; set; }
         public Nullable<double> travel_time_one_way { get; set; }
         public Nullable<double> building_permit_cost { get; set; }
@@ -45,8 +50,7 @@ namespace ck_project
         public Nullable<double> installation_labor_only_cost { get; set; }
         public Nullable<double> billable_hours { get; set; }
         public Nullable<double> estimated_hours { get; set; }
-        public string recommendation { get; set; }
-        public Nullable<double> oneway_mileages_to_destination { get; set; }
+        public double oneway_mileages_to_destination { get; set; }
     
         public virtual lead lead { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

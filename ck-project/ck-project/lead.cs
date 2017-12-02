@@ -18,11 +18,11 @@ namespace ck_project
         public lead()
         {
             this.building_permit = new HashSet<building_permit>();
-            this.installations = new HashSet<installation>();
             this.lead_log_file = new HashSet<lead_log_file>();
             this.products = new HashSet<product>();
             this.taxes_leads = new HashSet<taxes_leads>();
             this.total_cost = new HashSet<total_cost>();
+            this.installations = new HashSet<installation>();
         }
     
         public int lead_number { get; set; }
@@ -53,8 +53,6 @@ namespace ck_project
         public virtual delivery_status delivery_status { get; set; }
         public virtual employee employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<installation> installations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lead_log_file> lead_log_file { get; set; }
         public virtual lead_source lead_source { get; set; }
         public virtual project_class project_class { get; set; }
@@ -66,5 +64,7 @@ namespace ck_project
         public virtual ICollection<taxes_leads> taxes_leads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<total_cost> total_cost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<installation> installations { get; set; }
     }
 }
