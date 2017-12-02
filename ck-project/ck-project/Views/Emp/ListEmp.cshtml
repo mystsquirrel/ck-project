@@ -1,49 +1,49 @@
 ﻿@model IEnumerable<ck_project.employee>
-<h4> Employees List </h4>
+
+@Html.Partial("_AdminMenu")
+
+<div class="container">
+    <h4> Employees List </h4>
+
+    @using (Html.BeginForm("ListEmp", "Emp", FormMethod.Get))
+    {
 
 
-@using (Html.BeginForm("ListEmp", "Emp", FormMethod.Get))
-{
 
 
 
-
-
-    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+        @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
     new { placeholder = "Type employee last name" });<input type="submit" value="Search" />
 
 
-}
+    }
 
 
+    <p>
+        @Html.ActionLink("Adding a New Employee", "Add")
+    </p>
+    <table class="table table-striped">
+        <thead class="mdb-color darken-3">
+            <tr>
 
-<p>
-    @Html.ActionLink("Adding a New Employee", "Add")
-</p>
-<table class="table table-striped">
-    <thead class="mdb-color darken-3">
-        <tr>
-    
-            <th>
-                Employee Name
-            </th>
-            <th>
-                System UserName
-            </th>
-
-            <th>
-                Phone Number
-            </th>
-            <th>
-                Branch
-            </th>
-            <th>
-                User Type
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-
+                <th>
+                    Employee Name
+                </th>
+                <th>
+                    System UserName
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Branch
+                </th>
+                <th>
+                    User Type
+                </th>
+                <th></th>
+            </tr>
+        </thead>
         @if (Model.Count() == 0)
         {
             <tr>
@@ -65,7 +65,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.emp_username)
                     </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.phone_number)
                     </td>
@@ -73,13 +72,9 @@
                         @Html.DisplayFor(modelItem => item.branch.branch_name)
                     </td>
 
-
-
                     <td>
                         @Html.DisplayFor(modelItem => item.users_types.user_type_name)
                     </td>
-
-
 
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.emp_number }) |
@@ -89,10 +84,17 @@
                 </tr>
             }
         }
-
-</table>
-
-
-<div>
-    @Html.ActionLink("Back to List", "ListEmp")
+    </table>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar-nav li").removeClass("active");//this will remove the active class from
+            //previously active menu item
+            $('#employee').addClass('active');
+        });
+    </script>
+}

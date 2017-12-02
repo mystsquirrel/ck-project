@@ -253,6 +253,7 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\installconvert.cs" />
     <Compile Include="Helpers\ProjSummaryHelper.cs" />
+    <Compile Include="Helpers\TaxCalculationHelper.cs" />
     <Compile Include="installation.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>

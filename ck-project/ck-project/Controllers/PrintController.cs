@@ -21,20 +21,21 @@ namespace ck_project.Controllers
         public ActionResult Convert(String url, int id, string str)
         {
             // get the data
-            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
             var projSummary = new ProjectSummary
             {
-                Lead = db.leads.Where(c => c.lead_number == id).FirstOrDefault(),
                 Branch = db.branches.ToList(),
             };
+            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
 
             if (lead != null)
             {
-                projSummary = projSummaryHelper.CalculateProposalAmtDue(projSummary, id);
+                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
                 projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
                 projSummary.ProductTotalMap = projSummaryHelper.GetProductTotalMap(lead);
+                projSummary.Lead = lead;
             }
 
             // instantiate a html to pdf converter object

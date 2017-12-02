@@ -76,7 +76,15 @@ namespace ck_project.Controllers
             ViewBag.m = " The customer was successfully updated on " + System.DateTime.Now;
 
 
-            return View(target);
+            string seg2 = HttpContext.Request.UrlReferrer.Segments[1];
+            if (seg2.Equals("Customers/"))
+            {
+                return View(target);
+            }
+            else
+            {
+                return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri + "#customerTab");
+            }
         }
 
         public ActionResult AddCustomer()

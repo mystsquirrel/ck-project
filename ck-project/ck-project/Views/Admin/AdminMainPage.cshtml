@@ -32,6 +32,7 @@
                 <th>Customer Name</th>
                 <th>Project Title</th>
                 <th>Status</th>
+                <th>Created Date</th>
                 <th>Last Modified</th>
             </tr>
         </thead>
@@ -56,11 +57,14 @@
                         @Html.DisplayFor(modelItem => item.project_status.project_status_name)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.lead_date)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Last_update_date)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = true }, null) |
-                        @Html.ActionLink("View", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = false }, null)
+                        @*@Html.ActionLink("View", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = false }, null)*@
                     </td>
                 </tr>
             }

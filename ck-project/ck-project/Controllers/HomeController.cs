@@ -61,7 +61,7 @@ namespace ck_project.Controllers
             ViewBag.leadNumber = id;
             ViewBag.customerNumber = cid;
             ViewBag.editable = edit;
-            return View(ViewBag);           
+            return View();           
         }
 
         public ActionResult LeadTab(int id, bool edit)
@@ -75,26 +75,28 @@ namespace ck_project.Controllers
             return View(ViewBag);
         }
 
-        public ActionResult SummaryTab(int id)
+        public ActionResult SummaryTab(int id, int cid)
         {
+            var projSummary = new ProjectSummary();
             if (id != 0)
             {
                 var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
                 if (lead != null)
                 {
-                    var projSummary = new ProjectSummary
-                    {
-                        Lead = lead,
-                        TotalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault()
-                    };
+                    projSummary.Lead = lead;
+                    projSummary.Customer = lead.customer;
+                    projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault();
 
                     projSummary = new ProjSummaryHelper().CalculateInstallCategoryCostMap(lead, projSummary);
                     projSummary.ProductTotalMap = new ProjSummaryHelper().GetProductTotalMap(lead);
-
-                    return View(projSummary);
                 }
             }
-            return View();
+            else if (cid != 0)
+            {
+                var customer = db.customers.Where(c => c.customer_number == cid).FirstOrDefault();
+                projSummary.Customer = customer;
+            }
+            return View(projSummary);
         }
     }
 }

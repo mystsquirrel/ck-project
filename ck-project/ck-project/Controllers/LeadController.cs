@@ -222,12 +222,24 @@ namespace ck_project.Controllers
 
             };
             ViewBag.Sstate = Sstate;
-            return View();
+            return PartialView();
         }
         
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Add(FormCollection form, int id)
-        {//setting dropdown list for forgern key
+        {
+            string absolute = HttpContext.Request.UrlReferrer.AbsoluteUri;
+            string url = Request.Url.ToString();
+            string lastPart = url.Split('/').Last();
+            int cidStartPos = lastPart.IndexOf("cid=");
+            int editStartPos = lastPart.IndexOf("edit");
+            if (cidStartPos != -1 && editStartPos != -1)
+            {
+                string customerNbrStr = lastPart.Substring(cidStartPos + 4, editStartPos - 1 - (cidStartPos + 4));
+                id = Int32.Parse(customerNbrStr);
+            }
+
+            //setting dropdown list for forgern key
             List<SelectListItem> CustomerInfo = new List<SelectListItem>();
             CustomerInfo.AddRange(db.customers.Select(a => new SelectListItem
             {
@@ -451,8 +463,12 @@ namespace ck_project.Controllers
             //    }
 
             ViewBag.m = " The lead was successfully created to " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
+            
+            string path = HttpContext.Request.UrlReferrer.AbsolutePath;
+            string seg1 = HttpContext.Request.UrlReferrer.Segments[0];
+            string seg2 = HttpContext.Request.UrlReferrer.Segments[1];
 
-            return View();          
+            return Redirect(HttpContext.Request.UrlReferrer.Segments[0] + "#leadTab");
 
         }
         
@@ -890,7 +906,6 @@ namespace ck_project.Controllers
 
 
             ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
-
 
             return View(target);
         }

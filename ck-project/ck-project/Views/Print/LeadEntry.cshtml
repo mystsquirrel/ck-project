@@ -284,9 +284,9 @@
             <td class="le_title">Primary Email:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.email
+                        @Model.Customer.email
                     }
                 }
             </td>

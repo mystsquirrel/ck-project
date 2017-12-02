@@ -26,143 +26,146 @@
         </tr>
         <tr>
             <td class="left_text">Job Name:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="left_data">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</td>
+            <td class="left_data">
+                @{
+                    if (Model.Customer != null)
+                    {
+                        @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
+                    }
                 }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            </td>
             <td class="right_text">Deposit Date:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="right_data">@String.Format("{0:M/d/yyyy}", Model.Lead.Last_update_date)</td>
+            <td class="right_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @String.Format("{0:M/d/yyyy}", Model.Lead.Last_update_date)
+                    }
                 }
-                else
-                {
-                    <td class="right_data"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
             <td class="left_text">Project Reference:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="left_data">@Model.Lead.project_name</td>
+            <td class="left_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.project_name
+                    }
                 }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
             <td class="left_text">Address:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="left_data">@Model.Lead.customer.address.address1</td>
+            <td class="left_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.address.address1
+                    }
                 }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
             <td class="left_text">City/State:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="left_data">@Model.Lead.customer.address.city, @Model.Lead.customer.address.state</td>
+            <td class="left_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.address.city@:&#44;&nbsp;@Model.Lead.customer.address.state
+                    }
                 }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            </td>
             <td class="right_text">Zip Code:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="right_data">@Model.Lead.customer.address.zipcode</td>
+            <td class="right_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.address.zipcode
+                    }
                 }
-                else
-                {
-                    <td class="right_data"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
             <td class="left_text">Home Phone:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="left_data">@Model.Lead.customer.phone_number</td>
-                }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            <td class="left_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.phone_number
+                    }
+                 }
+            </td>
             <td class="right_text">Cell/Alt Phone:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="right_data">@Model.Lead.customer.second_phone_number</td>
+            <td class="right_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.second_phone_number
+                    }
                 }
-                else
-                {
-                    <td class="right_data"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
             <td class="left_text">Job Total:</td>
-            @{
-                if (Model.TotalCost != null)
-                {
-                    <td class="left_data">@Model.TotalCost.total_cost1</td>
+            <td class="left_data">
+                @{
+                    if (Model.TotalCost != null)
+                    {
+                        @Model.TotalCost.total_cost1
+                    }
                 }
-                else
-                {
-                    <td class="left_data"></td>
-                }
-            }
+            </td>
             <td class="right_text">Designer:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td class="right_data">@Model.Lead.employee.emp_firstname @Model.Lead.employee.emp_lastname</td>
+            <td class="right_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.employee.emp_firstname@:&nbsp;@Model.Lead.employee.emp_lastname
+                    }
                 }
-            }
+            </td>
         </tr>
     </table>
     <table style="margin-top: 5%">
         <tr>
             <td class="left_text">
-                @Model.Lead.delivery_status.delivery_status_name
-            </td>
-            
-            @{ if (Model.Lead.in_city)
-                {
-                    <td style="width: 200px; text-align:center">In City</td>
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.delivery_status.delivery_status_name
+                    }
                 }
-                else
-                {
-                    <td style="width: 200px; text-align:center">Out of City</td>
-                }
-            }
-            <td style="width: 200px; text-align:center">
-                @Model.Lead.address.city
             </td>
             <td style="width: 200px; text-align:center">
-                @Model.Lead.project_class.class_name
+                @{
+                    if (Model.Lead != null)
+                    {
+                        if (Model.Lead.in_city)
+                        {
+                            @:In City
+                        }
+                        else
+                        {
+                            @:Out of City
+                        }
+                    }
+                }
+            <td style="width: 200px; text-align:center">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.address.city
+                    }
+                }
+            </td>
+            <td style="width: 200px; text-align:center">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.project_class.class_name
+                    }
+                }
             </td>
             <td style="border: solid 1px gray; width: 60px"></td>
             <td style="width: 120px; padding-left: 5px">C.O.D</td>

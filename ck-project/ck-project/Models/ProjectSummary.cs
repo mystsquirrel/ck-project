@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace ck_project.Models
 {
     public class ProjectSummary
     {
         public lead Lead { get; set; }
+        public customer Customer { get; set; }
         public List<branch> Branch { get; set; }
         public total_cost TotalCost { get; set; }
         public string AmtDueAtSignProposal { get; set; }

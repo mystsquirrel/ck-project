@@ -54,7 +54,11 @@ namespace ck_project.Helpers
             var today = DateTime.Now;
             var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
             var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Tile Installer Hourly Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-            return Math.Ceiling(totalTilePrice / rate.tax_value / 8);
+            if (rate != null)
+            {
+                return Math.Ceiling(totalTilePrice / rate.tax_value / 8);
+            }
+            return 0;
         }
 
         public double CalculateTotalInstallationDays(double? installationdays, double? tileInstallationDays) 
@@ -124,7 +128,10 @@ namespace ck_project.Helpers
                 var today = DateTime.Now;
                 var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
                 var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Per Diem Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                return installationDays * 2 * rate.tax_value;
+                if (rate != null)
+                {
+                    return installationDays * 2 * rate.tax_value;
+                }
             }
 
             return 0;
@@ -135,7 +142,11 @@ namespace ck_project.Helpers
             var today = DateTime.Now;
             var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
             var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Crew Hours" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-            return billableHours * rate.tax_value;
+            if (rate != null)
+            {
+                return billableHours * rate.tax_value;
+            }
+            return 0;
         }
 
         public double CalculateTravelExpense(double totalMiles, double? traveltimeOneway, string recommendation)
@@ -145,7 +156,10 @@ namespace ck_project.Helpers
                 var today = DateTime.Now;
                 var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
                 var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Travel Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway) * rate.tax_value;
+                if (rate != null)
+                {
+                    return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway) * rate.tax_value;
+                }
             }
 
             return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway);
@@ -158,7 +172,10 @@ namespace ck_project.Helpers
                 var today = DateTime.Now;
                 var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
                 var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Mileage Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                return totalMiles * rate.tax_value;
+                if (rate != null)
+                {
+                    return totalMiles * rate.tax_value;
+                }
             }
 
             return totalMiles;
@@ -171,7 +188,10 @@ namespace ck_project.Helpers
                 var today = DateTime.Now;
                 var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
                 var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Hotel Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                return numberOfHotelNights * rate.tax_value;
+                if (rate != null)
+                {
+                    return numberOfHotelNights * rate.tax_value;
+                }
             }
             return 0;
         }
