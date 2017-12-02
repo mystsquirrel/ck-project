@@ -45,5 +45,7 @@ namespace ck_project.Helpers
         public const string install_totalCost = "Total Cost";
         public const string install_recommendation_hotel = "Hotel";
         public const string install_recommendation_travel = "Travel";
+
+        public const string proj_Status_Closed = "Closed";
     }
 }

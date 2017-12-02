@@ -28,9 +28,9 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">NAME</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{ 
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.customer_firstname@:&nbsp;@Model.Lead.customer.customer_lastname
+                        @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
                     }
                 }
             </td>
@@ -38,9 +38,9 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">NAME</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.customer_firstname@:&nbsp;@Model.Lead.customer.customer_lastname
+                        @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
                     }
                 }
             </td>
@@ -116,7 +116,7 @@
                 }
             </td>
             <td style="width:100px"></td>
-            <td style="width:100px; text-align:right; padding-right: 3px">STATE</td>
+            <td style="width:100px; text-align:right; padding-right: 3px; color:gray">STATE</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
                     if (Model.Lead != null)
@@ -141,7 +141,7 @@
                 @{
                     if (Model.Lead != null)
                     {
-
+                        @Model.Lead.phone_number
                     }
                 }
             </td>
@@ -150,7 +150,7 @@
                 @{
                     if (Model.Lead != null)
                     {
-
+                        @Model.Lead.second_phone_number
                     }
                 }
             </td>
@@ -182,37 +182,40 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList1.Keys)
+            int count = 5;
+            if (Model.ProductMapList1 != null)
             {
-                if (key.Equals("CABINETRY", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList1.Keys)
                 {
-                    var prodList = Model.ProductMapList1[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("CABINETRY", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList1[key];
+                        if (prodList.Count != 0)
                         {
-                            <tr>
-                                <td colspan="4" class="pam_item_text">@prod.Description</td>
-                                <td class="pam_item_text">@prod.location</td>
-                                <td class="pam_item_price">@prod.price</td>
-                            </tr>
-                            count--;
+                            foreach (var prod in prodList)
+                            {
+                                <tr>
+                                    <td colspan="4" class="pam_item_text">@prod.Description</td>
+                                    <td class="pam_item_text">@prod.location</td>
+                                    <td class="pam_item_price">@prod.price</td>
+                                </tr>
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td colspan="4" class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td colspan="4" class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -221,14 +224,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double Cabtotal = Model.ProductTotalMap["CABINETRY"];
-                    if (Cabtotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @Cabtotal
+                        double Cabtotal = Model.ProductTotalMap["CABINETRY"];
+                        if (Cabtotal != 0)
+                        {
+                            @Cabtotal
+                        }
                     }
                 }
             </td>
@@ -242,16 +244,18 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList1.Keys)
+            count = 5;
+            if (Model.ProductMapList1 != null)
             {
-                if (key.Equals("HARDWARE", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList1.Keys)
                 {
-                    var prodList = Model.ProductMapList1[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("HARDWARE", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList1[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty">@prod.quantity</td>
                                 <td class="pam_item_text">@prod.manufacture</td>
@@ -260,25 +264,26 @@
                                 <td class="pam_item_text">@prod.location</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -287,14 +292,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double harTotal = Model.ProductTotalMap["HARDWARE"];
-                    if (harTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @harTotal
+                        double harTotal = Model.ProductTotalMap["HARDWARE"];
+                        if (harTotal != 0)
+                        {
+                            @harTotal
+                        }
                     }
                 }
             </td>
@@ -308,16 +312,18 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList1.Keys)
+            count = 5;
+            if (Model.ProductMapList1 != null)
             {
-                if (key.Equals("APPLIANCES", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList1.Keys)
                 {
-                    var prodList = Model.ProductMapList1[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("APPLIANCES", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList1[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty">@prod.quantity</td>
                                 <td class="pam_item_text">@prod.manufacture</td>
@@ -326,25 +332,26 @@
                                 <td class="pam_item_text">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -353,14 +360,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double appTotal = Model.ProductTotalMap["APPLIANCES"];
-                    if (appTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @appTotal
+                        double appTotal = Model.ProductTotalMap["APPLIANCES"];
+                        if (appTotal != 0)
+                        {
+                            @appTotal
+                        }
                     }
                 }
             </td>
@@ -371,37 +377,40 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList1.Keys)
+            count = 5;
+            if (Model.ProductMapList1 != null)
             {
-                if (key.Equals("OWNER PROVIDED PRODUCT", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList1.Keys)
                 {
-                    var prodList = Model.ProductMapList1[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("OWNER PROVIDED PRODUCT", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList1[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty">@prod.quantity</td>
                                 <td colspan="4" class="pam_item_text">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata"></td>
-                                <td colspan="4" class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata"></td>
+                        <td colspan="4" class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -410,14 +419,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double ownTotal = Model.ProductTotalMap["OWNER PROVIDED PRODUCT"];
-                    if (ownTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @ownTotal
+                        double ownTotal = Model.ProductTotalMap["OWNER PROVIDED PRODUCT"];
+                        if (ownTotal != 0)
+                        {
+                            @ownTotal
+                        }
                     }
                 }
             </td>
@@ -430,16 +438,18 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList1.Keys)
+            count = 5;
+            if (Model.ProductMapList1 != null)
             {
-                if (key.Equals("ACCESSORIES & MIRRORS", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList1.Keys)
                 {
-                    var prodList = Model.ProductMapList1[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("ACCESSORIES & MIRRORS", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList1[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty">@prod.quantity</td>
                                 <td class="pam_item_text">@prod.manufacture</td>
@@ -447,24 +457,25 @@
                                 <td colspan="2" class="pam_item_text">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td colspan="2" class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td colspan="2" class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -473,14 +484,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double accTotal = Model.ProductTotalMap["ACCESSORIES & MIRRORS"];
-                    if (accTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @accTotal
+                        double accTotal = Model.ProductTotalMap["ACCESSORIES & MIRRORS"];
+                        if (accTotal != 0)
+                        {
+                            @accTotal
+                        }
                     }
                 }
             </td>
@@ -493,37 +503,40 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList2.Keys)
+            count = 5;
+            if (Model.ProductMapList2 != null)
             {
-                if (key.Equals("COUNTERS", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList2.Keys)
                 {
-                    var prodList = Model.ProductMapList2[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("COUNTERS", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList2[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td colspan="4" class="pam_item_text2">@prod.Description</td>
                                 <td class="pam_item_text">@prod.location</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td colspan="4" class="pam_item_nodata2"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td colspan="4" class="pam_item_nodata2"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -532,14 +545,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double couTotal = Model.ProductTotalMap["COUNTERS"];
-                    if (couTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @couTotal
+                        double couTotal = Model.ProductTotalMap["COUNTERS"];
+                        if (couTotal != 0)
+                        {
+                            @couTotal
+                        }
                     }
                 }
             </td>
@@ -553,16 +565,18 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList2.Keys)
+            count = 5;
+            if (Model.ProductMapList2 != null)
             {
-                if (key.Equals("SINK, STRAINER, FAUCET, FITTINGS", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList2.Keys)
                 {
-                    var prodList = Model.ProductMapList2[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("SINK, STRAINER, FAUCET, FITTINGS", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList2[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty2">@prod.quantity</td>
                                 <td class="pam_item_text">@prod.manufacture</td>
@@ -571,25 +585,26 @@
                                 <td class="pam_item_text">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata2"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata2"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -598,14 +613,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double sinTotal = Model.ProductTotalMap["SINK, STRAINER, FAUCET, FITTINGS"];
-                    if (sinTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @sinTotal
+                        double sinTotal = Model.ProductTotalMap["SINK, STRAINER, FAUCET, FITTINGS"];
+                        if (sinTotal != 0)
+                        {
+                            @sinTotal
+                        }
                     }
                 }
             </td>
@@ -617,39 +631,42 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList2.Keys)
+            count = 5;
+            if (Model.ProductMapList2 != null)
             {
-                if (key.Equals("DECORATIVE SURFACES", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList2.Keys)
                 {
-                    var prodList = Model.ProductMapList2[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("DECORATIVE SURFACES", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList2[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td class="pam_item_qty2">@prod.quantity</td>
                                 <td colspan="2" class="pam_item_text">@prod.product_source</td>
                                 <td colspan="2" class="pam_item_text">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td class="pam_item_nodata2"></td>
-                                <td colspan="2" class="pam_item_nodata"></td>
-                                <td colspan="2" class="pam_item_nodata"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td class="pam_item_nodata2"></td>
+                        <td colspan="2" class="pam_item_nodata"></td>
+                        <td colspan="2" class="pam_item_nodata"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -658,14 +675,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double decTotal = Model.ProductTotalMap["DECORATIVE SURFACES"];
-                    if (decTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @decTotal
+                        double decTotal = Model.ProductTotalMap["DECORATIVE SURFACES"];
+                        if (decTotal != 0)
+                        {
+                            @decTotal
+                        }
                     }
                 }
             </td>
@@ -675,35 +691,38 @@
             <td style="width:150px" class="pam_item_header">Price</td>
         </tr>
         @{
-            foreach (var key in Model.ProductMapList2.Keys)
+            count = 5;
+            if (Model.ProductMapList2 != null)
             {
-                if (key.Equals("ADDITIONAL ITEMS", StringComparison.OrdinalIgnoreCase))
+                foreach (var key in Model.ProductMapList2.Keys)
                 {
-                    var prodList = Model.ProductMapList2[key];
-                    int count = 5;
-                    if (prodList.Count != 0)
+                    if (key.Equals("ADDITIONAL ITEMS", StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var prod in prodList)
+                        var prodList = Model.ProductMapList2[key];
+                        if (prodList.Count != 0)
                         {
+                            foreach (var prod in prodList)
+                            {
                             <tr>
                                 <td colspan="5" class="pam_item_text2">@prod.Description</td>
                                 <td class="pam_item_price">@prod.price</td>
                             </tr>
-                            count--;
+                                count--;
+                            }
                         }
+                        break;
                     }
+                }
+            }
 
-                    if (count > 0)
-                    {
-                        for (int i = count; i > 0; i--)
-                        {
-                            <tr>
-                                <td colspan="5" class="pam_item_nodata2"></td>
-                                <td class="pam_item_nodata"></td>
-                            </tr>
-                        }
-                    }
-                    break;
+            if (count > 0)
+            {
+                for (int i = count; i > 0; i--)
+                {
+                    <tr>
+                        <td colspan="5" class="pam_item_nodata2"></td>
+                        <td class="pam_item_nodata"></td>
+                    </tr>
                 }
             }
         }
@@ -712,14 +731,13 @@
             <td style="width:150px" class="pam_total_col">TOTAL $</td>
             <td style="width:150px" class="pam_totalprice_col">
                 @{
-                    double addTotal = Model.ProductTotalMap["ADDITIONAL ITEMS"];
-                    if (addTotal == 0)
+                    if (Model.ProductTotalMap != null)
                     {
-                        @:-
-                    }
-                    else
-                    {
-                        @addTotal
+                        double addTotal = Model.ProductTotalMap["ADDITIONAL ITEMS"];
+                        if (addTotal != 0)
+                        {
+                            @addTotal
+                        }
                     }
                 }
             </td>
@@ -782,7 +800,7 @@
         </tr>
         <tr>
             <td colspan="5" style="font-weight: bolder; text-align:right; padding-right:3px">TOTAL ORDER $</td>
-            <td style="width:150px; font-weight: bolder; border: 2px solid black">
+            <td style="width:150px; font-weight: bolder; border: 2px solid black; text-align:right; padding-right:3px">
                 @{
                     if (Model.TotalCost != null)
                     {

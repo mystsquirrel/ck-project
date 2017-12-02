@@ -28,7 +28,7 @@
                 <td style="width:150px" class="item_text">Project</td>
                 <td class="item_data">
                 @{ 
-                    if (Model != null)
+                    if (Model.Lead != null)
                     {
                         @Model.Lead.project_name
                     }
@@ -39,9 +39,9 @@
                 <td style="width:150px" class="item_text">Customer</td>
                 <td class="item_data">
                     @{
-                        if (Model != null)
+                        if (Model.Customer != null)
                         {
-                            @Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname
+                            @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
                         }
                     }
                 </td>
@@ -57,7 +57,7 @@
                 <td style="width:150px" class="item_text">Designer</td>
                 <td class="item_data">
                     @{
-                        if (Model != null)
+                        if (Model.Lead != null)
                         {
                             @Model.Lead.employee.emp_firstname @Model.Lead.employee.emp_lastname
                         }
@@ -68,7 +68,7 @@
                 <td style="width:150px" class="item_text">Show room</td>
                 <td class="item_data">
                     @{
-                        if (Model != null)
+                        if (Model.Lead != null)
                         {
                             @Model.Lead.branch.address.address1@:&#44;&nbsp;@Model.Lead.branch.address.city&#44;&nbsp;@Model.Lead.branch.address.state&nbsp;@Model.Lead.branch.address.zipcode
                         }
@@ -79,9 +79,8 @@
                 <td style="width:150px" class="item_text">Jobsite</td>
                 <td class="item_data">
                     @{
-                        if (Model != null)
+                        if (Model.Lead != null)
                         {
-
                             @Model.Lead.address.address1@:&#44;&nbsp;@Model.Lead.address.city&#44;&nbsp;@Model.Lead.address.state&nbsp;@Model.Lead.address.zipcode
                         }
                     }
@@ -96,7 +95,7 @@
     <div style="clear: both; margin-left: 4%">
         <table>
             @{
-                if (Model != null)
+                if (Model.ProductTotalMap != null)
                 {
                     double prodTotal = 0;
                     foreach (string key in Model.ProductTotalMap.Keys)
@@ -137,7 +136,7 @@
                 </tr>
             </thead>
             @{
-                if (Model != null && Model.InstallCategoryCostMap != null)
+                if (Model.InstallCategoryCostMap != null)
                 {
                     double installTotal = 0;
                     foreach (var key in Model.InstallCategoryCostMap.Keys)
@@ -171,7 +170,7 @@
                 <td style="width:650px" class="item_text">Travel Expense</td>
                 <td style="width:100px" class="item_price">
                     @{
-                        if (Model != null && Model.Lead.installations != null)
+                        if (Model.Lead != null && Model.Lead.installations != null)
                         {
                             foreach (var item in Model.Lead.installations)
                             {
@@ -185,7 +184,7 @@
                 <td style="width:650px" class="item_text">Hotel Expense</td>
                 <td style="width:100px" class="item_price">
                     @{
-                        if (Model != null && Model.Lead.installations != null)
+                        if (Model.Lead != null && Model.Lead.installations != null)
                         {
                             foreach (var item in Model.Lead.installations)
                             {
@@ -199,7 +198,7 @@
                 <td style="width:650px" class="item_text">Per Diem</td>
                 <td style="width:100px" class="item_price">
                     @{
-                        if (Model != null && Model.Lead.installations != null)
+                        if (Model.Lead != null && Model.Lead.installations != null)
                         {
                             foreach (var item in Model.Lead.installations)
                             {
@@ -213,7 +212,7 @@
                 <td style="width:650px" class="item_text">Building Permits</td>
                 <td style="width:100px" class="item_price">
                 @{
-                    if (Model != null && Model.TotalCost != null)
+                    if (Model.TotalCost != null)
                     {
                         @Model.TotalCost.building_permit_cost
                     }
@@ -224,7 +223,7 @@
                 <td style="width:650px" class="item_text">Related Taxes, Permits and Fees</td>
                 <td style="width:100px" class="item_price">
                 @{
-                    if (Model != null && Model.TotalCost != null)
+                    if (Model.TotalCost != null)
                     {
                         @Model.TotalCost.tax_cost
                     }
@@ -232,7 +231,7 @@
                 </td>
             </tr>
             @{
-                if (Model !=null && Model.TotalCost != null)
+                if (Model.TotalCost != null)
                 {
                     <tr>
                         <td style="width:650px"></td>
@@ -242,4 +241,5 @@
             }
         </table>
     </div>
+    <div style="height: 40px"></div>
 </div>

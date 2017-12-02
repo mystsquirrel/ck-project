@@ -1,7 +1,10 @@
 ﻿@model  Tuple<ck_project.lead, ck_project.address>
 
+@{
+    Layout = null;
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Add", "Lead"))
 {
     @Html.AntiForgeryToken()
 
@@ -170,7 +173,6 @@
 
                                             <div class="form-group">
                                                 <div class="col-md-offset-1 col-md-10">
-                                                    @Html.ActionLink("Back to List", "ListLead") 
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -184,36 +186,29 @@
                                                
                                                    
                                                
-                                                    <input type="submit" value="Create" class="btn btn-default" id="passwordInfo" /> &nbsp;
-
-                                                    @Html.ActionLink("Save and Go to Products Page", "Edit", "Address", new { @class = "btn btn-primary", @style = "color:white" })
-                                                    @*@Html.ActionLink("Go to Products Page", "Edit", "Address", new { id = Model.lead_number }, new { @class = "btn btn-primary", @style = "color:white" })*@
+                                                    <input type="submit" value="Create" class="btn btn-default" id="addLead" /> &nbsp;
 
                                                 </div>
                                             </div>
-
-
-                                            @*@if (ViewBag.m != null)
-
-                {
-                                                <div>
-                                                    <h>  @ViewBag.m </h>
-                                                </div>
-                                            }*@
-
                                         </div>
-                                        
-                                        }
+
+}
 
 
 @section Scripts {
- @Scripts.Render("~/bundles/jqueryval")
-@if (ViewBag.m != null)
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
     {
-<script type="text/javascript">
- $(document).ready(function () {
-toastr.success('@ViewBag.m');
-});
-</script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.success('@ViewBag.m');
+            });
+       </script>
     }
+
+    <script>
+        $('#addLead').click(function (event) {
+            event.preventDefault();
+        });
+    </script>
 }

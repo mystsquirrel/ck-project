@@ -1,21 +1,6 @@
 ﻿@model ck_project.employee
 
-@{
-    var uri = new Uri(Request.Url.ToString());
-    string path = uri.Segments[1];
-    if (path.Equals("Customers/"))
-    {
-        if (HttpContext.Current.User.IsInRole("Administrator"))
-        {
-            @Html.Partial("_AdminMenu")
-        }
-        else
-        {
-            @Html.Partial("_MainMenu")
-        }
-    }
-
-}
+@Html.Partial("_AdminMenu")
 
 
     @using (Html.BeginForm())
@@ -116,4 +101,13 @@ toastr.success('@ViewBag.m');
 });
         </script>
     }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar-nav li").removeClass("active");//this will remove the active class from
+            //previously active menu item
+            $('#employee').addClass('active');
+        });
+    </script>
+
 }

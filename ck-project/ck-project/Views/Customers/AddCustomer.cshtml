@@ -1,6 +1,10 @@
 ﻿@model  Tuple<ck_project.customer, ck_project.address> 
 
-@using (Html.BeginForm()) 
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddCustomer", "Customers")) 
 {
     @Html.AntiForgeryToken()
     

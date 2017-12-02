@@ -10,7 +10,7 @@ namespace ck_project.Helpers
     public class ProjSummaryHelper
     {
         ckdatabase db = new ckdatabase();
-        public ProjectSummary CalculateProposalAmtDue(ProjectSummary projSummary, int id)
+        public ProjectSummary CalculateProposalAmtDue(int id, ProjectSummary projSummary)
         {
             var totalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault();
 
@@ -91,12 +91,12 @@ namespace ck_project.Helpers
                             string taskSubCat = task.task.task_sub_cat;
                             if (cat.Equals(taskCat) && subCat.Equals(taskSubCat))
                             {
-                                //calcuate costs per subcategories
+                                //calculate costs per subcategories
                                 catSubHours += task.hours;
-                                catSubLaborCost += task.labor_cost;
-                                catSubMaterialCost = catSubMaterialCost + (task.m_cost / 2);
-                                catSubMaterialRetail += task.m_cost;   //map to material retail in the excel sheet (installation tab)
-                                catSubCost = catSubCost + task.labor_cost + task.m_cost;
+                                catSubLaborCost += task.labor_cost;  
+                                catSubMaterialCost += task.m_cost;
+                                catSubMaterialRetail += catSubMaterialCost * 2;
+                                catSubCost = catSubLaborCost + catSubMaterialRetail;
                             }
                         }
 
@@ -191,6 +191,24 @@ namespace ck_project.Helpers
                 projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.mileages_to_destination, item.travel_time_one_way);
             }
                 return projectSummary;
+        }
+
+        public ProjectSummary SetCustomerData(lead lead, ProjectSummary projectSummary)
+        {
+            customer c = lead.customer;
+            if (lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
+            {
+                var archived_lead = db.archive_leads.Where(a => a.lead_number == lead.lead_number).FirstOrDefault();
+                if (archived_lead != null)
+                {
+                    c.customer_firstname = archived_lead.customer_firstname;
+                    c.customer_lastname = archived_lead.customer_lastname;
+                    c.email = archived_lead.customer_email;
+                }
+            }
+            projectSummary.Customer = c;
+
+            return projectSummary;
         }
     }
 }

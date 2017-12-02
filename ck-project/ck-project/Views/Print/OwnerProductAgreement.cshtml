@@ -23,9 +23,9 @@
             <tr>
                 <td style="width:40%" align ="right">Name:</td>
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        <td style="padding-left:10px">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</td>
+                        <td style="padding-left:10px">@Model.Customer.customer_firstname @Model.Customer.customer_lastname</td>
                     }
                     else
                     {
@@ -93,11 +93,11 @@
             </ul>
         </div>
         @{
-            if (Model.Lead != null)
+            if (Model.Customer != null)
             {
                 <div style="padding-top:30px">
                     <p class="wrapper">
-                        <b>@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</b> agrees to have the product(s) available on installation start date. 
+                        <b>@Model.Customer.customer_firstname @Model.Customer.customer_lastname</b> agrees to have the product(s) available on installation start date. 
                         Any delay due to availablity when installation is required may incure an additional charge for time, parts, materials and/or service call(s) required to
                         complete the installation.
                     </p>

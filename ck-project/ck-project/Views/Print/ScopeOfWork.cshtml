@@ -21,62 +21,52 @@
     <div style="padding-bottom:10px"></div>
     <table style="margin-left:3%">
         <tr>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td style="width:900px">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</td>
+            <td style="width:900px">
+                @{
+                    if (Model.Customer != null)
+                    {
+                        @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
+                    }
                 }
-                else
-                {
-                    <td style="width:900px"></td>
-                }
-            }
+            </td>
             <td style="width:150px" align="right">Project Number:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td style="width:250px; padding-left:10px">@Model.Lead.lead_number</td>
+            <td style="width:250px; padding-left:10px">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.lead_number
+                    }
                 }
-                else
-                {
-                    <td style="width:250px"></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td>@Model.Lead.customer.address.address1</td>
+            <td>
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.address.address1
+                    }
                 }
-                else
-                {
-                    <td></td>
-                }
-            }
+            </td>
             <td align="right">Designer:</td>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td style="padding-left:10px">@Model.Lead.employee.emp_firstname @Model.Lead.employee.emp_lastname</td>
+            <td style="padding-left:10px">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.employee.emp_firstname@:&nbsp;@Model.Lead.employee.emp_lastname
+                    }
                 }
-                else
-                {
-                    <td></td>
-                }
-            }
+            </td>
         </tr>
         <tr>
-            @{
-                if (Model.Lead != null)
-                {
-                    <td>@Model.Lead.customer.address.city, @Model.Lead.customer.address.state @Model.Lead.customer.address.zipcode</td>
+            <td>
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.address.city@:&#44;&nbsp;@Model.Lead.customer.address.state&nbsp;@Model.Lead.customer.address.zipcode
+                    }
                 }
-                else
-                {
-                    <td></td>
-                }
-            }
+            </td>
             <td align="right">Date:</td>
             <td style="padding-left:10px">@string.Format("{0:MMMM dd, yyyy}", DateTime.Now)</td>
         </tr>

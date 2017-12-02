@@ -22,9 +22,9 @@
     <table style="margin-left:3%">
         <tr>
             @{
-                if (Model.Lead != null)
+                if (Model.Customer != null)
                 {
-                    <td style="width:900px">@Model.Lead.customer.customer_firstname @Model.Lead.customer.customer_lastname</td>
+                    <td style="width:900px">@Model.Customer.customer_firstname @Model.Customer.customer_lastname</td>
                 }
                 else
                 {
@@ -86,7 +86,7 @@
         <tr>
             <td style="width:775px; text-align:right">Installation Days:</td>
             @{
-                if (Model.Lead.installations != null)
+                if (Model.Lead != null && Model.Lead.installations != null)
                 {
                     foreach (var item in Model.Lead.installations)
                     {
@@ -98,7 +98,7 @@
         <tr>
             <td style="width:775px; text-align:right">Tile Installation Days:</td>
             @{
-                if (Model.Lead.installations != null)
+                if (Model.Lead != null && Model.Lead.installations != null)
                 {
                     foreach (var item in Model.Lead.installations)
                     {
