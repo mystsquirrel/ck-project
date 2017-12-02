@@ -13,127 +13,134 @@ namespace ck_project.Controllers
         //connecting db
         ckdatabase db = new ckdatabase();
         //Main Index Page for Look Ups
-        public ActionResult Index(string id, string name)
-        {
-            ViewBag.LookupList = new List<string>()
-            {
-                "Project Class",
-                "Project Type",
-                "Project Status",
-                "Lead Source",
-                "Delivery Status"
-
-            };
-            return View();
-        }
+        //public ActionResult Index(string id, string name)
+        //{
+        //    ViewBag.LookupList = new List<string>()
+        //    {
+        //        "Project Class",
+        //        "Project Type",
+        //        "Project Status",
+        //        "Lead Source",
+        //        "Delivery Status"
+        //    };
+        //    return View();
+        //}
 
         //View Project Status Look Up
-        public ActionResult ProjectStatus()
+
+        //public ActionResult ProjectStatus()
+        //{
+        //    List<project_status> project_status_list = db.project_status.ToList();
+        //    ViewBag.project_status_list = project_status_list;
+        //    return View();
+        //}
+
+        public ActionResult statusList(string search)
         {
-            List<project_status> project_status_list = db.project_status.ToList();
-            ViewBag.project_status_list = project_status_list;
-            return View();
-
-
+            return View(db.project_status.Where(x => x.project_status_name.Contains(search) || search == null && x.deleted == false).ToList());
         }
-
-        //Post Values into Project Status Look Up
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ProjectStatusAdd(FormCollection form)
-        {
-
-            project_status target = new project_status();
-            //get property
-            TryUpdateModel(target, new string[] { "project_status_name" }, form.ToValueProvider());
-            //validate
-            if (string.IsNullOrEmpty(target.project_status_name))
-                ModelState.AddModelError("project_status_name", "Project Status is required");
-
-            if (ModelState.IsValid)
-            {
-                db.project_status.Add(target);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("ProjectStatus");
-        }
-
         //Add Project Status Look Up Page
-
-        public ActionResult ProjectStatusAdd()
-        {
-
+        public ActionResult StatusAdd (){
             return View();
+        }
+       //Post Values into Project Status Look Up
+       [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult StatusAdd(FormCollection form)
+        {
+            try
+            {
+                project_status target = new project_status();
+                //get property
+                TryUpdateModel(target, new string[] { "project_status_name" }, form.ToValueProvider());
+                target.deleted = false;
+                //validate
+                if (string.IsNullOrEmpty(target.project_status_name))
+                    ModelState.AddModelError("project_status_name", "Project Status is required");
 
+                if (ModelState.IsValid)
+                {
+                    db.project_status.Add(target);
+                    db.SaveChanges();
+                    ViewBag.m = " The status was successfully created " + " on " + System.DateTime.Now;
+                }
 
+                return View();
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong... the status was not created ... please try again";
+                return View();
+            }
         }
 
         //Delete Project Status Look Up
-        public ActionResult ProjectStatusDelete(int id)
+        public ActionResult StatusDelete(int id)
         {
-            //find target by uid
-            project_status target = db.project_status.First(s => s.project_status_number == id);
-            //delete
-            db.project_status.Remove(target);
+            List<project_status> Status_list = db.project_status.Where(d => d.project_status_number == id).ToList();
+            ViewBag.Customerslist = Status_list;
+            project_status target = Status_list[0];
+            target.deleted = true;
             db.SaveChanges();
-
-            return RedirectToAction("ProjectStatus");
+            return RedirectToAction("statusList");
         }
+
 
         //View Project Class Look Up
 
-        public ActionResult ProjectClass()
+
+        public ActionResult ClassList()
         {
-            List<project_class> project_class_list = db.project_class.ToList();
-            ViewBag.project_class_list = project_class_list;
+            return View(db.project_class.Where(x =>  x.deleted == false).ToList());
+        }
+
+        //Add Project Class Look Up Page
+
+        public ActionResult ClassAdd()
+        {
+
             return View();
-
-
         }
 
         //Post Values into Project Class Look Up
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ProjectClassAdd(FormCollection form)
+        public ActionResult ClassAdd(FormCollection form)
         {
-
+            try { 
             project_class target = new project_class();
             //get property
             TryUpdateModel(target, new string[] { "class_name" }, form.ToValueProvider());
-            //validate
-            if (string.IsNullOrEmpty(target.class_name))
+                target.deleted = false;
+                //validate
+                if (string.IsNullOrEmpty(target.class_name))
                 ModelState.AddModelError("project_class_name", "Project class is required");
 
             if (ModelState.IsValid)
             {
                 db.project_class.Add(target);
                 db.SaveChanges();
-
-            }
-
-            return RedirectToAction("ProjectClass");
-        }
-        //Add Project Class Look Up Page
-
-        public ActionResult ProjectClassAdd()
-        {
-
+                    ViewBag.m = " The project class was successfully created " + " on " + System.DateTime.Now;
+                }
             return View();
-
-
         }
+                catch
+            {
+                ViewBag.m = " Something went wrong... the project class was not created ... please try again";
+                return View();
+            }
+        }
+
 
         // Delete Project Class Look Up Page
-        public ActionResult ProjectClassDelete(int id)
+
+        public ActionResult ClassDelete(int id)
         {
-            //find target by uid
-            project_class target = db.project_class.First(s => s.class_number == id);
-            //delete
-            db.project_class.Remove(target);
+            List<project_class> project_class = db.project_class.Where(d => d.class_number == id).ToList();
+            ViewBag.Customerslist = project_class;
+            project_class target = project_class[0];
+            target.deleted = true;
             db.SaveChanges();
-
-            return RedirectToAction("ProjectClass");
+            return View("ClassList");
         }
-
 
 
         // Lead Source list view

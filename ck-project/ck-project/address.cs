@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,10 +25,24 @@ namespace ck_project
     
         public int address_number { get; set; }
         public string address_type { get; set; }
+
+        [Required(ErrorMessage = "The address is required")]
+        [MinLength(2, ErrorMessage = "The address is not complete")]
+        [MaxLength(49, ErrorMessage = "The address  must be less than 50 characters")]
         public string address1 { get; set; }
+        [Required(ErrorMessage = "The city is required")]
+        [MinLength(2, ErrorMessage = "The city is too short")]
+        [MaxLength(49, ErrorMessage = "The city must be less than 50 characters")]
         public string city { get; set; }
         public string state { get; set; }
+        [Required(ErrorMessage = "The county is required")]
+        [MinLength(2, ErrorMessage = "The county is too short")]
+        [MaxLength(49, ErrorMessage = "The county must be less than 50 characters")]
         public string county { get; set; }
+        [Required(ErrorMessage = "The zipcode is required")]
+        [MinLength(5, ErrorMessage = "The zipcode must be 5 numbers")]
+        [MaxLength(5, ErrorMessage = "The zipcode must be 5 numbers")]
+        [Range(00001,99999, ErrorMessage = "The zipcode must be 5 numbers")]
         public string zipcode { get; set; }
         public bool deleted { get; set; }
     

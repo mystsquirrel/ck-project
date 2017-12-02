@@ -16,13 +16,29 @@ namespace ck_project.Controllers
         // GET: ArcLeads
         public ActionResult ListArcLead(string search = null)
         {
-               return View(db.archive_leads.Where(x => x.project_name.Contains(search) || search == null ).ToList());
+            try
+            {
+                return View(db.archive_leads.Where(x => x.project_name.Contains(search) || search == null).ToList());
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
 
 
         public ActionResult Details(int id)
         {
-            return View(db.archive_leads.Where(x => x.lead_number == id).ToList());
+            try
+            {
+                return View(db.archive_leads.Where(x => x.lead_number == id).ToList());
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
 
 

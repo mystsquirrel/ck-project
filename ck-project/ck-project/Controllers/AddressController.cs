@@ -15,11 +15,14 @@ namespace ck_project.Controllers
             return View();
         }
         public ActionResult Edit(int id) {
-            int addres_id = (int)db.customers.Where(a => a.customer_number == id).Select(s => s.address_number).FirstOrDefault();
-            address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
-            
 
-            var Sstate = new List<SelectListItem> {
+            try
+            {
+                int addres_id = (int)db.customers.Where(a => a.customer_number == id).Select(s => s.address_number).FirstOrDefault();
+                address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
+
+
+                var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
         new SelectListItem() { Text="Arizona", Value="AZ"},
@@ -73,19 +76,25 @@ namespace ck_project.Controllers
         new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
-            ViewBag.Sstate = Sstate;
+                ViewBag.Sstate = Sstate;
 
-            return View(target);
+                return View(target);
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection fo)
         {
+            try {
+                int addres_id = (int)db.customers.Where(a => a.customer_number == id).Select(s => s.address_number).FirstOrDefault();
+                address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
 
-            int addres_id = (int)db.customers.Where(a => a.customer_number == id).Select(s => s.address_number).FirstOrDefault();
-            address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
-
-            var Sstate = new List<SelectListItem> {
+                var Sstate = new List<SelectListItem> {
             new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
         new SelectListItem() { Text="Arizona", Value="AZ"},
@@ -139,41 +148,50 @@ namespace ck_project.Controllers
         new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
-            ViewBag.Sstate = Sstate;
+                ViewBag.Sstate = Sstate;
 
-            target.deleted = false;
-            target.state = fo["state"];
-            TryUpdateModel(target, new string[] { "address_type", "address1","city", "county", "zipcode" }, fo.ToValueProvider());
-         
-            db.SaveChanges();
+                target.deleted = false;
+                target.state = fo["state"];
+                TryUpdateModel(target, new string[] { "address_type", "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
 
-            ViewBag.m = " The address was successfully updated on " + System.DateTime.Now;
+                db.SaveChanges();
 
-            return View(target);
+                ViewBag.m = " The address was successfully updated on " + System.DateTime.Now;
+
+                return View(target);
+            }
+
+            catch
+            {
+                ViewBag.m = " Something went wrong... the address was not updated ... please try again";
+                return View();
+            }
+
         }
 
-        public ActionResult EditL(int id)
-        {
-            List<address> Address_list = db.addresses.Where(d => d.address_number == id).ToList();
-            ViewBag.Addresslist = Address_list;
-            address target = Address_list[0];
+
+        //public ActionResult EditL(int id)
+        //{
+        //    List<address> Address_list = db.addresses.Where(d => d.address_number == id).ToList();
+        //    ViewBag.Addresslist = Address_list;
+        //    address target = Address_list[0];
      
-            return View(target);
-        }
+        //    return View(target);
+        //}
 
-        [AcceptVerbs(HttpVerbs.Post)]
-    public ActionResult EditL(int id, FormCollection fo)
-    {
+    //    [AcceptVerbs(HttpVerbs.Post)]
+    //public ActionResult EditL(int id, FormCollection fo)
+    //{
 
-            List<address> Address_list = db.addresses.Where(d => d.address_number == id).ToList();
-            ViewBag.Addresslist = Address_list;
-            address target = Address_list[0];
-            TryUpdateModel(target, new string[] { "address", "city", "state", "county", "zipcode"}, fo.ToValueProvider());
-            target.deleted = false;
-            target.address_type = "Jobsite";
-            db.SaveChanges();
-            return View(target);
-        }
+    //        List<address> Address_list = db.addresses.Where(d => d.address_number == id).ToList();
+    //        ViewBag.Addresslist = Address_list;
+    //        address target = Address_list[0];
+    //        TryUpdateModel(target, new string[] { "address", "city", "state", "county", "zipcode"}, fo.ToValueProvider());
+    //        target.deleted = false;
+    //        target.address_type = "Jobsite";
+    //        db.SaveChanges();
+    //        return View(target);
+    //    }
 
 
 }

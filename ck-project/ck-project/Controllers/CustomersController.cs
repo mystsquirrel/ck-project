@@ -32,56 +32,68 @@ namespace ck_project.Controllers
            }
            */
 
-          public ActionResult ListCustomers(string search )
-{       
-
+          public ActionResult ListCustomers(string search,String msg=null )
+    {       try {
+                ViewBag.m = msg;
+               
                 return View(db.customers.Where(x => x.customer_lastname.Contains(search) || search == null && x.deleted == false).ToList());
-        
-            //  return View();
+
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
-        
+
+
+
         // read from the DB
         public ActionResult Edit(int id)
-        {
-            List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
-            ViewBag.Customerslist = Customers_list;
-            customer target = Customers_list[0];
-            ViewBag.id = id;
-            return View(target);
+        {try
+            {
+                List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
+                ViewBag.Customerslist = Customers_list;
+                customer target = Customers_list[0];
+                ViewBag.id = id;
+                return View(target);
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
-
-        // Write to the DB that is why we use POST
-        //[AcceptVerbs(HttpVerbs.Post)]
-        //public ActionResult Edit(int id, FormCollection fo)
-        //{
-        //    List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
-        //    ViewBag.Customerslist = Customers_list;
-        //    customer target = Customers_list[0];
-        //    TryUpdateModel(target, new string[] { "customer_firstname", "customer_middlename", "customer_lastname", "phone_number", "second_phone_number", "email" }, fo.ToValueProvider());
-        //    db.SaveChanges();
-        //    return View(target);
-        //}
-
 
 
       //  Write to the DB that is why we use POST
        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection fo)
         {
-            List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
-            ViewBag.Customerslist = Customers_list;
-            customer target = Customers_list[0];
-            TryUpdateModel(target, new string[] { "customer_firstname", "customer_middlename", "customer_lastname", "phone_number", "second_phone_number", "email" }, fo.ToValueProvider());
-            db.SaveChanges();
-            ViewBag.m = " The customer was successfully updated on " + System.DateTime.Now;
+            try
+            {
+                List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
+                ViewBag.Customerslist = Customers_list;
+                customer target = Customers_list[0];
+                TryUpdateModel(target, new string[] { "customer_firstname", "customer_middlename", "customer_lastname", "phone_number", "second_phone_number", "email" }, fo.ToValueProvider());
+                db.SaveChanges();
+                ViewBag.m = " The customer was successfully updated on " + System.DateTime.Now;
+                return View(target);
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong... the customer was not updated ... please try again";
+                return View();
+            }
 
-
-            return View(target);
+            
         }
 
         public ActionResult AddCustomer()
         {
-            var Sstate = new List<SelectListItem> {
+            try
+            {
+                var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
         new SelectListItem() { Text="Arizona", Value="AZ"},
@@ -135,39 +147,46 @@ namespace ck_project.Controllers
         new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
-            ViewBag.Sstate = Sstate;
-            return View();
+                ViewBag.Sstate = Sstate;
+                return View();
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
 
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddCustomer(FormCollection form)
         {
-            //init new customer
-            customer a = new customer
+            try
+           {
 
+                //init new customer
+                customer a = new customer
+                {
+                    customer_firstname = form["Item1.customer_firstname"],
+                    customer_lastname = form["Item1.customer_lastname"],
+                    customer_middlename = form["Item1.customer_middlename"],
+                    email = form["Item1.email"],
 
-            {
-                customer_firstname = form["Item1.customer_firstname"],
-                customer_lastname = form["Item1.customer_lastname"],
-                customer_middlename = form["Item1.customer_middlename"],
-                email = form["Item1.email"],
+                    phone_number = form["Item1.phone_number"],
+                    second_phone_number = form["Item1.second_phone_number"],
+                    deleted = false
 
-                phone_number = form["Item1.phone_number"],
-                second_phone_number = form["Item1.second_phone_number"],
-                deleted = false
+                };
+                //check
+                if (string.IsNullOrEmpty(a.customer_firstname) ||
+                    string.IsNullOrEmpty(a.customer_lastname) ||
+                    string.IsNullOrEmpty(a.phone_number))
+                {
+                    ModelState.AddModelError("customer", "customer info incomplete");
+                }
+                //int new address
 
-            };
-            //check
-            if (string.IsNullOrEmpty(a.customer_firstname) ||
-                string.IsNullOrEmpty(a.customer_lastname) ||
-                string.IsNullOrEmpty(a.phone_number))
-            {
-                ModelState.AddModelError("customer", "customer info incomplete");
-            }
-            //int new address
-
-            var Sstate = new List<SelectListItem> {
+                var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
         new SelectListItem() { Text="Arizona", Value="AZ"},
@@ -221,72 +240,77 @@ namespace ck_project.Controllers
         new SelectListItem() { Text="Wyoming", Value="WY"}
 
             };
-            ViewBag.Sstate = Sstate;
-            address b = new address
+                ViewBag.Sstate = Sstate;
+                address b = new address
 
 
-            {
-              
-           //     address_type = form["Item2.address_type"],
-                address_type = "Billing",
-                address1 = form["Item2.address1"],
-                city = form["Item2.city"],
-                state = form["state_number"],
-                county = "None",
-                zipcode = form["Item2.zipcode"],
-                deleted = false
-            };
-     
+                {
 
-            //che
+                    //     address_type = form["Item2.address_type"],
+                    address_type = "Billing",
+                    address1 = form["Item2.address1"],
+                    city = form["Item2.city"],
+                    state = form["state_number"],
+                    county = "None",
+                    zipcode = form["Item2.zipcode"],
+                    deleted = false
+                };
 
-            //if (string.IsNullOrEmpty(b.address_type) ||
-            //    string.IsNullOrEmpty(b.address1) ||
-            //    string.IsNullOrEmpty(b.city) ||
-            //    string.IsNullOrEmpty(b.county) ||
-            //    string.IsNullOrEmpty(b.zipcode))
-            //{
-            //    ModelState.AddModelError("address", "address info incomplete");
-            //    return View("AddCustomer");
-            //}
+                {
+                    db.addresses.Add(b);
+                    db.SaveChanges();
+                    //linking 2 table
+                    a.address_number = b.address_number;
+                    db.customers.Add(a);
+                    db.SaveChanges();  }
 
 
 
+                ViewBag.m = " The customer " + a.customer_firstname + " " + a.customer_lastname + " was successfully created " + "on " + System.DateTime.Now;
 
+                return RedirectToAction("Add/" + a.customer_number, "Lead", new { msg = ViewBag.m });
 
-            //write change to db,address first
-      //      if (ModelState.IsValid)
-            {
-                db.addresses.Add(b);
-                db.SaveChanges();
-                //linking 2 table
-                a.address_number = b.address_number;
-                db.customers.Add(a);
-                db.SaveChanges();
-                ViewBag.m = " The customer "+a.customer_firstname +" "+a.customer_lastname+ " was successfully created " + "on " + System.DateTime.Now;
             }
-
-
-
-            return RedirectToAction("Add/" + a.customer_number, "Lead");
+            catch
+            {
+                ViewBag.m = " Something went wrong... the customer was not created ... please try again";
+                return View();
+            }
         }
 
 
         public ActionResult CreateLead(int id)
         {
-        //    List<customer> a = db.customers.Where(d => d.customer_number == id).ToList();
-            return RedirectToAction("AddLeadXX/" + id, "Lead");
+            try {
+                //    List<customer> a = db.customers.Where(d => d.customer_number == id).ToList();
+
+                return RedirectToAction("Add/" + id, "Lead");
+            }
+            catch
+            {
+                ViewBag.m = " Something went wrong ... please try again";
+                return View();
+            }
         }
 
 
         public ActionResult Delete(int id)
         {
+            try { 
             List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
             ViewBag.Customerslist = Customers_list;
             customer target = Customers_list[0];
             target.deleted = true;
             db.SaveChanges();
-            return RedirectToAction("ListCustomers");
+                //   return RedirectToAction("ListCustomers");
+                ViewBag.m = "The customer was successfully deleted.";
+                return RedirectToAction("ListCustomers", new { search = "", msg = ViewBag.m });
+            }
+            catch
+            {
+                ViewBag.m = "Something went wrong ... the customer was not deleted ... please try again";
+                return RedirectToAction("ListCustomers",new {search="",msg=ViewBag.m });
+            }
         }
 
 
