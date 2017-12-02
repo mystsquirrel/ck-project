@@ -13,8 +13,10 @@ namespace ck_project.Controllers
         {
             return View();
         }
-        public ActionResult Lis(int lid = 9)
+        public ActionResult Lis(int lid = 16,string msg=null)
         {
+
+            ViewBag.msg = msg;
             installation target = db.installations.Where(a => a.lead_number == lid).FirstOrDefault();
             ViewBag.mainc = new List<SelectListItem>
             {
@@ -32,7 +34,7 @@ namespace ck_project.Controllers
                new SelectListItem{ Text="MISC",Value="MISC"}
             };
 
-            ViewBag.lid = lid;
+            
 
             ViewBag.kitchen = new List<SelectListItem>
             {
@@ -107,15 +109,45 @@ namespace ck_project.Controllers
             ViewBag.misc = new List<SelectListItem> {
                 new SelectListItem{ Text="Disclaimers",Value="disclaimers"}
             };
-
-           
-
+            List<employee> emplist = db.employees.Where(x => x.deleted == false).ToList();
+            List<SelectListItem> al = new List<SelectListItem>();
+                foreach (employee e in emplist) {
+                al.Add(new SelectListItem { Text = e.emp_firstname + " " + e.emp_lastname, Value = e.emp_firstname });
+            }
+            ViewBag.emplist = al;
             
+
+            //no installation yet
+            //if ( target==null) {
+
+            //    target = init(lid);
+
+            //}
+            ViewBag.lid = lid;
 
             return View(target);
 
 
         }
+
+        public installation init(int lid) {
+            installation newins = new installation
+            {
+                
+                required_hotel_nights = 0,
+                mileages_to_destination = 0.0,
+                mileages_from_hotel = 0.0,
+                installation_days = 0.0,
+                estimated_by = "please change this",
+                statrt_date = DateTime.Today,
+
+            };
+            newins.lead = db.leads.Where(q => q.lead_number == lid).First();
+            newins.lead_number = lid;
+            db.SaveChanges();
+            return newins;
+        }
+
         public ActionResult custT()
         {
             task ntask = new task();
@@ -132,7 +164,8 @@ namespace ck_project.Controllers
             return RedirectToAction("lis", new { lid = lid });
         }
 
-        public ActionResult AddJob(string maincat,string subcat,int insnum) {
+        public ActionResult AddJob(string maincat,string subcat,int insnum=0) {
+
             List<task> option = db.tasks.Where(x => x.special_task == false && x.task_main_cat == maincat && x.task_sub_cat == subcat).ToList();
             List<SelectListItem> taskname = new List<SelectListItem>();
             foreach (task a in option) {
@@ -151,9 +184,9 @@ namespace ck_project.Controllers
         public ActionResult handler(FormCollection fo) {
             tasks_installation target = new tasks_installation();
             int lid =int.Parse(fo["installation_number"]);
-            target.hours = float.Parse(fo["hours"]);
+            target.hours = double.Parse(fo["hours"]);
             target.task_number = int.Parse(fo["task_number"]);
-            target.m_cost = float.Parse(fo["m_cost"]);
+            target.m_cost = double.Parse(fo["m_cost"]);
 
 
 
@@ -161,11 +194,23 @@ namespace ck_project.Controllers
         }
 
         public ActionResult readtask(int lid,string maincat,string subcat) {
-            List<tasks_installation> taskset = db.leads.Where(l => l.lead_number == lid).First().installations.First().tasks_installation.ToList();
-            taskset = taskset.FindAll(x => x.task.task_main_cat == maincat && x.task.task_sub_cat == subcat).ToList();
-            ViewBag.maincat = maincat;
-            ViewBag.subcat = subcat;
-            return PartialView(taskset);
+            installation t = db.installations.Where(r => r.lead_number == lid).First();
+            int tt = t.installation_number;
+            List<int> check = db.tasks_installation.Where(v => v.installation_number == tt).Select(p => p.task_number).ToList();           
+            
+            if (check.Count>0)
+            {   //install exist
+                List<tasks_installation> ins = db.leads.Where(c => c.lead_number == lid).First().installations.First().tasks_installation.ToList();
+                ins =ins.FindAll(x => x.task.task_main_cat == maincat && x.task.task_sub_cat == subcat).ToList();
+                ViewBag.maincat = maincat;
+                ViewBag.subcat = subcat;
+                return PartialView(ins);
+            }
+            else {
+                //install not exist
+                List<tasks_installation> taskset = new List<tasks_installation>();
+                return PartialView(taskset);
+            }
         }
         
         [HttpPost]
@@ -175,11 +220,60 @@ namespace ck_project.Controllers
         }
 
         public ActionResult Delete(int tin,int lid) {
+            //todo delete
 
 
             return RedirectToAction("lis", new { lid = lid });
         }
 
+        [HttpPost]
+        public ActionResult Lis(FormCollection fo) {
+            int lid = int.Parse(fo["lead_num"]);
+            
+            
+            string msg=null;
+            if (!db.installations.Any(g=>g.lead_number==lid))
+            {
+                //new
+                try {
+                    installation target = new installation();
+                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
+                    //target.estimated_by = fo[""];
+                    //target.statrt_date = DateTime.Parse(fo[""]);
+                    //target.total_tile_cost =double.Parse( fo[""]);
+                    //target.estimated_date = DateTime.Parse(fo[""]);
+
+                    db.installations.Add(target);
+                    db.SaveChanges();
+                    msg = "update succed";
+                }catch(Exception e){
+                    msg = e.Message;
+                }
+               
+            }
+            else {
+                //update
+                try {
+                    installation target = new installation();
+
+                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
+
+                    target.lead = db.leads.Where(h => h.lead_number == lid).First();
+                    target.lead_number = lid;
+                    Helpers.InstallationCalculationHelper helper = new Helpers.InstallationCalculationHelper();
+                    target.recommendation = helper.SetRecomm((double)target.oneway_mileages_to_destination);
+                    target.travel_time_one_way = helper.CalculateTravelTimeOneWay((double)target.oneway_mileages_to_destination);
+                    
+                    db.SaveChanges();
+                    msg = "create succed";
+                } catch (Exception e) {
+                    msg = e.Message;
+                }
+                
+
+            }
+            return RedirectToAction("lis", new { lid = lid, msg = msg });
+        }
        
     }
 }

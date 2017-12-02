@@ -35,7 +35,6 @@ namespace ck_project
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<delivery_status> delivery_status { get; set; }
         public virtual DbSet<employee> employees { get; set; }
-        public virtual DbSet<installation> installations { get; set; }
         public virtual DbSet<lead_log_file> lead_log_file { get; set; }
         public virtual DbSet<lead_source> lead_source { get; set; }
         public virtual DbSet<lead> leads { get; set; }
@@ -51,6 +50,7 @@ namespace ck_project
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
         public virtual DbSet<archive_leads> archive_leads { get; set; }
+        public virtual DbSet<installation> installations { get; set; }
     
         public virtual int LoginByUsernamePassword(string username, string password)
         {
