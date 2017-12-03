@@ -259,11 +259,7 @@ namespace ck_project.Controllers
                     TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
 
                     target.lead = db.leads.Where(h => h.lead_number == lid).First();
-                    target.lead_number = lid;
-                    Helpers.InstallationCalculationHelper helper = new Helpers.InstallationCalculationHelper();
-                    target.recommendation = helper.SetRecomm((double)target.oneway_mileages_to_destination);
-                    target.travel_time_one_way = helper.CalculateTravelTimeOneWay((double)target.oneway_mileages_to_destination);
-                    
+                    target.lead_number = lid;     
                     db.SaveChanges();
                     msg = "create succed";
                 } catch (Exception e) {

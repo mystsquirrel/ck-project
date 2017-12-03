@@ -71,6 +71,16 @@ namespace ck_project.Controllers
 
         public ActionResult PrintTab(int id)
         {
+            // only recalculate if lead is not close
+            if (id != 0)
+            {
+                var lead = db.leads.Where(l => l.lead_number == id).First();
+                if (lead != null && !lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
+                {
+                    new GeneralHelper().SetAllInstallationCosts(lead);
+                }
+            }
+
             ViewBag.leadNumber = id;
             return View(ViewBag);
         }
@@ -80,12 +90,19 @@ namespace ck_project.Controllers
             var projSummary = new ProjectSummary();
             if (id != 0)
             {
-                var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
+                var lead = db.leads.Where(l => l.lead_number == id).First();
+
                 if (lead != null)
                 {
+                    // only recalculate if lead is not close
+                    if (!lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
+                    {
+                        new GeneralHelper().SetAllInstallationCosts(lead);
+                    }
+
                     projSummary.Lead = lead;
                     projSummary.Customer = lead.customer;
-                    projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).FirstOrDefault();
+                    projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).First();
 
                     projSummary = new ProjSummaryHelper().CalculateInstallCategoryCostMap(lead, projSummary);
                     projSummary.ProductTotalMap = new ProjSummaryHelper().GetProductTotalMap(lead);
@@ -93,7 +110,7 @@ namespace ck_project.Controllers
             }
             else if (cid != 0)
             {
-                var customer = db.customers.Where(c => c.customer_number == cid).FirstOrDefault();
+                var customer = db.customers.Where(c => c.customer_number == cid).First();
                 projSummary.Customer = customer;
             }
             return View(projSummary);
