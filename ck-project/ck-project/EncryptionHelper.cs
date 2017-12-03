@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
+
 namespace ck_project
 {
     public static class EncryptionHelper
@@ -29,6 +30,9 @@ namespace ck_project
                     clearText = Convert.ToBase64String(ms.ToArray());
                 }
             }
+            //MD5 worker = new MD5CryptoServiceProvider();
+            //byte[] result = worker.ComputeHash(System.Text.Encoding.Default.GetBytes(clearText));
+            //clearText = System.Text.Encoding.Default.GetString(result);
             return clearText;
         }
         public static string Decrypt(string cipherText)

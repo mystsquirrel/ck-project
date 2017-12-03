@@ -254,6 +254,7 @@
     <Compile Include="Helpers\installconvert.cs" />
     <Compile Include="Helpers\ProjSummaryHelper.cs" />
     <Compile Include="Helpers\TaxCalculationHelper.cs" />
+    <Compile Include="Helpers\Tracker.cs" />
     <Compile Include="installation.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -270,6 +271,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pg.cs" />
     <Compile Include="Models\ProjectSummary.cs" />
+    <Compile Include="Models\search.cs" />
     <Compile Include="product.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -480,7 +482,6 @@
     <Content Include="Views\Print\LeadEntry1.cshtml" />
     <Content Include="Views\Print\LeadEntry.cshtml" />
     <Content Include="Views\Address\EditL.cshtml" />
-    <Content Include="Views\Log\Vlog.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\gp.cshtml" />
@@ -501,6 +502,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Log\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -528,7 +530,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12213</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:12213/</IISUrl>
+          <IISUrl>http://localhost:12341/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

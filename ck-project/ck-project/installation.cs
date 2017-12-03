@@ -26,6 +26,7 @@ namespace ck_project
         public string estimated_by { get; set; }
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="mm/dd/yyyy")]
         public Nullable<System.DateTime> statrt_date { get; set; }
         public int lead_number { get; set; }
         public string recommendation { get; set; }
@@ -41,6 +42,7 @@ namespace ck_project
         public Nullable<double> total_travel_cost { get; set; }
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="mm/dd/yyyy")]
         public Nullable<System.DateTime> estimated_date { get; set; }
         public Nullable<double> travel_time_one_way { get; set; }
         public Nullable<double> building_permit_cost { get; set; }
