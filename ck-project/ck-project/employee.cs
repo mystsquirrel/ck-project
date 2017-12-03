@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,6 +26,8 @@ namespace ck_project
         public string emp_middlename { get; set; }
         public string emp_lastname { get; set; }
         public string emp_username { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
         public string emp_password { get; set; }
         public string phone_number { get; set; }
         public int user_type_number { get; set; }

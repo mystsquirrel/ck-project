@@ -2,7 +2,7 @@
 
 
 @foreach (tasks_installation item in Model) {
-using (Html.BeginForm())
+using (Html.BeginForm("savetask","Install",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="form-inline">
@@ -55,7 +55,7 @@ using (Html.BeginForm())
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Delete", "Delete", new { id = item.tasks_installation_number,lid=item.installation_number },
+                @Html.ActionLink("Delete", "Delete", new {tin = item.tasks_installation_number,iid=item.installation_number },
             new { onclick = "return confirm('Are you sure you wish to delete the task?');",@class="btn btn-default" })
             </div>
         </div>

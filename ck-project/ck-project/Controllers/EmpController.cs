@@ -98,8 +98,13 @@ namespace ck_project.Controllers
             List<employee> Employees_list = db.employees.Where(d => d.emp_number == id).ToList();
             ViewBag.Employeeslist = Employees_list;
             employee target = Employees_list[0];
-            TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username","emo_password", "user_type_number", "branch_number", "phone_number" }, fo.ToValueProvider());
-            target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
+            string oldpassword = target.emp_password;
+            TryUpdateModel(target, new string[] { "emp_firstname", "emp_middlename", "emp_lastname", "emp_username","emp_password", "user_type_number", "branch_number", "phone_number" }, fo.ToValueProvider());
+            if (target.emp_password==oldpassword) { } else {
+
+                target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
+            }
+           
             db.SaveChanges();
 
             ViewBag.m = " The employee was successfully updated " + " on " + System.DateTime.Now;

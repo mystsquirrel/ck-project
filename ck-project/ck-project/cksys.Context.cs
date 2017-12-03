@@ -64,5 +64,43 @@ namespace ck_project
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoginByUsernamePassword", usernameParameter, passwordParameter);
         }
+
+        public int SaveChanges(int lead_id,string op="update")
+        {
+            var changes = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
+            var time_s = DateTime.Now.ToLocalTime();
+            lead ll = this.leads.Where(m => m.lead_number == lead_id).First();
+            foreach (var change in changes)
+            {
+                var target_name = change.Entity.GetType().Name;
+                
+
+                foreach (var field in change.OriginalValues.PropertyNames)
+                {
+                    if (change.OriginalValues[field].ToString() != change.CurrentValues[field].ToString())
+                    {
+                        lead_log_file log = new lead_log_file
+                        {
+                            prvious_value = change.OriginalValues[field].ToString(),
+                            new_value = change.CurrentValues[field].ToString(),
+                            table_name = change.Entity.GetType().Name.Split('_')[0],
+                            column_name = field,
+                            update_date = time_s,
+                            lead_number = lead_id,
+                            emp_username= System.Web.HttpContext.Current.User.Identity.Name,
+                            action_name=op,
+                            lead=ll
+                    };
+
+                        this.lead_log_file.Add(log);
+                    }
+
+                    
+
+                }
+            }
+            
+            return base.SaveChanges();
+        }
     }
 }

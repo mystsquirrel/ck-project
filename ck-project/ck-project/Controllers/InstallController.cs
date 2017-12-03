@@ -13,7 +13,7 @@ namespace ck_project.Controllers
         {
             return View();
         }
-        public ActionResult Lis(int lid = 16,string msg=null)
+        public ActionResult Lis(int lid = 19,string msg=null)
         {
 
             ViewBag.msg = msg;
@@ -182,15 +182,28 @@ namespace ck_project.Controllers
 
         [HttpPost]
         public ActionResult handler(FormCollection fo) {
+            int iid = int.Parse(fo["installation_number"]);
+            string msg = "task create success";
+            int lid = db.installations.Where(a => a.installation_number == iid).First().lead_number;
+
             tasks_installation target = new tasks_installation();
-            int lid =int.Parse(fo["installation_number"]);
+            
             target.hours = double.Parse(fo["hours"]);
             target.task_number = int.Parse(fo["task_number"]);
             target.m_cost = double.Parse(fo["m_cost"]);
+            target.installation_number = iid;
+            try {
+                db.tasks_installation.Add(target);
+                //db.SaveChanges();
+                db.SaveChanges(lid,"create new");
+
+            } catch (Exception e) {
+                msg = e.Message;
+            }
 
 
 
-            return RedirectToAction("lis", new { lid = lid });
+            return RedirectToAction("lis", new { lid = lid,msg=msg });
         }
 
         public ActionResult readtask(int lid,string maincat,string subcat) {
@@ -215,15 +228,40 @@ namespace ck_project.Controllers
         
         [HttpPost]
         public ActionResult savetask(FormCollection fo) {
+            string msg = "save success";
+            int tin =int.Parse( fo["item.tasks_installation_number"]);
+
+            int iid = db.tasks_installation.Where(c => c.tasks_installation_number == tin).First().installation_number;
+            int lid = db.installations.Where(g => g.installation_number == iid).First().lead_number;
+            try {
+
+                tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
+                target.hours =double.Parse( fo["item.hours"]);
+                target.m_cost = double.Parse(fo["item.m_cost"]);
+                db.SaveChanges(lid,"update");
+            } catch (Exception e) {
+                msg = e.Message;
+            }
             
-            return null;
+            return RedirectToAction("lis", new { lid = lid, msg = msg });
         }
 
-        public ActionResult Delete(int tin,int lid) {
-            //todo delete
+        public ActionResult Delete(int tin,int iid) {
+            int lid = db.installations.Where(q => q.installation_number == iid).First().lead_number;
+            string msg = "delete success";
+            try
+            {
+                tasks_installation target = db.tasks_installation.Where(v => v.tasks_installation_number == tin).First();
+                db.tasks_installation.Remove(target);
+                //db.SaveChanges();
+                db.SaveChanges(lid, "delete");
+            } catch(Exception e)
+            {
 
+                msg = e.Message;
+            }
 
-            return RedirectToAction("lis", new { lid = lid });
+            return RedirectToAction("lis", new { lid = lid,msg=msg });
         }
 
         [HttpPost]
@@ -232,19 +270,19 @@ namespace ck_project.Controllers
             
             
             string msg=null;
-            if (!db.installations.Any(g=>g.lead_number==lid))
+            if (db.installations.Any(g=>g.lead_number==lid))
             {
-                //new
+                //update
                 try {
-                    installation target = new installation();
+                    installation target = db.installations.Where(b=>b.lead_number==lid).First();
                     TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
                     //target.estimated_by = fo[""];
                     //target.statrt_date = DateTime.Parse(fo[""]);
                     //target.total_tile_cost =double.Parse( fo[""]);
                     //target.estimated_date = DateTime.Parse(fo[""]);
 
-                    db.installations.Add(target);
-                    db.SaveChanges();
+                    
+                    db.SaveChanges(lid,"update");
                     msg = "update succed";
                 }catch(Exception e){
                     msg = e.Message;
@@ -252,15 +290,17 @@ namespace ck_project.Controllers
                
             }
             else {
-                //update
+                //new
                 try {
                     installation target = new installation();
 
                     TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
 
                     target.lead = db.leads.Where(h => h.lead_number == lid).First();
-                    target.lead_number = lid;     
-                    db.SaveChanges();
+                    target.lead_number = lid;
+                    
+                    db.installations.Add(target);
+                    db.SaveChanges(lid, "create new");
                     msg = "create succed";
                 } catch (Exception e) {
                     msg = e.Message;
