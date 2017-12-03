@@ -1,0 +1,245 @@
+﻿@model ck_project.Models.ProjectSummary
+
+@{
+    <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
+    @Scripts.Render("~/bundles/jquery")
+}
+
+<script type="text/javascript">
+    function leadFunction() {
+        $('#myTab a[href="#leadTab"]').tab('show');
+        location.hash = 'leadTab';
+    }
+    function productFunction() {
+        $('#myTab a[href="#productsTab"]').tab('show');
+        location.hash = 'productsTab';
+    }
+    function installFunction() {
+        $('#myTab a[href="#installTab"]').tab('show');
+        location.hash = 'installTab';
+    }
+</script>
+
+<div class="container">
+    <div align="center" style="padding-bottom:5%"><h3><b>PROJECT SUMMARY</b></h3></div>
+    <div style="margin-left:4%">
+        <table>
+            <tr>
+                <td style="width:150px" class="item_text">Project</td>
+                <td class="item_data">
+                @{ 
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.project_name
+                    }
+                }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:150px" class="item_text">Customer</td>
+                <td class="item_data">
+                    @{
+                        if (Model.Customer != null)
+                        {
+                            @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div><hr style="border:solid 1px black"/></div>
+    <div style="float: left"><h4><b>Lead Info</b></h4></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="leadFunction()"/></div>
+    <div style="clear: both; margin-left: 4%">
+        <table>
+            <tr style="padding-bottom:20px">
+                <td style="width:150px" class="item_text">Designer</td>
+                <td class="item_data">
+                    @{
+                        if (Model.Lead != null)
+                        {
+                            @Model.Lead.employee.emp_firstname @Model.Lead.employee.emp_lastname
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:150px" class="item_text">Show room</td>
+                <td class="item_data">
+                    @{
+                        if (Model.Lead != null)
+                        {
+                            @Model.Lead.branch.address.address1@:&#44;&nbsp;@Model.Lead.branch.address.city&#44;&nbsp;@Model.Lead.branch.address.state&nbsp;@Model.Lead.branch.address.zipcode
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:150px" class="item_text">Jobsite</td>
+                <td class="item_data">
+                    @{
+                        if (Model.Lead != null)
+                        {
+                            @Model.Lead.address.address1@:&#44;&nbsp;@Model.Lead.address.city&#44;&nbsp;@Model.Lead.address.state&nbsp;@Model.Lead.address.zipcode
+                        }
+                    }
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <hr  style="border:solid 1px black"/>
+    <div style="float: left"><h4><b>Products Info</b></h4></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="productFunction()"/></div>
+    <div style="clear: both; margin-left: 4%">
+        <table>
+            @{
+                if (Model.ProductTotalMap != null)
+                {
+                    double prodTotal = 0;
+                    foreach (string key in Model.ProductTotalMap.Keys)
+                    {
+                        double total = Model.ProductTotalMap[key];
+                        if (total != 0)
+                        {
+                            prodTotal += total;
+                            <tr style="padding-bottom:20px">
+                                <td style="width: 650px" class="item_text">@key</td>
+                                <td style="width: 100px" class="item_price">@total</td>
+                            </tr>
+                        }
+                    }
+
+                    if (prodTotal != 0)
+                    {
+                        <tr>
+                            <td></td>
+                            <td class="section_total">@prodTotal</td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
+    <hr  style="border:solid 1px black"/>
+    <div style="float: left"><h4><b>Installations Info</b></h4></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="installFunction()"/></div>
+    <div style="clear: both; margin-left: 4%">
+        <table>
+            <thead class="mdb-color darken-3">
+                <tr>
+                    <th style="width:450px"></th>
+                    <th style="width:100px; text-align:center">Hours</th>
+                    <th style="width:100px; text-align:center">Material Cost</th>
+                    <th style="width:100px; text-align:center">Total</th>
+                </tr>
+            </thead>
+            @{
+                if (Model.InstallCategoryCostMap != null)
+                {
+                    double installTotal = 0;
+                    foreach (var key in Model.InstallCategoryCostMap.Keys)
+                    {
+                        Dictionary<string, double> costList = Model.InstallCategoryCostMap[key];
+                        <tr style="padding-bottom:20px">
+                            <td class="item_text">@key</td>
+                            <td class="item_price">@costList["Hours"]</td>
+                            <td class="item_price">@costList["Material Retail"]</td>
+                            <td class="item_price">@costList["Total Cost"]</td>
+                        </tr>
+                        installTotal += @costList["Total Cost"];
+                    }
+
+                    if (installTotal != 0)
+                    {
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="section_total">@installTotal</td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
+    <hr  style="border:solid 1px black"/>
+    <div style="float: left"><h4><b>Taxes and Fees</b></h4></div>
+    <div style="clear: both; margin-left: 4%">
+        <table>
+            <tr style="padding-bottom:20px">
+                <td style="width:650px" class="item_text">Travel Expense</td>
+                <td style="width:100px" class="item_price">
+                    @{
+                        if (Model.Lead != null && Model.Lead.installations != null)
+                        {
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                @item.total_travel_cost
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+            <tr> 
+                <td style="width:650px" class="item_text">Hotel Expense</td>
+                <td style="width:100px" class="item_price">
+                    @{
+                        if (Model.Lead != null && Model.Lead.installations != null)
+                        {
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                @item.hotel_expense
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:650px" class="item_text">Per Diem</td>
+                <td style="width:100px" class="item_price">
+                    @{
+                        if (Model.Lead != null && Model.Lead.installations != null)
+                        {
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                @item.total_per_diem_cost
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:650px" class="item_text">Building Permits</td>
+                <td style="width:100px" class="item_price">
+                @{
+                    if (Model.TotalCost != null)
+                    {
+                        @Model.TotalCost.building_permit_cost
+                    }
+                }
+                </td>
+            </tr>
+            <tr>
+                <td style="width:650px" class="item_text">Related Taxes, Permits and Fees</td>
+                <td style="width:100px" class="item_price">
+                @{
+                    if (Model.TotalCost != null)
+                    {
+                        @Model.TotalCost.tax_cost
+                    }
+                }
+                </td>
+            </tr>
+            @{
+                if (Model.TotalCost != null)
+                {
+                    <tr>
+                        <td style="width:650px"></td>
+                        <td style="width:100px" class="section_total">@Model.TotalCost.total_cost1</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div style="height: 40px"></div>
+</div>

@@ -17,7 +17,6 @@ namespace ck_project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public lead()
         {
-            this.building_permit = new HashSet<building_permit>();
             this.lead_log_file = new HashSet<lead_log_file>();
             this.products = new HashSet<product>();
             this.taxes_leads = new HashSet<taxes_leads>();
@@ -47,8 +46,6 @@ namespace ck_project
     
         public virtual address address { get; set; }
         public virtual branch branch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<building_permit> building_permit { get; set; }
         public virtual customer customer { get; set; }
         public virtual delivery_status delivery_status { get; set; }
         public virtual employee employee { get; set; }

@@ -298,11 +298,8 @@ namespace ck_project.Controllers
 
                     target.lead = db.leads.Where(h => h.lead_number == lid).First();
                     target.lead_number = lid;
-                    Helpers.InstallationCalculationHelper helper = new Helpers.InstallationCalculationHelper();
-                    target.recommendation = helper.SetRecomm((double)target.oneway_mileages_to_destination);
-                    target.travel_time_one_way = helper.CalculateTravelTimeOneWay((double)target.oneway_mileages_to_destination);
+                    
                     db.installations.Add(target);
-                    //db.SaveChanges();
                     db.SaveChanges(lid, "create new");
                     msg = "create succed";
                 } catch (Exception e) {

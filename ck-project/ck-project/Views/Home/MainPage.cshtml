@@ -26,11 +26,12 @@
     <table class="table table-striped">
         <thead class="mdb-color darken-3">
             <tr>
-                <th>Project Type</th>
+                <th>Project Name</th>
                 <th>Customer</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Last Modified</th>
+                <th>Project Type</th>
+                <th>Project Status</th>
+                <th>Created Date</th>
+                <th>Last Modified Date</th>
             </tr>
         </thead>
         <tbody>
@@ -38,24 +39,27 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.project_type.project_type_name)
+                        @Html.DisplayFor(modelItem => item.project_name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.customer.customer_firstname)
                         @Html.DisplayFor(modelItem => item.customer.customer_lastname)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.project_name)
+                        @Html.DisplayFor(modelItem => item.project_type.project_type_name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.project_status.project_status_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lead_date)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Last_update_date)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = true }, null) |
-                        @Html.ActionLink("View", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = false }, null)
+                        @Html.ActionLink("View", "LeadPage", "Home", new { id = item.lead_number, cid = item.customer_number, edit = false }, null) |
                     </td>
                 </tr>
             }

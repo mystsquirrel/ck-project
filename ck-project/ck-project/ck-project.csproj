@@ -211,6 +211,7 @@
     <Compile Include="Controllers\InstallController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Helpers\GeneralHelper.cs" />
     <Compile Include="Helpers\InstallationCalculationHelper.cs" />
     <Compile Include="cksys.Context.cs">
       <AutoGen>True</AutoGen>
@@ -253,8 +254,10 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\installconvert.cs" />
     <Compile Include="Helpers\ProjSummaryHelper.cs" />
+    <Compile Include="Helpers\FeeCalculationHelper.cs" />
     <Compile Include="Helpers\TaxCalculationHelper.cs" />
     <Compile Include="Helpers\Tracker.cs" />
+    <Compile Include="Helpers\TotalCostHelper.cs" />
     <Compile Include="installation.cs">
       <DependentUpon>cksys.tt</DependentUpon>
     </Compile>
@@ -499,6 +502,7 @@
     <Content Include="Views\Install\Lis.cshtml" />
     <Content Include="Views\Install\readtask.cshtml" />
     <Content Include="Views\Install\AddJob.cshtml" />
+    <Content Include="Views\Home\SummaryTab - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
