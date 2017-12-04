@@ -23,6 +23,7 @@ namespace ck_project
     
         public int installation_number { get; set; }
         public string estimated_by { get; set; }
+        
         public Nullable<System.DateTime> statrt_date { get; set; }
         public int lead_number { get; set; }
         public string recommendation { get; set; }
