@@ -27,7 +27,7 @@
                 <tr>
                     <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
                     <td style="width:50px">
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                 </tr>
             }
@@ -39,16 +39,13 @@
                         <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
-                    </td>
-                    <td style="width:50px">
                         <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:100px">
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                 </tr>
             }

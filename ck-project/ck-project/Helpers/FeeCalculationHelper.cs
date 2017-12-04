@@ -140,7 +140,7 @@
         }
 
         //include operationalAdminexpense, operationalexpense for creditcard and operational cost for installation when there is installation job
-        public double CalculateTotalOperationalCost(lead lead)
+        public double CalculateTotalOperationalExpense(lead lead)
         {
             if (lead.delivery_status_number == 1)
             {
@@ -152,7 +152,7 @@
 
         public double CalculateTotalProjForBO(lead lead)
         {
-            return (this.CalculateTotalOperationalCost(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO);
+            return (this.CalculateTotalOperationalExpense(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO);
         }
     }
 }

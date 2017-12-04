@@ -23,13 +23,10 @@
         <tr>
             <td style="width:997px"><h5>All the fields with star are required</h5></td>
             <td style="width:50px">
-                <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
-            </td>
-            <td style="width:50px">
                 <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
             </td>
             <td style="width:100px">
-                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
+                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
             </td>
             <td style="width:50px">
                 <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>

@@ -3,6 +3,8 @@
 @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
 
 @{
+    <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
+
     if (HttpContext.Current.User.IsInRole("Administrator"))
     {
         @Html.Partial("_AdminMenu")
@@ -13,51 +15,72 @@
     }
 }
 
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-        <h3 class="panel-heading">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseR" style="color:#8B0000">
-                Add New Product
-            </a>
-        </h3>
+<div class="container">
+    <table>
+        <tr>
+            <td style="width:997px"></td>
+            <td style="width:50px">
+                <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.lid })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:100px">
+                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = ViewBag.lid })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:50px">
+                <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.lid })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:50px">
+                <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = ViewBag.lid })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+        </tr>
+    </table>
+    <hr />
 
-        <div id="collapseR" class="panel-collapse collapse">
-            <div class="panel-body">
-                @{
-                    if (Model != null )
-                    {
-                        @Html.Action("Add", new { lid = ViewBag.lid })
-                    }
-                }
-            </div>
-        </div>
-    </div>
-
-    @foreach (var item in Model)
-    {
-        var cat = item.cat;
-        var lid = item.lid;
-
+    <div class="panel-group" id="accordion">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapse@(item.cat)">
-                        @item.cat
-                    </a>
+            <h3 class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseR" style="color:#8B0000">
+                    Add New Product
+                </a>
+            </h3>
 
-                </h4>
-            </div>
-            <div id="collapse@(item.cat)" class="panel-collapse collapse">
+            <div id="collapseR" class="panel-collapse collapse">
                 <div class="panel-body">
-
-
-                    @Html.Action("gp", new { cat = cat, lid = lid })
+                    @{
+                        if (Model != null)
+                        {
+                            @Html.Action("Add", new { lid = ViewBag.lid })
+                        }
+                    }
                 </div>
             </div>
         </div>
 
-    }
+        @foreach (var item in Model)
+        {
+            var cat = item.cat;
+            var lid = item.lid;
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           href="#collapse@(item.cat)">
+                            @item.cat
+                        </a>
+
+                    </h4>
+                </div>
+                <div id="collapse@(item.cat)" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+
+                        @Html.Action("gp", new { cat = cat, lid = lid })
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
 </div>
 <script>
     $(document).ready(function () {

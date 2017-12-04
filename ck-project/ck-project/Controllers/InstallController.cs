@@ -13,7 +13,7 @@ namespace ck_project.Controllers
         {
             return View();
         }
-        public ActionResult Lis(int lid = 19,string msg=null)
+        public ActionResult Lis(int lid,string msg=null)
         {
 
             ViewBag.msg = msg;

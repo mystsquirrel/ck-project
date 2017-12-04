@@ -64,7 +64,7 @@ namespace ck_project.Helpers
         public const string rate_Name_BO = "B&O Rate";
         public const string rate_Name_Avg_Material_Cost = "Avg Material Cost Rate";
         public const string rate_Name_Avg_Project_Cost = "Avg Project Cost Rate";
-        public const string rate_Name_Avg_Install_Cost = "Avg Install Cost Rate";
+        public const string rate_Name_Avg_Install_Cost = "Avg Install Labor Rate";
         public const string rate_Name_Operational_Admin = "Operational Admin Expense Rate";
         public const string rate_Name_Operational_CreditCard = "Operational Expense For Credit Card Rate";
         public const string rate_Name_Operational_Installation = "Operational Expense For Installation Rate";

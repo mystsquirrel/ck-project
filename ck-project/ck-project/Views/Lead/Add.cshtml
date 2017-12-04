@@ -1,5 +1,8 @@
 ﻿@model  Tuple<ck_project.lead, ck_project.address>
 
+@{
+    <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -25,13 +28,10 @@
         <tr>
             <td style="width:997px"><h5>All the fields with star are required</h5></td>
             <td style="width:50px">
-                <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
-            </td>
-            <td style="width:50px">
                 <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
             </td>
             <td style="width:100px">
-                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
             </td>
             <td style="width:50px">
                 <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
@@ -49,7 +49,6 @@
 
 
 
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 

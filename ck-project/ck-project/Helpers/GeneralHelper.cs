@@ -12,13 +12,16 @@ namespace ck_project.Helpers
         public double GetApplicableRate(string rateName)
         {
             double amount = 0;
-            var rate = db.rates.Where(r => r.deleted == false && r.rate_name == rateName && today <= r.end_date && today >= r.start_date).First();
-            if (rate != null)
+            if (db.rates.Where(r => r.deleted == false && r.rate_name == rateName && today <= r.end_date && today >= r.start_date).Any())
             {
-                amount = rate.amount;
-                if (rate.rate_measurement != null && rate.rate_measurement.Equals(Constants.rate_Measurement_Percent))
+                var rate = db.rates.Where(r => r.deleted == false && r.rate_name == rateName && today <= r.end_date && today >= r.start_date).First();
+                if (rate != null)
                 {
-                    amount = amount / 100;
+                    amount = rate.amount;
+                    if (rate.rate_measurement != null && rate.rate_measurement.Equals(Constants.rate_Measurement_Percent))
+                    {
+                        amount = amount / 100;
+                    }
                 }
             }
 
@@ -57,6 +60,7 @@ namespace ck_project.Helpers
                     item.mileage_expense = installHelper.CalculateMileageExpense((double)item.total_miles, item.recommendation);
                     item.total_travel_cost = installHelper.CalculateTravelExpense((double)item.total_miles, (double)item.travel_time_one_way, item.recommendation);
                     item.hotel_expense = installHelper.CalculateHotelExpense((double)item.required_hotel_nights, item.recommendation);
+                    item.total_operational_expenses = new FeeCalculationHelper().CalculateTotalOperationalExpense(lead);
                     item.total_installation_labor_cost = installHelper.CalculateTotalLaborExpense(lead);
                     item.total_construction_materials_cost = installHelper.CalculateMaterialRetailPrice(lead);
                 }
@@ -78,7 +82,8 @@ namespace ck_project.Helpers
                 lead_number = (int)lead.lead_number,
                 product_cost = cHelper.CalculateProductCost(lead),
                 installation_cost = cHelper.CalculateInstallationCost(lead),
-                tax_cost = cHelper.CalculateApplicableTax(lead)
+                tax_cost = cHelper.CalculateApplicableTax(lead),
+                building_permit_cost = cHelper.CalculateBuildingPermitCost(lead)
             };
 
             total.total_cost1 = total.product_cost + total.installation_cost + total.tax_cost;
