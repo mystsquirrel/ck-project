@@ -72,7 +72,8 @@ namespace ck_project.Controllers
         //}
 
         public ActionResult Details(int id)
-        {try
+        {
+            try
             {
                 return View(db.leads.Where(x => x.lead_number == id).ToList());
             }

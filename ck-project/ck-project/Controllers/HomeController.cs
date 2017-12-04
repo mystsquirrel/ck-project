@@ -68,7 +68,7 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult PrintTab(int id)
+        public ActionResult ProjPrint(int id)
         {
             // only recalculate if lead is not close
             if (id != 0)
@@ -96,7 +96,7 @@ namespace ck_project.Controllers
                     // only recalculate if lead is not close
                     if (!lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
                     {
-                        new GeneralHelper().SetAllInstallationCosts(lead);
+                        new GeneralHelper().SaveProjectTotal(lead.lead_number);
                     }
 
                     lead = db.leads.Where(l => l.lead_number == id).First();

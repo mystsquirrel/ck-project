@@ -5,6 +5,17 @@
     @Scripts.Render("~/bundles/jqueryval")    
 }
 
+@{
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
+}
+
 @using (Html.BeginForm("lis","Install",FormMethod.Post))
 {
     @Html.AntiForgeryToken()

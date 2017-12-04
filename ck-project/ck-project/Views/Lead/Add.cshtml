@@ -13,29 +13,41 @@
     }
 }
 
-@{
-    if (HttpContext.Current.User.IsInRole("Administrator"))
-    {
-        @Html.Partial("_AdminMenu")
-    }
-    else
-    {
-        @Html.Partial("_MainMenu")
-    }
-}
+
 <div class="container">
+    <table>
+        <tr>
+            <td colspan="5" style="width:1000px"><h4>Lead</h4></td>
+            <td style="width:50px" align="right">
+                <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:997px"><h5>All the fields with star are required</h5></td>
+            <td style="width:50px">
+                <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:50px">
+                <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:100px">
+                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:50px">
+                <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+            <td style="width:50px">
+                <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
+            </td>
+        </tr>
+    </table>
+    <hr />
+    
     @using (Html.BeginForm())
     {
-
-
         @Html.AntiForgeryToken()
 
-        <h4> Lead </h4>
 
-
-
-
-                    <h5>All the fields with star are required</h5>
 
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

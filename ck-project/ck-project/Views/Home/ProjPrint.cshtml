@@ -1,5 +1,6 @@
 ﻿
 @{
+    <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
     if (HttpContext.Current.User.IsInRole("Administrator"))
     {
         @Html.Partial("_AdminMenu")
@@ -17,6 +18,44 @@
 </style>
 
 <div class="container">
+    <table>
+        @{
+            var uri = new Uri(Request.Url.ToString());
+            string path = uri.Segments[1];
+            if (path.Equals("ArcLeads/"))
+            {
+                <tr>
+                    <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
+                    <td style="width:50px">
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="width:997px"></td>
+                    <td style="width:50px">
+                        <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                    <td style="width:50px">
+                        <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                    <td style="width:50px">
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                    <td style="width:100px">
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                    <td style="width:50px">
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <hr />
+
     <div class="row top-buffer">
         <label class="col-md-4 text-center">FOR CUSTOMER</label>
         <label class="col-md-4 text-center">FOR INSTALLER</label>
