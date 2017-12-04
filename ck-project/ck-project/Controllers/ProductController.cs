@@ -44,7 +44,7 @@ namespace ck_project.Controllers
             product target = new product();
             
             TryUpdateModel<product>(target, new string[] {"cat_anme","quantity","Description","model","color","product_source","manufacture","location","price" }, fo.ToValueProvider());
-            target.cat_anme = fo["Product Category"];
+            //target.cat_anme = fo["Product Category"];
             if (ModelState.IsValid) {
                 mian.products.Add(target);
                 db.products.Add(target);

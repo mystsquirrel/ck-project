@@ -179,8 +179,40 @@ namespace ck_project.Helpers
             {
                 foreach (var item in lead.installations)
                 {
-                    totalLaborCost = (double)item.installation_labor_only_cost + (double)item.total_travel_cost + (double)item.mileage_expense
-                                    + (double)item.hotel_expense + (double)item.building_permit_cost + (double)item.total_operational_expenses + (double)item.total_per_diem_cost;
+                    if (item.installation_labor_only_cost != null)
+                    {
+                        totalLaborCost += (double)item.installation_labor_only_cost;
+                    }
+
+                    if (item.mileage_expense != null)
+                    {
+                        totalLaborCost += (double)item.total_travel_cost;
+                    }
+
+                    if (item.mileage_expense != null)
+                    {
+                        totalLaborCost += (double)item.mileage_expense;
+                    }
+
+                    if (item.hotel_expense != null)
+                    {
+                        totalLaborCost += (double)item.hotel_expense;
+                    }
+
+                    if (item.building_permit_cost != null)
+                    {
+                        totalLaborCost = (double)item.building_permit_cost;
+                    }
+
+                    if (item.total_operational_expenses != null)
+                    {
+                        totalLaborCost = (double)item.total_operational_expenses;
+                    }
+
+                    if (item.total_per_diem_cost != null)
+                    {
+                        totalLaborCost = (double)item.total_per_diem_cost;
+                    }
                 }
             }
             return totalLaborCost;

@@ -12,63 +12,71 @@ toastr.success('@ViewBag.m');
         </script>
     }
 }
-<h4> Customers List </h4>
 
-
-@using (Html.BeginForm("ListCustomers", "Customers", FormMethod.Get))
-{
-
-    @*
-        <b>Search by:</b>@Html.RadioButton("searchBy", "customer_firstname", true)<text> customer_firstname</text>
-        @Html.RadioButton("searchBy", "customer_lastname")<text>customer_lastname</text><br />
-
-    *@
-
-
-    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
-    new { placeholder = "Type customer last name" });<input type="submit" value="Search" />
+@{
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
 }
+<div class="container">
+    <h4> Customers List </h4>
+
+    @using (Html.BeginForm("ListCustomers", "Customers", FormMethod.Get))
+    {
+
+        @*
+            <b>Search by:</b>@Html.RadioButton("searchBy", "customer_firstname", true)<text> customer_firstname</text>
+            @Html.RadioButton("searchBy", "customer_lastname")<text>customer_lastname</text><br />
+
+        *@
 
 
-<p>
-    @Html.ActionLink("Add a New Customer", "AddCustomer")
-</p>
-<table class="table table-striped">
-    <thead class="mdb-color darken-3">
-        <tr>
-            @*<th>
-                First Name
-            </th>
-            <th>
-                Middle Name
-            </th>*@
-            <th>
-                Customer Name
-            </th>
-            <th>
-                Phone Number1
-            </th>
-            <th>
-                Phone Number2
-            </th>
-            <th> Email Address        </th>
-            <th>
-                Billing Address
-            </th>
-            <th>
-                City
-            </th>
-            <th>
-                State
-            </th>
-            <th>
-                Zipcode
-            </th>
+        @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+    new { placeholder = "Type customer last name" });<input type="submit" value="Search" />
+    }
 
-            <th></th>
-        </tr>
-
-    </thead>
+    <p>
+        @Html.ActionLink("Add a New Customer", "AddCustomer")
+    </p>
+    <table class="table table-striped">
+        <thead class="mdb-color darken-3">
+            <tr>
+                @*<th>
+                        First Name
+                    </th>
+                    <th>
+                        Middle Name
+                    </th>*@
+                <th>
+                    Customer Name
+                </th>
+                <th>
+                    Phone Number1
+                </th>
+                <th>
+                    Phone Number2
+                </th>
+                <th> Email Address        </th>
+                <th>
+                    Billing Address
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Zipcode
+                </th>
+                <th></th>
+            </tr>
+        </thead>
         @if (Model.Count() == 0)
         {
             <tr>
@@ -82,11 +90,11 @@ toastr.success('@ViewBag.m');
             {
                 <tr>
                     @*<td>
-                        @item.customer_firstname
-                    </td>
-                    <td>
-                        @item.customer_middlename
-                    </td>*@
+                            @item.customer_firstname
+                        </td>
+                        <td>
+                            @item.customer_middlename
+                        </td>*@
                     <td>
                         @item.customer_firstname
                         @item.customer_middlename
@@ -113,24 +121,20 @@ toastr.success('@ViewBag.m');
                     <td>
                         @Html.DisplayFor(modelItem => item.address.zipcode)
                     </td>
-
                     <td>
                         @Html.ActionLink("Create Lead", "CreateLead", new { id = item.customer_number }) |
                         @Html.ActionLink("Edit", "Edit", new { id = item.customer_number }) |
                         @*@Html.ActionLink("Details", "Details", new { id = item.customer_number }) |*@
                         @Html.ActionLink("Delete", "Delete", new { id = item.customer_number },
                     new { onclick = "return confirm('Are you sure you wish to delete the customer?');" })
-
                     </td>
                 </tr>
             }
         }
-</table>
+    </table>
 
-
-<div>
-    @Html.ActionLink("Back to List", "ListCustomers")
+    <div>
+        @Html.ActionLink("Back to List", "ListCustomers")
+    </div>
 </div>
-
-
 

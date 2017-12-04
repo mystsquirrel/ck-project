@@ -7,25 +7,28 @@
       <Diagram DiagramId="d34145c653dc4b77abe4326d53566490" Name="Diagram1" ZoomLevel="59">
         <AssociationConnector Association="CKsysdb.rates_installation" ManuallyRouted="false" />
         <AssociationConnector Association="CKsysdb.taxes_leads" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CKsysdb.address" Width="1.5" PointX="0.75" PointY="13.5" />
-        <EntityTypeShape EntityType="CKsysdb.branch" Width="1.5" PointX="3" PointY="15.75" />
-        <EntityTypeShape EntityType="CKsysdb.customer" Width="1.5" PointX="3" PointY="11.75" />
-        <EntityTypeShape EntityType="CKsysdb.delivery_status" Width="1.5" PointX="5.25" PointY="20.5" />
-        <EntityTypeShape EntityType="CKsysdb.employee" Width="1.5" PointX="5.25" PointY="15.25" />
-        <EntityTypeShape EntityType="CKsysdb.lead_log_file" Width="1.5" PointX="9.75" PointY="23.125" />
-        <EntityTypeShape EntityType="CKsysdb.lead_source" Width="1.5" PointX="5.25" PointY="12" />
-        <EntityTypeShape EntityType="CKsysdb.product" Width="1.5" PointX="9.75" PointY="11.875" />
-        <EntityTypeShape EntityType="CKsysdb.project_class" Width="1.5" PointX="5.25" PointY="9.5" />
-        <EntityTypeShape EntityType="CKsysdb.project_status" Width="1.5" PointX="5.25" PointY="22.875" />
-        <EntityTypeShape EntityType="CKsysdb.project_type" Width="1.5" PointX="5.25" PointY="25.375" />
-        <EntityTypeShape EntityType="CKsysdb.rate" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="CKsysdb.sysdiagram" Width="1.5" PointX="2.75" PointY="1" />
-        <EntityTypeShape EntityType="CKsysdb.task" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CKsysdb.tasks_installation" Width="1.5" PointX="12" PointY="6.5" />
-        <EntityTypeShape EntityType="CKsysdb.tax" Width="1.5" PointX="2.75" PointY="4" />
-        <EntityTypeShape EntityType="CKsysdb.total_cost" Width="1.5" PointX="9.75" PointY="19.875" />
-        <EntityTypeShape EntityType="CKsysdb.users_types" Width="1.5" PointX="3" PointY="20.125" />
-        <EntityTypeShape EntityType="CKsysdb.archive_leads" Width="1.5" PointX="4.75" PointY="1" />
+        <EntityTypeShape EntityType="CKsysdb.address" Width="1.5" PointX="0.75" PointY="11.125" />
+        <EntityTypeShape EntityType="CKsysdb.branch" Width="1.5" PointX="3" PointY="13.25" />
+        <EntityTypeShape EntityType="CKsysdb.building_permit" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CKsysdb.customer" Width="1.5" PointX="3" PointY="9.375" />
+        <EntityTypeShape EntityType="CKsysdb.delivery_status" Width="1.5" PointX="5.25" PointY="7" />
+        <EntityTypeShape EntityType="CKsysdb.employee" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="CKsysdb.installation" Width="1.5" PointX="9.75" PointY="11" />
+        <EntityTypeShape EntityType="CKsysdb.lead_log_file" Width="1.5" PointX="9.75" PointY="7.375" />
+        <EntityTypeShape EntityType="CKsysdb.lead_source" Width="1.5" PointX="5.25" PointY="20.375" />
+        <EntityTypeShape EntityType="CKsysdb.lead" Width="1.5" PointX="7.5" PointY="9.25" />
+        <EntityTypeShape EntityType="CKsysdb.product" Width="1.5" PointX="9.75" PointY="18.25" />
+        <EntityTypeShape EntityType="CKsysdb.project_class" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="CKsysdb.project_status" Width="1.5" PointX="5.25" PointY="17.875" />
+        <EntityTypeShape EntityType="CKsysdb.project_type" Width="1.5" PointX="5.25" PointY="23" />
+        <EntityTypeShape EntityType="CKsysdb.rate" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CKsysdb.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CKsysdb.task" Width="1.5" PointX="9.75" PointY="23.125" />
+        <EntityTypeShape EntityType="CKsysdb.tasks_installation" Width="1.5" PointX="12" PointY="13" />
+        <EntityTypeShape EntityType="CKsysdb.tax" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CKsysdb.total_cost" Width="1.5" PointX="9.75" PointY="4" />
+        <EntityTypeShape EntityType="CKsysdb.users_types" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="CKsysdb.archive_leads" Width="1.5" PointX="11.75" PointY="0.75" />
         <AssociationConnector Association="CKsysdb.fk_branches_to_addresses" />
         <AssociationConnector Association="CKsysdb.fk_Customers_to_addresses" />
         <AssociationConnector Association="CKsysdb.fk_employees_to_brancges" />
@@ -48,6 +51,7 @@
         <AssociationConnector Association="CKsysdb.fk_leads_to_project_type" />
         <AssociationConnector Association="CKsysdb.fk_products_to_leads" />
         <AssociationConnector Association="CKsysdb.fk_total_cost_to_leads" />
+        <AssociationConnector Association="CKsysdb.fk_tasks_installation_to_tasks" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

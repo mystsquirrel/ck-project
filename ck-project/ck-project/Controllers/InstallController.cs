@@ -13,7 +13,7 @@ namespace ck_project.Controllers
         {
             return View();
         }
-        public ActionResult Lis(int lid = 19,string msg=null)
+        public ActionResult Lis(int lid,string msg=null)
         {
 
             ViewBag.msg = msg;
@@ -128,23 +128,6 @@ namespace ck_project.Controllers
             return View(target);
 
 
-        }
-
-        public installation init(int lid) {
-            installation newins = new installation
-            {
-                
-                required_hotel_nights = 0,
-                
-                installation_days = 0.0,
-                estimated_by = "please change this",
-                statrt_date = DateTime.Today,
-
-            };
-            newins.lead = db.leads.Where(q => q.lead_number == lid).First();
-            newins.lead_number = lid;
-            db.SaveChanges();
-            return newins;
         }
 
         public ActionResult custT()

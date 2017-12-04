@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class lead
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,11 +37,20 @@ namespace ck_project
         public int delivery_status_number { get; set; }
         public bool in_city { get; set; }
         public System.DateTime lead_date { get; set; }
+        [Required(ErrorMessage = "The project name is required")]
+        [MinLength(2, ErrorMessage = "The project name is too short")]
+        [MaxLength(49, ErrorMessage = "The project name must be less than 49 characters")]
         public string project_name { get; set; }
         public bool tax_exempt { get; set; }
         public bool deleted { get; set; }
         public System.DateTime Last_update_date { get; set; }
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string phone_number { get; set; }
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string second_phone_number { get; set; }
         public string email { get; set; }
     

@@ -1,149 +1,155 @@
 ﻿@model IEnumerable<ck_project.archive_leads>
 
-
-<h4>Archived Leads List (Closed Leads List)</h4>
-
-
 @{
-    ViewBag.Title = "ListLead";
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
 }
 
+<div class="container">
+    <h4>Archived Leads List (Closed Leads List)</h4>
 
-@using (Html.BeginForm("ListArcLead", "ArcLeads", FormMethod.Get))
-{
-    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
+
+    @{
+        ViewBag.Title = "ListLead";
+    }
+
+
+    @using (Html.BeginForm("ListArcLead", "ArcLeads", FormMethod.Get))
+    {
+        @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
         new { placeholder = "Type project name here" });
 
 
 
 
-    <input type="submit" value="Search" />
+        <input type="submit" value="Search" />
 
-}
-
-
-
-<p>
-    @Html.ActionLink("Create a New Lead", "ListCustomers", "Customers")
-</p>
-<table class="table table-striped">
-    <thead class="mdb-color darken-3">
-        <tr>
-            <th>
-                Project Name
-            </th>
-            <th>
-                Customer Name
-            </th>
-            <th>
-                Sales Person
-            </th>
-            <th>
-                Project Type
-            </th>
-            <th>
-                Project Status
-            </th>
-            <th>
-                Create Date
-            </th>
-            <th>
-                Close Date
-            </th>
-
-
-            <th>
-                Jobsite City
-            </th>
-
-
-            <th></th>
-        </tr>
-
-    </thead>
-
-    @if (Model.Count() == 0)
-    {
-        <tr>
-            <td colspan="6"> Sorry, There are no leads with the entered project name
-            <td>
-        </tr>
     }
-    else
-    {
-        foreach (var item in Model)
-        {
 
-
+    <table class="table table-striped">
+        <thead class="mdb-color darken-3">
             <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_name)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.customer_firstname)
-
-                    @Html.DisplayFor(modelItem => item.customer_lastname)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.emp_firstname)
-                    @Html.DisplayFor(modelItem => item.emp_lastname)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_type)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.project_status)
-                </td>
-
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.lead_date)*@
-                    @item.lead_date.ToString("dd MMM yyyy")
-                </td>
-
-                <td>
-                    @{
-                        if (item.lead_close_date == item.lead_date)
-                        {
-                            @Html.DisplayName(" - ")
-
-                        }
-                        else
-                        {
-                            @Html.DisplayName(item.lead_close_date.ToString("dd MMM yyyy"))
-                        }
-
-                    }
+                <th>
+                    Project Name
+                </th>
+                <th>
+                    Customer Name
+                </th>
+                <th>
+                    Sales Person
+                </th>
+                <th>
+                    Project Type
+                </th>
+                <th>
+                    Project Status
+                </th>
+                <th>
+                    Create Date
+                </th>
+                <th>
+                    Close Date
+                </th>
 
 
-
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.jobsite_city)
-                </td>
+                <th>
+                    Jobsite City
+                </th>
 
 
-
-
-
-                <td>
-                 
-                    @Html.ActionLink("Details", "Details", new { id = item.lead_number }) 
-          
-
-
-
-                </td>
+                <th></th>
             </tr>
+
+        </thead>
+
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6"> Sorry, There are no leads with the entered project name
+                <td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.project_name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.customer_firstname)
+
+                        @Html.DisplayFor(modelItem => item.customer_lastname)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emp_firstname)
+                        @Html.DisplayFor(modelItem => item.emp_lastname)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.project_type)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.project_status)
+                    </td>
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.lead_date)*@
+                        @item.lead_date.ToString("dd MMM yyyy")
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.lead_close_date == item.lead_date)
+                            {
+                                @Html.DisplayName(" - ")
+
                             }
+                            else
+                            {
+                                @Html.DisplayName(item.lead_close_date.ToString("dd MMM yyyy"))
+                            }
+
                         }
 
-</table>
 
 
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.jobsite_city)
+                    </td>
+
+
+
+
+
+                    <td>
+
+                        @Html.ActionLink("Details", "Details", new { id = item.lead_number })
+
+
+
+
+                    </td>
+                </tr>
+                                }
+                            }
+
+    </table>
+
+</div>
