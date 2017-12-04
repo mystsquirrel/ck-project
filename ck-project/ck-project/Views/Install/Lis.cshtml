@@ -64,6 +64,9 @@
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.statrt_date, new { htmlAttributes = new { @class = "form-control" } })
+                    @if (Model == null) { }
+                    else
+                    {<h5>@Model.statrt_date</h5>}
 
                     @Html.ValidationMessageFor(model => model.statrt_date, "", new { @class = "text-danger" })
 
@@ -87,7 +90,9 @@
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.estimated_date, new { htmlAttributes = new { @class = "form-control" } })
-
+                    @if (Model == null) { }
+                    else
+                    {<h5>@Model.estimated_date</h5>}
                     @Html.ValidationMessageFor(model => model.estimated_date, "", new { @class = "text-danger" })
 
                 </div>
@@ -149,7 +154,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "KITCHEN", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -170,7 +175,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "FRAMING", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "FRAMING", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FRAMING", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -191,7 +196,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "DOORS & WINDOWS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "DOORS & WINDOWS", subcat = kitchen.Text, insnum = Model.installation_number,mode=0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "DOORS & WINDOWS", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -199,7 +204,7 @@ toastr.success('@ViewBag.msg');
                                 </div>
 
                                 break;
-                            case "Mechanicals":
+                            case "MECHANICALS":
                                 <div class="panel-group" id="Mechanicals">
                                     @foreach (SelectListItem kitchen in ViewBag.mech)
                                     {
@@ -212,7 +217,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "MECHANICALS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "MECHANICALS", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "MECHANICALS", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -233,7 +238,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "ELECTRICAL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "ELECTRICAL", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "ELECTRICAL", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -254,7 +259,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "FINISHES", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "FINISHES", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "FINISHES", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -275,7 +280,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "CABINETRY INSTALL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "CABINETRY INSTALL", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "CABINETRY INSTALL", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -296,7 +301,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "COUNTERTOPS", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "COUNTERTOPS", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "COUNTERTOPS", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -317,7 +322,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "APPLIANCES AND FIXTURES", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -325,20 +330,20 @@ toastr.success('@ViewBag.msg');
                                 </div>
 
                                 break;
-                            case "372":
+                            case "GENERAL":
                                 <div class="panel-group" id="372">
                                     @foreach (SelectListItem kitchen in ViewBag.tbd)
                                     {
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#372" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)
+                                                    GENERAL
                                                 </a>
                                             </h4>
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "GENERAL", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "GENERAL", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "GENERAL", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -359,7 +364,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "BATH", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "BATH", subcat = kitchen.Text, insnum = Model.installation_number, mode = 0 })
                                                 @Html.Action("readtask", new { lid = Model.lead_number, maincat = "BATH", subcat = kitchen.Text })
                                             </div>
                                         </div>
@@ -380,7 +385,7 @@ toastr.success('@ViewBag.msg');
                                         </div>
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number })
+                                                @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number, mode = 1 })
 
                                             </div>
                                         </div>
