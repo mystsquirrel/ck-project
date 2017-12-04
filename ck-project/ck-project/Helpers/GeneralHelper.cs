@@ -12,9 +12,9 @@ namespace ck_project.Helpers
         public double GetApplicableRate(string rateName)
         {
             double amount = 0;
-            if (db.rates.Where(r => r.deleted == false && r.rate_name == rateName && today <= r.end_date && today >= r.start_date).Any())
+            if (db.rates.Where(r => r.deleted == false && r.rate_name == rateName && date <= r.end_date && date >= r.start_date).Any())
             {
-                var rate = db.rates.Where(r => r.deleted == false && r.rate_name == rateName && today <= r.end_date && today >= r.start_date).First();
+                var rate = db.rates.Where(r => r.deleted == false && r.rate_name == rateName && date <= r.end_date && date >= r.start_date).First();
                 if (rate != null)
                 {
                     amount = rate.amount;
@@ -30,7 +30,7 @@ namespace ck_project.Helpers
 
         public double GetBuildingPermitAmount(double buildingPermitCost)
         {
-            var buildingPermit = db.building_permit.Where(b => b.deleted == false && b.start_date <= today && b.end_date >= today && b.start_range <= buildingPermitCost && b.end_range >= buildingPermitCost).First();
+            var buildingPermit = db.building_permit.Where(b => b.deleted == false && b.start_date <= date && b.end_date >= date && b.start_range <= buildingPermitCost && b.end_range >= buildingPermitCost).First();
             if (buildingPermit != null)
             {
                 return buildingPermit.adjustable_fee + buildingPermit.fixed_fee;
@@ -58,8 +58,9 @@ namespace ck_project.Helpers
                     item.total_miles = installHelper.CalculateTotalMiles((double)item.installation_days, item.recommendation, item.oneway_mileages_to_destination);
                     item.installation_labor_only_cost = installHelper.CalculateLaborOnlyExpense((double)item.billable_hours);
                     item.mileage_expense = installHelper.CalculateMileageExpense((double)item.total_miles, item.recommendation);
-                    item.total_travel_cost = installHelper.CalculateTravelExpense((double)item.total_miles, (double)item.travel_time_one_way, item.recommendation);
+                    item.total_travel_cost = installHelper.CalculateTravelExpense((double)item.installation_days, (double)item.travel_time_one_way, item.recommendation);
                     item.hotel_expense = installHelper.CalculateHotelExpense((double)item.required_hotel_nights, item.recommendation);
+                    item.building_permit_cost = installHelper.CalculateBuildingPermit(lead);
                     item.total_operational_expenses = new FeeCalculationHelper().CalculateTotalOperationalExpense(lead);
                     item.total_installation_labor_cost = installHelper.CalculateTotalLaborExpense(lead);
                     item.total_construction_materials_cost = installHelper.CalculateMaterialRetailPrice(lead);
@@ -77,7 +78,7 @@ namespace ck_project.Helpers
 
             //set totalcost data
             TotalCostHelper cHelper = new TotalCostHelper();
-            if (lead.total_cost == null)
+            if (lead.total_cost.Count == 0)
             {
                 total_cost total = new total_cost
                 {
@@ -97,13 +98,13 @@ namespace ck_project.Helpers
             }
             else
             {
-                foreach (var item in lead.total_cost)
+                foreach (var item2 in lead.total_cost)
                 {
-                    item.product_cost = cHelper.CalculateProductCost(lead);
-                    item.installation_cost = cHelper.CalculateInstallationCost(lead);
-                    item.tax_cost = cHelper.CalculateApplicableTax(lead);
-                    item.building_permit_cost = cHelper.CalculateBuildingPermitCost(lead);
-                    item.total_cost1 = item.product_cost + item.installation_cost + item.tax_cost;
+                    item2.product_cost = cHelper.CalculateProductCost(lead);
+                    item2.installation_cost = cHelper.CalculateInstallationCost(lead);
+                    item2.tax_cost = cHelper.CalculateApplicableTax(lead);
+                    item2.building_permit_cost = cHelper.CalculateBuildingPermitCost(lead);
+                    item2.total_cost1 = item2.product_cost + item2.installation_cost + item2.tax_cost;
                 }
             }
 

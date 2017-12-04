@@ -15,15 +15,6 @@
             </td>
         </tr>
     </table>
-    <div style="padding-left:70%; padding-bottom:10px;">
-        @using (Html.BeginForm("AdminMainPage", "Admin", FormMethod.Get))
-        {
-            <b>Search by:&nbsp;&nbsp;&nbsp;</b>
-            @Html.RadioButton("searchBy", "Designer")<text>  Designer&nbsp;&nbsp;</text>
-            @Html.RadioButton("searchBy", "Status")<text>  Status</text><br />
-            @Html.TextBox("search");<input type="submit" value="search" />
-        }
-    </div>
     <table class="table table-striped">
         <thead class="mdb-color darken-3">
             <tr>
@@ -68,8 +59,6 @@
                         @item.Last_update_date.ToString("MM/dd/yyyy")
                     </td>
                     <td>
-                        @*@Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number, cid = item.customer_number, edit = true }, null) |
-                        @Html.ActionLink("View", "Details", "Lead", new { id = item.lead_number, cid = item.customer_number, edit = false }, null)*@
                         @Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number }, null) |
                         @Html.ActionLink("View", "Details", "Lead", new { id = item.lead_number }, null)
                     </td>

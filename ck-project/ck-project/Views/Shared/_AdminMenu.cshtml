@@ -20,10 +20,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lead Management <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="@Url.Action("ListCustomers", "Customers")">Create Lead</a></li>
-                        @*<li><a href="@Url.Action("LeadPage", "Home", new { id = 0, cid = 0, edit = false }, null)">Create Lead</a></li>*@
-                        @*<li><a href="@Url.Action("ListLead", "Lead")">Manage Lead</a></li>*@
                         <li><a href="@Url.Action("ListLead", "Lead")">Manage Leads</a></li>
-                        <li><a href="@Url.Action("ListArcLead", "ArcLeads")">Archived Leads</a></li>
+                        <li><a href="@Url.Action("ListArcLead", "ArcLeads")">Closed Leads</a></li>
                     </ul>
                 </li>
                 <li id="customer"><a href="@Url.Action("ListCustomers", "Customers")">Manage Customers</a></li>

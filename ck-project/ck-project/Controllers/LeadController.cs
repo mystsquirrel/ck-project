@@ -421,7 +421,7 @@ namespace ck_project.Controllers
 
                 ViewBag.m = " The lead was successfully created to " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
 
-                return View();
+                return RedirectToAction("Edit/" + target.lead_number, "lead", new { msg = ViewBag.m });
             }
             catch (Exception e)
             {

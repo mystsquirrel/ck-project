@@ -14,7 +14,7 @@ namespace ck_project.Helpers
             {
                 foreach (var item in lead.products)
                 {
-                    totalProductCost += item.price;
+                    totalProductCost += item.price * item.quantity;
                 }
             }
 

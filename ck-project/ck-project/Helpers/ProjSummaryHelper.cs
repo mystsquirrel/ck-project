@@ -171,7 +171,7 @@ namespace ck_project.Helpers
                     {
                         if (cat.Equals(item.cat_anme, StringComparison.OrdinalIgnoreCase))
                         {
-                            total += item.price;
+                            total = total + (item.price * item.quantity);
                         }
                     }
                     prodTotalMap.Add(cat, total);
@@ -188,7 +188,7 @@ namespace ck_project.Helpers
                 projectSummary.TwoWayMilesToJob = calHelper.CalculateBothWayMilesToJob(item.oneway_mileages_to_destination);
                 projectSummary.TotalInstallationDays = calHelper.CalculateTotalInstallationDays(item.installation_days, item.tile_installation_days);
                 projectSummary.PaidTravelTimeOneWay = calHelper.CalculatePaidTravelTimeOneWay(item.travel_time_one_way);
-                projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.total_miles, item.travel_time_one_way);
+                projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.installation_days, item.travel_time_one_way, item.recommendation);
             }
                 return projectSummary;
         }

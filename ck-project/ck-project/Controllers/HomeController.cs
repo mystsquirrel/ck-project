@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -76,7 +76,7 @@ namespace ck_project.Controllers
                 var lead = db.leads.Where(l => l.lead_number == id).First();
                 if (lead != null && !lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
                 {
-                    new GeneralHelper().SetAllInstallationCosts(lead);
+                    new GeneralHelper().SaveProjectTotal(lead.lead_number);
                 }
             }
 

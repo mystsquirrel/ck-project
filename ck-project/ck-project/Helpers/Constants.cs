@@ -48,9 +48,9 @@ namespace ck_project.Helpers
 
         public const string proj_Status_Closed = "Closed";
 
-        public const int deliver_Status_Installed = 1;
-        public const int deliver_Status_Pickup = 2;
-        public const int deliver_Status_Delivery = 3;
+        public const string deliver_Status_Installed = "Installed";
+        public const string deliver_Status_Pickup = "Pick-up";
+        public const string deliver_Status_Delivery = "Delivery";
 
         public const string rate_Measurement_Percent = "Percent";
 

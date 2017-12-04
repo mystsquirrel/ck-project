@@ -59,25 +59,29 @@ namespace ck_project.Helpers
         public double CalculateAvgMaterialCost(lead lead)
         {
             double avgMaterialCost = this.CalculateRetailTotalOfAllMaterials(lead);
-            return avgMaterialCost * helper.GetApplicableRate(Constants.rate_Name_Avg_Material_Cost);
+            double avgCost = avgMaterialCost * helper.GetApplicableRate(Constants.rate_Name_Avg_Material_Cost);
+            return avgCost;
         }
 
         public double CalculateAvgProjectCost(lead lead)
         {
             double avgProjectCost = this.CalculateContractTotalWithoutOperationCost(lead);
-            return avgProjectCost * helper.GetApplicableRate(Constants.rate_Name_Avg_Project_Cost);
+            double avgCost = avgProjectCost * helper.GetApplicableRate(Constants.rate_Name_Avg_Project_Cost);
+            return avgCost;
         }
 
         public double CalculateOperationalAdminExpense(lead lead)
         {
             double operationalAdminExp = this.CalculateAvgMaterialCost(lead);
-            return operationalAdminExp * helper.GetApplicableRate(Constants.rate_Name_Operational_Admin);
+            double operationalAdExp = operationalAdminExp * helper.GetApplicableRate(Constants.rate_Name_Operational_Admin);
+            return Math.Round(operationalAdExp, 2);
         }
 
         public double CalculateOperationalExpForCreditCard(lead lead)
         {
             double expForCreditCard = this.CalculateContractTotalWithoutOperationCost(lead);
-            return expForCreditCard * helper.GetApplicableRate(Constants.rate_Name_Operational_CreditCard);
+            double operationalExpCC = expForCreditCard * helper.GetApplicableRate(Constants.rate_Name_Operational_CreditCard);
+            return Math.Round(operationalExpCC, 2);
         }
 
         public double CalculateOperationalExpForInstallation(lead lead)
@@ -113,7 +117,8 @@ namespace ck_project.Helpers
                     }
                 }
 
-                return expForInstallation * helper.GetApplicableRate(Constants.rate_Name_Operational_Installation);
+                double operationalExpenseForInstall =  expForInstallation * helper.GetApplicableRate(Constants.rate_Name_Operational_Installation);
+                return Math.Round(operationalExpenseForInstall, 2);
             }
 
             return 0;
@@ -144,7 +149,7 @@ namespace ck_project.Helpers
         //include operationalAdminexpense, operationalexpense for creditcard and operational cost for installation when there is installation job
         public double CalculateTotalOperationalExpense(lead lead)
         {
-            if (lead.delivery_status_number == 1)
+            if (lead.delivery_status.delivery_status_name.Equals(Constants.deliver_Status_Installed))
             {
                 return Math.Round(this.CalculateOperationalAdminExpense(lead) + this.CalculateOperationalExpForCreditCard(lead) + this.CalculateOperationalExpForInstallation(lead), 2);
             }
@@ -154,7 +159,7 @@ namespace ck_project.Helpers
 
         public double CalculateTotalProjForBO(lead lead)
         {
-            return (this.CalculateTotalOperationalExpense(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO);
+            return Math.Round((this.CalculateTotalOperationalExpense(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO), 2);
         }
     }
 }
