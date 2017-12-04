@@ -38,7 +38,6 @@ namespace ck_project
         public virtual DbSet<installation> installations { get; set; }
         public virtual DbSet<lead_log_file> lead_log_file { get; set; }
         public virtual DbSet<lead_source> lead_source { get; set; }
-        public virtual DbSet<lead> leads { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<project_class> project_class { get; set; }
         public virtual DbSet<project_status> project_status { get; set; }
@@ -51,6 +50,7 @@ namespace ck_project
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
         public virtual DbSet<archive_leads> archive_leads { get; set; }
+        public virtual DbSet<lead> leads { get; set; }
 
         public virtual int LoginByUsernamePassword(string username, string password)
         {
@@ -69,7 +69,6 @@ namespace ck_project
         {
             var changes = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
             var time_s = DateTime.Now.ToLocalTime();
-            lead ll = this.leads.Where(m => m.lead_number == lead_id).First();
             foreach (var change in changes)
             {
                 var target_name = change.Entity.GetType().Name;
@@ -83,23 +82,16 @@ namespace ck_project
                         {
                             prvious_value = change.OriginalValues[field].ToString(),
                             new_value = change.CurrentValues[field].ToString(),
-                            table_name = change.Entity.GetType().Name.Split('_')[0],
+                            table_name = change.Entity.GetType().Name,
                             column_name = field,
                             update_date = time_s,
                             lead_number = lead_id,
                             emp_username = System.Web.HttpContext.Current.User.Identity.Name,
-                            action_name = op,
-                            lead = ll
+                            action_name = op
                         };
-
-                        this.lead_log_file.Add(log);
-                    }
-
-
-
+                   }
                 }
             }
-
             return base.SaveChanges();
         }
     }

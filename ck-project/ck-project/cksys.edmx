@@ -801,7 +801,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <EntitySet Name="installations" EntityType="CKsysdb.installation" />
           <EntitySet Name="lead_log_file" EntityType="CKsysdb.lead_log_file" />
           <EntitySet Name="lead_source" EntityType="CKsysdb.lead_source" />
-          <EntitySet Name="leads" EntityType="CKsysdb.lead" />
           <EntitySet Name="products" EntityType="CKsysdb.product" />
           <EntitySet Name="project_class" EntityType="CKsysdb.project_class" />
           <EntitySet Name="project_status" EntityType="CKsysdb.project_status" />
@@ -822,13 +821,32 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             <End Role="address" EntitySet="addresses" />
             <End Role="customer" EntitySet="customers" />
           </AssociationSet>
-          <AssociationSet Name="fk_leads_to_addresses" Association="CKsysdb.fk_leads_to_addresses">
-            <End Role="address" EntitySet="addresses" />
-            <End Role="lead" EntitySet="leads" />
-          </AssociationSet>
           <AssociationSet Name="fk_employees_to_brancges" Association="CKsysdb.fk_employees_to_brancges">
             <End Role="branch" EntitySet="branches" />
             <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employees_to_users_types" Association="CKsysdb.fk_employees_to_users_types">
+            <End Role="users_types" EntitySet="users_types" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rates_installation_to_rates" Association="CKsysdb.fk_rates_installation_to_rates">
+            <End Role="rate" EntitySet="rates" />
+            <End Role="rates_installation" EntitySet="rates_installation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tasks_installation_to_tasks" Association="CKsysdb.fk_tasks_installation_to_tasks">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="tasks_installation" EntitySet="tasks_installation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_taxes_leads_to_taxes" Association="CKsysdb.fk_taxes_leads_to_taxes">
+            <End Role="tax" EntitySet="taxes" />
+            <End Role="taxes_leads" EntitySet="taxes_leads" />
+          </AssociationSet>
+          <EntitySet Name="building_permit" EntityType="CKsysdb.building_permit" />
+          <EntitySet Name="installations" EntityType="CKsysdb.installation" />
+          <EntitySet Name="leads" EntityType="CKsysdb.lead" />
+          <AssociationSet Name="fk_leads_to_addresses" Association="CKsysdb.fk_leads_to_addresses">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="lead" EntitySet="leads" />
           </AssociationSet>
           <AssociationSet Name="fk_leads_to_branches" Association="CKsysdb.fk_leads_to_branches">
             <End Role="branch" EntitySet="branches" />
@@ -841,10 +859,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <AssociationSet Name="fk_leads_to_delivery_status" Association="CKsysdb.fk_leads_to_delivery_status">
             <End Role="delivery_status" EntitySet="delivery_status" />
             <End Role="lead" EntitySet="leads" />
-          </AssociationSet>
-          <AssociationSet Name="fk_employees_to_users_types" Association="CKsysdb.fk_employees_to_users_types">
-            <End Role="users_types" EntitySet="users_types" />
-            <End Role="employee" EntitySet="employees" />
           </AssociationSet>
           <AssociationSet Name="fk_leads_to_employees" Association="CKsysdb.fk_leads_to_employees">
             <End Role="employee" EntitySet="employees" />
@@ -924,8 +938,8 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="taxes_leads_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tax_number" Type="Int32" Nullable="false" />
           <Property Name="lead_number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_taxes_leads_to_leads" FromRole="taxes_leads" ToRole="lead" />
           <NavigationProperty Name="tax" Relationship="CKsysdb.fk_taxes_leads_to_taxes" FromRole="taxes_leads" ToRole="tax" />
+          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_taxes_leads_to_leads" FromRole="taxes_leads" ToRole="lead" />
           </EntityType>
         <EntityType Name="address">
           <Key>
@@ -1319,18 +1333,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_leads_to_addresses">
-          <End Type="CKsysdb.address" Role="address" Multiplicity="1" />
-          <End Type="CKsysdb.lead" Role="lead" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="address">
-              <PropertyRef Name="address_number" />
-            </Principal>
-            <Dependent Role="lead">
-              <PropertyRef Name="address_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_employees_to_brancges">
           <End Type="CKsysdb.branch" Role="branch" Multiplicity="1" />
           <End Type="CKsysdb.employee" Role="employee" Multiplicity="*" />
@@ -1340,6 +1342,150 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Principal>
             <Dependent Role="employee">
               <PropertyRef Name="branch_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employees_to_users_types">
+          <End Type="CKsysdb.users_types" Role="users_types" Multiplicity="1" />
+          <End Type="CKsysdb.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users_types">
+              <PropertyRef Name="user_type_number" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="user_type_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rates_installation_to_rates">
+          <End Type="CKsysdb.rate" Role="rate" Multiplicity="1" />
+          <End Type="CKsysdb.rates_installation" Role="rates_installation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rate">
+              <PropertyRef Name="rate_number" />
+            </Principal>
+            <Dependent Role="rates_installation">
+              <PropertyRef Name="rate_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tasks_installation_to_tasks">
+          <End Type="CKsysdb.task" Role="task" Multiplicity="1" />
+          <End Type="CKsysdb.tasks_installation" Role="tasks_installation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="task_number" />
+            </Principal>
+            <Dependent Role="tasks_installation">
+              <PropertyRef Name="task_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_taxes_leads_to_taxes">
+          <End Type="CKsysdb.tax" Role="tax" Multiplicity="1" />
+          <End Type="CKsysdb.taxes_leads" Role="taxes_leads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tax">
+              <PropertyRef Name="tax_number" />
+            </Principal>
+            <Dependent Role="taxes_leads">
+              <PropertyRef Name="tax_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="building_permit">
+          <Key>
+            <PropertyRef Name="permit_number" />
+          </Key>
+          <Property Name="permit_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adjustable_fee" Type="Double" Nullable="false" />
+          <Property Name="fixed_fee" Type="Double" Nullable="false" />
+          <Property Name="start_range" Type="Double" Nullable="false" />
+          <Property Name="end_range" Type="Double" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="installation">
+          <Key>
+            <PropertyRef Name="installation_number" />
+          </Key>
+          <Property Name="installation_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estimated_by" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="statrt_date" Type="DateTime" Precision="0" />
+          <Property Name="lead_number" Type="Int32" Nullable="false" />
+          <Property Name="recommendation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="total_miles" Type="Double" />
+          <Property Name="required_hotel_nights" Type="Double" />
+          <Property Name="hotel_round_trip" Type="Double" />
+          <Property Name="installation_days" Type="Double" />
+          <Property Name="total_per_diem_cost" Type="Double" />
+          <Property Name="total_installation_labor_cost" Type="Double" />
+          <Property Name="total_operational_expenses" Type="Double" />
+          <Property Name="total_construction_materials_cost" Type="Double" />
+          <Property Name="total_tile_cost" Type="Double" Nullable="false" />
+          <Property Name="total_travel_cost" Type="Double" />
+          <Property Name="estimated_date" Type="DateTime" Precision="0" />
+          <Property Name="travel_time_one_way" Type="Double" />
+          <Property Name="building_permit_cost" Type="Double" />
+          <Property Name="hotel_expense" Type="Double" />
+          <Property Name="mileage_expense" Type="Double" />
+          <Property Name="tile_installation_days" Type="Double" />
+          <Property Name="installation_labor_only_cost" Type="Double" />
+          <Property Name="billable_hours" Type="Double" />
+          <Property Name="estimated_hours" Type="Double" />
+          <Property Name="oneway_mileages_to_destination" Type="Double" Nullable="false" />
+          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_installation_to_leads" FromRole="installation" ToRole="lead" />
+          <NavigationProperty Name="rates_installation" Relationship="CKsysdb.fk_rates_installation_to_installation" FromRole="installation" ToRole="rates_installation" />
+          <NavigationProperty Name="tasks_installation" Relationship="CKsysdb.fk_tasks_installation_to_installation" FromRole="installation" ToRole="tasks_installation" />
+        </EntityType>
+        <EntityType Name="lead">
+          <Key>
+            <PropertyRef Name="lead_number" />
+          </Key>
+          <Property Name="lead_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_number" Type="Int32" Nullable="false" />
+          <Property Name="class_number" Type="Int32" Nullable="false" />
+          <Property Name="project_status_number" Type="Int32" Nullable="false" />
+          <Property Name="project_type_number" Type="Int32" Nullable="false" />
+          <Property Name="source_number" Type="Int32" Nullable="false" />
+          <Property Name="address_number" Type="Int32" Nullable="false" />
+          <Property Name="emp_number" Type="Int32" Nullable="false" />
+          <Property Name="branch_number" Type="Int32" Nullable="false" />
+          <Property Name="delivery_status_number" Type="Int32" Nullable="false" />
+          <Property Name="in_city" Type="Boolean" Nullable="false" />
+          <Property Name="lead_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="project_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tax_exempt" Type="Boolean" Nullable="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Last_update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="second_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="address" Relationship="CKsysdb.fk_leads_to_addresses" FromRole="lead" ToRole="address" />
+          <NavigationProperty Name="branch" Relationship="CKsysdb.fk_leads_to_branches" FromRole="lead" ToRole="branch" />
+          <NavigationProperty Name="customer" Relationship="CKsysdb.fk_leads_to_customers" FromRole="lead" ToRole="customer" />
+          <NavigationProperty Name="delivery_status" Relationship="CKsysdb.fk_leads_to_delivery_status" FromRole="lead" ToRole="delivery_status" />
+          <NavigationProperty Name="employee" Relationship="CKsysdb.fk_leads_to_employees" FromRole="lead" ToRole="employee" />
+          <NavigationProperty Name="installations" Relationship="CKsysdb.fk_installation_to_leads" FromRole="lead" ToRole="installation" />
+          <NavigationProperty Name="lead_log_file" Relationship="CKsysdb.fk_lead_log_file_to_Leads" FromRole="lead" ToRole="lead_log_file" />
+          <NavigationProperty Name="lead_source" Relationship="CKsysdb.fk_leads_to_lead_source" FromRole="lead" ToRole="lead_source" />
+          <NavigationProperty Name="project_class" Relationship="CKsysdb.fk_leads_to_project_class" FromRole="lead" ToRole="project_class" />
+          <NavigationProperty Name="project_status" Relationship="CKsysdb.fk_leads_to_project_status" FromRole="lead" ToRole="project_status" />
+          <NavigationProperty Name="project_type" Relationship="CKsysdb.fk_leads_to_project_type" FromRole="lead" ToRole="project_type" />
+          <NavigationProperty Name="products" Relationship="CKsysdb.fk_products_to_leads" FromRole="lead" ToRole="product" />
+          <NavigationProperty Name="taxes_leads" Relationship="CKsysdb.fk_taxes_leads_to_leads" FromRole="lead" ToRole="taxes_leads" />
+          <NavigationProperty Name="total_cost" Relationship="CKsysdb.fk_total_cost_to_leads" FromRole="lead" ToRole="total_cost" />
+        </EntityType>
+        <Association Name="fk_leads_to_addresses">
+          <End Type="CKsysdb.address" Role="address" Multiplicity="1" />
+          <End Type="CKsysdb.lead" Role="lead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="address_number" />
+            </Principal>
+            <Dependent Role="lead">
+              <PropertyRef Name="address_number" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1376,18 +1522,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Principal>
             <Dependent Role="lead">
               <PropertyRef Name="delivery_status_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_employees_to_users_types">
-          <End Type="CKsysdb.users_types" Role="users_types" Multiplicity="1" />
-          <End Type="CKsysdb.employee" Role="employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users_types">
-              <PropertyRef Name="user_type_number" />
-            </Principal>
-            <Dependent Role="employee">
-              <PropertyRef Name="user_type_number" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1730,31 +1864,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="leads">
-            <EntityTypeMapping TypeName="CKsysdb.lead">
-              <MappingFragment StoreEntitySet="leads">
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="second_phone_number" ColumnName="second_phone_number" />
-                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
-                <ScalarProperty Name="Last_update_date" ColumnName="Last_update_date" />
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
-                <ScalarProperty Name="tax_exempt" ColumnName="tax_exempt" />
-                <ScalarProperty Name="project_name" ColumnName="project_name" />
-                <ScalarProperty Name="lead_date" ColumnName="lead_date" />
-                <ScalarProperty Name="in_city" ColumnName="in_city" />
-                <ScalarProperty Name="delivery_status_number" ColumnName="delivery_status_number" />
-                <ScalarProperty Name="branch_number" ColumnName="branch_number" />
-                <ScalarProperty Name="emp_number" ColumnName="emp_number" />
-                <ScalarProperty Name="address_number" ColumnName="address_number" />
-                <ScalarProperty Name="source_number" ColumnName="source_number" />
-                <ScalarProperty Name="project_type_number" ColumnName="project_type_number" />
-                <ScalarProperty Name="project_status_number" ColumnName="project_status_number" />
-                <ScalarProperty Name="class_number" ColumnName="class_number" />
-                <ScalarProperty Name="customer_number" ColumnName="customer_number" />
-                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="CKsysdb.product">
               <MappingFragment StoreEntitySet="products">
@@ -1919,6 +2028,76 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
                 <ScalarProperty Name="customer_firstname" ColumnName="customer_firstname" />
                 <ScalarProperty Name="branch_name" ColumnName="branch_name" />
                 <ScalarProperty Name="project_name" ColumnName="project_name" />
+                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="building_permit">
+            <EntityTypeMapping TypeName="CKsysdb.building_permit">
+              <MappingFragment StoreEntitySet="building_permit">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_range" ColumnName="end_range" />
+                <ScalarProperty Name="start_range" ColumnName="start_range" />
+                <ScalarProperty Name="fixed_fee" ColumnName="fixed_fee" />
+                <ScalarProperty Name="adjustable_fee" ColumnName="adjustable_fee" />
+                <ScalarProperty Name="permit_number" ColumnName="permit_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="installations">
+            <EntityTypeMapping TypeName="CKsysdb.installation">
+              <MappingFragment StoreEntitySet="installation">
+                <ScalarProperty Name="oneway_mileages_to_destination" ColumnName="oneway_mileages_to_destination" />
+                <ScalarProperty Name="estimated_hours" ColumnName="estimated_hours" />
+                <ScalarProperty Name="billable_hours" ColumnName="billable_hours" />
+                <ScalarProperty Name="installation_labor_only_cost" ColumnName="installation_labor_only_cost" />
+                <ScalarProperty Name="tile_installation_days" ColumnName="tile_installation_days" />
+                <ScalarProperty Name="mileage_expense" ColumnName="mileage_expense" />
+                <ScalarProperty Name="hotel_expense" ColumnName="hotel_expense" />
+                <ScalarProperty Name="building_permit_cost" ColumnName="building_permit_cost" />
+                <ScalarProperty Name="travel_time_one_way" ColumnName="travel_time_one_way" />
+                <ScalarProperty Name="estimated_date" ColumnName="estimated_date" />
+                <ScalarProperty Name="total_travel_cost" ColumnName="total_travel_cost" />
+                <ScalarProperty Name="total_tile_cost" ColumnName="total_tile_cost" />
+                <ScalarProperty Name="total_construction_materials_cost" ColumnName="total_construction_materials_cost" />
+                <ScalarProperty Name="total_operational_expenses" ColumnName="total_operational_expenses" />
+                <ScalarProperty Name="total_installation_labor_cost" ColumnName="total_installation_labor_cost" />
+                <ScalarProperty Name="total_per_diem_cost" ColumnName="total_per_diem_cost" />
+                <ScalarProperty Name="installation_days" ColumnName="installation_days" />
+                <ScalarProperty Name="hotel_round_trip" ColumnName="hotel_round_trip" />
+                <ScalarProperty Name="required_hotel_nights" ColumnName="required_hotel_nights" />
+                <ScalarProperty Name="total_miles" ColumnName="total_miles" />
+                <ScalarProperty Name="recommendation" ColumnName="recommendation" />
+                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
+                <ScalarProperty Name="statrt_date" ColumnName="statrt_date" />
+                <ScalarProperty Name="estimated_by" ColumnName="estimated_by" />
+                <ScalarProperty Name="installation_number" ColumnName="installation_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leads">
+            <EntityTypeMapping TypeName="CKsysdb.lead">
+              <MappingFragment StoreEntitySet="leads">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="second_phone_number" ColumnName="second_phone_number" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="Last_update_date" ColumnName="Last_update_date" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="tax_exempt" ColumnName="tax_exempt" />
+                <ScalarProperty Name="project_name" ColumnName="project_name" />
+                <ScalarProperty Name="lead_date" ColumnName="lead_date" />
+                <ScalarProperty Name="in_city" ColumnName="in_city" />
+                <ScalarProperty Name="delivery_status_number" ColumnName="delivery_status_number" />
+                <ScalarProperty Name="branch_number" ColumnName="branch_number" />
+                <ScalarProperty Name="emp_number" ColumnName="emp_number" />
+                <ScalarProperty Name="address_number" ColumnName="address_number" />
+                <ScalarProperty Name="source_number" ColumnName="source_number" />
+                <ScalarProperty Name="project_type_number" ColumnName="project_type_number" />
+                <ScalarProperty Name="project_status_number" ColumnName="project_status_number" />
+                <ScalarProperty Name="class_number" ColumnName="class_number" />
+                <ScalarProperty Name="customer_number" ColumnName="customer_number" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -31,12 +31,16 @@
         <EntityTypeShape EntityType="CKsysdb.archive_leads" Width="1.5" PointX="11.75" PointY="0.75" />
         <AssociationConnector Association="CKsysdb.fk_branches_to_addresses" />
         <AssociationConnector Association="CKsysdb.fk_Customers_to_addresses" />
-        <AssociationConnector Association="CKsysdb.fk_leads_to_addresses" />
         <AssociationConnector Association="CKsysdb.fk_employees_to_brancges" />
+        <AssociationConnector Association="CKsysdb.fk_employees_to_users_types" />
+        <AssociationConnector Association="CKsysdb.fk_tasks_installation_to_tasks" />
+        <EntityTypeShape EntityType="CKsysdb.building_permit" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CKsysdb.installation" Width="1.5" PointX="9.75" PointY="4.25" />
+        <EntityTypeShape EntityType="CKsysdb.lead" Width="1.5" PointX="7.5" PointY="14.75" />
+        <AssociationConnector Association="CKsysdb.fk_leads_to_addresses" />
         <AssociationConnector Association="CKsysdb.fk_leads_to_branches" />
         <AssociationConnector Association="CKsysdb.fk_leads_to_customers" />
         <AssociationConnector Association="CKsysdb.fk_leads_to_delivery_status" />
-        <AssociationConnector Association="CKsysdb.fk_employees_to_users_types" />
         <AssociationConnector Association="CKsysdb.fk_leads_to_employees" />
         <AssociationConnector Association="CKsysdb.fk_installation_to_leads" />
         <AssociationConnector Association="CKsysdb.fk_tasks_installation_to_installation" />
