@@ -300,7 +300,6 @@ namespace ck_project.Controllers
                     target.lead_number = lid;
                     
                     db.installations.Add(target);
-                    //db.SaveChanges();
                     db.SaveChanges(lid, "create new");
                     msg = "create succed";
                 } catch (Exception e) {

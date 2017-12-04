@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 
 namespace ck_project.Helpers
 {
     public class InstallationCalculationHelper
     {
-        ckdatabase db = new ckdatabase();
+        GeneralHelper helper = new GeneralHelper();
         public double CalculateMaterialRetailPrice(lead lead)
         {
             double materialRetailCost = 0;
@@ -17,7 +16,7 @@ namespace ck_project.Helpers
                 }
             }
 
-            return materialRetailCost;
+            return materialRetailCost * 2;
         }
 
         public double CalculateEstimatedHours(lead lead)
@@ -25,9 +24,12 @@ namespace ck_project.Helpers
             double hours = 0;
             foreach (var item in lead.installations)
             {
-                foreach (var task in item.tasks_installation)
+                if (item.tasks_installation != null)
                 {
-                    hours += task.hours;
+                    foreach (var task in item.tasks_installation)
+                    {
+                        hours += task.hours;
+                    }
                 }
             }
 
@@ -41,7 +43,7 @@ namespace ck_project.Helpers
                 return ((int)(estimatedHours / 8) * 8) + 8;
             }
 
-            return Convert.ToDouble(estimatedHours);
+            return estimatedHours;
         }
 
         public double CalculateInstallationDays(double billablehours)
@@ -51,12 +53,10 @@ namespace ck_project.Helpers
 
         public double CalculateTileInstallationDays(double totalTilePrice)
         {
-            var today = DateTime.Now;
-            var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-            var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Tile Installer Hourly Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-            if (rate != null)
+            double rate = helper.GetApplicableRate(Constants.rate_Name_Hourly_Tile_Installer);
+            if (rate != 0)
             {
-                return Math.Ceiling(totalTilePrice / rate.tax_value / 8);
+                return Math.Ceiling(totalTilePrice / rate / 8);
             }
             return 0;
         }
@@ -90,30 +90,35 @@ namespace ck_project.Helpers
             return traveltimeOneway != null && (double) traveltimeOneway >= 1 ? (double)traveltimeOneway - 1 : 0;
         }
 
-        public double CalculateBothWayMilesToJob(double? oneWayMileage)
+        public double CalculateBothWayMilesToJob(double oneWayMileage)
         {
-            return oneWayMileage != null ? (double)oneWayMileage * 2 : 0;
+            return (double)oneWayMileage * 2;
         }
 
         public double CalculateHotelRoundTrip(double installationdays)
         {
-            double h = installationdays / 5;
-            if ((h % 1) != 0)
+            if (installationdays != 0)
             {
-                return (int)(h) + 1;
+                double h = installationdays / 5;
+                if ((h % 1) != 0)
+                {
+                    return (int)(h) + 1;
+                }
+
+                return h;
             }
 
-            return Convert.ToDouble(h);
+            return 0;
         }
 
-        public double CalculateTotalMiles(double installationdays, string recommendation, double onewayMile)
+        public double CalculateTotalMiles(double installationdays, string recommendation, double oneWayMile)
         {
             if (recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return this.CalculateHotelRoundTrip(installationdays) * (onewayMile * 2);
+                return this.CalculateHotelRoundTrip(installationdays) * this.CalculateBothWayMilesToJob(oneWayMile);
             }
 
-            return installationdays * (onewayMile * 2);
+            return installationdays * this.CalculateBothWayMilesToJob(oneWayMile);
         }
 
         public double CalculateTotalApplicableTravelHours(double? totalMiles, double? traveltimeOneway)
@@ -125,13 +130,7 @@ namespace ck_project.Helpers
         {
             if (recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                var today = DateTime.Now;
-                var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Per Diem Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                if (rate != null)
-                {
-                    return installationDays * 2 * rate.tax_value;
-                }
+                return installationDays * 2 * helper.GetApplicableRate(Constants.rate_Name_Per_Diem);
             }
 
             return 0;
@@ -139,43 +138,24 @@ namespace ck_project.Helpers
 
         public double CalculateLaborOnlyExpense(double billableHours)
         {
-            var today = DateTime.Now;
-            var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-            var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Crew Hours" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-            if (rate != null)
-            {
-                return billableHours * rate.tax_value;
-            }
-            return 0;
+            return billableHours * (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer));
         }
 
         public double CalculateTravelExpense(double totalMiles, double? traveltimeOneway, string recommendation)
         {
-            if (recommendation.Equals(Constants.install_recommendation_hotel))
+            if (!recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                var today = DateTime.Now;
-                var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Travel Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                if (rate != null)
-                {
-                    return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway) * rate.tax_value;
-                }
+                return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway) * helper.GetApplicableRate(Constants.rate_Name_Travel);
             }
 
-            return this.CalculateTotalApplicableTravelHours(totalMiles, traveltimeOneway);
+            return 0;
         }
 
         public double CalculateMileageExpense(double totalMiles, string recommendation)
         {
             if (recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                var today = DateTime.Now;
-                var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Mileage Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                if (rate != null)
-                {
-                    return totalMiles * rate.tax_value;
-                }
+                return totalMiles * helper.GetApplicableRate(Constants.rate_Name_Mileage);
             }
 
             return totalMiles;
@@ -185,31 +165,68 @@ namespace ck_project.Helpers
         {
             if (recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                var today = DateTime.Now;
-                var date = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                var rate = db.taxes.Where(t => t.deleted == false && t.tax_anme == "Hotel Rate" && today <= t.end_date && today >= t.start_date).FirstOrDefault();
-                if (rate != null)
-                {
-                    return numberOfHotelNights * rate.tax_value;
-                }
+                return numberOfHotelNights * helper.GetApplicableRate(Constants.rate_Name_Hotel);
             }
+
             return 0;
         }
 
+        // include labor cost, travel cost, mileage expense, hotel expense, building permit cost, operational cost and per diem cost
         public double CalculateTotalLaborExpense(lead lead)
         {
             double totalLaborCost = 0;
-            foreach (var item in lead.installations)
+            if (lead.installations != null)
             {
-                totalLaborCost = (double)item.installation_labor_only_cost + (double)item.total_travel_cost + (double)item.mileage_expense
-                                + (double)item.hotel_expense + (double)item.building_permit_cost + (double)item.total_operational_expenses + (double)item.total_per_diem_cost;
+                foreach (var item in lead.installations)
+                {
+                    totalLaborCost = (double)item.installation_labor_only_cost + (double)item.total_travel_cost + (double)item.mileage_expense
+                                    + (double)item.hotel_expense + (double)item.building_permit_cost + (double)item.total_operational_expenses + (double)item.total_per_diem_cost;
+                }
             }
-
             return totalLaborCost;
         }
 
-        public string SetRecomm(double onewaymile) {
+        // only need buildling permit if the project is installed and jobsite is in the city
+        public string GetRecommendation(double onewaymile) {
             return onewaymile > 89 ? "Hotel" : "Travel";
+        }
+
+        public double CalculateBuildingPermit(lead lead)
+        {
+            double buildingPermitCost = 0;
+            if (lead.in_city && lead.delivery_status_number == 1)
+            {
+                if (lead.installations != null)
+                {
+                    foreach (var item in lead.installations)
+                    {
+                        if (item.installation_labor_only_cost != null)
+                        {
+                            buildingPermitCost += (double)item.installation_labor_only_cost;
+                        }
+
+                        if (item.total_construction_materials_cost != null)
+                        {
+                            buildingPermitCost += (double)item.total_construction_materials_cost;
+                        }
+                    }
+
+                    if (lead.total_cost != null)
+                    {
+                        foreach (var item in lead.total_cost)
+                        {
+                            if (item.product_cost != null)
+                            {
+                                buildingPermitCost += (double)item.product_cost;
+                            }
+                        }
+                    }
+
+                    return helper.GetBuildingPermitAmount(buildingPermitCost);
+                }
+            }
+            
+            return 0;
         }
     }
 

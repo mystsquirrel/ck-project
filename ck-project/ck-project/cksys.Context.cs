@@ -31,7 +31,6 @@ namespace ck_project
         public virtual DbSet<taxes_leads> taxes_leads { get; set; }
         public virtual DbSet<address> addresses { get; set; }
         public virtual DbSet<branch> branches { get; set; }
-        public virtual DbSet<building_permit> building_permit { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<delivery_status> delivery_status { get; set; }
         public virtual DbSet<employee> employees { get; set; }
@@ -50,6 +49,7 @@ namespace ck_project
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
         public virtual DbSet<archive_leads> archive_leads { get; set; }
+        public virtual DbSet<building_permit> building_permit { get; set; }
         public virtual DbSet<installation> installations { get; set; }
     
         public virtual int LoginByUsernamePassword(string username, string password)

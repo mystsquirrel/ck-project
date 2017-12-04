@@ -99,7 +99,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="end_range" Type="float" Nullable="false" />
           <Property Name="start_date" Type="date" Nullable="false" />
           <Property Name="end_date" Type="date" />
-          <Property Name="lead_number" Type="int" Nullable="false" />
           <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="customers">
@@ -530,18 +529,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_permit_number_to_leads">
-          <End Role="leads" Type="Self.leads" Multiplicity="1" />
-          <End Role="building_permit" Type="Self.building_permit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="leads">
-              <PropertyRef Name="lead_number" />
-            </Principal>
-            <Dependent Role="building_permit">
-              <PropertyRef Name="lead_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_products_to_leads">
           <End Role="leads" Type="Self.leads" Multiplicity="1" />
           <End Role="products" Type="Self.products" Multiplicity="*" />
@@ -761,10 +748,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             <End Role="project_type" EntitySet="project_type" />
             <End Role="leads" EntitySet="leads" />
           </AssociationSet>
-          <AssociationSet Name="fk_permit_number_to_leads" Association="Self.fk_permit_number_to_leads">
-            <End Role="leads" EntitySet="leads" />
-            <End Role="building_permit" EntitySet="building_permit" />
-          </AssociationSet>
           <AssociationSet Name="fk_products_to_leads" Association="Self.fk_products_to_leads">
             <End Role="leads" EntitySet="leads" />
             <End Role="products" EntitySet="products" />
@@ -811,7 +794,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <EntitySet Name="taxes_leads" EntityType="CKsysdb.taxes_leads" />
           <EntitySet Name="addresses" EntityType="CKsysdb.address" />
           <EntitySet Name="branches" EntityType="CKsysdb.branch" />
-          <EntitySet Name="building_permit" EntityType="CKsysdb.building_permit" />
           <EntitySet Name="customers" EntityType="CKsysdb.customer" />
           <EntitySet Name="delivery_status" EntityType="CKsysdb.delivery_status" />
           <EntitySet Name="employees" EntityType="CKsysdb.employee" />
@@ -849,10 +831,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <AssociationSet Name="fk_leads_to_branches" Association="CKsysdb.fk_leads_to_branches">
             <End Role="branch" EntitySet="branches" />
             <End Role="lead" EntitySet="leads" />
-          </AssociationSet>
-          <AssociationSet Name="fk_permit_number_to_leads" Association="CKsysdb.fk_permit_number_to_leads">
-            <End Role="lead" EntitySet="leads" />
-            <End Role="building_permit" EntitySet="building_permit" />
           </AssociationSet>
           <AssociationSet Name="fk_leads_to_customers" Association="CKsysdb.fk_leads_to_customers">
             <End Role="customer" EntitySet="customers" />
@@ -914,6 +892,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             <End Role="tax" EntitySet="taxes" />
             <End Role="taxes_leads" EntitySet="taxes_leads" />
           </AssociationSet>
+          <EntitySet Name="building_permit" EntityType="CKsysdb.building_permit" />
           <EntitySet Name="installations" EntityType="CKsysdb.installation" />
           <AssociationSet Name="fk_installation_to_leads" Association="CKsysdb.fk_installation_to_leads">
             <End Role="lead" EntitySet="leads" />
@@ -977,21 +956,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <NavigationProperty Name="address" Relationship="CKsysdb.fk_branches_to_addresses" FromRole="branch" ToRole="address" />
           <NavigationProperty Name="employees" Relationship="CKsysdb.fk_employees_to_brancges" FromRole="branch" ToRole="employee" />
           <NavigationProperty Name="leads" Relationship="CKsysdb.fk_leads_to_branches" FromRole="branch" ToRole="lead" />
-        </EntityType>
-        <EntityType Name="building_permit">
-          <Key>
-            <PropertyRef Name="permit_number" />
-          </Key>
-          <Property Name="permit_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="adjustable_fee" Type="Double" Nullable="false" />
-          <Property Name="fixed_fee" Type="Double" Nullable="false" />
-          <Property Name="start_range" Type="Double" Nullable="false" />
-          <Property Name="end_range" Type="Double" Nullable="false" />
-          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="end_date" Type="DateTime" Precision="0" />
-          <Property Name="lead_number" Type="Int32" Nullable="false" />
-          <Property Name="deleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="lead" Relationship="CKsysdb.fk_permit_number_to_leads" FromRole="building_permit" ToRole="lead" />
         </EntityType>
         <EntityType Name="customer">
           <Key>
@@ -1084,7 +1048,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="address" Relationship="CKsysdb.fk_leads_to_addresses" FromRole="lead" ToRole="address" />
           <NavigationProperty Name="branch" Relationship="CKsysdb.fk_leads_to_branches" FromRole="lead" ToRole="branch" />
-          <NavigationProperty Name="building_permit" Relationship="CKsysdb.fk_permit_number_to_leads" FromRole="lead" ToRole="building_permit" />
           <NavigationProperty Name="customer" Relationship="CKsysdb.fk_leads_to_customers" FromRole="lead" ToRole="customer" />
           <NavigationProperty Name="delivery_status" Relationship="CKsysdb.fk_leads_to_delivery_status" FromRole="lead" ToRole="delivery_status" />
           <NavigationProperty Name="employee" Relationship="CKsysdb.fk_leads_to_employees" FromRole="lead" ToRole="employee" />
@@ -1346,18 +1309,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_permit_number_to_leads">
-          <End Type="CKsysdb.lead" Role="lead" Multiplicity="1" />
-          <End Type="CKsysdb.building_permit" Role="building_permit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lead">
-              <PropertyRef Name="lead_number" />
-            </Principal>
-            <Dependent Role="building_permit">
-              <PropertyRef Name="lead_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_leads_to_customers">
           <End Type="CKsysdb.customer" Role="customer" Multiplicity="1" />
           <End Type="CKsysdb.lead" Role="lead" Multiplicity="*" />
@@ -1538,6 +1489,19 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="building_permit">
+          <Key>
+            <PropertyRef Name="permit_number" />
+          </Key>
+          <Property Name="permit_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adjustable_fee" Type="Double" Nullable="false" />
+          <Property Name="fixed_fee" Type="Double" Nullable="false" />
+          <Property Name="start_range" Type="Double" Nullable="false" />
+          <Property Name="end_range" Type="Double" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="installation">
           <Key>
             <PropertyRef Name="installation_number" />
@@ -1655,21 +1619,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
                 <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="branch_name" ColumnName="branch_name" />
                 <ScalarProperty Name="branch_number" ColumnName="branch_number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="building_permit">
-            <EntityTypeMapping TypeName="CKsysdb.building_permit">
-              <MappingFragment StoreEntitySet="building_permit">
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
-                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
-                <ScalarProperty Name="end_date" ColumnName="end_date" />
-                <ScalarProperty Name="start_date" ColumnName="start_date" />
-                <ScalarProperty Name="end_range" ColumnName="end_range" />
-                <ScalarProperty Name="start_range" ColumnName="start_range" />
-                <ScalarProperty Name="fixed_fee" ColumnName="fixed_fee" />
-                <ScalarProperty Name="adjustable_fee" ColumnName="adjustable_fee" />
-                <ScalarProperty Name="permit_number" ColumnName="permit_number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1926,6 +1875,20 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
                 <ScalarProperty Name="branch_name" ColumnName="branch_name" />
                 <ScalarProperty Name="project_name" ColumnName="project_name" />
                 <ScalarProperty Name="lead_number" ColumnName="lead_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="building_permit">
+            <EntityTypeMapping TypeName="CKsysdb.building_permit">
+              <MappingFragment StoreEntitySet="building_permit">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_range" ColumnName="end_range" />
+                <ScalarProperty Name="start_range" ColumnName="start_range" />
+                <ScalarProperty Name="fixed_fee" ColumnName="fixed_fee" />
+                <ScalarProperty Name="adjustable_fee" ColumnName="adjustable_fee" />
+                <ScalarProperty Name="permit_number" ColumnName="permit_number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

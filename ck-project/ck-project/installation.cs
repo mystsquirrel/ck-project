@@ -11,8 +11,7 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class installation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -40,6 +39,7 @@ namespace ck_project
         public Nullable<double> total_construction_materials_cost { get; set; }
         public double total_tile_cost { get; set; }
         public Nullable<double> total_travel_cost { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="mm/dd/yyyy")]

@@ -21,9 +21,6 @@ namespace ck_project
         public double end_range { get; set; }
         public System.DateTime start_date { get; set; }
         public Nullable<System.DateTime> end_date { get; set; }
-        public int lead_number { get; set; }
         public bool deleted { get; set; }
-    
-        public virtual lead lead { get; set; }
     }
 }
