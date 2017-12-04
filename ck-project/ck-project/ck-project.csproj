@@ -460,7 +460,7 @@
     <Content Include="Views\Lookup\ProjectStatusAdd.cshtml" />
     <Content Include="Views\Lookup\ProjectType.cshtml" />
     <Content Include="Views\Lookup\ProjectTypeAdd.cshtml" />
-    <Content Include="Views\Home\PrintTab.cshtml" />
+    <Content Include="Views\Home\ProjPrint.cshtml" />
     <Content Include="Views\Emp\Add.cshtml" />
     <Content Include="Views\Emp\Edit.cshtml" />
     <Content Include="Views\Emp\ListEmp.cshtml" />
@@ -468,10 +468,9 @@
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\Shared\_GeneralLayout.cshtml" />
     <Content Include="Views\Shared\_MainMenu.cshtml" />
-    <Content Include="Views\Home\SummaryTab.cshtml" />
+    <Content Include="Views\Home\ProjSummary.cshtml" />
     <Content Include="Views\Shared\_LeadMenu.cshtml" />
     <Content Include="Views\Print\SoldJobNotice.cshtml" />
-    <Content Include="Views\Emp\EditP.cshtml" />
     <Content Include="Views\Address\Edit.cshtml" />
     <Content Include="Views\Customers\AddCustomer.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
@@ -484,13 +483,11 @@
     <Content Include="Views\Print\ProductsExternal.cshtml" />
     <Content Include="Views\Print\LeadEntry1.cshtml" />
     <Content Include="Views\Print\LeadEntry.cshtml" />
-    <Content Include="Views\Address\EditL.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\gp.cshtml" />
     <Content Include="Views\Product\Notify.cshtml" />
     <Content Include="Views\Product\View.cshtml" />
-    <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Lead\Add.cshtml" />
     <Content Include="Views\Lead\Details.cshtml" />
     <Content Include="Views\Lead\Edit.cshtml" />
@@ -503,6 +500,7 @@
     <Content Include="Views\Install\readtask.cshtml" />
     <Content Include="Views\Install\AddJob.cshtml" />
     <Content Include="Views\Home\SummaryTab - Copy.cshtml" />
+    <Content Include="Views\Home\PrintTab - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

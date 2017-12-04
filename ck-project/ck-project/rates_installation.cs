@@ -18,7 +18,7 @@ namespace ck_project
         public int rate_number { get; set; }
         public int installation_number { get; set; }
     
-        public virtual rate rate { get; set; }
         public virtual installation installation { get; set; }
+        public virtual rate rate { get; set; }
     }
 }

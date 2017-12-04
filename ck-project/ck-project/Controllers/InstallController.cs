@@ -130,24 +130,6 @@ namespace ck_project.Controllers
 
         }
 
-        public installation init(int lid) {
-            installation newins = new installation
-            {
-                
-                required_hotel_nights = 0,
-                mileages_to_destination = 0.0,
-                mileages_from_hotel = 0.0,
-                installation_days = 0.0,
-                estimated_by = "please change this",
-                statrt_date = DateTime.Today,
-
-            };
-            newins.lead = db.leads.Where(q => q.lead_number == lid).First();
-            newins.lead_number = lid;
-            db.SaveChanges();
-            return newins;
-        }
-
         public ActionResult custT()
         {
             task ntask = new task();

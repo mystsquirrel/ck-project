@@ -13,14 +13,24 @@
     }
 }
 
+@{
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
+}
+<div class="container">
+    @using (Html.BeginForm())
+    {
 
-@using (Html.BeginForm())
-{
 
+        @Html.AntiForgeryToken()
 
-                    @Html.AntiForgeryToken()
-
-                    <h4> Lead </h4>
+        <h4> Lead </h4>
 
 
 
@@ -142,17 +152,13 @@
                                     Address
                                 </a>
                             </h3>
-
                             <div id="collapseR" class="panel-collapse collapse">
                                 <div class="panel-body">
 
-
                                     @Html.AntiForgeryToken()
-
                                     <div class="form-horizontal">
                                         <hr />
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
 
                                         <div class='col-xs-4'>
                                             <div class="form-group">
@@ -162,7 +168,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class='col-xs-4'>
                                             <div class="form-group">
                                                 <label class="control-label" for="name"> Jobsite City*</label>
@@ -170,7 +175,6 @@
                                                 @Html.ValidationMessageFor(tuple => tuple.Item2.city, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-
                                         <div class='col-xs-4 '>
                                             <div class="form-group">
                                                 <label class="control-label" for="name"> Jobsite State*</label>
@@ -179,7 +183,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class='col-xs-4 '>
                                             <div class="form-group">
                                                 <label class="control-label" for="name"> Jobsite County*</label>
@@ -187,7 +190,6 @@
                                                 @Html.ValidationMessageFor(tuple => tuple.Item2.county, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-
 
                                         <div class='col-xs-4 '>
                                             <div class="form-group">
@@ -198,12 +200,8 @@
                                         </div>
 
 
-
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="form-group">
@@ -228,6 +226,6 @@
                         </div>
                     </div>
 
-                    }
+    }
 
-
+</div>

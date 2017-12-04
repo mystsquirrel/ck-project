@@ -2,25 +2,20 @@
 
 @{
     <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
-    @Scripts.Render("~/bundles/jquery")
+
+    ViewBag.Title = "ProjSummary";
+
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        @Html.Partial("_AdminMenu")
+    }
+    else
+    {
+        @Html.Partial("_MainMenu")
+    }
 }
 
-<script type="text/javascript">
-    function leadFunction() {
-        $('#myTab a[href="#leadTab"]').tab('show');
-        location.hash = 'leadTab';
-    }
-    function productFunction() {
-        $('#myTab a[href="#productsTab"]').tab('show');
-        location.hash = 'productsTab';
-    }
-    function installFunction() {
-        $('#myTab a[href="#installTab"]').tab('show');
-        location.hash = 'installTab';
-    }
-</script>
-
-<div class="container">
+<<div class="container">
     <div align="center" style="padding-bottom:5%"><h3><b>PROJECT SUMMARY</b></h3></div>
     <div style="margin-left:4%">
         <table>
@@ -50,7 +45,7 @@
     </div>
     <div><hr style="border:solid 1px black"/></div>
     <div style="float: left"><h4><b>Lead Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="leadFunction()"/></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
     <div style="clear: both; margin-left: 4%">
         <table>
             <tr style="padding-bottom:20px">
@@ -59,7 +54,7 @@
                     @{
                         if (Model.Lead != null)
                         {
-                            @Model.Lead.employee.emp_firstname @Model.Lead.employee.emp_lastname
+                            @Model.Lead.employee.emp_firstname@:&nbsp;@Model.Lead.employee.emp_lastname
                         }
                     }
                 </td>
@@ -91,7 +86,7 @@
     </div>
     <hr  style="border:solid 1px black"/>
     <div style="float: left"><h4><b>Products Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="productFunction()"/></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
     <div style="clear: both; margin-left: 4%">
         <table>
             @{
@@ -124,7 +119,7 @@
     </div>
     <hr  style="border:solid 1px black"/>
     <div style="float: left"><h4><b>Installations Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="installFunction()"/></div>
+    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
     <div style="clear: both; margin-left: 4%">
         <table>
             <thead class="mdb-color darken-3">
