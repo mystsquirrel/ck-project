@@ -10,7 +10,7 @@ namespace ck_project.Controllers
     {
         // GET: Log
         ckdatabase db = new ckdatabase();
-        public ActionResult Index(DateTime? start,DateTime? end)
+        public ActionResult Index()
         {
             List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(30).ToList();
             return View(lis);
@@ -20,14 +20,14 @@ namespace ck_project.Controllers
             DateTime start =DateTime.Parse( fo["start"]);
             DateTime end = DateTime.Parse(fo["end"]);
             string emp = fo["Emp"];
-            List<lead_log_file> lis = db.lead_log_file.Where(r => r.emp_username == emp && r.update_date > start.Date && r.update_date<end.Date).ToList();
+            List<lead_log_file> lis = db.lead_log_file.Where(r => r.emp_username == emp && r.update_date >= start.Date && r.update_date<=end.Date).ToList();
 
-            return View();
+            return View(lis);
         }
         public ActionResult Search() {
             var a = new ck_project.Models.Search();
             a.start = DateTime.Today;
-            a.end = DateTime.Today;
+            a.end = DateTime.Today.AddDays(1);
             a.Emp = new List<SelectListItem>();
             foreach (var b in db.employees.Where(q => q.deleted == false).ToList()) {
                 a.Emp.Add(new SelectListItem {Text=b.emp_firstname+" "+b.emp_lastname, Value=b.emp_username });

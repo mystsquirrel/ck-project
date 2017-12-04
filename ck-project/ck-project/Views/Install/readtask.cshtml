@@ -11,7 +11,7 @@ using (Html.BeginForm("savetask","Install",FormMethod.Post))
         @Html.HiddenFor(model => item.tasks_installation_number)
 
         <div class="form-group">
-            @Html.LabelFor(model => item.task_number, "", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => item.task_number, "Sub Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @ViewBag.subcat
                
@@ -27,7 +27,7 @@ using (Html.BeginForm("savetask","Install",FormMethod.Post))
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => item.hours, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => item.hours, "Work hour",htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => item.hours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => item.hours, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@ using (Html.BeginForm("savetask","Install",FormMethod.Post))
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => item.m_cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => item.m_cost, "Material Cost",htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => item.m_cost, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => item.m_cost, "", new { @class = "text-danger" })

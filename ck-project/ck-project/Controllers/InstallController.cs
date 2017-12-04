@@ -63,7 +63,7 @@ namespace ck_project.Controllers
             };
 
             ViewBag.mech = new List<SelectListItem> {
-                new SelectListItem{Text="Plumbing(Rough-In)",Value="plumbing" },
+                new SelectListItem{Text="Plumbing(Rough-In)",Value="Plumbing (Rough-In)" },
                 new SelectListItem{Text="HVAC",Value="hvac" }
             };
 

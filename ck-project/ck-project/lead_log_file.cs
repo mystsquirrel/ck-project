@@ -11,19 +11,28 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class lead_log_file
     {
         public int log_number { get; set; }
+        [Display(Name = "User name")]
         public string emp_username { get; set; }
+        [Display(Name = "Lead Number")]
         public int lead_number { get; set; }
+        [Display(Name = "Section Name")]
         public string table_name { get; set; }
+        [Display(Name = "Field changed")]
         public string column_name { get; set; }
+        [Display(Name = "Operation")]
         public string action_name { get; set; }
+        [Display(Name = "Issue Date")]
         public System.DateTime update_date { get; set; }
+        [Display(Name = "Pervious Value")]
         public string prvious_value { get; set; }
+        [Display(Name = "New Value")]
         public string new_value { get; set; }
-    
+
         public virtual lead lead { get; set; }
     }
 }
