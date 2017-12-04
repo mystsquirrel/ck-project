@@ -18,7 +18,7 @@ namespace ck_project
         public int tax_number { get; set; }
         public int lead_number { get; set; }
     
-        public virtual tax tax { get; set; }
         public virtual lead lead { get; set; }
+        public virtual tax tax { get; set; }
     }
 }

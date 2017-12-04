@@ -25,7 +25,7 @@
                 <tr>
                     <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
                     <td style="width:50px">
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                 </tr>
             }
@@ -34,16 +34,16 @@
                 <tr>
                     <td style="width:997px"></td>
                     <td style="width:50px">
-                        <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:100px">
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.Lead.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     </td>
                 </tr>
             }
@@ -79,7 +79,7 @@
     </div>
     <div><hr style="border:solid 1px black"/></div>
     <div style="float: left"><h4><b>Lead Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
+    @*<div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>*@
     <div style="clear: both; margin-left: 4%">
         <table>
             <tr style="padding-bottom:20px">
@@ -120,7 +120,7 @@
     </div>
     <hr  style="border:solid 1px black"/>
     <div style="float: left"><h4><b>Products Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
+    @*<div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("View", "Product", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>*@
     <div style="clear: both; margin-left: 4%">
         <table>
             @{
@@ -153,7 +153,7 @@
     </div>
     <hr  style="border:solid 1px black"/>
     <div style="float: left"><h4><b>Installations Info</b></h4></div>
-    <div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Edit", "Lead", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>
+    @*<div style="float: right"><input style="width:auto" type="button" value="View Details" class="btn btn-default" onclick="@Url.Action("Lis", "Install", new { id = Model.Lead != null ? Model.Lead.lead_number : 0 } )"/></div>*@
     <div style="clear: both; margin-left: 4%">
         <table>
             <thead class="mdb-color darken-3">

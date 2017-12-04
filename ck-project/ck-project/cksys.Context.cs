@@ -38,6 +38,7 @@ namespace ck_project
         public virtual DbSet<installation> installations { get; set; }
         public virtual DbSet<lead_log_file> lead_log_file { get; set; }
         public virtual DbSet<lead_source> lead_source { get; set; }
+        public virtual DbSet<lead> leads { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<project_class> project_class { get; set; }
         public virtual DbSet<project_status> project_status { get; set; }
@@ -50,18 +51,17 @@ namespace ck_project
         public virtual DbSet<total_cost> total_cost { get; set; }
         public virtual DbSet<users_types> users_types { get; set; }
         public virtual DbSet<archive_leads> archive_leads { get; set; }
-        public virtual DbSet<lead> leads { get; set; }
-
+    
         public virtual int LoginByUsernamePassword(string username, string password)
         {
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoginByUsernamePassword", usernameParameter, passwordParameter);
         }
 
@@ -89,7 +89,7 @@ namespace ck_project
                             emp_username = System.Web.HttpContext.Current.User.Identity.Name,
                             action_name = op
                         };
-                   }
+                    }
                 }
             }
             return base.SaveChanges();

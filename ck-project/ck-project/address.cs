@@ -22,10 +22,9 @@ namespace ck_project
             this.customers = new HashSet<customer>();
             this.leads = new HashSet<lead>();
         }
-
+    
         public int address_number { get; set; }
         public string address_type { get; set; }
-
         [Required(ErrorMessage = "The address is required")]
         [MinLength(2, ErrorMessage = "The address is not complete")]
         [MaxLength(49, ErrorMessage = "The address  must be less than 50 characters")]
@@ -45,7 +44,7 @@ namespace ck_project
         [Range(00001, 99999, ErrorMessage = "The zipcode must be 5 numbers")]
         public string zipcode { get; set; }
         public bool deleted { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<branch> branches { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

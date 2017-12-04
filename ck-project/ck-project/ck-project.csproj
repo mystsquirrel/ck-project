@@ -500,9 +500,9 @@
     <Content Include="Views\Install\readtask.cshtml" />
     <Content Include="Views\Install\AddJob.cshtml" />
     <Content Include="Views\Home\SummaryTab - Copy.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Log\Search.cshtml" />
     <Content Include="Views\Home\PrintTab - Copy.cshtml" />
+    <Content Include="Views\Log\Search.cshtml" />
+    <Content Include="Views\Log\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

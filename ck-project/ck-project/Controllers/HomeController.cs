@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -81,7 +81,7 @@ namespace ck_project.Controllers
             }
 
             ViewBag.leadNumber = id;
-            return View(ViewBag);
+            return View();
         }
 
         public ActionResult ProjSummary(int id)

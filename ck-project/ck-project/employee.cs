@@ -11,7 +11,8 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,8 @@ namespace ck_project
         {
             this.leads = new HashSet<lead>();
         }
-
+    
         public int emp_number { get; set; }
-
         [Required(ErrorMessage = "The first name is required")]
         [MinLength(2, ErrorMessage = "The first name is too short")]
         [MaxLength(19, ErrorMessage = "The first name must be less than 20 characters")]
@@ -44,12 +44,11 @@ namespace ck_project
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
-
         public string phone_number { get; set; }
         public int user_type_number { get; set; }
         public int branch_number { get; set; }
         public bool deleted { get; set; }
-
+    
         public virtual branch branch { get; set; }
         public virtual users_types users_types { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

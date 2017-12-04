@@ -328,7 +328,7 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                           @item.mileages_to_destination
+                           @item.hotel_round_trip
                         }
                     }
                 }
@@ -431,7 +431,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.mileages_from_hotel
+                            if ((double)item.hotel_round_trip != 0)
+                            {
+                                @item.total_miles
+                            }
                         }
                     }
                 }

@@ -18,18 +18,21 @@ namespace ck_project.Helpers
                 string state = lead.address.state;
                 if (state != null)
                 {
-                    var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "County Tax" && today <= t.end_date && today >= t.start_date && t.state == state).First();
-                    if (taxData != null)
+                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == "State Tax" && today <= t.end_date && today >= t.start_date && t.state == state).Any())
                     {
-                        if (lead.delivery_status_number == 1)
+                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "State Tax" && today <= t.end_date && today >= t.start_date && t.state == state).First();
+                        if (taxData != null)
                         {
-                            // use tax
-                            stateTax = taxData.tax_value / 100 * feeHelper.CalculateAvgMaterialCost(lead);
-                        }
-                        else
-                        {
-                            //sale tax
-                            stateTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                            if (lead.delivery_status_number == 1)
+                            {
+                                // use tax
+                                stateTax = taxData.tax_value / 100 * feeHelper.CalculateAvgMaterialCost(lead);
+                            }
+                            else
+                            {
+                                //sale tax
+                                stateTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                            }
                         }
                     }
                 }
@@ -48,18 +51,21 @@ namespace ck_project.Helpers
                 string county = lead.address.county;
                 if (state != null && county != null)
                 {
-                    var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "County Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.county == county).First();
-                    if (taxData != null)
+                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == "County Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.county == county).Any())
                     {
-                        if (lead.delivery_status_number == 1)
+                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "County Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.county == county).First();
+                        if (taxData != null)
                         {
-                            // installed project
-                            countyTax = taxData.tax_value / 100 * feeHelper.CalculateAvgProjectCost(lead);
-                        }
-                        else if (lead.delivery_status_number == 4)
-                        {
-                            //delivery project
-                            countyTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                            if (lead.delivery_status_number == 1)
+                            {
+                                // installed project
+                                countyTax = taxData.tax_value / 100 * feeHelper.CalculateAvgProjectCost(lead);
+                            }
+                            else if (lead.delivery_status_number == 4)
+                            {
+                                //delivery project
+                                countyTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                            }
                         }
                     }
                 }
@@ -78,29 +84,32 @@ namespace ck_project.Helpers
                 string city = lead.address.city;
                 if (state != null && city != null)
                 {
-                    var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "City Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).First();
-                    if (taxData != null)
+                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == "City Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).Any())
                     {
-                        if (lead.in_city)
+                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "City Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).First();
+                        if (taxData != null)
                         {
-                            // use tax - only apply to installed project
-                            // sale tax - apply to non-installed project
-                            if (lead.delivery_status_number == 1)
+                            if (lead.in_city)
                             {
-                                municipalTax = taxData.tax_value / 100 * feeHelper.CalculateAvgMaterialCost(lead);
+                                // use tax - only apply to installed project
+                                // sale tax - apply to non-installed project
+                                if (lead.delivery_status_number == 1)
+                                {
+                                    municipalTax = taxData.tax_value / 100 * feeHelper.CalculateAvgMaterialCost(lead);
+                                }
+                                else
+                                {
+                                    municipalTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                                }
                             }
                             else
                             {
-                                municipalTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                                // sale tax - only apply to pick-up project
+                                if (lead.delivery_status_number == 2)
+                                {
+                                    municipalTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
+                                }
                             }
-                        }
-                        else
-                        {
-                            // sale tax - only apply to pick-up project
-                            if (lead.delivery_status_number == 2)
-                            {
-                                municipalTax = taxData.tax_value / 100 * feeHelper.CalculateRetailTotalOfAllMaterials(lead);
-                            } 
                         }
                     }
                 }
@@ -119,13 +128,16 @@ namespace ck_project.Helpers
                 string city = lead.address.city;
                 if (state != null && city != null)
                 {
-                    var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "B&O Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).First();
-                    if (taxData != null)
+                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == "B&O Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).Any())
                     {
-                        if (lead.in_city && lead.delivery_status_number == 1)
+                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == "B&O Tax" && today <= t.end_date && today >= t.start_date && t.state == state && t.city == city).First();
+                        if (taxData != null)
                         {
-                            // installed project
-                            boTax = taxData.tax_value / 100 * feeHelper.CalculateTotalProjForBO(lead);
+                            if (lead.in_city && lead.delivery_status_number == 1)
+                            {
+                                // installed project
+                                boTax = taxData.tax_value / 100 * feeHelper.CalculateTotalProjForBO(lead);
+                            }
                         }
                     }
                 }
