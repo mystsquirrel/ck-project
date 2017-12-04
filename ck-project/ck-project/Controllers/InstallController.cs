@@ -135,8 +135,7 @@ namespace ck_project.Controllers
             {
                 
                 required_hotel_nights = 0,
-                mileages_to_destination = 0.0,
-                mileages_from_hotel = 0.0,
+                
                 installation_days = 0.0,
                 estimated_by = "please change this",
                 statrt_date = DateTime.Today,

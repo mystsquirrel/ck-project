@@ -188,7 +188,7 @@ namespace ck_project.Helpers
                 projectSummary.TwoWayMilesToJob = calHelper.CalculateBothWayMilesToJob(item.oneway_mileages_to_destination);
                 projectSummary.TotalInstallationDays = calHelper.CalculateTotalInstallationDays(item.installation_days, item.tile_installation_days);
                 projectSummary.PaidTravelTimeOneWay = calHelper.CalculatePaidTravelTimeOneWay(item.travel_time_one_way);
-                projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.mileages_to_destination, item.travel_time_one_way);
+                projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.total_miles, item.travel_time_one_way);
             }
                 return projectSummary;
         }
