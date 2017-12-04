@@ -28,12 +28,13 @@ toastr.success('@ViewBag.m');
 <div class="container">
     <h2>Leads</h2>
 
-    @using (Html.BeginForm("ListLead", "Lead", FormMethod.Get))
+    @using (Html.BeginForm("ListLead", "Lead", FormMethod.Post))
     {
         @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
         new { placeholder = "Type project name here" });
         @Html.DropDownList("type", (IEnumerable<SelectListItem>)ViewBag.lead_type, htmlAttributes: null);
-
+        <input type="date" name="start" />
+        <input type="date" name="end" />
 
 
 

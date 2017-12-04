@@ -24,13 +24,13 @@ namespace ck_project.Controllers
                new SelectListItem{ Text="Kitchen",Value="kitchen"},
                new SelectListItem{ Text="Framing",Value="Framing"},
                new SelectListItem{ Text="Doors&Windows",Value="Doors_Windows"},
-               new SelectListItem{ Text="Mechanicals",Value="Mechanicals"},
+               new SelectListItem{ Text="Mechanicals",Value="MECHANICALS"},
                new SelectListItem{ Text="Electrical",Value="Electrical"},
                new SelectListItem{ Text="Finish",Value="Finish"},
                new SelectListItem{ Text="Cabinetry",Value="Cabinetry"},
                new SelectListItem{ Text="Countertops",Value="Countertops"},
                new SelectListItem{ Text="Appliance/Fixture Install",Value="Appliance"},
-               new SelectListItem{ Text="372",Value="372"},
+               new SelectListItem{ Text="GENERAL",Value="GENERAL"},
                new SelectListItem{ Text="BATH",Value="BATH"},
                new SelectListItem{ Text="MISC",Value="MISC"}
             };
@@ -64,12 +64,12 @@ namespace ck_project.Controllers
             };
 
             ViewBag.mech = new List<SelectListItem> {
-                new SelectListItem{Text="Plumbing(Rough-In)",Value="Plumbing (Rough-In)" },
+                new SelectListItem{Text="Plumbing (Rough-In)",Value="Plumbing" },
                 new SelectListItem{Text="HVAC",Value="hvac" }
             };
 
             ViewBag.elect = new List<SelectListItem> {
-                new SelectListItem{Text="Wiring/Device",Value="WD" },
+                new SelectListItem{Text="Wiring/Devices",Value="WD" },
                 new SelectListItem{Text="Lighting",Value="lighting" }
             };
 
@@ -92,7 +92,8 @@ namespace ck_project.Controllers
             };
             //372
             ViewBag.tbd = new List<SelectListItem> {
-                new SelectListItem{ Text="Granite & Solid Surface Tops",Value="gsst"}
+                new SelectListItem{ Text="Granite & Solid Surface Tops",Value="gsst"},
+                new SelectListItem{Text="General",Value="General" }
             };
 
             ViewBag.bath = new List<SelectListItem> {
@@ -147,8 +148,8 @@ namespace ck_project.Controllers
             return RedirectToAction("lis", new { lid = lid });
         }
 
-        public ActionResult AddJob(string maincat,string subcat,int insnum=0) {
-
+        public ActionResult AddJob(string maincat,string subcat,int insnum=0,int mode=0) {
+            
             List<task> option = db.tasks.Where(x => x.special_task == false && x.task_main_cat == maincat && x.task_sub_cat == subcat).ToList();
             List<SelectListItem> taskname = new List<SelectListItem>();
             foreach (task a in option) {
@@ -156,13 +157,14 @@ namespace ck_project.Controllers
             }
             ViewBag.taskname = taskname;
             ViewBag.insnum = insnum;
+            ViewBag.mode = mode;
            
 
 
             return PartialView();
 
         }
-
+        //new task handler
         [HttpPost]
         public ActionResult handler(FormCollection fo) {
             int iid = int.Parse(fo["installation_number"]);
@@ -170,20 +172,52 @@ namespace ck_project.Controllers
             int lid = db.installations.Where(a => a.installation_number == iid).First().lead_number;
 
             tasks_installation target = new tasks_installation();
-            
-            target.hours = double.Parse(fo["hours"]);
-            target.task_number = int.Parse(fo["task_number"]);
-            target.m_cost = double.Parse(fo["m_cost"]);
-            target.installation_number = iid;
-            try {
-                db.tasks_installation.Add(target);
-                //db.SaveChanges();
-                db.SaveChanges(lid,"create new");
+            if (int.Parse(fo["mode"]) == 0)
+            {
+                target.hours = double.Parse(fo["hours"]);
+                target.task_number = int.Parse(fo["task_number"]);
+                target.m_cost = double.Parse(fo["m_cost"]);
+                target.labor_cost= (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                target.installation_number = iid;
+                try
+                {
+                    db.tasks_installation.Add(target);
+                    //db.SaveChanges();
+                    db.SaveChanges(lid, "create new");
 
-            } catch (Exception e) {
-                msg = e.Message;
+                }
+                catch (Exception e)
+                {
+                    msg = e.Message;
+                }
             }
+            else {
+                
+                    task ctask = new task();
+                    ctask.special_task = true;
+                    ctask.task_main_cat = "MISC";
+                    ctask.task_sub_cat = "Disclaimers";
+                    ctask.task_name = fo["task_name"];
+                    db.tasks.Add(ctask);
+                    
 
+                    target.task = ctask;
+
+                    target.hours = double.Parse(fo["hours"]);
+                    target.m_cost = double.Parse(fo["m_cost"]);
+                    target.labor_cost = (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                    db.tasks_installation.Add(target);
+                    target.installation_number = iid;
+                    try
+                    {
+                        db.SaveChanges(lid,"create new");
+                }
+                catch (Exception e)
+                {
+                    msg = e.Message;
+
+                }
+            }
 
 
             return RedirectToAction("lis", new { lid = lid,msg=msg });
@@ -208,27 +242,37 @@ namespace ck_project.Controllers
                 return PartialView(taskset);
             }
         }
-        
+        //update task
         [HttpPost]
         public ActionResult savetask(FormCollection fo) {
             string msg = "save success";
             int tin =int.Parse( fo["item.tasks_installation_number"]);
+            
+          
+                int iid = db.tasks_installation.Where(c => c.tasks_installation_number == tin).First().installation_number;
+                int lid = db.installations.Where(g => g.installation_number == iid).First().lead_number;
+                try
+                {
 
-            int iid = db.tasks_installation.Where(c => c.tasks_installation_number == tin).First().installation_number;
-            int lid = db.installations.Where(g => g.installation_number == iid).First().lead_number;
-            try {
-
-                tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
-                target.hours =double.Parse( fo["item.hours"]);
-                target.m_cost = double.Parse(fo["item.m_cost"]);
-                target.labor_cost= (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) *target.hours;
-                db.SaveChanges(lid,"update");
-            } catch (Exception e) {
-                msg = e.Message;
+                    tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
+                    target.hours = double.Parse(fo["item.hours"]);
+                    target.m_cost = double.Parse(fo["item.m_cost"]);
+                    target.labor_cost = (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                    db.SaveChanges(lid, "update");
+                }
+                catch (Exception e)
+                {
+                    msg = e.Message;
+                }
+                
+            
+            
+               
+                return RedirectToAction("lis", new { lid = lid, msg = msg });
             }
             
-            return RedirectToAction("lis", new { lid = lid, msg = msg });
-        }
+            
+        
 
         public ActionResult Delete(int tin,int iid) {
             int lid = db.installations.Where(q => q.installation_number == iid).First().lead_number;

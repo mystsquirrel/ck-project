@@ -15,9 +15,12 @@ namespace ck_project.Controllers
         // GET: Lead
 
 
-        public ActionResult ListLead(string search = null, String msg = null, int type = 3)
+        public ActionResult ListLead(FormCollection fo=null,string msg=null)
         {
-
+            string search = fo["search"];
+            int type = string.IsNullOrEmpty(fo["type"])?3:int.Parse(fo["type"]);
+            DateTime start = string.IsNullOrEmpty(fo["start"])?DateTime.MinValue:DateTime.Parse(fo["start"]);
+            DateTime end = string.IsNullOrEmpty(fo["end"])?DateTime.MaxValue : DateTime.Parse(fo["end"]);
             try
             {
                 ViewBag.m = msg;
@@ -31,7 +34,7 @@ namespace ck_project.Controllers
                 }));
                 ViewBag.lead_type = ClassInfo;
 
-                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)).ToList());
+                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)&&(x.lead_date>=start && x.lead_date<=end)).ToList());
             }
             catch (Exception e)
             {
