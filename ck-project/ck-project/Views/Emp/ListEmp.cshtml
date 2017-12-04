@@ -1,9 +1,23 @@
 ﻿@model IEnumerable<ck_project.employee>
-<h4> Employees List </h4>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
+    {
+        <script type="text/javascript">
+ $(document).ready(function () {
+toastr.success('@ViewBag.m');
+ });
+
+        </script>
+    }
+}
 
 @Html.Partial("_AdminMenu")
 
+
 <div class="container">
+    <h4> Employees List </h4>
     @using (Html.BeginForm("ListEmp", "Emp", FormMethod.Get))
     {
 

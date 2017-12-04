@@ -1,5 +1,18 @@
 ﻿@model IEnumerable<ck_project.lead>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
+    {
+        <script type="text/javascript">
+ $(document).ready(function () {
+toastr.success('@ViewBag.m');
+ });
+
+        </script>
+    }
+}
+
 @{
     if (HttpContext.Current.User.IsInRole("Administrator"))
     {

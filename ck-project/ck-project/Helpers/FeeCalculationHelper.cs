@@ -1,4 +1,6 @@
-﻿namespace ck_project.Helpers
+﻿using System;
+
+namespace ck_project.Helpers
 {
     public class FeeCalculationHelper
     {
@@ -144,7 +146,7 @@
         {
             if (lead.delivery_status_number == 1)
             {
-                return this.CalculateOperationalAdminExpense(lead) + this.CalculateOperationalExpForCreditCard(lead) + this.CalculateOperationalExpForInstallation(lead);
+                return Math.Round(this.CalculateOperationalAdminExpense(lead) + this.CalculateOperationalExpForCreditCard(lead) + this.CalculateOperationalExpForInstallation(lead), 2);
             }
 
             return 0;

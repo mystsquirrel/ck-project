@@ -15,23 +15,6 @@ namespace ck_project.Controllers
         // GET: Customers
 
 
-        /*   public ActionResult ListCustomers(string searchby , string search)
-           {
-               List<customer> Customers_list = db.customers.ToList();
-               ViewBag.Customerslist = Customers_list;
-
-               if (searchby == "customer_firstname")
-               {
-                   return View(db.customers.Where(x => x.customer_firstname == search || search == null).ToList());
-               }
-               else
-               {
-                   return View(db.customers.Where(x => x.customer_lastname.StartsWith(search)).ToList());
-               }
-             //  return View();
-           }
-           */
-
           public ActionResult ListCustomers(string search,String msg=null )
     {       try {
                 ViewBag.m = msg;
@@ -39,9 +22,9 @@ namespace ck_project.Controllers
                 return View(db.customers.Where(x => x.customer_lastname.Contains(search) || search == null && x.deleted == false).ToList());
 
             }
-            catch
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong ... please try again";
+                ViewBag.m = e.Message;
                 return View();
             }
         }
@@ -58,11 +41,13 @@ namespace ck_project.Controllers
                 ViewBag.id = id;
                 return View(target);
             }
-            catch
+
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong ... please try again";
+                ViewBag.m = " Something went wrong ... " + e.Message;
                 return View();
             }
+
         }
 
 
@@ -80,13 +65,18 @@ namespace ck_project.Controllers
                 ViewBag.m = " The customer was successfully updated on " + System.DateTime.Now;
                 return View(target);
             }
-            catch
+            //catch
+            //{
+            //    ViewBag.m = " Something went wrong... the customer was not updated ... please try again";
+            //    return View();
+            //}
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong... the customer was not updated ... please try again";
+                ViewBag.m = " Something went wrong ... " + e.Message;
                 return View();
             }
 
-            
+
         }
 
         public ActionResult AddCustomer()
@@ -94,65 +84,65 @@ namespace ck_project.Controllers
             try
             {
                 var Sstate = new List<SelectListItem> {
-               new SelectListItem() {Text="Alabama", Value="AL"},
-        new SelectListItem() { Text="Alaska", Value="AK"},
-        new SelectListItem() { Text="Arizona", Value="AZ"},
-        new SelectListItem() { Text="Arkansas", Value="AR"},
-        new SelectListItem() { Text="California", Value="CA"},
-        new SelectListItem() { Text="Colorado", Value="CO"},
-        new SelectListItem() { Text="Connecticut", Value="CT"},
-        new SelectListItem() { Text="District of Columbia", Value="DC"},
-        new SelectListItem() { Text="Delaware", Value="DE"},
-        new SelectListItem() { Text="Florida", Value="FL"},
-        new SelectListItem() { Text="Georgia", Value="GA"},
-        new SelectListItem() { Text="Hawaii", Value="HI"},
-        new SelectListItem() { Text="Idaho", Value="ID"},
-        new SelectListItem() { Text="Illinois", Value="IL"},
-        new SelectListItem() { Text="Indiana", Value="IN"},
-        new SelectListItem() { Text="Iowa", Value="IA"},
-        new SelectListItem() { Text="Kansas", Value="KS"},
-        new SelectListItem() { Text="Kentucky", Value="KY"},
-        new SelectListItem() { Text="Louisiana", Value="LA"},
-        new SelectListItem() { Text="Maine", Value="ME"},
-        new SelectListItem() { Text="Maryland", Value="MD"},
-        new SelectListItem() { Text="Massachusetts", Value="MA"},
-        new SelectListItem() { Text="Michigan", Value="MI"},
-        new SelectListItem() { Text="Minnesota", Value="MN"},
-        new SelectListItem() { Text="Mississippi", Value="MS"},
-        new SelectListItem() { Text="Missouri", Value="MO"},
-        new SelectListItem() { Text="Montana", Value="MT"},
-        new SelectListItem() { Text="Nebraska", Value="NE"},
-        new SelectListItem() { Text="Nevada", Value="NV"},
-        new SelectListItem() { Text="New Hampshire", Value="NH"},
-        new SelectListItem() { Text="New Jersey", Value="NJ"},
-        new SelectListItem() { Text="New Mexico", Value="NM"},
-        new SelectListItem() { Text="New York", Value="NY"},
-        new SelectListItem() { Text="North Carolina", Value="NC"},
-        new SelectListItem() { Text="North Dakota", Value="ND"},
-        new SelectListItem() { Text="Ohio", Value="OH"},
-        new SelectListItem() { Text="Oklahoma", Value="OK"},
-        new SelectListItem() { Text="Oregon", Value="OR"},
-        new SelectListItem() { Text="Pennsylvania", Value="PA"},
-        new SelectListItem() { Text="Rhode Island", Value="RI"},
-        new SelectListItem() { Text="South Carolina", Value="SC"},
-        new SelectListItem() { Text="South Dakota", Value="SD"},
-        new SelectListItem() { Text="Tennessee", Value="TN"},
-        new SelectListItem() { Text="Texas", Value="TX"},
-        new SelectListItem() { Text="Utah", Value="UT"},
-        new SelectListItem() { Text="Vermont", Value="VT"},
-        new SelectListItem() { Text="Virginia", Value="VA"},
-        new SelectListItem() { Text="Washington", Value="WA"},
-        new SelectListItem() { Text="West Virginia", Value="WV"},
-        new SelectListItem() { Text="Wisconsin", Value="WI"},
-        new SelectListItem() { Text="Wyoming", Value="WY"}
+               new SelectListItem() {Text="Alabama", Value="Alabama"},
+        new SelectListItem() { Text="Alaska", Value="Alaska"},
+        new SelectListItem() { Text="Arizona", Value="Arizona"},
+        new SelectListItem() { Text="Arkansas", Value="Arkansas"},
+        new SelectListItem() { Text="California", Value="California"},
+        new SelectListItem() { Text="Colorado", Value="Colorado"},
+        new SelectListItem() { Text="Connecticut", Value="Connecticut"},
+        new SelectListItem() { Text="District of Columbia", Value="District of Columbia"},
+        new SelectListItem() { Text="Delaware", Value="Delaware"},
+        new SelectListItem() { Text="Florida", Value="Florida"},
+        new SelectListItem() { Text="Georgia", Value="Georgia"},
+        new SelectListItem() { Text="Hawaii", Value="Hawaii"},
+        new SelectListItem() { Text="Idaho", Value="Idaho"},
+        new SelectListItem() { Text="Illinois", Value="Illinois"},
+        new SelectListItem() { Text="Indiana", Value="Indiana"},
+        new SelectListItem() { Text="Iowa", Value="Iowa"},
+        new SelectListItem() { Text="Kansas", Value="Kansas"},
+        new SelectListItem() { Text="Kentucky", Value="Kentucky"},
+        new SelectListItem() { Text="Louisiana", Value="Louisiana"},
+        new SelectListItem() { Text="Maine", Value="Maine"},
+        new SelectListItem() { Text="Maryland", Value="Maryland"},
+        new SelectListItem() { Text="Massachusetts", Value="Massachusetts"},
+        new SelectListItem() { Text="Michigan", Value="Michigan"},
+        new SelectListItem() { Text="Minnesota", Value="Minnesota"},
+        new SelectListItem() { Text="Mississippi", Value="Mississippi"},
+        new SelectListItem() { Text="Missouri", Value="Missouri"},
+        new SelectListItem() { Text="Montana", Value="Montana"},
+        new SelectListItem() { Text="Nebraska", Value="Nebraska"},
+        new SelectListItem() { Text="Nevada", Value="Nevada"},
+        new SelectListItem() { Text="New Hampshire", Value="New Hampshire"},
+        new SelectListItem() { Text="New Jersey", Value="New Jersey"},
+        new SelectListItem() { Text="New Mexico", Value="New Mexico"},
+        new SelectListItem() { Text="New York", Value="New York"},
+        new SelectListItem() { Text="North Carolina", Value="North Carolina"},
+        new SelectListItem() { Text="North Dakota", Value="North Dakota"},
+        new SelectListItem() { Text="Ohio", Value="Ohio"},
+        new SelectListItem() { Text="Oklahoma", Value="Oklahoma"},
+        new SelectListItem() { Text="Oregon", Value="Oregon"},
+        new SelectListItem() { Text="Pennsylvania", Value="Pennsylvania"},
+        new SelectListItem() { Text="Rhode Island", Value="Rhode Island"},
+        new SelectListItem() { Text="South Carolina", Value="South Carolina"},
+        new SelectListItem() { Text="South Dakota", Value="South Dakota"},
+        new SelectListItem() { Text="Tennessee", Value="Tennessee"},
+        new SelectListItem() { Text="Texas", Value="Texas"},
+        new SelectListItem() { Text="Utah", Value="Utah"},
+        new SelectListItem() { Text="Vermont", Value="Vermont"},
+        new SelectListItem() { Text="Virginia", Value="Virginia"},
+        new SelectListItem() { Text="Washington", Value="Washington"},
+        new SelectListItem() { Text="West Virginia", Value="West Virginia"},
+        new SelectListItem() { Text="Wisconsin", Value="Wisconsin"},
+        new SelectListItem() { Text="Wyoming", Value="Wyoming"}
 
             };
                 ViewBag.Sstate = Sstate;
                 return View();
             }
-            catch
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong ... please try again";
+                ViewBag.m = " Something went wrong ... " + e.Message;
                 return View();
             }
 
@@ -187,57 +177,57 @@ namespace ck_project.Controllers
                 //int new address
 
                 var Sstate = new List<SelectListItem> {
-               new SelectListItem() {Text="Alabama", Value="AL"},
-        new SelectListItem() { Text="Alaska", Value="AK"},
-        new SelectListItem() { Text="Arizona", Value="AZ"},
-        new SelectListItem() { Text="Arkansas", Value="AR"},
-        new SelectListItem() { Text="California", Value="CA"},
-        new SelectListItem() { Text="Colorado", Value="CO"},
-        new SelectListItem() { Text="Connecticut", Value="CT"},
-        new SelectListItem() { Text="District of Columbia", Value="DC"},
-        new SelectListItem() { Text="Delaware", Value="DE"},
-        new SelectListItem() { Text="Florida", Value="FL"},
-        new SelectListItem() { Text="Georgia", Value="GA"},
-        new SelectListItem() { Text="Hawaii", Value="HI"},
-        new SelectListItem() { Text="Idaho", Value="ID"},
-        new SelectListItem() { Text="Illinois", Value="IL"},
-        new SelectListItem() { Text="Indiana", Value="IN"},
-        new SelectListItem() { Text="Iowa", Value="IA"},
-        new SelectListItem() { Text="Kansas", Value="KS"},
-        new SelectListItem() { Text="Kentucky", Value="KY"},
-        new SelectListItem() { Text="Louisiana", Value="LA"},
-        new SelectListItem() { Text="Maine", Value="ME"},
-        new SelectListItem() { Text="Maryland", Value="MD"},
-        new SelectListItem() { Text="Massachusetts", Value="MA"},
-        new SelectListItem() { Text="Michigan", Value="MI"},
-        new SelectListItem() { Text="Minnesota", Value="MN"},
-        new SelectListItem() { Text="Mississippi", Value="MS"},
-        new SelectListItem() { Text="Missouri", Value="MO"},
-        new SelectListItem() { Text="Montana", Value="MT"},
-        new SelectListItem() { Text="Nebraska", Value="NE"},
-        new SelectListItem() { Text="Nevada", Value="NV"},
-        new SelectListItem() { Text="New Hampshire", Value="NH"},
-        new SelectListItem() { Text="New Jersey", Value="NJ"},
-        new SelectListItem() { Text="New Mexico", Value="NM"},
-        new SelectListItem() { Text="New York", Value="NY"},
-        new SelectListItem() { Text="North Carolina", Value="NC"},
-        new SelectListItem() { Text="North Dakota", Value="ND"},
-        new SelectListItem() { Text="Ohio", Value="OH"},
-        new SelectListItem() { Text="Oklahoma", Value="OK"},
-        new SelectListItem() { Text="Oregon", Value="OR"},
-        new SelectListItem() { Text="Pennsylvania", Value="PA"},
-        new SelectListItem() { Text="Rhode Island", Value="RI"},
-        new SelectListItem() { Text="South Carolina", Value="SC"},
-        new SelectListItem() { Text="South Dakota", Value="SD"},
-        new SelectListItem() { Text="Tennessee", Value="TN"},
-        new SelectListItem() { Text="Texas", Value="TX"},
-        new SelectListItem() { Text="Utah", Value="UT"},
-        new SelectListItem() { Text="Vermont", Value="VT"},
-        new SelectListItem() { Text="Virginia", Value="VA"},
-        new SelectListItem() { Text="Washington", Value="WA"},
-        new SelectListItem() { Text="West Virginia", Value="WV"},
-        new SelectListItem() { Text="Wisconsin", Value="WI"},
-        new SelectListItem() { Text="Wyoming", Value="WY"}
+               new SelectListItem() {Text="Alabama", Value="Alabama"},
+        new SelectListItem() { Text="Alaska", Value="Alaska"},
+        new SelectListItem() { Text="Arizona", Value="Arizona"},
+        new SelectListItem() { Text="Arkansas", Value="Arkansas"},
+        new SelectListItem() { Text="California", Value="California"},
+        new SelectListItem() { Text="Colorado", Value="Colorado"},
+        new SelectListItem() { Text="Connecticut", Value="Connecticut"},
+        new SelectListItem() { Text="District of Columbia", Value="District of Columbia"},
+        new SelectListItem() { Text="Delaware", Value="Delaware"},
+        new SelectListItem() { Text="Florida", Value="Florida"},
+        new SelectListItem() { Text="Georgia", Value="Georgia"},
+        new SelectListItem() { Text="Hawaii", Value="Hawaii"},
+        new SelectListItem() { Text="Idaho", Value="Idaho"},
+        new SelectListItem() { Text="Illinois", Value="Illinois"},
+        new SelectListItem() { Text="Indiana", Value="Indiana"},
+        new SelectListItem() { Text="Iowa", Value="Iowa"},
+        new SelectListItem() { Text="Kansas", Value="Kansas"},
+        new SelectListItem() { Text="Kentucky", Value="Kentucky"},
+        new SelectListItem() { Text="Louisiana", Value="Louisiana"},
+        new SelectListItem() { Text="Maine", Value="Maine"},
+        new SelectListItem() { Text="Maryland", Value="Maryland"},
+        new SelectListItem() { Text="Massachusetts", Value="Massachusetts"},
+        new SelectListItem() { Text="Michigan", Value="Michigan"},
+        new SelectListItem() { Text="Minnesota", Value="Minnesota"},
+        new SelectListItem() { Text="Mississippi", Value="Mississippi"},
+        new SelectListItem() { Text="Missouri", Value="Missouri"},
+        new SelectListItem() { Text="Montana", Value="Montana"},
+        new SelectListItem() { Text="Nebraska", Value="Nebraska"},
+        new SelectListItem() { Text="Nevada", Value="Nevada"},
+        new SelectListItem() { Text="New Hampshire", Value="New Hampshire"},
+        new SelectListItem() { Text="New Jersey", Value="New Jersey"},
+        new SelectListItem() { Text="New Mexico", Value="New Mexico"},
+        new SelectListItem() { Text="New York", Value="New York"},
+        new SelectListItem() { Text="North Carolina", Value="North Carolina"},
+        new SelectListItem() { Text="North Dakota", Value="North Dakota"},
+        new SelectListItem() { Text="Ohio", Value="Ohio"},
+        new SelectListItem() { Text="Oklahoma", Value="Oklahoma"},
+        new SelectListItem() { Text="Oregon", Value="Oregon"},
+        new SelectListItem() { Text="Pennsylvania", Value="Pennsylvania"},
+        new SelectListItem() { Text="Rhode Island", Value="Rhode Island"},
+        new SelectListItem() { Text="South Carolina", Value="South Carolina"},
+        new SelectListItem() { Text="South Dakota", Value="South Dakota"},
+        new SelectListItem() { Text="Tennessee", Value="Tennessee"},
+        new SelectListItem() { Text="Texas", Value="Texas"},
+        new SelectListItem() { Text="Utah", Value="Utah"},
+        new SelectListItem() { Text="Vermont", Value="Vermont"},
+        new SelectListItem() { Text="Virginia", Value="Virginia"},
+        new SelectListItem() { Text="Washington", Value="Washington"},
+        new SelectListItem() { Text="West Virginia", Value="West Virginia"},
+        new SelectListItem() { Text="Wisconsin", Value="Wisconsin"},
+        new SelectListItem() { Text="Wyoming", Value="Wyoming"}
 
             };
                 ViewBag.Sstate = Sstate;
@@ -271,24 +261,25 @@ namespace ck_project.Controllers
                 return RedirectToAction("Add/" + a.customer_number, "Lead", new { msg = ViewBag.m });
 
             }
-            catch
+          
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong... the customer was not created ... please try again";
+                ViewBag.m = "The customer was not created ... " + e.Message;
                 return View();
             }
+   
         }
 
 
         public ActionResult CreateLead(int id)
         {
             try {
-                //    List<customer> a = db.customers.Where(d => d.customer_number == id).ToList();
-
                 return RedirectToAction("Add/" + id, "Lead");
             }
-            catch
+
+            catch (Exception e)
             {
-                ViewBag.m = " Something went wrong ... please try again";
+                ViewBag.m = " Something went wrong ... " + e.Message;
                 return View();
             }
         }
@@ -302,39 +293,16 @@ namespace ck_project.Controllers
             customer target = Customers_list[0];
             target.deleted = true;
             db.SaveChanges();
-                //   return RedirectToAction("ListCustomers");
                 ViewBag.m = "The customer was successfully deleted.";
                 return RedirectToAction("ListCustomers", new { search = "", msg = ViewBag.m });
             }
-            catch
+
+            catch (Exception e)
             {
-                ViewBag.m = "Something went wrong ... the customer was not deleted ... please try again";
-                return RedirectToAction("ListCustomers",new {search="",msg=ViewBag.m });
+                ViewBag.m = "The customer was not deleted ..." + e.Message;
+                return RedirectToAction("ListCustomers", new { search = "", msg = ViewBag.m });
             }
         }
-
-
-
-        //public ActionResult Delete(int id)
-        //{
-        //    //find target by uid
-        //    customer target = db.customers.First(s => s.customer_number == id);
-        //    //delete
-
-        //   // db.customers.Remove(target);           
-        //   // db.SaveChanges();
-
-        //   // return RedirectToAction("ListCustomers");
-
-        //    List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
-        //    ViewBag.Customerslist = Customers_list;
-        //    customer target = Customers_list[0];
-        //    TryUpdateModel(target, new string[] { "customer_firstname", "customer_middlename", "customer_lastname", "phone_number", "second_phone_number", "email" }, fo.ToValueProvider());
-        //    db.SaveChanges();
-        //    return View(target);
-        //}
-
-
-
+       
     }
 }
