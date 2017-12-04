@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ck_project.Models.Pg>
+﻿@model List<ck_project.Models.Pg>
 
 @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
 
@@ -14,9 +14,9 @@
         <div id="collapseR" class="panel-collapse collapse">
             <div class="panel-body">
                 @{
-                    if (Model != null)
+                    if (Model != null )
                     {
-                        @Html.Action("Add", new { lid = Model.First().lid })
+                        @Html.Action("Add", new { lid = ViewBag.lid })
                     }
                 }
             </div>

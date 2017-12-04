@@ -16,6 +16,8 @@ namespace ck_project.Controllers
         //main view
         public ActionResult View(int id,string msg=null) {
             List<string> pset = db.products.Where(a => a.lead_number == id && a.deleted==false).Select(e=> e.cat_anme).Distinct().ToList();
+            ViewBag.lid = id;
+           
             List<Pg> agent = new List<Pg>();
             foreach (var a in pset) {
                 agent.Add(new Pg { cat = a, lid = id });
@@ -27,6 +29,12 @@ namespace ck_project.Controllers
         //create new
         public ActionResult Add(int lid) {
             ViewBag.lid = lid;
+            List<SelectListItem> cat = new List<SelectListItem>();
+            foreach (var a in Helpers.Constants.catDefList)
+            {
+                cat.Add(new SelectListItem { Text = a, Value = a });
+            }
+            ViewBag.catlist = cat;
             return PartialView();
         }
 
@@ -36,6 +44,7 @@ namespace ck_project.Controllers
             product target = new product();
             
             TryUpdateModel<product>(target, new string[] {"cat_anme","quantity","Description","model","color","product_source","manufacture","location","price" }, fo.ToValueProvider());
+            target.cat_anme = fo["Product Category"];
             if (ModelState.IsValid) {
                 mian.products.Add(target);
                 db.products.Add(target);
@@ -65,7 +74,12 @@ namespace ck_project.Controllers
         //helper
         public ActionResult gp(string cat,int lid) {
             List<product> ll = db.products.Where(a => a.lead_number == lid && a.cat_anme.Equals(cat) && a.deleted==false).ToList();
-
+            List<SelectListItem> catt = new List<SelectListItem>();
+            foreach (var a in Helpers.Constants.catDefList)
+            {
+                catt.Add(new SelectListItem { Text = a, Value = a });
+            }
+            ViewBag.catlist = catt;
             return PartialView(ll);
         }
 
@@ -115,7 +129,7 @@ namespace ck_project.Controllers
             target.price = Double.Parse(fo["item.price"]);
             target.product_source = fo["item.product_source"];
             target.quantity = int.Parse(fo["item.quantity"]);
-            target.cat_anme = fo["item.cat_anme"];
+            target.cat_anme = fo["Product Category"];
             if (ModelState.IsValid) {
                 db.SaveChanges();
                 return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
