@@ -68,7 +68,8 @@ namespace ck_project.Helpers
             {
                 totalInstallDays += (double)tileInstallationDays;
             }
-            else if (installationdays != null)
+
+            if (installationdays != null)
             {
                 totalInstallDays += (double)installationdays;
             }

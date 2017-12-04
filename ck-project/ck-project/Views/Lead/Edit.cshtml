@@ -23,16 +23,36 @@
         <tr>
             <td style="width:997px"><h5>All the fields with star are required</h5></td>
             <td style="width:50px">
-                <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
+                @{
+                    if (Model != null)
+                    {
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                    }
+                }
             </td>
             <td style="width:100px">
-                <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
+                @{
+                    if (Model != null)
+                    {
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                    }
+                }
             </td>
             <td style="width:50px">
-                <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
+                @{
+                    if (Model != null)
+                    {
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                    }
+                }
             </td>
             <td style="width:50px">
-                <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn"/>
+                @{
+                    if (Model != null)
+                    {
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                    }
+                }
             </td>
         </tr>
     </table>
