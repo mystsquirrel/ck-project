@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ck_project.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -220,6 +221,7 @@ namespace ck_project.Controllers
                 tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
                 target.hours =double.Parse( fo["item.hours"]);
                 target.m_cost = double.Parse(fo["item.m_cost"]);
+                target.labor_cost= (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) *target.hours;
                 db.SaveChanges(lid,"update");
             } catch (Exception e) {
                 msg = e.Message;
