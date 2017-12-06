@@ -1,6 +1,7 @@
 ﻿using ck_project.Helpers;
 using ck_project.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ namespace ck_project.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
+        private static List<lead> result=new List<lead>();
         ckdatabase db = new ckdatabase();
         public ActionResult Index()
         {
@@ -34,6 +36,7 @@ namespace ck_project.Controllers
                                   where (s.project_status_name != "Closed" && s.project_status_name == search)
                                   orderby l.Last_update_date
                                   select l);
+                   HomeController.result = result.ToList();
                     return View(result);
                 }
                 else
@@ -44,6 +47,7 @@ namespace ck_project.Controllers
                                   where s.project_status_name != "Closed"
                                   orderby l.Last_update_date
                                   select l);
+                    HomeController.result = result.ToList();
                     return View(result);
                 }
             }
@@ -113,6 +117,34 @@ namespace ck_project.Controllers
             }
 
             return View(projSummary);
+        }
+
+        public ActionResult Sort(string by) {
+            List<lead> pro = new List<lead>();
+            switch (by)
+            {
+                case "pn":
+                    pro =HomeController.result.OrderBy(a => a.project_name).ToList();
+                        break;
+                case "cu":
+                    pro = HomeController.result.OrderBy(a => a.customer.customer_firstname).ToList();
+                    break;
+                case "pt":
+                    pro = HomeController.result.OrderBy(a => a.project_type_number).ToList();
+                    break;
+                case "cd":
+                    pro = HomeController.result.OrderBy(a => a.lead_date).ToList();
+                    break;
+                case "lmd":
+                    pro = HomeController.result.OrderBy(a => a.Last_update_date).ToList();
+                    break;
+                case "de":
+                   pro = HomeController.result.OrderBy(a => a.employee.emp_firstname).ToList();
+                    break;
+
+            }
+
+            return View("Mainpage", pro);
         }
     }
 }

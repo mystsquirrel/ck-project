@@ -29,12 +29,12 @@
             <tr>
                 <th>Branch</th>
                 <th>Designer</th>
-                <th>Customer</th>
-                <th>Project Name</th>
-                <th>Project Type</th>
+                <th>@Html.ActionLink("Customer", "Sort", new { by = "cu" })</th>
+                <th>@Html.ActionLink("Project Name", "Sort", new { by = "pn" })</th>
+                <th>@Html.ActionLink("Project Type", "Sort", new { by = "pt" })</th>
                 <th>Project Status</th>
-                <th>Created Date</th>
-                <th>Last Modified Date</th>
+                <th>@Html.ActionLink("Create Date", "Sort", new { by = "cd" })</th>
+                <th>@Html.ActionLink("Last Update Date", "Sort", new { by = "lmd" })</th>
             </tr>
         </thead>
         <tbody>
