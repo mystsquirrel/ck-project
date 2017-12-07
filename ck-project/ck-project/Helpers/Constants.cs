@@ -76,5 +76,12 @@ namespace ck_project.Helpers
         public const string rate_Name_Operational_Admin = "Operational Admin Expense Rate";
         public const string rate_Name_Operational_CreditCard = "Operational Expense For Credit Card Rate";
         public const string rate_Name_Operational_Installation = "Operational Expense For Installation Rate";
+
+        public const string address_type_jobsite = "JobAddress";
+
+        public const string tax_Name_State = "State Tax";
+        public const string tax_Name_County = "County Tax";
+        public const string tax_Name_City = "City Tax";
+        public const string tax_Name_BO = "B&O Tax";
     }
 }

@@ -31,7 +31,6 @@ namespace ck_project
         public int project_status_number { get; set; }
         public int project_type_number { get; set; }
         public int source_number { get; set; }
-        public int address_number { get; set; }
         public int emp_number { get; set; }
         public int branch_number { get; set; }
         public int delivery_status_number { get; set; }
@@ -54,7 +53,6 @@ namespace ck_project
         public string second_phone_number { get; set; }
         public string email { get; set; }
     
-        public virtual address address { get; set; }
         public virtual branch branch { get; set; }
         public virtual customer customer { get; set; }
         public virtual delivery_status delivery_status { get; set; }

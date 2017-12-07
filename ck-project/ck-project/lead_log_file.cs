@@ -22,17 +22,17 @@ namespace ck_project
         public int lead_number { get; set; }
         [Display(Name = "Section Name")]
         public string table_name { get; set; }
-        [Display(Name = "Field changed")]
+        [Display(Name = "Field Changed")]
         public string column_name { get; set; }
         [Display(Name = "Operation")]
         public string action_name { get; set; }
         [Display(Name = "Issue Date")]
         public System.DateTime update_date { get; set; }
-        [Display(Name = "Pervious Value")]
+        [Display(Name = "Previous Value")]
         public string prvious_value { get; set; }
         [Display(Name = "New Value")]
         public string new_value { get; set; }
-
+    
         public virtual lead lead { get; set; }
     }
 }

@@ -64,7 +64,6 @@ namespace ck_project
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoginByUsernamePassword", usernameParameter, passwordParameter);
         }
-
         public int SaveChanges(int lead_id, string op = "update")
         {
             var changes = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();

@@ -20,7 +20,6 @@ namespace ck_project
         {
             this.branches = new HashSet<branch>();
             this.customers = new HashSet<customer>();
-            this.leads = new HashSet<lead>();
         }
     
         public int address_number { get; set; }
@@ -44,12 +43,11 @@ namespace ck_project
         [Range(00001, 99999, ErrorMessage = "The zipcode must be 5 numbers")]
         public string zipcode { get; set; }
         public bool deleted { get; set; }
+        public Nullable<int> lead_number { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<branch> branches { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<customer> customers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lead> leads { get; set; }
     }
 }

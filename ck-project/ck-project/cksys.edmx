@@ -17,6 +17,7 @@
           <Property Name="county" Type="varchar" MaxLength="50" />
           <Property Name="zipcode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="lead_number" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_leads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -67,8 +68,8 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="lead_email" Type="varchar" MaxLength="50" />
           <Property Name="lead_phone_number" Type="varchar" MaxLength="50" />
           <Property Name="second_lead_phone_number" Type="varchar" MaxLength="50" />
-          <Property Name="lead_date" Type="date" Nullable="false" />
-          <Property Name="lead_close_date" Type="date" Nullable="false" />
+          <Property Name="lead_date" Type="datetime" Nullable="false" />
+          <Property Name="lead_close_date" Type="datetime" Nullable="false" />
           <Property Name="tax_exempt" Type="bit" Nullable="false" />
           <Property Name="in_city" Type="bit" Nullable="false" />
           <Property Name="building_permit_cost" Type="float" />
@@ -199,7 +200,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="project_status_number" Type="int" Nullable="false" />
           <Property Name="project_type_number" Type="int" Nullable="false" />
           <Property Name="source_number" Type="int" Nullable="false" />
-          <Property Name="address_number" Type="int" Nullable="false" />
           <Property Name="emp_number" Type="int" Nullable="false" />
           <Property Name="branch_number" Type="int" Nullable="false" />
           <Property Name="delivery_status_number" Type="int" Nullable="false" />
@@ -418,18 +418,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             </Principal>
             <Dependent Role="lead_log_file">
               <PropertyRef Name="lead_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_leads_to_addresses">
-          <End Role="addresses" Type="Self.addresses" Multiplicity="1" />
-          <End Role="leads" Type="Self.leads" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="addresses">
-              <PropertyRef Name="address_number" />
-            </Principal>
-            <Dependent Role="leads">
-              <PropertyRef Name="address_number" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -712,10 +700,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
             <End Role="leads" EntitySet="leads" />
             <End Role="lead_log_file" EntitySet="lead_log_file" />
           </AssociationSet>
-          <AssociationSet Name="fk_leads_to_addresses" Association="Self.fk_leads_to_addresses">
-            <End Role="addresses" EntitySet="addresses" />
-            <End Role="leads" EntitySet="leads" />
-          </AssociationSet>
           <AssociationSet Name="fk_leads_to_branches" Association="Self.fk_leads_to_branches">
             <End Role="branches" EntitySet="branches" />
             <End Role="leads" EntitySet="leads" />
@@ -821,10 +805,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <AssociationSet Name="fk_Customers_to_addresses" Association="CKsysdb.fk_Customers_to_addresses">
             <End Role="address" EntitySet="addresses" />
             <End Role="customer" EntitySet="customers" />
-          </AssociationSet>
-          <AssociationSet Name="fk_leads_to_addresses" Association="CKsysdb.fk_leads_to_addresses">
-            <End Role="address" EntitySet="addresses" />
-            <End Role="lead" EntitySet="leads" />
           </AssociationSet>
           <AssociationSet Name="fk_employees_to_brancges" Association="CKsysdb.fk_employees_to_brancges">
             <End Role="branch" EntitySet="branches" />
@@ -939,9 +919,9 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="county" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="zipcode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="lead_number" Type="Int32" />
           <NavigationProperty Name="branches" Relationship="CKsysdb.fk_branches_to_addresses" FromRole="address" ToRole="branch" />
           <NavigationProperty Name="customers" Relationship="CKsysdb.fk_Customers_to_addresses" FromRole="address" ToRole="customer" />
-          <NavigationProperty Name="leads" Relationship="CKsysdb.fk_leads_to_addresses" FromRole="address" ToRole="lead" />
         </EntityType>
         <EntityType Name="branch">
           <Key>
@@ -1079,7 +1059,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="project_status_number" Type="Int32" Nullable="false" />
           <Property Name="project_type_number" Type="Int32" Nullable="false" />
           <Property Name="source_number" Type="Int32" Nullable="false" />
-          <Property Name="address_number" Type="Int32" Nullable="false" />
           <Property Name="emp_number" Type="Int32" Nullable="false" />
           <Property Name="branch_number" Type="Int32" Nullable="false" />
           <Property Name="delivery_status_number" Type="Int32" Nullable="false" />
@@ -1092,7 +1071,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="second_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="address" Relationship="CKsysdb.fk_leads_to_addresses" FromRole="lead" ToRole="address" />
           <NavigationProperty Name="branch" Relationship="CKsysdb.fk_leads_to_branches" FromRole="lead" ToRole="branch" />
           <NavigationProperty Name="customer" Relationship="CKsysdb.fk_leads_to_customers" FromRole="lead" ToRole="customer" />
           <NavigationProperty Name="delivery_status" Relationship="CKsysdb.fk_leads_to_delivery_status" FromRole="lead" ToRole="delivery_status" />
@@ -1285,8 +1263,8 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="lead_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lead_phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="second_lead_phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lead_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="lead_close_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lead_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="lead_close_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tax_exempt" Type="Boolean" Nullable="false" />
           <Property Name="in_city" Type="Boolean" Nullable="false" />
           <Property Name="building_permit_cost" Type="Double" />
@@ -1315,18 +1293,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
               <PropertyRef Name="address_number" />
             </Principal>
             <Dependent Role="customer">
-              <PropertyRef Name="address_number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_leads_to_addresses">
-          <End Type="CKsysdb.address" Role="address" Multiplicity="1" />
-          <End Type="CKsysdb.lead" Role="lead" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="address">
-              <PropertyRef Name="address_number" />
-            </Principal>
-            <Dependent Role="lead">
               <PropertyRef Name="address_number" />
             </Dependent>
           </ReferentialConstraint>
@@ -1599,6 +1565,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <EntitySetMapping Name="addresses">
             <EntityTypeMapping TypeName="CKsysdb.address">
               <MappingFragment StoreEntitySet="addresses">
+                <ScalarProperty Name="lead_number" ColumnName="lead_number" />
                 <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="zipcode" ColumnName="zipcode" />
                 <ScalarProperty Name="county" ColumnName="county" />
@@ -1745,7 +1712,6 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
                 <ScalarProperty Name="delivery_status_number" ColumnName="delivery_status_number" />
                 <ScalarProperty Name="branch_number" ColumnName="branch_number" />
                 <ScalarProperty Name="emp_number" ColumnName="emp_number" />
-                <ScalarProperty Name="address_number" ColumnName="address_number" />
                 <ScalarProperty Name="source_number" ColumnName="source_number" />
                 <ScalarProperty Name="project_type_number" ColumnName="project_type_number" />
                 <ScalarProperty Name="project_status_number" ColumnName="project_status_number" />
