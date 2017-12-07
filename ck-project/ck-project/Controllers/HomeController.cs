@@ -101,14 +101,16 @@ namespace ck_project.Controllers
 
                     lead = db.leads.Where(l => l.lead_number == id).First();
                     ProjSummaryHelper projSummaryHelper = new ProjSummaryHelper();
-                    projSummary.Lead = lead;
                     if (db.total_cost.Where(c => c.lead_number == id).Any())
                     {
                         projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).First();
                     }
                     projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
                     projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                    projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
+                    projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
                     projSummary.ProductTotalMap = projSummaryHelper.GetProductTotalMap(lead);
+                    projSummary.Lead = lead;
                 }
             }
 

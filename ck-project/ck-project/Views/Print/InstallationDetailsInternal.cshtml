@@ -198,14 +198,14 @@
                                         <td></td>
                                         <td class="item_text">@task.task.task_name</td>
                                         <td class="item_price">@task.hours</td>
+                                        <td class="item_price">@task.m_cost</td>
+                                        <td class="item_price">@task.labor_cost</td>
                                         <td class="item_price">
                                             @{
-                                                double materialCost = task.m_cost / 2;
-                                                @materialCost
+                                                double materialRetailCost = task.m_cost * 2;
+                                                @materialRetailCost
                                             }
                                         </td>
-                                        <td class="item_price">@task.labor_cost</td>
-                                        <td class="item_price">@task.m_cost</td>
                                         <td class="item_price">
                                             @{
                                                 double totalcost = task.labor_cost + task.m_cost;
@@ -213,12 +213,12 @@
                                             }
                                         </td>
                                     </tr>
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     </table>
     <div style="padding-top:30px">

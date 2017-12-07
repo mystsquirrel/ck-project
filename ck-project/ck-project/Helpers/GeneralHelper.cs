@@ -73,42 +73,54 @@ namespace ck_project.Helpers
         {
             var lead = db.leads.Where(l => l.lead_number == leadNbr).First();
 
-            // set calculated installation data
-            lead = this.SetAllInstallationCosts(lead);
-
-            //set totalcost data
-            TotalCostHelper cHelper = new TotalCostHelper();
-            if (lead.total_cost.Count == 0)
+            if ((lead.products != null && lead.products.Count != 0) || (lead.installations != null && lead.installations.Count != 0))
             {
-                total_cost total = new total_cost
-                {
-                    lead_number = (int)lead.lead_number,
-                    product_cost = cHelper.CalculateProductCost(lead),
-                    installation_cost = cHelper.CalculateInstallationCost(lead),
-                    tax_cost = cHelper.CalculateApplicableTax(lead),
-                    building_permit_cost = cHelper.CalculateBuildingPermitCost(lead)
-                };
-                total.total_cost1 = total.product_cost + total.installation_cost + total.tax_cost;
-                List<total_cost> costList = new List<total_cost>
-                {
-                    total
-                };
+                // set calculated installation data
+                lead = this.SetAllInstallationCosts(lead);
 
-                lead.total_cost = costList;
-            }
-            else
-            {
-                foreach (var item2 in lead.total_cost)
+                //set totalcost data
+                TotalCostHelper cHelper = new TotalCostHelper();
+                double buildingPermit = 0;
+                double installationCost = 0;
+                double materialCost = 0;
+                foreach (var item in lead.installations)
                 {
-                    item2.product_cost = cHelper.CalculateProductCost(lead);
-                    item2.installation_cost = cHelper.CalculateInstallationCost(lead);
-                    item2.tax_cost = cHelper.CalculateApplicableTax(lead);
-                    item2.building_permit_cost = cHelper.CalculateBuildingPermitCost(lead);
-                    item2.total_cost1 = item2.product_cost + item2.installation_cost + item2.tax_cost;
+                    buildingPermit = (double)item.building_permit_cost;
+                    installationCost = (double)item.total_installation_labor_cost;
+                    materialCost = (double)item.total_construction_materials_cost;
                 }
-            }
 
-            db.SaveChanges();
+                if (lead.total_cost.Count == 0)
+                {
+                    total_cost total = new total_cost
+                    {
+                        lead_number = (int)lead.lead_number,
+                        product_cost = cHelper.CalculateProductCost(lead),
+                        tax_cost = cHelper.CalculateApplicableTax(lead),
+                        building_permit_cost = buildingPermit
+                    };
+                    total.total_cost1 = total.product_cost + materialCost + total.installation_cost + total.tax_cost;
+                    List<total_cost> costList = new List<total_cost>
+                    {
+                        total
+                    };
+
+                    lead.total_cost = costList;
+                }
+                else
+                {
+                    foreach (var item2 in lead.total_cost)
+                    {
+                        item2.product_cost = cHelper.CalculateProductCost(lead);
+                        item2.installation_cost = cHelper.CalculateInstallationCost(lead);
+                        item2.tax_cost = cHelper.CalculateApplicableTax(lead);
+                        item2.building_permit_cost = cHelper.CalculateBuildingPermitCost(lead);
+                        item2.total_cost1 = item2.product_cost + materialCost + item2.installation_cost + item2.tax_cost;
+                    }
+                }
+
+                db.SaveChanges();
+            }
         }
     }
 }

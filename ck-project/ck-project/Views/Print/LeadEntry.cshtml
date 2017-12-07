@@ -1,7 +1,7 @@
 ﻿@model ck_project.Models.ProjectSummary
 
 @{
-    ViewBag.Title = "LeadEntry2";
+    ViewBag.Title = "LeadEntry";
     Layout = null;
 }
 
@@ -19,7 +19,7 @@
     <div style="padding-bottom:80px"></div>
     <table>
         <tr>
-            <td colspan="5" class="le_section">Lead Data</td>
+            <td colspan="5" class="le_section">Lead Info</td>
         </tr>
         <tr>
             <td></td>
@@ -44,12 +44,12 @@
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Lead Source:</td>
+            <td class="le_title">Project Name/Reference:</td>
             <td class="le_data">
                 @{
                     if (Model.Lead != null)
                     {
-                        @Model.Lead.lead_source.source_name
+                        @Model.Lead.project_name
                     }
                 }
             </td>
@@ -65,15 +65,6 @@
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Remodel or New Construction:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.project_class.class_name
-                    }
-                }
-            </td>
             <td class="le_title">Install /Delivery /Pick-up:</td>
             <td class="le_data">
                 @{
@@ -83,9 +74,27 @@
                     }
                 }
             </td>
+            <td class="le_title">Lead Source:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.lead_source.source_name
+                    }
+                }
+            </td>
         </tr>
         <tr>
             <td></td>
+            <td class="le_title">Remodel or New Construction:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.project_class.class_name
+                    }
+                }
+            </td>
             <td class="le_title">Project Type:</td>
             <td class="le_data">
                 @{
@@ -95,6 +104,10 @@
                     }
                 }
             </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2"></td>
             <td class="le_title">Project Status:</td>
             <td class="le_data">
                 @{
@@ -106,20 +119,7 @@
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td class="le_title">Project Name/Reference:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.project_name
-                    }
-                }
-            </td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="5" class="le_section">Jobsite Data</td>
+            <td colspan="5" class="le_section">Jobsite Info</td>
         </tr>
         <tr>
             <td></td>
@@ -132,19 +132,12 @@
                     }
                 }
             </td>
-            <td class="le_title">In City or Out of City Limits:</td>
+            <td class="le_title">Primary Phone:</td>
             <td class="le_data">
                 @{
                     if (Model.Lead != null)
                     {
-                        if (Model.Lead.in_city)
-                        {
-                            @:In City
-                        } else
-                        {
-                            @:Out of City
-                        }
-
+                        @Model.Lead.phone_number
                     }
                 }
             </td>
@@ -160,6 +153,47 @@
                     }
                 }
             </td>
+            <td class="le_title">Secondary Phone:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.second_phone_number
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="le_title">In City or Out of City Limits:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        if (Model.Lead.in_city)
+                        {
+                            @:In City
+                        }
+                        else
+                        {
+                            @:Out of City
+                        }
+
+                    }
+                }
+            </td>
+            <td class="le_title">Primary Email:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.customer.email
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
             <td class="le_title">Tax Exempt:</td>
             <td class="le_data">
                 @{
@@ -176,39 +210,6 @@
                     }
                 }
             </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="le_title">Primary Phone:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.phone_number
-                    }
-                }
-            </td>
-            <td class="le_title">Secondary Phone:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.second_phone_number
-                    }
-                }
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="le_title">Primary Email:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.customer.email
-                    }
-                }
-            </td>
             <td class="le_title">Secondary Email:</td>
             <td class="le_data">
                 @{
@@ -220,16 +221,25 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" class="le_section">Customer Data</td>
+            <td colspan="5" class="le_section">Customer Info</td>
         </tr>
         <tr>
             <td></td>
             <td class="le_title">Responsible Party:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.customer_firstname@:&nbsp;@Model.Lead.customer.customer_lastname
+                        @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
+                    }
+                }
+            </td>
+            <td class="le_title">Billing Phone:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Customer != null)
+                    {
+                        @Model.Customer.phone_number
                     }
                 }
             </td>
@@ -239,9 +249,18 @@
             <td class="le_title">Billing Address:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.address.address1
+                        @Model.Customer.address.address1
+                    }
+                }
+            </td>
+            <td class="le_title">Alternate Billing Phone:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Customer != null)
+                    {
+                        @Model.Customer.second_phone_number
                     }
                 }
             </td>
@@ -251,36 +270,12 @@
             <td class="le_title"></td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
-                        @Model.Lead.customer.address.city@:&#44;&nbsp;@Model.Lead.customer.address.state&nbsp;@Model.Lead.customer.address.zipcode
+                        @Model.Customer.address.city@:&#44;&nbsp;@Model.Customer.address.state&nbsp;@Model.Customer.address.zipcode
                     }
                 }
             </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="le_title">Billing Phone:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.customer.phone_number
-                    }
-                }
-            </td>
-            <td class="le_title">Alternate Billing Phone:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.customer.second_phone_number
-                    }
-                }
-            </td>
-        </tr>
-        <tr>
-            <td></td>
             <td class="le_title">Primary Email:</td>
             <td class="le_data">
                 @{
@@ -290,10 +285,13 @@
                     }
                 }
             </td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
             <td class="le_title">Secondary Email:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Customer != null)
                     {
 
                     }

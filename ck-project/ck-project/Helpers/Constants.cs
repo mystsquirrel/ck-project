@@ -13,16 +13,20 @@ namespace ck_project.Helpers
             "CABINETRY",
             "HARDWARE",
             "APPLIANCES",
+            "VENTILATION/LIGHTING/ENCLOSURES",
             "OWNER PROVIDED PRODUCT",
-            "ACCESSORIES & MIRRORS"
+            "ACCESSORIES & MIRRORS",
+            "MISC ITEMS"
         });
 
         public static readonly IList<String> catDefList2 = new ReadOnlyCollection<string>(new List<String>
         {
             "COUNTERS",
             "SINK, STRAINER, FAUCET, FITTINGS",
+            "PLUMBING FIXTURES, FAUCETS & FITTINGS",
             "DECORATIVE SURFACES",
-            "ADDITIONAL ITEMS"
+            "ADDITIONAL ITEMS",
+            "DISCOUNT OR ADJUSTMENT"
         });
 
         public static readonly IList<String> catDefList = new ReadOnlyCollection<string>(new List<String>
@@ -31,11 +35,15 @@ namespace ck_project.Helpers
             "COUNTERS",
             "HARDWARE",
             "SINK, STRAINER, FAUCET, FITTINGS",
+            "PLUMBING FIXTURES, FAUCETS & FITTINGS",
             "APPLIANCES",
+            "VENTILATION/LIGHTING/ENCLOSURES",
             "OWNER PROVIDED PRODUCT",
             "DECORATIVE SURFACES",
             "ACCESSORIES & MIRRORS",
-            "ADDITIONAL ITEMS"
+            "MISC ITEMS",
+            "ADDITIONAL ITEMS",
+            "DISCOUNT OR ADJUSTMENT"
         });
 
         public const string install_hours = "Hours";

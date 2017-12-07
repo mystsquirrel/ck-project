@@ -27,7 +27,7 @@
                 <tr>
                     <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
                     <td style="width:50px">
-                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
                 </tr>
             }
@@ -36,16 +36,16 @@
                 <tr>
                     <td style="width:997px"></td>
                     <td style="width:50px">
-                        <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
                     <td style="width:100px">
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
                     <td style="width:50px">
-                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
                 </tr>
             }
@@ -86,3 +86,11 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".navbar-nav li").removeClass("active");//this will remove the active class from
+        //previously active menu item
+        $('#lead').addClass('active');
+    });
+</script>
