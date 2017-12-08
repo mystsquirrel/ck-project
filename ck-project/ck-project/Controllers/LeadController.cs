@@ -18,12 +18,12 @@ namespace ck_project.Controllers
 
 
 
-        public ActionResult ListLead(int? page, FormCollection fo = null,string msg = null)
+        public ActionResult ListLead(int? page, string search = null, string Type = null, string  Start = null, string end = null  ,string msg = null)
         {
-            string search = fo["search"];
-            int type = string.IsNullOrEmpty(fo["type"]) ? 3 : int.Parse(fo["type"]);
-            DateTime start = string.IsNullOrEmpty(fo["start"]) ? DateTime.MinValue : DateTime.Parse(fo["start"]);
-            DateTime end = string.IsNullOrEmpty(fo["end"]) ? DateTime.MaxValue : DateTime.Parse(fo["end"]);
+            
+            int type = string.IsNullOrEmpty(Type) ? 3 : int.Parse(Type);
+            DateTime start = string.IsNullOrEmpty(Start) ? DateTime.MinValue : DateTime.Parse(Start);
+            DateTime end2 = string.IsNullOrEmpty(end) ? DateTime.MaxValue : DateTime.Parse(end);
 
 
         //public ActionResult ListLead(string search = null, String msg = null, int type = 3)
@@ -41,7 +41,8 @@ namespace ck_project.Controllers
                     Value = b.project_status_number.ToString()
                 }));
                 ViewBag.lead_type = ClassInfo;
-                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end)).ToList().ToPagedList(page?? 1,30));
+                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && 
+                (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end2)).ToList().ToPagedList(page?? 1,7));
 
                 //return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)).ToList());
             }
@@ -66,8 +67,9 @@ namespace ck_project.Controllers
         }
         
 
-        public ActionResult Add(int id, String msg = null)
+        public ActionResult Add(int id, String msg = null, string add = null)
         {
+            ViewBag.add = add;
             ViewBag.m = msg;
             try
             {
@@ -402,7 +404,7 @@ namespace ck_project.Controllers
                     target.email = form["Item1.email"];
 
                     target.deleted = false;
-                 //   target.address_number = b.address_number;
+                    //   target.address_number = b.address_number;
                     target.project_status_number = 3;
                     target.lead_date = System.DateTime.Now;
                     target.Last_update_date = System.DateTime.Now;
@@ -417,7 +419,8 @@ namespace ck_project.Controllers
                     address1 = form["Item2.address1"],
                     address_type = "JobAddress",
                     city = form["Item2.city"],
-                    state = form["state"],
+                  //  state = form["state"],
+                    state = form["state1"],
                     county = form["Item2.county"],
                     zipcode = form["Item2.zipcode"],
                     deleted = false,
@@ -425,11 +428,29 @@ namespace ck_project.Controllers
                 };
                 db.addresses.Add(b);
                 db.SaveChanges();
+                if (string.IsNullOrEmpty(form["Item3.address1"]))
+                { }
+                else
+                { 
+                address BC = new address
+                {
+                    address1 = form["Item3.address1"],
+                    //     address_type = form["Item2.address_type"],
+                    address_type = "ExtraAddress",
+                    city = form["Item3.city"],
+                     state = form["state2"],
+                   // state = form["state"],
 
-                //linking 2 table
-          //      target.address_number = b.address_number;
+                    //   state = "Not fixed yet",
+                    county = form["Item3.county"],
+                    zipcode = form["Item3.zipcode"],
+                    deleted = false,
+                      lead_number = target.lead_number
+                };
+                db.addresses.Add(BC);
+                db.SaveChanges();
+                }
 
-                //    }
 
                 ViewBag.m = " The lead was successfully created to " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
 

@@ -9,7 +9,8 @@
     {
         <script type="text/javascript">
  $(document).ready(function () {
-toastr.success('@ViewBag.m');
+     toastr.success('@ViewBag.m');
+     @ViewBag.m = null
  });
 
         </script>
@@ -32,7 +33,7 @@ toastr.success('@ViewBag.m');
     <h2>Leads List</h2>
 
 
-@using (Html.BeginForm("ListLead", "Lead", FormMethod.Post))
+@using (Html.BeginForm("ListLead", "Lead", FormMethod.Get))
 {
     @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
         new { placeholder = "Type project name here" });
@@ -143,7 +144,7 @@ toastr.success('@ViewBag.m');
                                 //}
                             }
                             @Html.PagedListPager(Model, page => Url.Action("ListLead",
-    new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+    new { page, search = Request.QueryString["Search"], Type = Request.QueryString["type"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
                             }
      
     </table>
