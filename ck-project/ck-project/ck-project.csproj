@@ -504,7 +504,6 @@
     <Content Include="Views\ArcLeads\Details.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead - Copy.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead.cshtml" />
-    <Content Include="Views\Install\cusT.cshtml" />
     <Content Include="Views\Install\Lis.cshtml" />
     <Content Include="Views\Install\readtask.cshtml" />
     <Content Include="Views\Install\AddJob.cshtml" />
@@ -516,6 +515,7 @@
     <Content Include="Views\Home\ProjSummary_CustomerDetails.cshtml" />
     <Content Include="Views\Home\ProjSummary_ProductDetails.cshtml" />
     <Content Include="Views\Home\ProjSummary_InstallationDetails.cshtml" />
+    <Content Include="Views\Install\custT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
