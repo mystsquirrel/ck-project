@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace ck_project.Controllers
 {
@@ -13,13 +16,13 @@ namespace ck_project.Controllers
         //Creating the DB connecton
         ckdatabase db = new ckdatabase();
 
-        public ActionResult ListEmp(string search, String msg = null)
+        public ActionResult ListEmp(int? page, string search, String msg = null)
 
         {
             ViewBag.m = msg;
             try
             {
-                return View(db.employees.Where(x => x.emp_lastname.Contains(search) || search == null && x.deleted == false).ToList());
+                return View(db.employees.Where(x => x.emp_lastname.Contains(search) || search == null && x.deleted == false).ToList().ToPagedList(page ?? 1, 8));
             }
             catch (Exception e)
             {

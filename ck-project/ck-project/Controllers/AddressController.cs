@@ -149,24 +149,25 @@ namespace ck_project.Controllers
                 //address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
                 address target = db.addresses.Where(r => r.address_number == id).First();
 
-                if (target.leads.Any())
-                   
+                if (target.lead_number != null)
+
                 {
-                    int lid = target.leads.First().lead_number;
+                    int? lid = target.lead_number;
+
                     target.deleted = false;
                     target.state = fo["state"];
                     TryUpdateModel(target, new string[] { "address_type", "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                    db.SaveChanges(lid);
+                    db.SaveChanges((int)lid);
 
 
                 }
 
-                else {
-                    target.deleted = false;
+                   else {
+                target.deleted = false;
                     target.state = fo["state"];
                     TryUpdateModel(target, new string[] { "address_type", "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
                     db.SaveChanges();
-                }
+               }
         
 
           

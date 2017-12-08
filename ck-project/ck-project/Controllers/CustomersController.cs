@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ck_project.Controllers
 {
@@ -15,11 +17,11 @@ namespace ck_project.Controllers
         // GET: Customers
 
 
-          public ActionResult ListCustomers(string search,String msg=null )
+          public ActionResult ListCustomers(int? page, string search,String msg=null )
     {       try {
                 ViewBag.m = msg;
                
-                return View(db.customers.Where(x => x.customer_lastname.Contains(search) || search == null && x.deleted == false).ToList());
+                return View(db.customers.Where(x => x.customer_lastname.Contains(search) || search == null && x.deleted == false).ToList().ToPagedList(page ?? 1, 8));
 
             }
             catch (Exception e)
@@ -33,7 +35,9 @@ namespace ck_project.Controllers
 
         // read from the DB
         public ActionResult Edit(int id)
-        {try
+        {
+            ViewBag.addressnumber1 = db.customers.Where(x => x.customer_number == id).Select(v => v.address_number).First();
+            try
             {
                 List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();
                 ViewBag.Customerslist = Customers_list;
@@ -55,6 +59,7 @@ namespace ck_project.Controllers
        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection fo)
         {
+            ViewBag.addressnumber1 = db.customers.Where(x => x.customer_number == id).Select(v => v.address_number).First();
             try
             {
                 List<customer> Customers_list = db.customers.Where(d => d.customer_number == id).ToList();

@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ck_project.employee>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ck_project.employee>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -13,6 +16,7 @@ toastr.success('@ViewBag.m');
     }
 }
 
+
 @Html.Partial("_AdminMenu")
 
 
@@ -26,13 +30,13 @@ toastr.success('@ViewBag.m');
 
 
         @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
-    new { placeholder = "Type employee last name" });<input type="submit" value="Search" />
+    new { placeholder = "Type employee last name" });<input type="submit" value="Search" />    @Html.ActionLink("Or Add a New Employee", "Add")
 
 
     }
 
     <p>
-        @Html.ActionLink("Adding a New Employee", "Add")
+
     </p>
     <table class="table table-striped">
         <thead class="mdb-color darken-3">
@@ -97,8 +101,7 @@ toastr.success('@ViewBag.m');
             }
         }
     </table>
+    @Html.PagedListPager(Model, page => Url.Action("ListEmp",
+    new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
 
-    <div>
-        @Html.ActionLink("Back to List", "ListEmp")
-    </div>
 </div>

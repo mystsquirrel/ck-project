@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ck_project.customer>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ck_project.customer>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -37,11 +40,11 @@ toastr.success('@ViewBag.m');
 
 
         @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
-    new { placeholder = "Type customer last name" });<input type="submit" value="Search" />
+    new { placeholder = "Type customer last name" });<input type="submit" value="Search" />    @Html.ActionLink(" Or Add a New Customer", "AddCustomer")
     }
 
     <p>
-        @Html.ActionLink("Add a New Customer", "AddCustomer")
+
     </p>
     <table class="table table-striped">
         <thead class="mdb-color darken-3">
@@ -132,9 +135,8 @@ toastr.success('@ViewBag.m');
             }
         }
     </table>
+    @Html.PagedListPager(Model, page => Url.Action("ListCustomers",
+    new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
 
-    <div>
-        @Html.ActionLink("Back to List", "ListCustomers")
-    </div>
 </div>
 
