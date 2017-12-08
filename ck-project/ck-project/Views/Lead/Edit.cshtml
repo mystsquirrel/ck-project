@@ -38,7 +38,7 @@ toastr.success('@ViewBag.m');
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
                     }
                 }
             </td>
@@ -46,7 +46,7 @@ toastr.success('@ViewBag.m');
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
                     }
                 }
             </td>
@@ -54,7 +54,7 @@ toastr.success('@ViewBag.m');
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
                     }
                 }
             </td>
@@ -62,7 +62,7 @@ toastr.success('@ViewBag.m');
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
                     }
                 }
             </td>

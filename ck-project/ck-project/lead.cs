@@ -52,6 +52,7 @@ namespace ck_project
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string second_phone_number { get; set; }
         public string email { get; set; }
+        public string note { get; set; }
     
         public virtual branch branch { get; set; }
         public virtual customer customer { get; set; }
