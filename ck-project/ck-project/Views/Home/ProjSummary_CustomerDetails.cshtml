@@ -18,15 +18,7 @@
             @{
                 if (Model.Customer != null && Model.Customer.phone_number != null)
                 {
-                    string phoneNbr = Model.Customer.phone_number;
-                    if (phoneNbr.Count() == 10)
-                    {
-                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.phone_number))
-                    }
-                    else
-                    {
-                        @Model.Customer.phone_number
-                    }
+                    @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.phone_number))
                 }
             }
         </td>
@@ -47,15 +39,7 @@
             @{
                 if (Model.Customer != null && Model.Customer.second_phone_number != null)
                 {
-                    string phoneNbr = Model.Customer.second_phone_number;
-                    if (phoneNbr.Count() == 10)
-                    {
-                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.second_phone_number))
-                    }
-                    else
-                    {
-                        @Model.Customer.second_phone_number
-                    }
+                    @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.second_phone_number))
                 }
             }
         </td>
