@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ck_project.Controllers
 {
@@ -15,12 +17,18 @@ namespace ck_project.Controllers
         // GET: Lead
 
 
-        public ActionResult ListLead(FormCollection fo=null,string msg=null)
+
+        public ActionResult ListLead(int? page, FormCollection fo = null,string msg = null)
         {
             string search = fo["search"];
-            int type = string.IsNullOrEmpty(fo["type"])?3:int.Parse(fo["type"]);
-            DateTime start = string.IsNullOrEmpty(fo["start"])?DateTime.MinValue:DateTime.Parse(fo["start"]);
-            DateTime end = string.IsNullOrEmpty(fo["end"])?DateTime.MaxValue : DateTime.Parse(fo["end"]);
+            int type = string.IsNullOrEmpty(fo["type"]) ? 3 : int.Parse(fo["type"]);
+            DateTime start = string.IsNullOrEmpty(fo["start"]) ? DateTime.MinValue : DateTime.Parse(fo["start"]);
+            DateTime end = string.IsNullOrEmpty(fo["end"]) ? DateTime.MaxValue : DateTime.Parse(fo["end"]);
+
+
+        //public ActionResult ListLead(string search = null, String msg = null, int type = 3)
+        //{
+
             try
             {
                 ViewBag.m = msg;
@@ -33,8 +41,9 @@ namespace ck_project.Controllers
                     Value = b.project_status_number.ToString()
                 }));
                 ViewBag.lead_type = ClassInfo;
+                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end)).ToList().ToPagedList(page?? 1,30));
 
-                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)&&(x.lead_date>=start && x.lead_date<=end)).ToList());
+                //return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)).ToList());
             }
             catch (Exception e)
             {
@@ -110,7 +119,7 @@ namespace ck_project.Controllers
                     Value = a.address_number.ToString()
                 }));
 
-                var AddressCityInfo = new List<SelectListItem>();
+            //    var AddressCityInfo = new List<SelectListItem>();
 
                 var EmpInfo = new List<SelectListItem>();
                 EmpInfo.AddRange(db.employees.Where(x => x.deleted != true).Select(a => new SelectListItem
@@ -216,9 +225,7 @@ namespace ck_project.Controllers
         public ActionResult Add(FormCollection form, int id, String msg = null)
         {
             ViewBag.m = msg;
-            try
-            {
-                List<SelectListItem> CustomerInfo = new List<SelectListItem>();
+          List<SelectListItem> CustomerInfo = new List<SelectListItem>();
                 CustomerInfo.AddRange(db.customers.Where(x => x.deleted != true).Select(a => new SelectListItem
                 {
                     Text = a.customer_lastname,
@@ -361,18 +368,9 @@ namespace ck_project.Controllers
             };
                 ViewBag.Sstate = Sstate;
 
-                address b = new address
-                {
-                    address1 = form["Item2.address1"],
-                    address_type = "JobAddress",
-                    city = form["Item2.city"],
-                    state = form["state"],
-                    county = form["Item2.county"],
-                    zipcode = form["Item2.zipcode"],
-                    deleted = false
-                };
-                db.addresses.Add(b);
-                db.SaveChanges();
+
+            try
+            {
 
 
 
@@ -404,23 +402,38 @@ namespace ck_project.Controllers
                     target.email = form["Item1.email"];
 
                     target.deleted = false;
-                    target.address_number = b.address_number;
+                 //   target.address_number = b.address_number;
                     target.project_status_number = 3;
                     target.lead_date = System.DateTime.Now;
                     target.Last_update_date = System.DateTime.Now;
 
 
                 };
-
-
-                //linking 2 table
-                target.address_number = b.address_number;
                 db.leads.Add(target);
                 db.SaveChanges();
+
+                address b = new address
+                {
+                    address1 = form["Item2.address1"],
+                    address_type = "JobAddress",
+                    city = form["Item2.city"],
+                    state = form["state"],
+                    county = form["Item2.county"],
+                    zipcode = form["Item2.zipcode"],
+                    deleted = false,
+                    lead_number = target.lead_number
+                };
+                db.addresses.Add(b);
+                db.SaveChanges();
+
+                //linking 2 table
+          //      target.address_number = b.address_number;
+
                 //    }
 
                 ViewBag.m = " The lead was successfully created to " + target.customer.customer_firstname + " " + target.customer.customer_lastname + " on " + System.DateTime.Now;
 
+             
                 return RedirectToAction("Edit/" + target.lead_number, "lead", new { msg = ViewBag.m });
             }
             catch (Exception e)
@@ -435,6 +448,7 @@ namespace ck_project.Controllers
         // read from the DB
         public ActionResult Edit(int id)
         {
+            ViewBag.addressnumber = db.addresses.Where(x => x.lead_number == id).Select(v => v.address_number).First();
             try
             {
                 List<SelectListItem> CustomerInfo = new List<SelectListItem>();
@@ -541,6 +555,7 @@ namespace ck_project.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection form)
         {
+            ViewBag.addressnumber = db.addresses.Where(x => x.lead_number == id).Select(v => v.address_number).First();
 
             try
             {

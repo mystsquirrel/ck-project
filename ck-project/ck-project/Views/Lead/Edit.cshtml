@@ -1,5 +1,17 @@
 ﻿@model ck_project.lead
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
+    {
+        <script type="text/javascript">
+ $(document).ready(function () {
+toastr.success('@ViewBag.m');
+});
+        </script>
+    }
+}
+
 @{
     <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
     if (HttpContext.Current.User.IsInRole("Administrator"))
@@ -26,7 +38,7 @@
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
+                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     }
                 }
             </td>
@@ -34,7 +46,7 @@
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
+                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     }
                 }
             </td>
@@ -42,7 +54,7 @@
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
+                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     }
                 }
             </td>
@@ -50,7 +62,7 @@
                 @{
                     if (Model != null)
                     {
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabBtn" />
+                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.lead_number })'" class="btn btn-default" id="tabtBtn" />
                     }
                 }
             </td>
@@ -138,21 +150,10 @@
         </div>
     }
     <div>
-        @Html.ActionLink("Edit address info", "Edit", "Address", new { id = Model.address_number }, new { @class = "btn btn-default", @style = "width: 140px" })
+        @Html.ActionLink("Edit address info", "Edit", "Address", new { id = ViewBag.addressnumber }, new { @class = "btn btn-default", @style = "width: 140px" })
     </div>
     <div>
         @Html.ActionLink("Back to List", "ListLead")
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @if (ViewBag.m != null)
-    {
-        <script type="text/javascript">
- $(document).ready(function () {
-toastr.success('@ViewBag.m');
-});
-        </script>
-    }
-}
