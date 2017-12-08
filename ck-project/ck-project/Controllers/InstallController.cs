@@ -132,10 +132,10 @@ namespace ck_project.Controllers
 
         }
 
-        public ActionResult custT()
+        public ActionResult custT(int iid)
         {
-            task ntask = new task();
-            return View();
+            List<tasks_installation> result = db.tasks_installation.Where(s => s.installation_number == iid & s.task_number > 408).ToList();
+            return View(result);
 
         }
 
