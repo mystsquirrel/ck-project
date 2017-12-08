@@ -32,10 +32,10 @@
                         <div style="padding-top:150px; font-size:32px; padding-left:50px"></div>
                     }
 
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        <div style="font-size:32px; padding-left:50px">@Model.Lead.customer.address.address1</div>
-                        <div style="font-size:32px; padding-left:50px">@Model.Lead.customer.address.city, @Model.Lead.customer.address.state @Model.Lead.customer.address.zipcode</div>
+                        <div style="font-size:32px; padding-left:50px">@Model.JobsiteAddress.address1</div>
+                        <div style="font-size:32px; padding-left:50px">@Model.JobsiteAddress.city, @Model.JobsiteAddress.state @Model.JobsiteAddress.zipcode</div>
                     }
                     else
                     {
@@ -83,10 +83,10 @@
                         <div style="padding-left:5px; font-size:18px">&nbsp</div>
                     }
 
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        <div style="padding-left:5px; font-size:18px">@Model.Lead.customer.address.address1</div>
-                        <div style="padding-left:5px; font-size:18px">@Model.Lead.customer.address.city, @Model.Lead.customer.address.state @Model.Lead.customer.address.zipcode</div>
+                        <div style="padding-left:5px; font-size:18px">@Model.JobsiteAddress.address1</div>
+                        <div style="padding-left:5px; font-size:18px">@Model.JobsiteAddress.city, @Model.JobsiteAddress.state @Model.JobsiteAddress.zipcode</div>
                     }
                     else
                     {
@@ -322,12 +322,12 @@
             </tr>
         </table>
         <div style="padding-top:120px; padding-left:600px; color: rgb(31,78,120); font-size:16px; height:45px">Please indicate the Jobsite Location:</div>
-        <div style="padding-left:580px; height:24px">
+        <div style="padding-left:580px; height:24px; padding-top:8px">
             @{
                 if (Model.Lead != null && Model.Lead.in_city)
                 {
                     <input type="checkbox" value="incity" onclick="return false;" checked />
-                    <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>within</u> the city limits of @Model.Lead.address.city</label>
+                    <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>within</u> the city limits of @Model.JobsiteAddress.city</label>
                 }
                 else
                 {
@@ -335,9 +335,8 @@
                     <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>within</u> the city limits of </label>
                 }
             }
-            
         </div>
-        <div style="padding-left:580px; height:24px">
+        <div style="padding-left:580px; height:24px; padding-top:8px">
             @{
                 if (Model.Lead != null)
                 {
@@ -349,7 +348,7 @@
                     {
                         <input type="checkbox" value="outofcity" onclick="return false;" checked />
                     }
-                    <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>outside</u> the city limits of @Model.Lead.address.city</label>
+                    <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>outside</u> the city limits of @Model.JobsiteAddress.city</label>
                 }
                 else
                 {

@@ -59,9 +59,9 @@
         <tr>
             <td colspan="2" style="padding-left:3px">
             @{
-                if (Model.Lead != null)
+                if (Model.JobsiteAddress != null)
                 {
-                    @Model.Lead.address.address1
+                    @Model.JobsiteAddress.address1
                 }
             }
             </td>
@@ -78,9 +78,9 @@
         </tr>
         <tr>
             @{
-                if (Model.Lead != null)
+                if (Model.JobsiteAddress != null)
                 {
-                    <td colspan="2" style="padding-left:3px">@Model.Lead.address.city, @Model.Lead.address.state @Model.Lead.address.zipcode</td>
+                    <td colspan="2" style="padding-left:3px">@Model.JobsiteAddress.city, @Model.JobsiteAddress.state @Model.JobsiteAddress.zipcode</td>
                     <td style="padding-left:3px">@Model.Lead.lead_number</td>
                 }
                 else
@@ -208,7 +208,7 @@
                                         </td>
                                         <td class="item_price">
                                             @{
-                                                double totalcost = task.labor_cost + task.m_cost;
+                                                double totalcost = task.labor_cost + materialRetailCost;
                                                 @totalcost
                                             }
                                         </td>

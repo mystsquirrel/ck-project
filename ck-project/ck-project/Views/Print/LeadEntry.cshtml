@@ -18,29 +18,7 @@
     <div class="header"><h2>LEAD ENTRY</h2></div>
     <div style="padding-bottom:80px"></div>
     <table>
-        <tr>
-            <td colspan="5" class="le_section">Lead Info</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="le_title">Lead Number:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.lead_number
-                    }
-                }
-            </td>
-            <td class="le_title">Designer:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.employee.emp_firstname@:&nbsp;@Model.Lead.employee.emp_lastname
-                    }
-                }
-            </td>
+        <td colspan="5" class="le_section">Lead Info</td>
         </tr>
         <tr>
             <td></td>
@@ -50,6 +28,27 @@
                     if (Model.Lead != null)
                     {
                         @Model.Lead.project_name
+                    }
+                }
+            </td>
+            <td class="le_title">Designer:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.employee.emp_firstname@:&nbsp;@Model.Lead.employee.emp_lastname
+                }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="le_title">Install /Delivery /Pick-up:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.delivery_status.delivery_status_name
                     }
                 }
             </td>
@@ -65,12 +64,12 @@
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Install /Delivery /Pick-up:</td>
+            <td class="le_title">Remodel or New Construction:</td>
             <td class="le_data">
                 @{
                     if (Model.Lead != null)
                     {
-                        @Model.Lead.delivery_status.delivery_status_name
+                        @Model.Lead.project_class.class_name
                     }
                 }
             </td>
@@ -86,12 +85,56 @@
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Remodel or New Construction:</td>
+            <td class="le_title">Primary Phone:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null && Model.Lead.phone_number != null)
+                    {
+                        string phoneNbr = Model.Lead.phone_number;
+                        if (phoneNbr.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
+                        }
+                        else
+                        {
+                            @Model.Lead.phone_number
+                        }
+                    }
+                }
+            </td>
+            <td class="le_title">Tax Exempt:</td>
             <td class="le_data">
                 @{
                     if (Model.Lead != null)
                     {
-                        @Model.Lead.project_class.class_name
+                        if (@Model.Lead.tax_exempt)
+                        {
+                            @:Yes
+                    }
+                        else
+                        {
+                            @:No
+                    }
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="le_title">Secondary Phone:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null && Model.Lead.second_phone_number != null)
+                    {
+                        string phoneNbr2 = Model.Lead.second_phone_number;
+                        if (phoneNbr2.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
+                        }
+                        else
+                        {
+                            @Model.Lead.second_phone_number
+                        }
                     }
                 }
             </td>
@@ -107,7 +150,15 @@
         </tr>
         <tr>
             <td></td>
-            <td colspan="2"></td>
+            <td class="le_title">Primary Email:</td>
+            <td class="le_data">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.email
+                    }
+                }
+            </td>
             <td class="le_title">Project Status:</td>
             <td class="le_data">
                 @{
@@ -119,25 +170,33 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" class="le_section">Jobsite Info</td>
+            <td colspan="5" class="le_section">Address Info</td>
         </tr>
         <tr>
             <td></td>
             <td class="le_title">Jobsite Address:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.address1
+                        @Model.JobsiteAddress.address1
                     }
                 }
             </td>
-            <td class="le_title">Primary Phone:</td>
+            <td class="le_title">In City or Out of City Limits:</td>
             <td class="le_data">
                 @{
                     if (Model.Lead != null)
                     {
-                        @Model.Lead.phone_number
+                        if (Model.Lead.in_city)
+                        {
+                            @:In City
+                    }
+                        else
+                        {
+                            @:Out of City
+                    }
+
                     }
                 }
             </td>
@@ -147,76 +206,34 @@
             <td class="le_title"></td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.city@:&#44;&nbsp;@Model.Lead.address.state&nbsp;@Model.Lead.address.zipcode
-                    }
-                }
-            </td>
-            <td class="le_title">Secondary Phone:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.second_phone_number
+                        @Model.JobsiteAddress.city@:&#44;&nbsp;@Model.JobsiteAddress.state&nbsp;@Model.JobsiteAddress.zipcode
                     }
                 }
             </td>
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">In City or Out of City Limits:</td>
+            <td class="le_title">Alternative Address:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.AlternativeAddress != null)
                     {
-                        if (Model.Lead.in_city)
-                        {
-                            @:In City
-                        }
-                        else
-                        {
-                            @:Out of City
-                        }
-
-                    }
-                }
-            </td>
-            <td class="le_title">Primary Email:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @Model.Lead.customer.email
+                        @Model.AlternativeAddress.address1
                     }
                 }
             </td>
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Tax Exempt:</td>
+            <td class="le_title"></td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.AlternativeAddress != null)
                     {
-                        if (@Model.Lead.tax_exempt)
-                        {
-                            @:YES
-                        }
-                        else
-                        {
-                            @:NO
-                        }
-                    }
+                        @Model.AlternativeAddress.city@:&#44;&nbsp;@Model.AlternativeAddress.state&nbsp;@Model.AlternativeAddress.zipcode
                 }
-            </td>
-            <td class="le_title">Secondary Email:</td>
-            <td class="le_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-
-                    }
                 }
             </td>
         </tr>
@@ -234,19 +251,27 @@
                     }
                 }
             </td>
-            <td class="le_title">Billing Phone:</td>
+            <td class="le_title">Primary Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Customer != null)
+                    if (Model.Customer != null && Model.Customer.phone_number != null)
                     {
-                        @Model.Customer.phone_number
+                        string phoneNbr = Model.Customer.phone_number;
+                        if (phoneNbr.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.phone_number))
+                        }
+                        else
+                        {
+                            @Model.Customer.phone_number
+                        }
                     }
                 }
             </td>
         </tr>
         <tr>
             <td></td>
-            <td class="le_title">Billing Address:</td>
+            <td class="le_title">Address:</td>
             <td class="le_data">
                 @{
                     if (Model.Customer != null)
@@ -255,12 +280,20 @@
                     }
                 }
             </td>
-            <td class="le_title">Alternate Billing Phone:</td>
+            <td class="le_title">Alternate Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Customer != null)
+                    if (Model.Customer != null && Model.Customer.second_phone_number != null)
                     {
-                        @Model.Customer.second_phone_number
+                        string phoneNbr = Model.Customer.second_phone_number;
+                        if (phoneNbr.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.second_phone_number))
+                        }
+                        else
+                        {
+                            @Model.Customer.second_phone_number
+                        }
                     }
                 }
             </td>

@@ -59,18 +59,6 @@
                 }
             }
         </td>
-        <td class="le_title">Project Type:</td>
-        <td class="le_data">
-            @{
-                if (Model.Lead != null)
-                {
-                    @Model.Lead.project_type.project_type_name
-                }
-            }
-        </td>
-    </tr>
-    <tr>
-        <td></td>
         <td class="le_title">Lead Source:</td>
         <td class="le_data">
             @{
@@ -80,30 +68,9 @@
                 }
             }
         </td>
-        <td class="le_title">Project Status:</td>
-        <td class="le_data">
-            @{
-                if (Model.Lead != null)
-                {
-                    @Model.Lead.project_status.project_status_name
-                }
-            }
-        </td>
-    </tr>
-    <tr>
-        <td colspan="5" class="le_section">Jobsite Info</td>
     </tr>
     <tr>
         <td></td>
-        <td class="le_title">Jobsite Address:</td>
-        <td class="le_data">
-            @{
-                if (Model.Lead != null)
-                {
-                    @Model.Lead.address.address1
-                }
-            }
-        </td>
         <td class="le_title">Primary Phone:</td>
         <td class="le_data">
             @{
@@ -121,18 +88,25 @@
                 }
             }
         </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td class="le_title"></td>
+        <td class="le_title">Tax Exempt:</td>
         <td class="le_data">
             @{
                 if (Model.Lead != null)
                 {
-                    @Model.Lead.address.city@:&#44;&nbsp;@Model.Lead.address.state&nbsp;@Model.Lead.address.zipcode
+                    if (@Model.Lead.tax_exempt)
+                    {
+                        @:Yes
                     }
+                    else
+                    {
+                        @:No
+                    }
+                }
             }
         </td>
+    </tr>
+    <tr>
+        <td></td>
         <td class="le_title">Secondary Phone:</td>
         <td class="le_data">
             @{
@@ -150,9 +124,51 @@
                 }
             }
         </td>
+        <td class="le_title">Project Type:</td>
+        <td class="le_data">
+            @{
+                if (Model.Lead != null)
+                {
+                    @Model.Lead.project_type.project_type_name
+                }
+            }
+        </td>
     </tr>
     <tr>
         <td></td>
+        <td class="le_title">Primary Email:</td>
+        <td class="le_data">
+            @{
+                if (Model.Lead != null)
+                {
+                    @Model.Lead.email
+                }
+            }
+        </td>
+        <td class="le_title">Project Status:</td>
+        <td class="le_data">
+            @{
+                if (Model.Lead != null)
+                {
+                    @Model.Lead.project_status.project_status_name
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5" class="le_section">Address Info</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="le_title">Jobsite Address:</td>
+        <td class="le_data">
+            @{
+                if (Model.JobsiteAddress != null)
+                {
+                    @Model.JobsiteAddress.address1
+                }
+            }
+        </td>
         <td class="le_title">In City or Out of City Limits:</td>
         <td class="le_data">
             @{
@@ -161,49 +177,48 @@
                     if (Model.Lead.in_city)
                     {
                         @:In City
-                        }
+                    }
                     else
                     {
                         @:Out of City
-                        }
+                    }
 
-                }
-            }
-        </td>
-        <td class="le_title">Primary Email:</td>
-        <td class="le_data">
-            @{
-                if (Model.Lead != null)
-                {
-                    @Model.Lead.customer.email
                 }
             }
         </td>
     </tr>
     <tr>
         <td></td>
-        <td class="le_title">Tax Exempt:</td>
+        <td class="le_title"></td>
         <td class="le_data">
             @{
-                if (Model.Lead != null)
+                if (Model.JobsiteAddress != null)
                 {
-                    if (@Model.Lead.tax_exempt)
-                    {
-                        @:Yes
+                    @Model.JobsiteAddress.city@:&#44;&nbsp;@Model.JobsiteAddress.state&nbsp;@Model.JobsiteAddress.zipcode
                     }
-                    else
-                    {
-                        @:No
-                    }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="le_title">Alternative Address:</td>
+        <td class="le_data">
+            @{
+                if (Model.AlternativeAddress != null)
+                {
+                    @Model.AlternativeAddress.address1
                 }
             }
         </td>
-        <td class="le_title">Secondary Email:</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="le_title"></td>
         <td class="le_data">
             @{
-                if (Model.Lead != null)
+                if (Model.AlternativeAddress != null)
                 {
-
+                    @Model.AlternativeAddress.city@:&#44;&nbsp;@Model.AlternativeAddress.state&nbsp;@Model.AlternativeAddress.zipcode
                 }
             }
         </td>

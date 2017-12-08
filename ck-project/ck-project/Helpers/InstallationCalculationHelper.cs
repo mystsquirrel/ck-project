@@ -243,5 +243,4 @@ namespace ck_project.Helpers
             return buildingPermitCost;
         }
     }
-
 }

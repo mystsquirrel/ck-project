@@ -95,7 +95,7 @@ namespace ck_project.Helpers
                                 catSubHours += task.hours;
                                 catSubLaborCost += task.labor_cost;  
                                 catSubMaterialCost += task.m_cost;
-                                catSubMaterialRetail += catSubMaterialCost * 2;
+                                catSubMaterialRetail = catSubMaterialCost * 2;
                                 catSubCost = catSubLaborCost + catSubMaterialRetail;
                             }
                         }
@@ -207,6 +207,27 @@ namespace ck_project.Helpers
                 }
             }
             projectSummary.Customer = c;
+
+            return projectSummary;
+        }
+
+        public ProjectSummary SetAddresses(lead lead, ProjectSummary projectSummary)
+        {
+            if (db.addresses.Where(a => a.deleted == false && a.lead_number == lead.lead_number).Any())
+            {
+                var addressList = db.addresses.Where(a => a.deleted == false && a.lead_number == lead.lead_number).ToList();
+                foreach (var address in addressList)
+                {
+                    if (address.address_type.Equals(Constants.address_type_jobsite))
+                    {
+                        projectSummary.JobsiteAddress = address;
+                    }
+                    else
+                    {
+                        projectSummary.AlternativeAddress = address;
+                    }
+                }
+            }
 
             return projectSummary;
         }

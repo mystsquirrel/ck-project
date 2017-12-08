@@ -13,7 +13,7 @@
                     }
             }
         </td>
-        <td class="le_title">Billing Phone:</td>
+        <td class="le_title">Primary Phone:</td>
         <td class="le_data">
             @{
                 if (Model.Customer != null && Model.Customer.phone_number != null)
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td></td>
-        <td class="le_title">Billing Address:</td>
+        <td class="le_title">Address:</td>
         <td class="le_data">
             @{
                 if (Model.Customer != null)
@@ -42,7 +42,7 @@
                 }
             }
         </td>
-        <td class="le_title">Alternate Billing Phone:</td>
+        <td class="le_title">Alternate Phone:</td>
         <td class="le_data">
             @{
                 if (Model.Customer != null && Model.Customer.second_phone_number != null)
@@ -93,5 +93,4 @@
             }
         </td>
     </tr>
-
 </table>

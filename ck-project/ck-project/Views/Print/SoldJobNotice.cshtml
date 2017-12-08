@@ -35,14 +35,7 @@
                 }
             </td>
             <td class="right_text">Deposit Date:</td>
-            <td class="right_data">
-                @{
-                    if (Model.Lead != null)
-                    {
-                        @String.Format("{0:M/d/yyyy}", Model.Lead.Last_update_date)
-                    }
-                }
-            </td>
+            <td class="right_data"></td>
         </tr>
         <tr>
             <td class="left_text">Project Reference:</td>
@@ -59,9 +52,9 @@
             <td class="left_text">Address:</td>
             <td class="left_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.customer.address.address1
+                        @Model.JobsiteAddress.address1
                     }
                 }
             </td>
@@ -70,18 +63,18 @@
             <td class="left_text">City/State:</td>
             <td class="left_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.customer.address.city@:&#44;&nbsp;@Model.Lead.customer.address.state
+                        @Model.JobsiteAddress.city@:&#44;&nbsp;@Model.JobsiteAddress.state
                     }
                 }
             </td>
             <td class="right_text">Zip Code:</td>
             <td class="right_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.customer.address.zipcode
+                        @Model.JobsiteAddress.zipcode
                     }
                 }
             </td>
@@ -90,18 +83,34 @@
             <td class="left_text">Home Phone:</td>
             <td class="left_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.phone_number != null)
                     {
-                        @Model.Lead.customer.phone_number
+                        string phoneNbr = Model.Lead.phone_number;
+                        if (phoneNbr.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
+                        }
+                        else
+                        {
+                            @Model.Lead.phone_number
+                        }
                     }
-                 }
+                }
             </td>
             <td class="right_text">Cell/Alt Phone:</td>
             <td class="right_data">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.second_phone_number != null)
                     {
-                        @Model.Lead.customer.second_phone_number
+                        string phoneNbr2 = Model.Lead.second_phone_number;
+                        if (phoneNbr2.Count() == 10)
+                        {
+                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
+                        }
+                        else
+                        {
+                            @Model.Lead.second_phone_number
+                        }
                     }
                 }
             </td>
@@ -153,9 +162,9 @@
                 }
             <td style="width: 200px; text-align:center">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.city
+                        @Model.JobsiteAddress.city
                     }
                 }
             </td>

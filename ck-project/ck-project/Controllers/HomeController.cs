@@ -110,9 +110,10 @@ namespace ck_project.Controllers
                         projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).First();
                     }
                     projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
-                    projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
                     projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
                     projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
+                    projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                    projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
                     projSummary.ProductTotalMap = projSummaryHelper.GetProductTotalMap(lead);
                     projSummary.Lead = lead;
                 }

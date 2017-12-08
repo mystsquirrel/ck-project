@@ -50,9 +50,9 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ADDRESS</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.address1
+                        @Model.JobsiteAddress.address1
                     }
                 }
             </td>
@@ -60,9 +60,12 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ADDRESS</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.address != null)
                     {
                         @Model.Lead.customer.address.address1
+                    } else if (Model.JobsiteAddress != null)
+                    {
+                        @Model.JobsiteAddress.address1
                     }
                 }
             </td>
@@ -79,9 +82,9 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">CITY</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.city
+                        @Model.JobsiteAddress.city
                     }
                 }
             </td>
@@ -89,9 +92,13 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">CITY</td>
             <td colspan="3" style="width:300px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.address != null)
                     {
                         @Model.Lead.customer.address.city
+                    }
+                    else if (Model.JobsiteAddress != null)
+                    {
+                        @Model.JobsiteAddress.city
                     }
                 }
             </td>
@@ -100,18 +107,18 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">STATE</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.state
+                        @Model.JobsiteAddress.state
                     }
                 }
             </td>
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ZIP</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.address.zipcode
+                        @Model.JobsiteAddress.zipcode
                     }
                 }
             </td>
@@ -119,18 +126,26 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">STATE</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.address != null)
                     {
                         @Model.Lead.customer.address.state
+                    }
+                    else if (Model.JobsiteAddress != null)
+                    {
+                        @Model.JobsiteAddress.state
                     }
                 }
             </td>
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ZIP</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.address != null)
                     {
                         @Model.Lead.customer.address.zipcode
+                    }
+                    else if (Model.JobsiteAddress != null)
+                    {
+                        @Model.JobsiteAddress.zipcode
                     }
                 }
             </td>
@@ -157,18 +172,25 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">PHONE#</td>
             <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.phone_number != null)
                     {
                         @Model.Lead.customer.phone_number
+                    } else
+                    {
+                        @Model.Lead.phone_number
                     }
                 }
             </td>
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ALT#</td>
             <td colspan="2" style="width:200px; border-bottom: 1px dotted gray; font-weight:bold; padding-left: 3px">
                 @{
-                    if (Model.Lead != null)
+                    if (Model.Lead != null && Model.Lead.customer.second_phone_number != null)
                     {
                         @Model.Lead.customer.second_phone_number
+                    }
+                    else
+                    {
+                        @Model.Lead.second_phone_number
                     }
                 }
             </td>
