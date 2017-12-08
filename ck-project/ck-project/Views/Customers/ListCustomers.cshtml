@@ -27,6 +27,7 @@ toastr.success('@ViewBag.m');
     }
 }
 <div class="container">
+    <h4> To create a new lead, you need to select customer from the list or create a new one</h4>
     <h4> Customers List </h4>
 
     @using (Html.BeginForm("ListCustomers", "Customers", FormMethod.Get))
@@ -135,8 +136,10 @@ toastr.success('@ViewBag.m');
             }
         }
     </table>
-    @Html.PagedListPager(Model, page => Url.Action("ListCustomers",
+        @Html.PagedListPager(Model, page => Url.Action("ListCustomers",
     new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+
+
 
 </div>
 

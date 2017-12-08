@@ -9,7 +9,8 @@
     {
         <script type="text/javascript">
  $(document).ready(function () {
-toastr.success('@ViewBag.m');
+     toastr.success('@ViewBag.m');
+           @ViewBag.m = null
  });
 
         </script>
@@ -101,7 +102,9 @@ toastr.success('@ViewBag.m');
             }
         }
     </table>
-    @Html.PagedListPager(Model, page => Url.Action("ListEmp",
+        @Html.PagedListPager(Model, page => Url.Action("ListEmp",
     new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+
+
 
 </div>

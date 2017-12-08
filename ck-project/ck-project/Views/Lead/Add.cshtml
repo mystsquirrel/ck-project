@@ -1,4 +1,5 @@
-﻿@model  Tuple<ck_project.lead, ck_project.address>
+﻿@model  Tuple<ck_project.lead, ck_project.address, ck_project.address>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -12,70 +13,28 @@
     }
 }
 
-@{
-    <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
-    if (HttpContext.Current.User.IsInRole("Administrator"))
-    {
-        @Html.Partial("_AdminMenu")
-    }
-    else
-    {
-        @Html.Partial("_MainMenu")
-    }
-}
 
-<div class="container">
-    <table>
-        <tr>
-            <td colspan="5" style="width:1000px"><h4>Lead</h4></td>
-            <td style="width:50px" align="right">
-                @*<div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>*@
-            </td>
-        </tr>
-        <tr>
-            <td style="width:997px"><h5>All the fields with star are required</h5></td>
-            <td style="width:50px">
-                @{
-                    if (Model != null && Model.Item1 != null)
-                    {
-                        <input type="button" value="Products" onclick="location.href='@Url.Action("View", "Product", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
-                    }
-                }
-            </td>
-            <td style="width:100px">
-                @{
-                    if (Model != null && Model.Item1 != null)
-                    {
-                        <input type="button" value="Installation" onclick="location.href='@Url.Action("Lis", "Install", new { lid = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
-                    }
-                }
-            </td>
-            <td style="width:50px">
-                @{
-                    if (Model != null && Model.Item1 != null)
-                    {
-                        <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
-                    }
-                }
-            </td>
-            <td style="width:50px">
-                @{
-                    if (Model != null && Model.Item1 != null)
-                    {
-                        <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.Item1.lead_number })'" class="btn btn-default" id="tabtBtn" />
-                    }
-                }
-            </td>
-        </tr>
-    </table>
-    <hr />
-    
-    @using (Html.BeginForm())
-    {
+@using (Html.BeginForm())
+{
 
 
-        @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
+    @*<div class="panel-group" id="accordion">*@
+        <div class="panel panel-default">
+            <h3 class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseD" style="color:#8B0000">
+                    Lead
+                </a>
+            </h3>
+
+            <div id="collapseD" class="panel-collapse collapse in">
+                <div class="panel-body">
+
+
+                    <h5>All the fields with star are required</h5>
+
+                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
@@ -164,100 +123,181 @@
                     </div>
                     <div class='col-xs-4'>
                         <div class="form-group">
-                            <label class='control-label'>Tax Exempt?</label>
-                            @Html.EditorFor(Tuple => Tuple.Item1.tax_exempt)
+                            <label class='control-label'>Tax Exempt? *</label>
+                            @Html.EditorFor(Tuple => Tuple.Item1.tax_exempt, new { @Value = "True" })
                             @Html.ValidationMessageFor(Tuple => Tuple.Item1.tax_exempt, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class='col-xs-4'>
                         <div class="form-group">
-                            <label class='control-label'>In City?</label>
-                            @Html.EditorFor(Tuple => Tuple.Item1.in_city)
-                            @Html.ValidationMessageFor(Tuple => Tuple.Item1.in_city, "", new { @class = "text-danger" })
+                            <label class='control-label'>In City? *</label>
+                            @Html.EditorFor(Tuple => Tuple.Item1.in_city, new { @Value = "True" })
+                            @Html.ValidationMessageFor(Tuple => Tuple.Item1.in_city,  "", new { @class = "text-danger" })
                         </div>
                     </div>
+                </div>
+            </div>
+
+
+            @*<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>*@
 
 
 
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="panel panel-default">
+                <h3 class="panel-heading">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseR" style="color:#8B0000">
+                        Address
+                    </a>
+                    &nbsp;&nbsp;
+                    @Html.ActionLink("Add another address", "Add",new {add="2" }, new { @class = "btn btn-default", @style = "width: 170px" })
+
+                </h3>
+
+                <div id="collapseR" class="panel-collapse collapse in">
+                    <div class="panel-body">
 
 
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <h3 class="panel-heading">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseR" style="color:#8B0000">
-                                    Address
-                                </a>
-                            </h3>
-                            <div id="collapseR" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    @Html.AntiForgeryToken()
-                                    <div class="form-horizontal">
-                                        <hr />
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        <div class='col-xs-4'>
-                                            <div class="form-group">
-                                                <label class="control-label" for="name"> Jobsite Address*</label>
-                                                @Html.EditorFor(tuple => tuple.Item2.address1, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(tuple => tuple.Item2.address1, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class='col-xs-4'>
-                                            <div class="form-group">
-                                                <label class="control-label" for="name"> Jobsite City*</label>
-                                                @Html.EditorFor(tuple => tuple.Item2.city, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(tuple => tuple.Item2.city, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class='col-xs-4 '>
-                                            <div class="form-group">
-                                                <label class="control-label" for="name"> Jobsite State*</label>
-                                                @Html.DropDownList("state", (IEnumerable<SelectListItem>)ViewBag.Sstate, htmlAttributes: new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(tuple => tuple.Item2.state, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class='col-xs-4 '>
-                                            <div class="form-group">
-                                                <label class="control-label" for="name"> Jobsite County*</label>
-                                                @Html.EditorFor(tuple => tuple.Item2.county, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(tuple => tuple.Item2.county, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class='col-xs-4 '>
-                                            <div class="form-group">
-                                                <label class="control-label" for="name"> Jobsite Zipcode*</label>
-                                                @Html.EditorFor(tuple => tuple.Item2.zipcode, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(tuple => tuple.Item2.zipcode, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                        @Html.AntiForgeryToken()
 
-                                    </div>
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                            <div class='col-xs-4'>
+                                <div class="form-group">
+                                    <label class="control-label" for="name"> Jobsite Address*</label>
+                                    @Html.EditorFor(tuple => tuple.Item2.address1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(tuple => tuple.Item2.address1, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
+
+                            <div class='col-xs-4'>
+                                <div class="form-group">
+                                    <label class="control-label" for="name"> Jobsite City*</label>
+                                    @Html.EditorFor(tuple => tuple.Item2.city, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(tuple => tuple.Item2.city, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class='col-xs-4 '>
+                                <div class="form-group">
+                                    <label class="control-label" for="name"> Jobsite State*</label>
+                                    @Html.DropDownList("state1", (IEnumerable<SelectListItem>)ViewBag.Sstate, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(tuple => tuple.Item2.state, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class='col-xs-4 '>
+                                <div class="form-group">
+                                    <label class="control-label" for="name"> Jobsite County*</label>
+                                    @Html.EditorFor(tuple => tuple.Item2.county, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(tuple => tuple.Item2.county, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class='col-xs-4 '>
+                                <div class="form-group">
+                                    <label class="control-label" for="name"> Jobsite Zipcode*</label>
+                                    @Html.EditorFor(tuple => tuple.Item2.zipcode, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(tuple => tuple.Item2.zipcode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-1 col-md-10">
-                                @Html.ActionLink("Back to List", "ListLead")
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <br><br><br><br><br><br><br>
+                        @*----end of address 1--*@
+                     @{if (ViewBag.add == "2")
+                         {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                <div class='col-xs-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="name"> Jobsite Address*</label>
+                                        @Html.EditorFor(tuple => tuple.Item3.address1, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(tuple => tuple.Item3.address1, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class='col-xs-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="name"> Jobsite City*</label>
+                                        @Html.EditorFor(tuple => tuple.Item3.city, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(tuple => tuple.Item3.city, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class='col-xs-4 '>
+                                    <div class="form-group">
+                                        <label class="control-label" for="name"> Jobsite State*</label>
+                                        @Html.DropDownList("state2", (IEnumerable<SelectListItem>)ViewBag.Sstate, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(tuple => tuple.Item3.state, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class='col-xs-4 '>
+                                    <div class="form-group">
+                                        <label class="control-label" for="name"> Jobsite County*</label>
+                                        @Html.EditorFor(tuple => tuple.Item3.county, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(tuple => tuple.Item3.county, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class='col-xs-4 '>
+                                    <div class="form-group">
+                                        <label class="control-label" for="name"> Jobsite Zipcode*</label>
+                                        @Html.EditorFor(tuple => tuple.Item3.zipcode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(tuple => tuple.Item3.zipcode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
 
 
-                                <input type="submit" value="Create" class="btn btn-default" id="passwordInfo" /> &nbsp;
 
                             </div>
-                        </div>
+                         } } 
+                        @*-----end of address2---*@ 
+    
+
+
                     </div>
 
-    }
+                </div>
+            </div>
+           
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-0 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" id="passwordInfo" /> &nbsp;
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-0 col-md-10">
+                @Html.ActionLink("Back to List", "ListLead")
+            </div>
+        </div>
+ 
+                @*</div>*@
 
-</div>
+
+                }
+
+
+
+
