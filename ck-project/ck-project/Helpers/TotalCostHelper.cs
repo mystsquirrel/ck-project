@@ -40,10 +40,10 @@ namespace ck_project.Helpers
 
         public double CalculateApplicableTax(lead lead)
         {
-            TaxCalculationHelper taxHelper = new TaxCalculationHelper();
+            TaxCalculationHelper taxHelper = new TaxCalculationHelper(lead);
             if (!lead.tax_exempt)
             {
-                return taxHelper.CalculateStateTax(lead) + taxHelper.CalculateCountyTax(lead) + taxHelper.CalculateMunicipalTax(lead) + taxHelper.CalculateBOTax(lead);
+                return taxHelper.CalculateStateTax() + taxHelper.CalculateCountyTax() + taxHelper.CalculateMunicipalTax() + taxHelper.CalculateBOTax();
             }
 
             return 0;

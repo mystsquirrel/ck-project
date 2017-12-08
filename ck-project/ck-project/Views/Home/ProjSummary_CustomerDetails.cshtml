@@ -13,27 +13,19 @@
                     }
             }
         </td>
-        <td class="le_title">Billing Phone:</td>
+        <td class="le_title">Primary Phone:</td>
         <td class="le_data">
             @{
-                if (Model.Customer != null && Model.Customer.phone_number != null)
+                if (Model.Customer != null)
                 {
-                    string phoneNbr = Model.Customer.phone_number;
-                    if (phoneNbr.Count() == 10)
-                    {
-                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.phone_number))
-                    }
-                    else
-                    {
-                        @Model.Customer.phone_number
-                    }
+                    @Model.Customer.phone_number
                 }
             }
         </td>
     </tr>
     <tr>
         <td></td>
-        <td class="le_title">Billing Address:</td>
+        <td class="le_title">Address:</td>
         <td class="le_data">
             @{
                 if (Model.Customer != null)
@@ -42,20 +34,12 @@
                 }
             }
         </td>
-        <td class="le_title">Alternate Billing Phone:</td>
+        <td class="le_title">Alternate Phone:</td>
         <td class="le_data">
             @{
-                if (Model.Customer != null && Model.Customer.second_phone_number != null)
+                if (Model.Customer != null)
                 {
-                    string phoneNbr = Model.Customer.second_phone_number;
-                    if (phoneNbr.Count() == 10)
-                    {
-                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.second_phone_number))
-                    }
-                    else
-                    {
-                        @Model.Customer.second_phone_number
-                    }
+                    @Model.Customer.second_phone_number
                 }
             }
         </td>
@@ -93,5 +77,4 @@
             }
         </td>
     </tr>
-
 </table>

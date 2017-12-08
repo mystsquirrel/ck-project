@@ -16,7 +16,7 @@ namespace ck_project
     public partial class lead_log_file
     {
         public int log_number { get; set; }
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         public string emp_username { get; set; }
         [Display(Name = "Lead Number")]
         public int lead_number { get; set; }
@@ -32,7 +32,7 @@ namespace ck_project
         public string prvious_value { get; set; }
         [Display(Name = "New Value")]
         public string new_value { get; set; }
-    
+
         public virtual lead lead { get; set; }
     }
 }

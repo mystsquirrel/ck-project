@@ -42,9 +42,9 @@
         <tr>
             <td>
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.customer.address.address1
+                        @Model.JobsiteAddress.address1
                     }
                 }
             </td>
@@ -61,9 +61,9 @@
         <tr>
             <td>
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        @Model.Lead.customer.address.city@:&#44;&nbsp;@Model.Lead.customer.address.state&nbsp;@Model.Lead.customer.address.zipcode
+                        @Model.JobsiteAddress.city@:&#44;&nbsp;@Model.JobsiteAddress.state&nbsp;@Model.JobsiteAddress.zipcode
                     }
                 }
             </td>

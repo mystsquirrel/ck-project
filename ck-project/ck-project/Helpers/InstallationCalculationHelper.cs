@@ -8,15 +8,33 @@ namespace ck_project.Helpers
         public double CalculateMaterialRetailPrice(lead lead)
         {
             double materialRetailCost = 0;
+            double materialRate = 0;
             foreach (var item in lead.installations)
             {
+                if (item.ov_material_rate == null)
+                {
+                    materialRate = helper.GetApplicableRate("Material Cost Rate");
+                }
+                else
+                {
+                    materialRate = (double)item.ov_material_rate;
+                }
+               
                 foreach (var task in item.tasks_installation)
                 {
                     materialRetailCost += task.m_cost;
                 }
             }
 
-            return materialRetailCost * 2;
+            if (materialRate == 0)
+            {
+                return materialRetailCost;
+            }
+            else
+            {
+                return materialRetailCost * materialRate;
+            }
+                
         }
 
         public double CalculateEstimatedHours(lead lead)
@@ -243,5 +261,4 @@ namespace ck_project.Helpers
             return buildingPermitCost;
         }
     }
-
 }

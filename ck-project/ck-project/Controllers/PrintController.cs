@@ -30,6 +30,7 @@ namespace ck_project.Controllers
             if (lead != null)
             {
                 projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
                 projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);

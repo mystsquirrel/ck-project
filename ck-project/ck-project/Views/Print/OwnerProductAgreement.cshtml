@@ -36,9 +36,9 @@
             <tr>
                 <td style="width:40%" align="right">Address:</td>
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        <td style="padding-left:10px">@Model.Lead.customer.address.address1</td>
+                        <td style="padding-left:10px">@Model.JobsiteAddress.address1</td>
                     }
                     else
                     {
@@ -49,9 +49,9 @@
             <tr>
                 <td style="width:40%" align="right">City, State, Zip:</td>
                 @{
-                    if (Model.Lead != null)
+                    if (Model.JobsiteAddress != null)
                     {
-                        <td style="padding-left:10px">@Model.Lead.customer.address.city, @Model.Lead.customer.address.state @Model.Lead.customer.address.zipcode</td>
+                        <td style="padding-left:10px">@Model.JobsiteAddress.city, @Model.JobsiteAddress.state @Model.JobsiteAddress.zipcode</td>
                     }
                     else
                     {
