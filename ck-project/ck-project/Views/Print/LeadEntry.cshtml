@@ -88,17 +88,9 @@
             <td class="le_title">Primary Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null && Model.Lead.phone_number != null)
+                    if (Model.Lead != null)
                     {
-                        string phoneNbr = Model.Lead.phone_number;
-                        if (phoneNbr.Count() == 10)
-                        {
-                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
-                        }
-                        else
-                        {
-                            @Model.Lead.phone_number
-                        }
+                        @Model.Lead.phone_number
                     }
                 }
             </td>
@@ -124,17 +116,9 @@
             <td class="le_title">Secondary Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Lead != null && Model.Lead.second_phone_number != null)
+                    if (Model.Lead != null)
                     {
-                        string phoneNbr2 = Model.Lead.second_phone_number;
-                        if (phoneNbr2.Count() == 10)
-                        {
-                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
-                        }
-                        else
-                        {
-                            @Model.Lead.second_phone_number
-                        }
+                        @Model.Lead.second_phone_number
                     }
                 }
             </td>
@@ -170,6 +154,18 @@
             </td>
         </tr>
         <tr>
+            <td></td>
+            <td class="le_title">Note:</td>
+            <td style="padding-left: 10px; height: 35px;">
+                @{
+                    if (Model.Lead != null)
+                    {
+                        @Model.Lead.note
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
             <td colspan="5" class="le_section">Address Info</td>
         </tr>
         <tr>
@@ -195,7 +191,7 @@
                         else
                         {
                             @:Out of City
-                    }
+                        }
 
                     }
                 }
@@ -254,17 +250,9 @@
             <td class="le_title">Primary Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Customer != null && Model.Customer.phone_number != null)
+                    if (Model.Customer != null)
                     {
-                        string phoneNbr = Model.Customer.phone_number;
-                        if (phoneNbr.Count() == 10)
-                        {
-                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.phone_number))
-                        }
-                        else
-                        {
-                            @Model.Customer.phone_number
-                        }
+                        @Model.Customer.phone_number
                     }
                 }
             </td>
@@ -283,17 +271,9 @@
             <td class="le_title">Alternate Phone:</td>
             <td class="le_data">
                 @{
-                    if (Model.Customer != null && Model.Customer.second_phone_number != null)
+                    if (Model.Customer != null)
                     {
-                        string phoneNbr = Model.Customer.second_phone_number;
-                        if (phoneNbr.Count() == 10)
-                        {
-                            @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Customer.second_phone_number))
-                        }
-                        else
-                        {
-                            @Model.Customer.second_phone_number
-                        }
+                        @Model.Customer.second_phone_number
                     }
                 }
             </td>

@@ -516,6 +516,8 @@
     <Content Include="Views\Home\ProjSummary_ProductDetails.cshtml" />
     <Content Include="Views\Home\ProjSummary_InstallationDetails.cshtml" />
     <Content Include="Views\Install\custT.cshtml" />
+    <Content Include="Views\Print\ProductsInternal_ListAll.cshtml" />
+    <Content Include="Views\Print\ProductsExternal_ListAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
