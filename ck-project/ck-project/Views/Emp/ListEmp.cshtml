@@ -102,7 +102,9 @@
             }
         }
     </table>
-    @Html.PagedListPager(Model, page => Url.Action("ListEmp",
+        @Html.PagedListPager(Model, page => Url.Action("ListEmp",
     new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+
+
 
 </div>

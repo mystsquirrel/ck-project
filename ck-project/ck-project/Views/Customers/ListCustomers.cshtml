@@ -136,8 +136,10 @@ toastr.success('@ViewBag.m');
             }
         }
     </table>
-    @Html.PagedListPager(Model, page => Url.Action("ListCustomers",
+        @Html.PagedListPager(Model, page => Url.Action("ListCustomers",
     new { page, search = Request.QueryString["Search"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+
+
 
 </div>
 

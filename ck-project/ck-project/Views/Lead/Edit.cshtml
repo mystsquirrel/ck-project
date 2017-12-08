@@ -143,8 +143,10 @@
                 @Html.EditorFor(model => model.tax_exempt)
                 @Html.ValidationMessageFor(model => model.tax_exempt, "", new { @class = "text-danger" })
             </div>
+         
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-0 col-md-10">
+                    <br>
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
