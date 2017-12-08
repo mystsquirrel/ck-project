@@ -578,7 +578,7 @@ namespace ck_project.Controllers
         {
             ViewBag.addressnumber = db.addresses.Where(x => x.lead_number == id).Select(v => v.address_number).First();
 
-            try
+            //  try
             {
                 List<SelectListItem> CustomerInfo = new List<SelectListItem>();
                 CustomerInfo.AddRange(db.customers.Where(x => x.deleted != true).Select(a => new SelectListItem
@@ -620,15 +620,15 @@ namespace ck_project.Controllers
                     Value = b.source_number.ToString()
                 }));
 
-                var AddressInfo = new List<SelectListItem>();
-                AddressInfo.AddRange(db.addresses.Where(x => x.deleted != true).Select(a => new SelectListItem
-                {
-                    Text = a.address_type,
-                    Selected = false,
-                    Value = a.address_number.ToString()
-                }));
+                //var AddressInfo = new List<SelectListItem>();
+                //AddressInfo.AddRange(db.addresses.Where(x => x.deleted != true).Select(a => new SelectListItem
+                //{
+                //    Text = a.address_type,
+                //    Selected = false,
+                //    Value = a.address_number.ToString()
+                //}));
 
-                var AddressCityInfo = new List<SelectListItem>();
+                //var AddressCityInfo = new List<SelectListItem>();
 
                 var EmpInfo = new List<SelectListItem>();
                 EmpInfo.AddRange(db.employees.Where(x => x.deleted != true).Select(a => new SelectListItem
@@ -661,7 +661,7 @@ namespace ck_project.Controllers
                 ViewBag.Status_Info = StatusInfo;
                 ViewBag.ProjectType_Info = ProjectTypeInfo;
                 ViewBag.Source_Info = SourceInfo;
-                ViewBag.Address_Info = AddressInfo;
+                //      ViewBag.Address_Info = AddressInfo;
                 ViewBag.Emp_Info = EmpInfo;
                 ViewBag.Branch_Info = BranchInfo;
                 ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
@@ -675,6 +675,8 @@ namespace ck_project.Controllers
                 TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
                 db.SaveChanges(id);
+               // db.SaveChanges();
+
 
 
                 ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
@@ -683,11 +685,11 @@ namespace ck_project.Controllers
                 return View(target);
             }
 
-            catch (Exception e)
-            {
-                ViewBag.m = "The lead was not updated ..." + e.Message;
-                return View();
-            }
+            //catch (Exception e)
+            //{
+            //    ViewBag.m = "The lead was not updated ..." + e.Message;
+            //    return View();
+            //}
         }
 
         public ActionResult Delete(int id)
