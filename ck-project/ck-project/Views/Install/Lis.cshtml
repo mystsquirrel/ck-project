@@ -107,6 +107,28 @@
                     @Html.ValidationMessageFor(model => model.oneway_mileages_to_destination, "", new { @class = "text-danger" })
                 </div>
             </div>
+            @{ if (HttpContext.Current.User.IsInRole("Administrator"))
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ov_labor_rate, "Override Labor Rate", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ov_labor_rate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ov_labor_rate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ov_material_rate, "Override Material Rate", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ov_material_rate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ov_material_rate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                } }
+           
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

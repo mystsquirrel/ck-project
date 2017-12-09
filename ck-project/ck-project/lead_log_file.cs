@@ -32,7 +32,7 @@ namespace ck_project
         public string prvious_value { get; set; }
         [Display(Name = "New Value")]
         public string new_value { get; set; }
-
+        [Display(Name ="Project Name")]
         public virtual lead lead { get; set; }
     }
 }
