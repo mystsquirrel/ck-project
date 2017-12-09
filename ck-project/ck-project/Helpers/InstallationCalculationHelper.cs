@@ -7,7 +7,7 @@ namespace ck_project.Helpers
         GeneralHelper helper = new GeneralHelper();
         public double CalculateMaterialRetailPrice(lead lead)
         {
-            double materialRetailCost = 0;
+            double totalMaterialCost = 0.0;
             double materialRate = 0;
             foreach (var item in lead.installations)
             {
@@ -22,19 +22,18 @@ namespace ck_project.Helpers
                
                 foreach (var task in item.tasks_installation)
                 {
-                    materialRetailCost += task.m_cost;
+                    totalMaterialCost += task.m_cost;
                 }
             }
 
             if (materialRate == 0)
             {
-                return materialRetailCost;
+                return totalMaterialCost;
             }
             else
             {
-                return materialRetailCost * materialRate;
+                return totalMaterialCost * materialRate;
             }
-                
         }
 
         public double CalculateEstimatedHours(lead lead)
@@ -151,9 +150,16 @@ namespace ck_project.Helpers
             return 0;
         }
 
-        public double CalculateLaborOnlyExpense(double billableHours)
+        public double CalculateLaborOnlyExpense(double billableHours, double? overrideLaborRate)
         {
-            return Math.Round(billableHours * (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)), 2);
+            if (overrideLaborRate != null)
+            {
+                return Math.Round(billableHours * (double)overrideLaborRate, 2);
+            }
+            else
+            {
+                return Math.Round(billableHours * (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)), 2);
+            }
         }
 
         public double CalculateTravelExpense(double installationsDays, double? traveltimeOneway, string recommendation)

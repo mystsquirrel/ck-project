@@ -215,6 +215,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="second_phone_number" Type="varchar" MaxLength="20" />
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="note" Type="varchar(max)" />
+          <Property Name="lead_creator" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="products">
           <Key>
@@ -1078,6 +1079,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="second_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="lead_creator" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="branch" Relationship="CKsysdb.fk_leads_to_branches" FromRole="lead" ToRole="branch" />
           <NavigationProperty Name="customer" Relationship="CKsysdb.fk_leads_to_customers" FromRole="lead" ToRole="customer" />
           <NavigationProperty Name="delivery_status" Relationship="CKsysdb.fk_leads_to_delivery_status" FromRole="lead" ToRole="delivery_status" />
@@ -1710,6 +1712,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <EntitySetMapping Name="leads">
             <EntityTypeMapping TypeName="CKsysdb.lead">
               <MappingFragment StoreEntitySet="leads">
+                <ScalarProperty Name="lead_creator" ColumnName="lead_creator" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="second_phone_number" ColumnName="second_phone_number" />

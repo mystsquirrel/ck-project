@@ -79,11 +79,11 @@ namespace ck_project.Helpers
                     {
 
                         Dictionary<string, double> costSubMap = new Dictionary<string, double>();
-                        double catSubCost = 0;
-                        double catSubHours = 0;
-                        double catSubLaborCost = 0;
-                        double catSubMaterialRetail = 0;
-                        double catSubMaterialCost = 0;
+                        double catSubCost = 0.0;
+                        double catSubHours = 0.0;
+                        double catSubLaborCost = 0.0;
+                        double catSubMaterialRetail = 0.0;
+                        double catSubMaterialCost = 0.0;
 
                         foreach (var task in item.tasks_installation)
                         {
@@ -91,11 +91,11 @@ namespace ck_project.Helpers
                             string taskSubCat = task.task.task_sub_cat;
                             if (cat.Equals(taskCat) && subCat.Equals(taskSubCat))
                             {
-                                //calculate costs per subcategories
+                                //calculate total costs per subcategories
                                 catSubHours += task.hours;
                                 catSubLaborCost += task.labor_cost;  
                                 catSubMaterialCost += task.m_cost;
-                                catSubMaterialRetail = catSubMaterialCost * 2;
+                                catSubMaterialRetail += task.material_retail_cost != null ? (double)task.material_retail_cost : 0.0;
                                 catSubCost = catSubLaborCost + catSubMaterialRetail;
                             }
                         }

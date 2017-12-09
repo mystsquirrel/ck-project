@@ -19,7 +19,7 @@ namespace ck_project
         [Required]
         public string cat_anme { get; set; }
         [Required]
-        [Range(0,9999999)]
+        [Range(0, 9999999)]
         public int quantity { get; set; }
         public string Description { get; set; }
         public string model { get; set; }

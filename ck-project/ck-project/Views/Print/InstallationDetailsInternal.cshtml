@@ -199,15 +199,10 @@
                                         <td class="item_price">@task.hours</td>
                                         <td class="item_price">@task.m_cost</td>
                                         <td class="item_price">@task.labor_cost</td>
+                                        <td class="item_price">@task.material_retail_cost</td>
                                         <td class="item_price">
                                             @{
-                                                double materialRetailCost = task.m_cost * 2;
-                                                @materialRetailCost
-                                            }
-                                        </td>
-                                        <td class="item_price">
-                                            @{
-                                                double totalcost = task.labor_cost + materialRetailCost;
+                                                double totalcost = task.labor_cost + (task.material_retail_cost != null ? (double)task.material_retail_cost : 0.00);
                                                 @totalcost
                                             }
                                         </td>

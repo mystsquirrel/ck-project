@@ -117,16 +117,11 @@
                                     <td class="install_item_number">@task.hours</td>
                                     <td class="install_item_price">@String.Format("{0:C}", task.m_cost)</td>
                                     <td class="install_item_price">@String.Format("{0:C}", task.labor_cost)</td>
+                                    <td class="install_item_price">@String.Format("{0:C}", task.material_retail_cost)</td>
                                     <td class="install_item_price">
                                         @{
-                                            double materialRetailCost = task.m_cost * 2;
-                                            @String.Format("{0:C}", materialRetailCost)
-                                        }
-                                    </td>
-                                    <td class="install_item_price">
-                                        @{
-                                            double totalcost = task.labor_cost + materialRetailCost;
-                                           @String.Format("{0:C}", totalcost)
+                                            double totalcost = task.labor_cost + (task.material_retail_cost != null ? (double)task.material_retail_cost : 0.00);
+                                            @String.Format("{0:C}", totalcost)
                                         }
                                     </td>
                                 </tr>

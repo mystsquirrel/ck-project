@@ -56,7 +56,7 @@ namespace ck_project.Helpers
                     item.hotel_round_trip = installHelper.CalculateHotelRoundTrip((double)item.installation_days);
                     item.total_per_diem_cost = installHelper.CalculatePerDiem((double)item.installation_days, item.recommendation);
                     item.total_miles = installHelper.CalculateTotalMiles((double)item.installation_days, item.recommendation, item.oneway_mileages_to_destination);
-                    item.installation_labor_only_cost = installHelper.CalculateLaborOnlyExpense((double)item.billable_hours);
+                    item.installation_labor_only_cost = installHelper.CalculateLaborOnlyExpense((double)item.billable_hours, item.ov_labor_rate);
                     item.mileage_expense = installHelper.CalculateMileageExpense((double)item.total_miles, item.recommendation);
                     item.total_travel_cost = installHelper.CalculateTravelExpense((double)item.installation_days, (double)item.travel_time_one_way, item.recommendation);
                     item.hotel_expense = installHelper.CalculateHotelExpense((double)item.required_hotel_nights, item.recommendation);

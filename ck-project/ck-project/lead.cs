@@ -53,6 +53,7 @@ namespace ck_project
         public string second_phone_number { get; set; }
         public string email { get; set; }
         public string note { get; set; }
+        public string lead_creator { get; set; }
     
         public virtual branch branch { get; set; }
         public virtual customer customer { get; set; }
