@@ -1,6 +1,9 @@
 ﻿@model List<ck_project.Models.Pg>
 
 @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 @{
     <link href="~/Content/Tabs.css" rel="stylesheet" type="text/css" />
