@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize]
     public class AddressController : Controller
     {
         // GET: Address

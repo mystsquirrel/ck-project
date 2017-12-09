@@ -26,7 +26,7 @@ namespace ck_project
         [MinLength(2, ErrorMessage = "The first name is too short")]
         [MaxLength(19, ErrorMessage = "The first name must be less than 20 characters")]
         public string customer_firstname { get; set; }
-        [MinLength(1, ErrorMessage = "The middle name is too short")]
+
         [MaxLength(19, ErrorMessage = "The middle name must be less than 20 characters")]
         public string customer_middlename { get; set; }
         [Required(ErrorMessage = "The last name is required")]
