@@ -10,6 +10,7 @@ using PagedList.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class EmpController : Controller
     {
 
