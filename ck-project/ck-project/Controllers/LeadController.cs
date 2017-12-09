@@ -718,7 +718,7 @@ namespace ck_project.Controllers
                 }
                   // db.SaveChanges(id);
                    db.SaveChanges(target.lead_number);
-                db.SaveChanges();
+               
           
                 ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
 

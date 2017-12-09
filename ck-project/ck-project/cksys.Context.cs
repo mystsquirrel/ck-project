@@ -75,19 +75,21 @@ namespace ck_project
 
                 foreach (var field in change.OriginalValues.PropertyNames)
                 {
+                    if (change.OriginalValues[field] == null || change.CurrentValues[field] == null) continue;
                     if (change.OriginalValues[field].ToString() != change.CurrentValues[field].ToString())
                     {
                         lead_log_file log = new lead_log_file
                         {
                             prvious_value = change.OriginalValues[field].ToString(),
                             new_value = change.CurrentValues[field].ToString(),
-                            table_name = change.Entity.GetType().Name,
+                            table_name = change.Entity.GetType().Name.Split('_')[0],
                             column_name = field,
                             update_date = time_s,
                             lead_number = lead_id,
                             emp_username = System.Web.HttpContext.Current.User.Identity.Name,
                             action_name = op
                         };
+                        this.lead_log_file.Add(log);
                     }
                 }
             }
