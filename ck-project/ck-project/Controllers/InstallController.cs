@@ -179,7 +179,7 @@ namespace ck_project.Controllers
                 target.task_number = int.Parse(fo["task_number"]);
                 target.m_cost = double.Parse(fo["m_cost"]);
                 target.labor_cost= (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
                 target.installation_number = iid;
                 try
                 {
@@ -208,7 +208,7 @@ namespace ck_project.Controllers
                     target.hours = double.Parse(fo["hours"]);
                     target.m_cost = double.Parse(fo["m_cost"]);
                 target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
                 db.tasks_installation.Add(target);
                     target.installation_number = iid;
                     try
@@ -261,7 +261,7 @@ namespace ck_project.Controllers
                     target.hours = double.Parse(fo["item.hours"]);
                     target.m_cost = double.Parse(fo["item.m_cost"]);
                 target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
                 db.SaveChanges();
                 }
                 catch (Exception e)

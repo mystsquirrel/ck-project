@@ -75,7 +75,7 @@ namespace ck_project.Helpers
             {
                 if (item.ov_material_rate == null)
                 {
-                    return this.GetApplicableRate("Installation Material Rate");
+                    return this.GetApplicableRate(Constants.rate_Name_Installed_Material);
                 }
                 else
                 {
