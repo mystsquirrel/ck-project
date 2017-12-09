@@ -170,7 +170,7 @@ namespace ck_project.Controllers
             int iid = int.Parse(fo["installation_number"]);
             string msg = "task create success";
             int lid = db.installations.Where(a => a.installation_number == iid).First().lead_number;
-
+            lead idk = db.leads.Where(d => d.lead_number == lid).First();
             GeneralHelper helper = new GeneralHelper();
             tasks_installation target = new tasks_installation();
             if (int.Parse(fo["mode"]) == 0)
@@ -178,8 +178,8 @@ namespace ck_project.Controllers
                 target.hours = double.Parse(fo["hours"]);
                 target.task_number = int.Parse(fo["task_number"]);
                 target.m_cost = double.Parse(fo["m_cost"]);
-                target.labor_cost= (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
+                target.labor_cost= helper.getInstallationLaborRate(idk)* target.hours;
+                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
                 target.installation_number = iid;
                 try
                 {
@@ -207,8 +207,8 @@ namespace ck_project.Controllers
 
                     target.hours = double.Parse(fo["hours"]);
                     target.m_cost = double.Parse(fo["m_cost"]);
-                target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
+                target.labor_cost = helper.getInstallationLaborRate(idk) * target.hours;
+                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
                 db.tasks_installation.Add(target);
                     target.installation_number = iid;
                     try
@@ -250,18 +250,20 @@ namespace ck_project.Controllers
         public ActionResult savetask(FormCollection fo) {
             string msg = "save success";
             int tin =int.Parse( fo["item.tasks_installation_number"]);
+
             GeneralHelper helper = new GeneralHelper();
           
                 int iid = db.tasks_installation.Where(c => c.tasks_installation_number == tin).First().installation_number;
                 int lid = db.installations.Where(g => g.installation_number == iid).First().lead_number;
+            lead idk = db.leads.Where(b => b.lead_number == lid).First();
                 try
                 {
 
                     tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
                     target.hours = double.Parse(fo["item.hours"]);
                     target.m_cost = double.Parse(fo["item.m_cost"]);
-                target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Installed_Material)) * target.m_cost;
+                target.labor_cost = helper.getInstallationLaborRate(idk) * target.hours;
+                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
                 db.SaveChanges();
                 }
                 catch (Exception e)
@@ -285,8 +287,8 @@ namespace ck_project.Controllers
             {
                 tasks_installation target = db.tasks_installation.Where(v => v.tasks_installation_number == tin).First();
                 db.tasks_installation.Remove(target);
-                //db.SaveChanges();
-                db.SaveChanges(lid, "delete");
+                db.SaveChanges();
+                //db.SaveChanges(lid, "delete");
             } catch(Exception e)
             {
 
@@ -332,7 +334,7 @@ namespace ck_project.Controllers
                     target.lead_number = lid;
                     
                     db.installations.Add(target);
-                    db.SaveChanges(lid, "create new");
+                    db.SaveChanges();
                     msg = "create succed";
                 } catch (Exception e) {
                     msg = e.Message;
