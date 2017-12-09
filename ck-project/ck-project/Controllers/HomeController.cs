@@ -82,6 +82,7 @@ namespace ck_project.Controllers
                 {
                     new GeneralHelper().SaveProjectTotal(lead.lead_number);
                 }
+                ViewBag.lead = lead;
             }
 
             ViewBag.leadNumber = id;

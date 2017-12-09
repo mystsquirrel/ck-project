@@ -20,7 +20,7 @@ namespace ck_project
         {
             this.leads = new HashSet<lead>();
         }
-    
+
         public int customer_number { get; set; }
         [Required(ErrorMessage = "The first name is required")]
         [MinLength(2, ErrorMessage = "The first name is too short")]
@@ -45,7 +45,7 @@ namespace ck_project
         public string email { get; set; }
         public Nullable<int> address_number { get; set; }
         public bool deleted { get; set; }
-    
+
         public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lead> leads { get; set; }

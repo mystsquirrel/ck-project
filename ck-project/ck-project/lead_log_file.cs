@@ -26,7 +26,7 @@ namespace ck_project
         public string column_name { get; set; }
         [Display(Name = "Operation")]
         public string action_name { get; set; }
-        [Display(Name = "Issue Date")]
+        [Display(Name = "Operation Date")]
         public System.DateTime update_date { get; set; }
         [Display(Name = "Previous Value")]
         public string prvious_value { get; set; }

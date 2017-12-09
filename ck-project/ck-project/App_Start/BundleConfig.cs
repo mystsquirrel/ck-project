@@ -31,7 +31,8 @@ namespace ck_project
                       "~/Content/font-awesome.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css",
-                      "~/Content/datetimepicker.css"));
+                      "~/Content/datetimepicker.css",
+                      "~/Content/PagedList.css"));
            
         }
     }

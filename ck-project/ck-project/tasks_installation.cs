@@ -20,6 +20,7 @@ namespace ck_project
         public double hours { get; set; }
         public double m_cost { get; set; }
         public double labor_cost { get; set; }
+        public Nullable<double> material_retail_cost { get; set; }
     
         public virtual installation installation { get; set; }
         public virtual task task { get; set; }

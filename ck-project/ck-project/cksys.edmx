@@ -307,6 +307,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="hours" Type="float" Nullable="false" />
           <Property Name="m_cost" Type="float" Nullable="false" />
           <Property Name="labor_cost" Type="float" Nullable="false" />
+          <Property Name="material_retail_cost" Type="float" />
         </EntityType>
         <EntityType Name="taxes">
           <Key>
@@ -1180,6 +1181,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <Property Name="hours" Type="Double" Nullable="false" />
           <Property Name="m_cost" Type="Double" Nullable="false" />
           <Property Name="labor_cost" Type="Double" Nullable="false" />
+          <Property Name="material_retail_cost" Type="Double" />
           <NavigationProperty Name="installation" Relationship="CKsysdb.fk_tasks_installation_to_installation" FromRole="tasks_installation" ToRole="installation" />
           <NavigationProperty Name="task" Relationship="CKsysdb.fk_tasks_installation_to_tasks" FromRole="tasks_installation" ToRole="task" />
         </EntityType>
@@ -1813,6 +1815,7 @@ warning 6002: The table/view 'dbfd474fa710d2442e8b3ea80e0016e454.dbo.archive_lea
           <EntitySetMapping Name="tasks_installation">
             <EntityTypeMapping TypeName="CKsysdb.tasks_installation">
               <MappingFragment StoreEntitySet="tasks_installation">
+                <ScalarProperty Name="material_retail_cost" ColumnName="material_retail_cost" />
                 <ScalarProperty Name="labor_cost" ColumnName="labor_cost" />
                 <ScalarProperty Name="m_cost" ColumnName="m_cost" />
                 <ScalarProperty Name="hours" ColumnName="hours" />

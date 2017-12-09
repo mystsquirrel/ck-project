@@ -20,12 +20,10 @@
 <div class="container">
     <table>
         @{
-            var uri = new Uri(Request.Url.ToString());
-            string path = uri.Segments[1];
-            if (path.Equals("ArcLeads/"))
+            if (ViewBag.lead != null && ViewBag.lead.project_status.project_status_name.Equals("Closed"))
             {
                 <tr>
-                    <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
+                    <td colspan"5" style="width:1150px"><h2>Print Portal</h2></td>
                     <td style="width:50px">
                         <input type="button" value="Summary" onclick="location.href='@Url.Action("ProjSummary", "Home", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>
@@ -34,7 +32,7 @@
             else
             {
                 <tr>
-                    <td style="width:997px"></td>
+                    <td style="width:997px"><h2>Print Portal</h2></td>
                     <td style="width:50px">
                         <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>

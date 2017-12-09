@@ -57,10 +57,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Last_update_date)
                     </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number }, null) |
-                        @Html.ActionLink("View", "Details", "Lead", new { id = item.lead_number }, null)
-                    </td>
+                    @{
+                        if (item.project_status.project_status_name.Equals("Closed"))
+                        {
+                            <td>@Html.ActionLink("View", "ProjSummary", "Home", new { id = item.lead_number }, null)</td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number }, null)
+                            </td>
+                        }
+                    }
                 </tr>
              }
         </tbody>

@@ -18,12 +18,10 @@
 <div class="container">
      <table>
         @{
-            var uri = new Uri(Request.Url.ToString());
-            string path = uri.Segments[1];
-            if (path.Equals("ArcLeads/"))
+            if (Model.Lead != null && Model.Lead.project_status.project_status_name.Equals("Closed"))
             {
                 <tr>
-                    <td colspan"5" style="width:1150px"><h5>All the fields with star are required</h5></td>
+                    <td colspan"5" style="width:1150px"><h2>Project Summary</h2></td>
                     <td style="width:50px">
                         <input type="button" value="Print" onclick="location.href='@Url.Action("ProjPrint", "Home", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabBtn" />
                     </td>
@@ -32,7 +30,7 @@
             else
             {
                 <tr>
-                    <td style="width:997px"><h3><b>Project Summary</b></h3></td>
+                    <td style="width:997px"><h2>Project Summary</h2></td>
                     <td style="width:50px">
                         <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = @Model.Lead.lead_number })'" class="btn btn-default" id="tabBtn" />
                     </td>
@@ -51,14 +49,14 @@
     </table>
     <hr />
     <div align="center" style="padding-bottom:2%">
-        <h3>
+        <h2>
           @{
               if (Model.Lead != null)
               {
                 @Model.Lead.project_name
               }
             }
-         </h3>
+         </h2>
     </div>
     <div class="panel-group" id="accordion1">
         <div class="panel panel-default">
