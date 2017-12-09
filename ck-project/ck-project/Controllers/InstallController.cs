@@ -184,7 +184,7 @@ namespace ck_project.Controllers
                 try
                 {
                     db.tasks_installation.Add(target);
-                    db.SaveChanges();
+                    db.SaveChanges(lid);
                     //db.SaveChanges(lid, "create new");
 
                 }
@@ -213,7 +213,7 @@ namespace ck_project.Controllers
                     target.installation_number = iid;
                     try
                     {
-                        db.SaveChanges();
+                        db.SaveChanges(lid);
                 }
                 catch (Exception e)
                 {
@@ -264,7 +264,7 @@ namespace ck_project.Controllers
                     target.m_cost = double.Parse(fo["item.m_cost"]);
                 target.labor_cost = helper.getInstallationLaborRate(idk) * target.hours;
                 target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
-                db.SaveChanges();
+                db.SaveChanges(lid);
                 }
                 catch (Exception e)
                 {
@@ -287,7 +287,7 @@ namespace ck_project.Controllers
             {
                 tasks_installation target = db.tasks_installation.Where(v => v.tasks_installation_number == tin).First();
                 db.tasks_installation.Remove(target);
-                db.SaveChanges();
+                db.SaveChanges(lid);
                 //db.SaveChanges(lid, "delete");
             } catch(Exception e)
             {
@@ -316,7 +316,7 @@ namespace ck_project.Controllers
                     //target.estimated_date = DateTime.Parse(fo[""]);
 
                     
-                    db.SaveChanges();
+                    db.SaveChanges(lid);
                     msg = "update succed";
                 }catch(Exception e){
                     msg = e.Message;
@@ -334,7 +334,7 @@ namespace ck_project.Controllers
                     target.lead_number = lid;
                     
                     db.installations.Add(target);
-                    db.SaveChanges();
+                    db.SaveChanges(lid);
                     msg = "create succed";
                 } catch (Exception e) {
                     msg = e.Message;
