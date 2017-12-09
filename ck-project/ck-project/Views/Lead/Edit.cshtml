@@ -133,6 +133,15 @@
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
             </div>
+
+            <div class='col-xs-4 '>
+  
+                    <label class="control-label" for="name"> Note</label>
+                    @Html.EditorFor(model => model.note, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
+
+            </div>
+
             <div class='col-xs-4 '>
                 <label class='control-label'>In City? </label>
                 @Html.EditorFor(model => model.in_city)

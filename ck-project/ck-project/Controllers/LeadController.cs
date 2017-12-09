@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
-
+using Microsoft.AspNet.Identity;
+using ck_project.Helpers;
 
 namespace ck_project.Controllers
 {
@@ -149,7 +150,14 @@ namespace ck_project.Controllers
                     Value = a.delivery_status_number.ToString()
                 }));
 
+                var TaxExemptInfo = new List<SelectListItem> {
 
+
+                  new SelectListItem() { Text = "Taxable", Value = "0" },
+                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+            };
+
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
                 ViewBag.Class_Info = ClassInfo;
@@ -304,8 +312,17 @@ namespace ck_project.Controllers
                 }));
 
 
-                //setting variable passing
-                ViewBag.Customer_Info = CustomerInfo;
+            var TaxExemptInfo = new List<SelectListItem> {
+        
+
+                new SelectListItem() { Text = "Taxable", Value = "0" },
+                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+            };
+
+            ViewBag.TaxExemptInfo = TaxExemptInfo;
+
+            //setting variable passing
+            ViewBag.Customer_Info = CustomerInfo;
                 ViewBag.Class_Info = ClassInfo;
                 ViewBag.Status_Info = StatusInfo;
                 ViewBag.ProjectType_Info = ProjectTypeInfo;
@@ -314,6 +331,7 @@ namespace ck_project.Controllers
                 ViewBag.Emp_Info = EmpInfo;
                 ViewBag.Branch_Info = BranchInfo;
                 ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
+        
 
 
             var Sstate = new List<SelectListItem> {
@@ -373,8 +391,8 @@ namespace ck_project.Controllers
             ViewBag.Sstate = Sstate;
 
 
-            try
-            {
+            //try
+            //{
 
 
 
@@ -399,13 +417,16 @@ namespace ck_project.Controllers
 
                     target.in_city = Convert.ToBoolean(form["Item1.in_city"].Split(',')[0]);
                     string aaa = form["Item1.in_city"];
-                    target.tax_exempt = Convert.ToBoolean(form["Item1.tax_exempt"].Split(',')[0]);
+                    // target.tax_exempt = Convert.ToBoolean(form["Item1.tax_exempt"].Split(',')[0]);
+                     target.tax_exempt =string.Equals( form["tax_exempt"],"1")?true:false;
                     target.project_name = form["Item1.project_name"];
                     target.phone_number = form["Item1.phone_number"];
                     target.second_phone_number = form["Item1.second_phone_number"];
                     target.email = form["Item1.email"];
+                target.lead_creator = User.Identity.GetUserName();
+                target.note = form["Item1.note"];
 
-                    target.deleted = false;
+                target.deleted = false;
                     //   target.address_number = b.address_number;
                     target.project_status_number = 3;
                     target.lead_date = System.DateTime.Now;
@@ -458,12 +479,12 @@ namespace ck_project.Controllers
 
              
                 return RedirectToAction("Edit/" + target.lead_number, "lead", new { msg = ViewBag.m });
-            }
-            catch (Exception e)
-            {
-                ViewBag.m = "The lead was not created ..." + e.Message;
-                return View();
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    ViewBag.m = "The lead was not created ..." + e.Message;
+            //    return View();
+            //}
         }
       
         
@@ -493,7 +514,7 @@ namespace ck_project.Controllers
                 var StatusInfo = new List<SelectListItem>();
                 StatusInfo.AddRange(db.project_status.Where(x => x.deleted != true).Select(c => new SelectListItem
                 {
-                    Text = c.project_status_name,
+                    Text = "update to " + c.project_status_name,
                     Selected = false,
                     Value = c.project_status_number.ToString()
                 }));
@@ -601,7 +622,7 @@ namespace ck_project.Controllers
                 var StatusInfo = new List<SelectListItem>();
                 StatusInfo.AddRange(db.project_status.Where(x => x.deleted != true).Select(c => new SelectListItem
                 {
-                    Text = c.project_status_name,
+                    Text = "update to " + c.project_status_name,
                     Selected = false,
                     Value = c.project_status_number.ToString()
                 }));
@@ -674,13 +695,17 @@ namespace ck_project.Controllers
                 ViewBag.Customerslist = Leads_list;
                 lead target = Leads_list[0];
 
-                TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email" }, form.ToValueProvider());
+                TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email","note" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
-            //    db.SaveChanges(id);
-               db.SaveChanges(target.lead_number);
 
-
-
+                if (target.project_status.project_status_name == "Closed")
+                {
+                    new GeneralHelper().SaveProjectTotal(target.lead_number);
+                }
+                //    db.SaveChanges(id);
+                //   db.SaveChanges(target.lead_number);
+                db.SaveChanges();
+          
                 ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
 
 
