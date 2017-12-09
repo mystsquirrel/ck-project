@@ -75,6 +75,7 @@ namespace ck_project
 
                 foreach (var field in change.OriginalValues.PropertyNames)
                 {
+                    if (change.OriginalValues[field] == null || change.CurrentValues[field] == null) continue;
                     if (change.OriginalValues[field].ToString() != change.CurrentValues[field].ToString())
                     {
                         lead_log_file log = new lead_log_file
