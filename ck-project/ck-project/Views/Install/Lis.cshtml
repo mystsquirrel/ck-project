@@ -386,7 +386,7 @@ toastr.success('@ViewBag.msg');
                                         <div id="collapse@(a.Value+kitchen.Value)" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 @Html.Action("AddJob", new { maincat = "kitchen", subcat = kitchen.Text, insnum = Model.installation_number, mode = 1 })
-
+                                                @Html.Action("custT",new { iid=Model.installation_number})
                                             </div>
                                         </div>
                                     }

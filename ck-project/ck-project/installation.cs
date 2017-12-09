@@ -52,6 +52,8 @@ namespace ck_project
         public Nullable<double> billable_hours { get; set; }
         public Nullable<double> estimated_hours { get; set; }
         public double oneway_mileages_to_destination { get; set; }
+        public Nullable<double> ov_labor_rate { get; set; }
+        public Nullable<double> ov_material_rate { get; set; }
     
         public virtual lead lead { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

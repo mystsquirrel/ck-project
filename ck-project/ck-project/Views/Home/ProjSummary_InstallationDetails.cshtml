@@ -125,7 +125,7 @@
                                     </td>
                                     <td class="install_item_price">
                                         @{
-                                            double totalcost = task.labor_cost + task.m_cost;
+                                            double totalcost = task.labor_cost + materialRetailCost;
                                            @String.Format("{0:C}", totalcost)
                                         }
                                     </td>

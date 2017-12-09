@@ -75,7 +75,18 @@
                                 if (Model.Customer != null)
                                 {
                                     @Model.Customer.customer_firstname@:&nbsp;@Model.Customer.customer_lastname
-                        }
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:150px">Address</td>
+                        <td class="item_data">
+                            @{
+                                if (Model.Customer != null)
+                                {
+                                   @Model.Customer.address.address1@:&#44;&nbsp;@Model.Customer.address.city&#44;&nbsp;@Model.Customer.address.state&nbsp;@Model.Customer.address.zipcode
+                                }
                             }
                         </td>
                     </tr>
@@ -121,9 +132,9 @@
                         <td style="width:150px">Jobsite</td>
                         <td class="item_data">
                             @{
-                                if (Model.Lead != null)
+                                if (Model.JobsiteAddress != null)
                                 {
-                                    @Model.Lead.address.address1@:&#44;&nbsp;@Model.Lead.address.city&#44;&nbsp;@Model.Lead.address.state&nbsp;@Model.Lead.address.zipcode
+                                    @Model.JobsiteAddress.address1@:&#44;&nbsp;@Model.JobsiteAddress.city&#44;&nbsp;@Model.JobsiteAddress.state&nbsp;@Model.JobsiteAddress.zipcode
                                 }
                             }
                         </td>
