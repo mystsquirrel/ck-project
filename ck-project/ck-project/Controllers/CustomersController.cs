@@ -9,6 +9,7 @@ using PagedList.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
              
@@ -70,11 +71,7 @@ namespace ck_project.Controllers
                 ViewBag.m = " The customer was successfully updated on " + System.DateTime.Now;
                 return View(target);
             }
-            //catch
-            //{
-            //    ViewBag.m = " Something went wrong... the customer was not updated ... please try again";
-            //    return View();
-            //}
+
             catch (Exception e)
             {
                 ViewBag.m = " Something went wrong ... " + e.Message;
