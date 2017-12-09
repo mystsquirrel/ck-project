@@ -303,7 +303,7 @@ namespace ck_project.Controllers
                 //update
                 try {
                     installation target = db.installations.Where(b=>b.lead_number==lid).First();
-                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
+                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination", "ov_labor_rate", "ov_material_rate" }, fo.ToValueProvider());
                     //target.estimated_by = fo[""];
                     //target.statrt_date = DateTime.Parse(fo[""]);
                     //target.total_tile_cost =double.Parse( fo[""]);
@@ -322,7 +322,7 @@ namespace ck_project.Controllers
                 try {
                     installation target = new installation();
 
-                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination" }, fo.ToValueProvider());
+                    TryUpdateModel(target, new string[] { "estimated_by", "statrt_date", "total_tile_cost", "estimated_date", "oneway_mileages_to_destination", "ov_labor_rate", "ov_material_rate" }, fo.ToValueProvider());
 
                     target.lead = db.leads.Where(h => h.lead_number == lid).First();
                     target.lead_number = lid;

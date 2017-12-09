@@ -39,6 +39,7 @@ namespace ck_project
         [Required(ErrorMessage = "The project name is required")]
         [MinLength(2, ErrorMessage = "The project name is too short")]
         [MaxLength(49, ErrorMessage = "The project name must be less than 49 characters")]
+        [Display(Name ="Project Name")]
         public string project_name { get; set; }
         public bool tax_exempt { get; set; }
         public bool deleted { get; set; }
