@@ -48,7 +48,7 @@ namespace ck_project.Controllers
             if (ModelState.IsValid) {
                 mian.products.Add(target);
                 db.products.Add(target);
-                db.SaveChanges();
+                db.SaveChanges(lid);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
@@ -119,6 +119,7 @@ namespace ck_project.Controllers
         [HttpPost]
         public ActionResult handle(int pid,FormCollection fo) {
             product target = db.products.Where(a => a.product_number == pid).FirstOrDefault();
+            int lid = target.lead_number;
             //not work?
             //TryUpdateModel(target, fo.ToValueProvider());
             target.color = fo["item.color"];
@@ -129,9 +130,9 @@ namespace ck_project.Controllers
             target.price = Double.Parse(fo["item.price"]);
             target.product_source = fo["item.product_source"];
             target.quantity = int.Parse(fo["item.quantity"]);
-            target.cat_anme = fo["Product Category"];
+            target.cat_anme = fo["item.cat_anme"];
             if (ModelState.IsValid) {
-                db.SaveChanges();
+                db.SaveChanges(lid);
                 return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
             }
 
