@@ -23,6 +23,15 @@ namespace ck_project.Controllers
 
         public ActionResult MainPage(string search, string searchby)
         {
+            var projStatus = new List<SelectListItem>();
+            projStatus.AddRange(db.project_status.Where(ps => ps.project_status_name != "closed").Select(b => new SelectListItem
+            {
+                Text = b.project_status_name,
+                Selected = false,
+                Value = b.project_status_number.ToString()
+            }));
+            ViewBag.projStatus = projStatus;
+
             var identity = (ClaimsIdentity)User.Identity;
             var currUserIDStr = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
             try

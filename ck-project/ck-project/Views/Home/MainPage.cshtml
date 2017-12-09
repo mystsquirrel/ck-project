@@ -9,22 +9,42 @@
 <div class="container">
     <table>
         <tr>
-            <td style="width:1150px"><h2>Projects</h2></td>
-            <td style="width:50px">
+            <td style="width:720px"><h2>Projects</h2></td>
+            <td style="width:680px" align="right">
                 <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
             </td>
         </tr>
+        <tr>
+            <td colspan="2">This page displays </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="Create Lead" onclick="location.href='@Url.Action("ListCustomers", "Customers")'" class="btn btn-default" style="width: 100px;" />
+            </td>
+            <td>
+                @*@using (Html.BeginForm("MainPage", "Home", FormMethod.Get))
+                {
+                    <b>Search by: Status</b>
+                    Html.RadioButton("searchBy", "Status")<text>  Status</text><br />
+                    @Html.DropDownList("searchBy", (IEnumerable<SelectListItem>)ViewBag.projStatus, new { @class = "form-control" });
+                    <input type="submit" value="Search" class="btn btn-default" />
+                }*@
+                @using (Html.BeginForm("MainPage", "Home", FormMethod.Get))
+                {
+                    <b>Project Name: </b>
+                    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "Type project name here", style = "height: 25px;" });
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;Status:</b>
+                    @Html.DropDownList("type", (IEnumerable<SelectListItem>)ViewBag.projStatus, new { style = " height: 25px;" });
+                    <div style="float:left; padding-top:5px"><b>&nbsp;&nbsp;&nbsp;Create Date:&nbsp;</b></div>
+                    <div style="float:left; padding-right:10px; padding-top:4px"><input style="height:25px; width:160px" type="date" name="start" /></div>
+                    <div style="float:left; padding-right:20px; padding-top:4px"><input style="height:25px; width:160px" type="date" name="end" /></div>
+                    <div style="padding-top:3px"><input type="submit" value="Search" class="btn btn-default"  /></div>
+                }
+            </td>
+        </tr>
     </table>
-    <div style="padding-left:70%; padding-bottom:10px;">
-        @using (Html.BeginForm("MainPage", "Home", FormMethod.Get))
-        {
-            <b>Search by:&nbsp;&nbsp;&nbsp;</b>
-            @Html.RadioButton("searchBy", "Status")<text>  Status</text><br />
-            @Html.TextBox("search");<input type="submit" value="search" />
-        }
-    </div>
-
-    <table class="table table-striped">
+    <div style="padding-top:5px"></div>
+    <table class="table table-striped" style="clear:both">
         <thead class="mdb-color darken-3">
             <tr>
                 <th> @Html.ActionLink("Project Name","Sort",new { by="pn"})</th>

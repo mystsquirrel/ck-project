@@ -8,7 +8,7 @@
 
 <div class="container">
     <table>
-        <tr>
+        <tr style="background-color:lightgray">
             <td style="width:1150px"><h2>Projects</h2></td>
             <td style="width:50px">
                 <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
@@ -61,7 +61,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("View", "ProjSummary", "Home", new { id = item.lead_number }, null) |
-                        @Html.ActionLink("View", "Edit", "Lead", new { id = item.lead_number }, null) |
+                        @Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number }, null) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.lead_number }, new { onclick = "return confirm('Are you sure you wish to delete the lead?');" })
                     </td>
                 </tr>
@@ -82,7 +82,6 @@
                 <div class="modal-body">
                     <ul>
                         <li>"Closed" projects can only be found in Archived screen.</li>
-                        <li>This screen only shows the top 10 latest projects.</li>
                         <li>To search for a specific project, please go to Lead Management --> View Lead.</li>
                         <li>To search by designer or status, please use the search box.</li>
                         <li>To return to a default search, please clear the search box.</li>
