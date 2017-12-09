@@ -11,11 +11,15 @@ namespace ck_project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class product
     {
         public int product_number { get; set; }
+        [Required]
         public string cat_anme { get; set; }
+        [Required]
+        [Range(0,9999999)]
         public int quantity { get; set; }
         public string Description { get; set; }
         public string model { get; set; }
@@ -23,6 +27,8 @@ namespace ck_project
         public string product_source { get; set; }
         public string manufacture { get; set; }
         public string location { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
         public double price { get; set; }
         public int lead_number { get; set; }
         public bool deleted { get; set; }
