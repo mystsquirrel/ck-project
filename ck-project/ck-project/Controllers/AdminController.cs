@@ -16,7 +16,7 @@ namespace ck_project.Controllers
                 List<lead> result = (from l in db.leads
                               join e in db.employees on l.emp_number equals e.emp_number
                               join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false
+                              where l.deleted == false && s.project_status_name != "Closed"
                                     && (e.emp_firstname.StartsWith(search) || e.emp_lastname.StartsWith(search))
                               orderby l.Last_update_date
                               select l).ToList();
@@ -27,7 +27,7 @@ namespace ck_project.Controllers
             {
                 List<lead> result = (from l in db.leads
                               join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false && s.project_status_name.StartsWith(search)
+                              where l.deleted == false && s.project_status_name != "Closed" && s.project_status_name.StartsWith(search)
                               orderby l.Last_update_date
                               select l).ToList();
                 AdminController.result = result;
@@ -37,7 +37,7 @@ namespace ck_project.Controllers
             {
                List<lead> result = (from l in db.leads
                               join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false
+                              where l.deleted == false && s.project_status_name != "Closed"
                               orderby l.Last_update_date
                               select l).ToList();
                 AdminController.result = result;

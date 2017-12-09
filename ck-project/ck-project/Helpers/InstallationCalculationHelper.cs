@@ -8,18 +8,9 @@ namespace ck_project.Helpers
         public double CalculateMaterialRetailPrice(lead lead)
         {
             double totalMaterialCost = 0.0;
-            double materialRate = 0;
+            double materialRate = helper.getInstallationLaborRate(lead);
             foreach (var item in lead.installations)
             {
-                if (item.ov_material_rate == null)
-                {
-                    materialRate = helper.GetApplicableRate("Material Cost Rate");
-                }
-                else
-                {
-                    materialRate = (double)item.ov_material_rate;
-                }
-               
                 foreach (var task in item.tasks_installation)
                 {
                     totalMaterialCost += task.m_cost;
@@ -152,14 +143,7 @@ namespace ck_project.Helpers
 
         public double CalculateLaborOnlyExpense(double billableHours, double? overrideLaborRate)
         {
-            if (overrideLaborRate != null)
-            {
-                return Math.Round(billableHours * (double)overrideLaborRate, 2);
-            }
-            else
-            {
-                return Math.Round(billableHours * (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)), 2);
-            }
+            return Math.Round(billableHours * helper.getInstallationLaborRate(overrideLaborRate), 2);
         }
 
         public double CalculateTravelExpense(double installationsDays, double? traveltimeOneway, string recommendation)

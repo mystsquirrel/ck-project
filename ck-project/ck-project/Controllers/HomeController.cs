@@ -30,24 +30,22 @@ namespace ck_project.Controllers
                 int currUserID = Int32.Parse(currUserIDStr);
                 if (searchby == "Status" && search != "")
                 {
-                    var result = (from l in db.leads.Take(10)
+                    var result = (from l in db.leads
                                   join s in db.project_status on l.project_status_number equals s.project_status_number
-                                  where (l.emp_number == currUserID && l.deleted == false)
-                                  where (s.project_status_name != "Closed" && s.project_status_name == search)
+                                  where l.emp_number == currUserID && l.deleted == false && s.project_status_name != "Closed" && s.project_status_name.StartsWith(search)
                                   orderby l.Last_update_date
-                                  select l);
-                   HomeController.result = result.ToList();
+                                  select l).ToList();
+                   HomeController.result = result;
                     return View(result);
                 }
                 else
                 {
-                    var result = (from l in db.leads.Take(10)
+                    var result = (from l in db.leads
                                   join s in db.project_status on l.project_status_number equals s.project_status_number
-                                  where (l.emp_number == currUserID && l.deleted == false)
-                                  where s.project_status_name != "Closed"
+                                  where l.emp_number == currUserID && l.deleted == false && s.project_status_name != "Closed"
                                   orderby l.Last_update_date
-                                  select l);
-                    HomeController.result = result.ToList();
+                                  select l).ToList();
+                    HomeController.result = result;
                     return View(result);
                 }
             }

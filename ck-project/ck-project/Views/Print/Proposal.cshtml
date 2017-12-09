@@ -324,9 +324,16 @@
         <div style="padding-top:120px; padding-left:600px; color: rgb(31,78,120); font-size:16px; height:45px">Please indicate the Jobsite Location:</div>
         <div style="padding-left:580px; height:24px; padding-top:8px">
             @{
-                if (Model.Lead != null && Model.Lead.in_city)
+                if (Model.Lead != null)
                 {
-                    <input type="checkbox" value="incity" onclick="return false;" checked />
+                    if (Model.Lead.in_city)
+                    {
+                        <input type="checkbox" value="incity" onclick="return false;" checked />
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="incity" onclick="return false;" />
+                    }
                     <label style="font-size:12px; padding-top:3px; font-weight:normal">Jobsite is <u>within</u> the city limits of @Model.JobsiteAddress.city</label>
                 }
                 else

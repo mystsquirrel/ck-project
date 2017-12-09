@@ -59,19 +59,11 @@
                     <td>
                         @item.Last_update_date.ToString("MM/dd/yyyy")
                     </td>
-                    @{
-                        if (item.project_status.project_status_name.Equals("Closed"))
-                        {
-                            <td>@Html.ActionLink("View", "ProjSummary", "Home", new { id = item.lead_number }, null)</td>
-                        }
-                        else
-                        {
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "Lead", new { id = item.lead_number }, null)
-                                @*@Html.ActionLink("View", "Details", "Lead", new { id = item.lead_number }, null)*@
-                            </td>
-                        }
-                    }
+                    <td>
+                        @Html.ActionLink("View", "ProjSummary", "Home", new { id = item.lead_number }, null) |
+                        @Html.ActionLink("View", "Edit", "Lead", new { id = item.lead_number }, null) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.lead_number }, new { onclick = "return confirm('Are you sure you wish to delete the lead?');" })
+                    </td>
                 </tr>
             }
         </tbody>

@@ -69,6 +69,53 @@ namespace ck_project.Helpers
             return lead;
         }
 
+        public double getInstallationMaterialRate(lead lead)
+        {
+            foreach (var item in lead.installations)
+            {
+                if (item.ov_material_rate == null)
+                {
+                    return this.GetApplicableRate("Installation Material Rate");
+                }
+                else
+                {
+                    return (double)item.ov_material_rate;
+                }
+            }
+
+            return 0;
+        }
+
+        public double getInstallationLaborRate(lead lead)
+        {
+            foreach (var item in lead.installations)
+            {
+                if (item.ov_labor_rate == null)
+                {
+                    return this.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + this.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer);
+                }
+                else
+                {
+                    return (double)item.ov_labor_rate;
+                }
+            }
+
+            return 0;
+        }
+
+        public double getInstallationLaborRate(double? ov_labor_rate)
+        {
+            if (ov_labor_rate == null)
+            {
+                return this.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + this.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer);
+            }
+            else
+            {
+                return (double)ov_labor_rate;
+            }
+        }
+
+
         public void SaveProjectTotal(int leadNbr)
         {
             var lead = db.leads.Where(l => l.lead_number == leadNbr).First();

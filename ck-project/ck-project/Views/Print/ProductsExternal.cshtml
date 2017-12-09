@@ -217,7 +217,7 @@
                     <tr>
                         <td colspan="4" class="pam_item_text">@prod.Description</td>
                         <td class="pam_item_text">@prod.location</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -245,7 +245,7 @@
                         double cabtotal = Model.ProductTotalMap["CABINETRY"];
                         if (cabtotal != 0)
                         {
-                            @String.Format("{0:0,0.00}", cabtotal)
+                            @String.Format("{0:#,0.00}", cabtotal)
                         }
                     }
                 }
@@ -272,7 +272,7 @@
                         <td class="pam_item_text">@prod.model</td>
                         <td class="pam_item_text">@prod.Description</td>
                         <td class="pam_item_text">@prod.location</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -308,7 +308,7 @@
                                 double harTotal = Model.ProductTotalMap["HARDWARE"];
                                 if (harTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", harTotal)
+                                    @String.Format("{0:#,0.00}", harTotal)
                                 }
                             }
                         }
@@ -332,7 +332,7 @@
                         <td class="pam_item_text">@prod.model</td>
                         <td class="pam_item_text">@prod.color</td>
                         <td class="pam_item_text">@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -381,7 +381,7 @@
                                 double harTotal = Model.ProductTotalMap["HARDWARE"];
                                 if (harTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", harTotal)
+                                    @String.Format("{0:#,0.00}", harTotal)
                                 }
                             }
                         }
@@ -408,7 +408,7 @@
                             <td class="pam_item_text">@prod.model</td>
                             <td class="pam_item_text">@prod.color</td>
                             <td class="pam_item_text">@prod.Description</td>
-                            <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                            <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                         </tr>
                         count--;
                     }
@@ -439,7 +439,7 @@
                                 double appTotal = Model.ProductTotalMap["APPLIANCES"];
                                 if (appTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", appTotal)
+                                    @String.Format("{0:#,0.00}", appTotal)
                                 }
                             }
                         }
@@ -463,7 +463,7 @@
                     <tr>
                         <td class="pam_item_qty">@String.Format("{0:#,#}", prod.quantity)</td>
                         <td colspan="4" class="pam_item_text">@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -496,7 +496,7 @@
                                 double ownTotal = Model.ProductTotalMap["OWNER PROVIDED PRODUCT"];
                                 if (ownTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", ownTotal)
+                                    @String.Format("{0:#,0.00}", ownTotal)
                                 }
                             }
                         }
@@ -516,7 +516,7 @@
                         <td class="pam_item_qty">@String.Format("{0:#,#}", prod.quantity)</td>
                         <td class="pam_item_text">@prod.manufacture</td>
                         <td colspan="3" class="pam_item_text">@prod.model/@prod.color/@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -544,7 +544,7 @@
                                 double accTotal = Model.ProductTotalMap["MISC ITEMS"];
                                 if (accTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", accTotal)
+                                    @String.Format("{0:#,0.00}", accTotal)
                                 }
                             }
                         }
@@ -563,7 +563,7 @@
                                 double ownTotal = Model.ProductTotalMap["OWNER PROVIDED PRODUCT"];
                                 if (ownTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", ownTotal)
+                                    @String.Format("{0:#,0.00}", ownTotal)
                                 }
                             }
                         }
@@ -586,7 +586,7 @@
                             <td class="pam_item_qty">@String.Format("{0:#,#}", prod.quantity)</td>
                             <td class="pam_item_text">@prod.manufacture</td>
                             <td colspan="3" class="pam_item_text">@prod.model/@prod.color/@prod.Description</td>
-                            <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                            <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                         </tr>
                         count--;
                     }
@@ -615,7 +615,7 @@
                                 double accTotal = Model.ProductTotalMap["ACCESSORIES & MIRRORS"];
                                 if (accTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", accTotal)
+                                    @String.Format("{0:#,0.00}", accTotal)
                                 }
                             }
                         }
@@ -640,7 +640,7 @@
                     <tr>
                         <td colspan="4" class="pam_item_text2">@prod.Description</td>
                         <td class="pam_item_text">@prod.location</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -674,7 +674,7 @@
                                 double couTotal = Model.ProductTotalMap["COUNTERS"];
                                 if (couTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", couTotal)
+                                    @String.Format("{0:#,0.00}", couTotal)
                                 }
                             }
                         }
@@ -698,7 +698,7 @@
                         <td class="pam_item_text">@prod.model</td>
                         <td class="pam_item_text">@prod.color</td>
                         <td class="pam_item_text">@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -728,7 +728,7 @@
                                 double sinTotal = Model.ProductTotalMap["PLUMBING FIXTURES, FAUCETS & FITTINGS"];
                                 if (sinTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", sinTotal)
+                                    @String.Format("{0:#,0.00}", sinTotal)
                                 }
                             }
                         }
@@ -747,7 +747,7 @@
                                 double couTotal = Model.ProductTotalMap["COUNTERS"];
                                 if (couTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", couTotal)
+                                    @String.Format("{0:#,0.00}", couTotal)
                                 }
                             }
                         }
@@ -774,7 +774,7 @@
                             <td class="pam_item_text">@prod.model</td>
                             <td class="pam_item_text">@prod.color</td>
                             <td class="pam_item_text">@prod.Description</td>
-                            <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                            <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                         </tr>
                         count--;
                     }
@@ -805,7 +805,7 @@
                                 double sinTotal = Model.ProductTotalMap["SINK, STRAINER, FAUCET, FITTINGS"];
                                 if (sinTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", sinTotal)
+                                    @String.Format("{0:#,0.00}", sinTotal)
                                 }
                             }
                         }
@@ -831,7 +831,7 @@
                         <td class="pam_item_qty2">@String.Format("{0:#,#}", prod.quantity)</td>
                         <td colspan="2" class="pam_item_text">@prod.product_source</td>
                         <td colspan="2" class="pam_item_text">@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -865,7 +865,7 @@
                                 double decTotal = Model.ProductTotalMap["DECORATIVE SURFACES"];
                                 if (decTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", decTotal)
+                                    @String.Format("{0:#,0.00}", decTotal)
                                 }
                             }
                         }
@@ -881,7 +881,7 @@
                 {
                     <tr>
                         <td colspan="5" class="pam_item_text2">@prod.Description</td>
-                        <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                        <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
                 }
@@ -907,7 +907,7 @@
                                 double addTotal = Model.ProductTotalMap["DISCOUNT OR ADJUSTMENT"];
                                 if (addTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", addTotal)
+                                    @String.Format("{0:#,0.00}", addTotal)
                                 }
                             }
                         }
@@ -926,7 +926,7 @@
                                 double decTotal = Model.ProductTotalMap["DECORATIVE SURFACES"];
                                 if (decTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", decTotal)
+                                    @String.Format("{0:#,0.00}", decTotal)
                                 }
                             }
                         }
@@ -945,7 +945,7 @@
                     {
                         <tr>
                             <td colspan="5" class="pam_item_text2">@prod.Description</td>
-                            <td class="pam_item_price">@String.Format("{0:0,0.00}", prod.price)</td>
+                            <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                         </tr>
                         count--;
                     }
@@ -972,7 +972,7 @@
                                 double addTotal = Model.ProductTotalMap["ADDITIONAL ITEMS"];
                                 if (addTotal != 0)
                                 {
-                                    @String.Format("{0:0,0.00}", addTotal)
+                                    @String.Format("{0:#,0.00}", addTotal)
                                 }
                             }
                         }
@@ -992,7 +992,7 @@
                 @{
                     if (Model.TotalCost != null)
                     {
-                        @String.Format("{0:0,0.00}", Model.TotalCost.product_cost)
+                        @String.Format("{0:#,0.00}", Model.TotalCost.product_cost)
                     }
                 }
             </td>
@@ -1005,7 +1005,7 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @String.Format("{0:0,0.00}", item.total_construction_materials_cost)
+                            @String.Format("{0:#,0.00}", item.total_construction_materials_cost)
                         }
                     }
                 }
@@ -1019,7 +1019,7 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @String.Format("{0:0,0.00}", item.total_installation_labor_cost)
+                            @String.Format("{0:#,0.00}", item.total_installation_labor_cost)
                         }
                     }
                 }
@@ -1031,7 +1031,7 @@
                 @{
                     if (Model.TotalCost != null)
                     {
-                        @String.Format("{0:0,0.00}", Model.TotalCost.tax_cost)
+                        @String.Format("{0:#,0.00}", Model.TotalCost.tax_cost)
                     }
                 }
             </td>
@@ -1042,7 +1042,7 @@
                 @{
                     if (Model.TotalCost != null)
                     {
-                        @String.Format("{0:0,0.00}", Model.TotalCost.total_cost1)
+                        @String.Format("{0:#,0.00}", Model.TotalCost.total_cost1)
                     }
                 }
             </td>
