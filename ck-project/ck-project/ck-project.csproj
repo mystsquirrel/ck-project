@@ -515,10 +515,10 @@
     <Content Include="Views\Home\ProjSummary_CustomerDetails.cshtml" />
     <Content Include="Views\Home\ProjSummary_ProductDetails.cshtml" />
     <Content Include="Views\Home\ProjSummary_InstallationDetails.cshtml" />
-    <Content Include="Views\Lead\Add.cshtml" />
     <Content Include="Views\Install\custT.cshtml" />
     <Content Include="Views\Print\ProductsInternal_ListAll.cshtml" />
     <Content Include="Views\Print\ProductsExternal_ListAll.cshtml" />
+    <Content Include="Views\Lead\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
