@@ -171,19 +171,21 @@ namespace ck_project.Controllers
             string msg = "task create success";
             int lid = db.installations.Where(a => a.installation_number == iid).First().lead_number;
 
+            GeneralHelper helper = new GeneralHelper();
             tasks_installation target = new tasks_installation();
             if (int.Parse(fo["mode"]) == 0)
             {
                 target.hours = double.Parse(fo["hours"]);
                 target.task_number = int.Parse(fo["task_number"]);
                 target.m_cost = double.Parse(fo["m_cost"]);
-                target.labor_cost= (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                target.labor_cost= (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
                 target.installation_number = iid;
                 try
                 {
                     db.tasks_installation.Add(target);
-                    //db.SaveChanges();
-                    db.SaveChanges(lid, "create new");
+                    db.SaveChanges();
+                    //db.SaveChanges(lid, "create new");
 
                 }
                 catch (Exception e)
@@ -205,12 +207,13 @@ namespace ck_project.Controllers
 
                     target.hours = double.Parse(fo["hours"]);
                     target.m_cost = double.Parse(fo["m_cost"]);
-                    target.labor_cost = (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                    db.tasks_installation.Add(target);
+                target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
+                db.tasks_installation.Add(target);
                     target.installation_number = iid;
                     try
                     {
-                        db.SaveChanges(lid,"create new");
+                        db.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -247,7 +250,7 @@ namespace ck_project.Controllers
         public ActionResult savetask(FormCollection fo) {
             string msg = "save success";
             int tin =int.Parse( fo["item.tasks_installation_number"]);
-            
+            GeneralHelper helper = new GeneralHelper();
           
                 int iid = db.tasks_installation.Where(c => c.tasks_installation_number == tin).First().installation_number;
                 int lid = db.installations.Where(g => g.installation_number == iid).First().lead_number;
@@ -257,8 +260,9 @@ namespace ck_project.Controllers
                     tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
                     target.hours = double.Parse(fo["item.hours"]);
                     target.m_cost = double.Parse(fo["item.m_cost"]);
-                    target.labor_cost = (new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + new ck_project.Helpers.GeneralHelper().GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
-                    db.SaveChanges(lid, "update");
+                target.labor_cost = (helper.GetApplicableRate(Constants.rate_Name_Hourly_Lead_Installer) + helper.GetApplicableRate(Constants.rate_Name_Hourly_Junior_Installer)) * target.hours;
+                target.material_retail_cost = (helper.GetApplicableRate(Constants.rate_Name_Material_Cost)) * target.m_cost;
+                db.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -310,7 +314,7 @@ namespace ck_project.Controllers
                     //target.estimated_date = DateTime.Parse(fo[""]);
 
                     
-                    db.SaveChanges(lid,"update");
+                    db.SaveChanges();
                     msg = "update succed";
                 }catch(Exception e){
                     msg = e.Message;

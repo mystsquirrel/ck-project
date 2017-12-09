@@ -48,7 +48,7 @@ namespace ck_project.Controllers
             if (ModelState.IsValid) {
                 mian.products.Add(target);
                 db.products.Add(target);
-                db.SaveChanges(lid);
+                db.SaveChanges();
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
@@ -132,7 +132,7 @@ namespace ck_project.Controllers
             target.quantity = int.Parse(fo["item.quantity"]);
             target.cat_anme = fo["item.cat_anme"];
             if (ModelState.IsValid) {
-                db.SaveChanges(lid);
+                db.SaveChanges();
                 return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
             }
 
