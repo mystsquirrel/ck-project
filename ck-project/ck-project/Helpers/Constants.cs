@@ -65,6 +65,7 @@ namespace ck_project.Helpers
         public const string rate_Name_Hourly_Tile_Installer = "Tile Installer Hourly Rate";
         public const string rate_Name_Hourly_Lead_Installer = "Lead Installer Hourly Rate";
         public const string rate_Name_Hourly_Junior_Installer = "Junior Installer Hourly Rate";
+        public const string rate_Name_Material_Cost = "Material Cost Rate";
         public const string rate_Name_Travel = "Travel Rate";
         public const string rate_Name_Hotel = "Hotel Rate";
         public const string rate_Name_Mileage = "Mileage Rate";
