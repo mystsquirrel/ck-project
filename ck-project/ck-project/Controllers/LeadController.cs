@@ -677,7 +677,7 @@ namespace ck_project.Controllers
                 TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
             //    db.SaveChanges(id);
-               db.SaveChanges();
+               db.SaveChanges(target.lead_number);
 
 
 
