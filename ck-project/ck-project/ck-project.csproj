@@ -498,11 +498,8 @@
     <Content Include="Views\Product\Notify.cshtml" />
     <Content Include="Views\Product\View.cshtml" />
     <Content Include="Views\Lead\AddKeep.cshtml" />
-    <Content Include="Views\Lead\Details.cshtml" />
     <Content Include="Views\Lead\Edit.cshtml" />
     <Content Include="Views\Lead\ListLead.cshtml" />
-    <Content Include="Views\ArcLeads\Details.cshtml" />
-    <Content Include="Views\ArcLeads\ListArcLead - Copy.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead.cshtml" />
     <Content Include="Views\Install\Lis.cshtml" />
     <Content Include="Views\Install\readtask.cshtml" />
