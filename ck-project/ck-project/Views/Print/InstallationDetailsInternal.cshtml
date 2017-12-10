@@ -425,10 +425,7 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            if ((double)item.hotel_round_trip != 0)
-                            {
-                                @item.total_miles
-                            }
+                            @item.total_miles
                         }
                     }
                 }
@@ -451,15 +448,8 @@
         </tr>
         <tr>
             <td class="table5_border_left"></td>
-            <td class="table5_col1">
-                @{
-                    if (Model.TotalApplicableTravelHours != 0)
-                    {
-                        @Model.TotalApplicableTravelHours
-                    }
-                }
-            </td>
-            <td class="table5_col2">Total Applicable Travel Hours)</td>
+            <td class="table5_col1">@Model.TotalApplicableTravelHours</td>
+            <td class="table5_col2">Total Applicable Travel Hours</td>
             <td colspan="3" class="table5_col3_4_combine"></td>
             <td class="table5_col5">
                 @{

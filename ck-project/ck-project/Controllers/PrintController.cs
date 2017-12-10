@@ -29,14 +29,14 @@ namespace ck_project.Controllers
 
             if (lead != null)
             {
+                projSummary.Lead = lead;
                 projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
                 projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
+                projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
+                projSummary = projSummaryHelper.GetProductTotalMap(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
-                projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
-                projSummary.ProductTotalMap = projSummaryHelper.GetProductTotalMap(lead);
-                projSummary.Lead = lead;
             }
 
             // instantiate a html to pdf converter object

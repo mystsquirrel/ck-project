@@ -8,7 +8,7 @@ namespace ck_project.Helpers
         public double CalculateMaterialRetailPrice(lead lead)
         {
             double totalMaterialCost = 0.0;
-            double materialRate = helper.getInstallationLaborRate(lead);
+            double materialRate = helper.GetInstallationMaterialRate(lead);
             foreach (var item in lead.installations)
             {
                 foreach (var task in item.tasks_installation)
@@ -19,11 +19,11 @@ namespace ck_project.Helpers
 
             if (materialRate == 0)
             {
-                return totalMaterialCost;
+                return Math.Round(totalMaterialCost, 2);
             }
             else
             {
-                return totalMaterialCost * materialRate;
+                return Math.Round(totalMaterialCost * materialRate, 2);
             }
         }
 
@@ -86,7 +86,7 @@ namespace ck_project.Helpers
 
         public double CalculateTravelTimeOneWay(double oneWayMileage)
         {
-            return Math.Round(oneWayMileage * 1.35 / 60, 2);
+            return oneWayMileage * 1.35 / 60;
         }
 
         public double CalculatePaidTravelTimeOneWay(double? traveltimeOneway)
@@ -108,10 +108,10 @@ namespace ck_project.Helpers
         {
             if (recommendation != null && recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return Math.Round(this.CalculateHotelRoundTrip(installationdays) * this.CalculateBothWayMilesToJob(oneWayMile), 2);
+                return this.CalculateHotelRoundTrip(installationdays) * this.CalculateBothWayMilesToJob(oneWayMile);
             }
 
-            return Math.Round(installationdays * this.CalculateBothWayMilesToJob(oneWayMile), 2);
+            return installationdays * this.CalculateBothWayMilesToJob(oneWayMile);
         }
 
         public double CalculateTotalApplicableTravelHours(double? installationDays, double? traveltimeOneway, string recommendation)
@@ -120,15 +120,15 @@ namespace ck_project.Helpers
             {
                 if (recommendation.Equals(Constants.install_recommendation_hotel))
                 {
-                    return Math.Round(this.CalculateHotelRoundTrip((double)installationDays) * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2, 2);
+                    return this.CalculateHotelRoundTrip((double)installationDays) * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2;
                 }
                 else
                 {
-                    return Math.Round((double)installationDays * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2, 2);
+                    return (double)installationDays * this.CalculatePaidTravelTimeOneWay(traveltimeOneway) * 2;
                 }
             }
 
-            return 0;
+            return 0.00;
         }
 
         public double CalculatePerDiem(double installationDays, string recommendation)
@@ -138,24 +138,24 @@ namespace ck_project.Helpers
                 return Math.Round(installationDays * 2 * helper.GetApplicableRate(Constants.rate_Name_Per_Diem), 2);
             }
 
-            return 0;
+            return 0.00;
         }
 
-        public double CalculateLaborOnlyExpense(double billableHours, double? overrideLaborRate)
+        public double CalculateLaborOnlyExpense(double billableHours, double laborRate)
         {
-            return Math.Round(billableHours * helper.getInstallationLaborRate(overrideLaborRate), 2);
+            return Math.Round(billableHours * laborRate, 2);
         }
 
         public double CalculateTravelExpense(double installationsDays, double? traveltimeOneway, string recommendation)
         {
-            return Math.Round(this.CalculateTotalApplicableTravelHours(installationsDays, traveltimeOneway, recommendation) * helper.GetApplicableRate(Constants.rate_Name_Travel), 2);
+            return this.CalculateTotalApplicableTravelHours(installationsDays, traveltimeOneway, recommendation) * helper.GetApplicableRate(Constants.rate_Name_Travel);
         }
 
         public double CalculateMileageExpense(double totalMiles, string recommendation)
         {
             if (recommendation != null && recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return totalMiles * helper.GetApplicableRate(Constants.rate_Name_Mileage);
+                return Math.Round(totalMiles * helper.GetApplicableRate(Constants.rate_Name_Mileage), 2);
             }
 
             return Math.Round(totalMiles, 2);
@@ -168,7 +168,7 @@ namespace ck_project.Helpers
                 return Math.Round(numberOfHotelNights * helper.GetApplicableRate(Constants.rate_Name_Hotel), 2);
             }
 
-            return 0;
+            return 0.00;
         }
 
         // include labor cost, travel cost, mileage expense, hotel expense, building permit cost, operational cost and per diem cost
@@ -244,11 +244,11 @@ namespace ck_project.Helpers
                     }
 
                     buildingPermitCost += new TotalCostHelper().CalculateProductCost(lead);
-                    return Math.Round(helper.GetBuildingPermitAmount(buildingPermitCost), 2);
+                    return helper.GetBuildingPermitAmount(buildingPermitCost);
                 }
             }
 
-            return buildingPermitCost;
+            return Math.Round(buildingPermitCost, 2);
         }
     }
 }

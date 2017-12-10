@@ -1,5 +1,19 @@
 ﻿@model ck_project.employee
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.m != null)
+    {
+        <script type="text/javascript">
+ $(document).ready(function () {
+     toastr.success('@ViewBag.m');
+        
+});
+        </script>
+    }
+}
+
+
 @Html.Partial("_AdminMenu")
 
 <div class="container">
@@ -8,7 +22,17 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Adding a New Employee</h4>
+      
+
+            <table>
+                <tr style="background-color:lightgray">
+                    <td style="width:1150px"><h3>Add a New Employee</h3></td>
+                    <td style="width:50px">
+                        <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding-bottom:10px"></div>
 
 
             <h5>All the fields with star are required</h5>
@@ -79,15 +103,3 @@
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @if (ViewBag.m != null)
-    {
-        <script type="text/javascript">
- $(document).ready(function () {
-     toastr.success('@ViewBag.m');
-           @ViewBag.m = null
-});
-        </script>
-    }
-}

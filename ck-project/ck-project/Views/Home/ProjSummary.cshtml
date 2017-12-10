@@ -195,32 +195,40 @@
                 <table>
                     <thead class="mdb-color darken-3">
                         <tr>
-                            <th style="width:530px"></th>
+                            <th style="width:400px"></th>
                             <th style="width:100px; text-align:center">Hours</th>
-                            <th style="width:120px; text-align:right">Material Cost</th>
+                            <th style="width:100px; text-align:right">Labor Cost</th>
+                            <th style="width:150px; text-align:right">Mat. Retail Cost</th>
                             <th style="width:100px; text-align:right">Total Cost</th>
                         </tr>
                     </thead>
                     @{
                         if (Model.InstallCategoryCostMap != null)
                         {
-                            double installTotal = 0;
+                            double installTotal = 0.00;
+                            double materialTotal = 0.00;
+                            double laborTotal = 0.00;
                             foreach (var key in Model.InstallCategoryCostMap.Keys)
                             {
                                 Dictionary<string, double> costList = Model.InstallCategoryCostMap[key];
                                 <tr style="padding-bottom:20px">
                                     <td>@key</td>
                                     <td class="item_price" style="text-align:center">@costList["Hours"]</td>
+                                    <td class="item_price">@String.Format("{0:C}", costList["Labor Cost"])</td>
                                     <td class="item_price">@String.Format("{0:C}", costList["Material Retail"])</td>
                                     <td class="item_price">@String.Format("{0:C}", costList["Total Cost"])</td>
                                 </tr>
+                                laborTotal += costList["Labor Cost"];
+                                materialTotal += costList["Material Retail"];
                                 installTotal += @costList["Total Cost"];
                             }
 
                             if (installTotal != 0)
                             {
                                 <tr>
-                                    <td colspan="3"></td>
+                                    <td colspan="2"></td>
+                                    <td class="section_total">@String.Format("{0:C}", laborTotal)</td>
+                                    <td class="section_total">@String.Format("{0:C}", materialTotal)</td>
                                     <td class="section_total">@String.Format("{0:C}", installTotal)</td>
                                 </tr>
                             }
