@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ck_project.archive_leads>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ck_project.archive_leads>
 
 @{
     if (HttpContext.Current.User.IsInRole("Administrator"))
@@ -12,7 +15,16 @@
 }
 
 <div class="container">
-    <h4>Archived Leads List (Closed Leads List)</h4>
+
+    <table>
+        <tr style="background-color:lightgray">
+            <td style="width:1150px"><h3>   Closed Leads</h3></td>
+            <td style="width:50px">
+                <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+            </td>
+        </tr>
+    </table>
+    <div style="padding-bottom:10px"></div>
 
 
     @{
@@ -25,12 +37,14 @@
         @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue,
         new { placeholder = "Type project name here" });
 
-
-
-
+        <input style="height:25px;" type="date" name="start" />
+        <input style="height:25px;" type="date" name="end" />
         <input type="submit" value="Search" />
 
     }
+
+
+
 
     <table class="table table-striped">
         <thead class="mdb-color darken-3">
@@ -150,5 +164,10 @@
                             }
 
     </table>
+    @Html.PagedListPager(Model, page => Url.Action("ListArcLead",
+    new { page, search = Request.QueryString["Search"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() {  DisplayPageCountAndCurrentLocation = true })
+
+
+
 
 </div>

@@ -27,8 +27,20 @@ toastr.success('@ViewBag.m');
     }
 }
 <div class="container">
+
+
+    <table>
+        <tr style="background-color:lightgray">
+            <td style="width:1150px"><h3>Customers</h3></td>
+            <td style="width:50px">
+                <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+            </td>
+        </tr>
+    </table>
+    <div style="padding-bottom:10px"></div>
+
     <h4> To create a new lead, you need to select customer from the list or create a new one</h4>
-    <h4> Customers List </h4>
+ 
 
     @using (Html.BeginForm("ListCustomers", "Customers", FormMethod.Get))
     {

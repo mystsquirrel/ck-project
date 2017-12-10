@@ -17,7 +17,16 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h3>Edit Address</h3>
+
+            <table>
+                <tr style="background-color:lightgray">
+                    <td style="width:1150px"><h3>Edit Address</h3></td>
+                    <td style="width:50px">
+                        <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding-bottom:10px"></div>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.address_number)
@@ -64,12 +73,17 @@
                 <div class="form-group">
                     <div class="col-md-offset-0 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
+               
+                      
+
+
                     </div>
                 </div>
             </div>
             }
             <div>
-                @Html.ActionLink("Back to List", "ListCustomers", "Customers")
+                <a href="javascript:history.go(-1)">Back to List</a>
+     
             </div>
         </div>
 

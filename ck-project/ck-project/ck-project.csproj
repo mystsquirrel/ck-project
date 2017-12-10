@@ -494,7 +494,6 @@
     <Content Include="Views\Product\gp.cshtml" />
     <Content Include="Views\Product\Notify.cshtml" />
     <Content Include="Views\Product\View.cshtml" />
-    <Content Include="Views\Lead\AddKeep.cshtml" />
     <Content Include="Views\Lead\Edit.cshtml" />
     <Content Include="Views\Lead\ListLead.cshtml" />
     <Content Include="Views\ArcLeads\ListArcLead.cshtml" />
