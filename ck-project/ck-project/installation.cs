@@ -38,6 +38,8 @@ namespace ck_project
         public Nullable<double> total_installation_labor_cost { get; set; }
         public Nullable<double> total_operational_expenses { get; set; }
         public Nullable<double> total_construction_materials_cost { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
         public double total_tile_cost { get; set; }
         public Nullable<double> total_travel_cost { get; set; }
         [DataType(DataType.Date)]
@@ -51,6 +53,8 @@ namespace ck_project
         public Nullable<double> installation_labor_only_cost { get; set; }
         public Nullable<double> billable_hours { get; set; }
         public Nullable<double> estimated_hours { get; set; }
+        [Required]
+        [Range(0,999999)]
         public double oneway_mileages_to_destination { get; set; }
         public Nullable<double> ov_labor_rate { get; set; }
         public Nullable<double> ov_material_rate { get; set; }
