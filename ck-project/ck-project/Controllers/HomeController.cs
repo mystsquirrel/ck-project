@@ -66,19 +66,6 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult LeadPage(int id, int cid, bool edit)
-        {
-            ViewBag.leadNumber = id;
-            ViewBag.customerNumber = cid;
-            ViewBag.editable = edit;
-            return View();           
-        }
-
-        public ActionResult LeadTab(int id, bool edit)
-        {
-            return View();
-        }
-
         public ActionResult ProjPrint(int id)
         {
             // only recalculate if lead is not close

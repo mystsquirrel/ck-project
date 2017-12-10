@@ -455,9 +455,7 @@
     <Content Include="Views\Shared\_LeadTabs.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\LeadTab.cshtml" />
     <Content Include="Views\Admin\AdminMainPage.cshtml" />
-    <Content Include="Views\Home\LeadPage.cshtml" />
     <Content Include="Views\Lookup\DeliveryStatus.cshtml" />
     <Content Include="Views\Lookup\DeliveryStatusAdd.cshtml" />
     <Content Include="Views\Lookup\Index.cshtml" />
@@ -490,7 +488,6 @@
     <Content Include="Views\Print\InstallationDetailsInternal.cshtml" />
     <Content Include="Views\Print\ProductsInternal.cshtml" />
     <Content Include="Views\Print\ProductsExternal.cshtml" />
-    <Content Include="Views\Print\LeadEntry1.cshtml" />
     <Content Include="Views\Print\LeadEntry.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
@@ -504,8 +501,6 @@
     <Content Include="Views\Install\Lis.cshtml" />
     <Content Include="Views\Install\readtask.cshtml" />
     <Content Include="Views\Install\AddJob.cshtml" />
-    <Content Include="Views\Home\SummaryTab - Copy.cshtml" />
-    <Content Include="Views\Home\PrintTab - Copy.cshtml" />
     <Content Include="Views\Log\Search.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\Home\ProjSummary_LeadDetails.cshtml" />
