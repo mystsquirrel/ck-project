@@ -47,8 +47,9 @@ namespace ck_project.Controllers
                     Value = b.project_status_number.ToString()
                 }));
                 ViewBag.lead_type = ClassInfo;
+
                 return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && 
-                (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end2)).ToList().ToPagedList(page?? 1,7));
+                (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end2)).ToList().ToPagedList(page?? 1,8));
 
                 //return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)).ToList());
             }
@@ -60,17 +61,17 @@ namespace ck_project.Controllers
         }
 
 
-        public ActionResult Details(int id)
-        {try
-            {
-                return View(db.leads.Where(x => x.lead_number == id).ToList());
-            }
-            catch (Exception e)
-            {
-                ViewBag.m = e.Message;
-                return View();
-            }
-        }
+        //public ActionResult Details(int id)
+        //{try
+        //    {
+        //        return View(db.leads.Where(x => x.lead_number == id).ToList());
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ViewBag.m = e.Message;
+        //        return View();
+        //    }
+        //}
         
 
         public ActionResult Add(int id, String msg = null, string add = null)
@@ -394,8 +395,8 @@ namespace ck_project.Controllers
             ViewBag.Sstate = Sstate;
 
 
-            //try
-            //{
+            try
+            {
 
 
 
@@ -482,15 +483,15 @@ namespace ck_project.Controllers
 
              
                 return RedirectToAction("Edit/" + target.lead_number, "lead", new { msg = ViewBag.m });
-            //}
-            //catch (Exception e)
-            //{
-            //    ViewBag.m = "The lead was not created ..." + e.Message;
-            //    return View();
-            //}
+            }
+            catch (Exception e)
+            {
+                ViewBag.m = "The lead was not created ..." + e.Message;
+                return View();
+            }
         }
-      
-        
+
+
 
         // read from the DB
         public ActionResult Edit(int id)

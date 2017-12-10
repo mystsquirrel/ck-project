@@ -17,7 +17,15 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Adding New Customer</h4>
+            <table>
+                <tr style="background-color:lightgray">
+                    <td style="width:1150px"><h3>Add a New Customer</h3></td>
+                    <td style="width:50px">
+                        <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding-bottom:10px"></div>
             <h5>All the fields with star are required</h5>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
