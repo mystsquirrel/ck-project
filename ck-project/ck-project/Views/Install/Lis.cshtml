@@ -43,6 +43,8 @@
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
             <h4>installation</h4>
+            <br/>
+            <h5>All field with star is required</h5>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.installation_number)
@@ -60,7 +62,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.statrt_date, "Start Date",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.statrt_date, "* Start Date",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.statrt_date, new { htmlAttributes = new { @class = "form-control" } })
@@ -76,7 +78,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.total_tile_cost, "Total Tile Cost",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.total_tile_cost, "* Total Tile Cost",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.total_tile_cost, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.total_tile_cost, "", new { @class = "text-danger" })
@@ -86,7 +88,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.estimated_date, "Estimated Date",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.estimated_date, "* Estimated Date",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.estimated_date, new { htmlAttributes = new { @class = "form-control" } })
@@ -101,7 +103,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.oneway_mileages_to_destination, "Mileages to dest",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.oneway_mileages_to_destination, "*Mileages to destination",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.oneway_mileages_to_destination, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.oneway_mileages_to_destination, "", new { @class = "text-danger" })
