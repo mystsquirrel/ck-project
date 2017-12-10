@@ -8,8 +8,11 @@ using PagedList.Mvc;
 using Microsoft.AspNet.Identity;
 using ck_project.Helpers;
 
+ 
+
 namespace ck_project.Controllers
 {
+    [Authorize]
 
     public class LeadController : Controller
     {
@@ -514,7 +517,7 @@ namespace ck_project.Controllers
                 var StatusInfo = new List<SelectListItem>();
                 StatusInfo.AddRange(db.project_status.Where(x => x.deleted != true).Select(c => new SelectListItem
                 {
-                    Text = "update to " + c.project_status_name,
+                    Text =  c.project_status_name,
                     Selected = false,
                     Value = c.project_status_number.ToString()
                 }));
@@ -569,6 +572,14 @@ namespace ck_project.Controllers
                     Value = a.delivery_status_number.ToString()
                 }));
 
+                var TaxExemptInfo = new List<SelectListItem> {
+
+
+                  new SelectListItem() { Text = "Taxable", Value = "0" },
+                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+            };
+
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
 
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
@@ -601,7 +612,7 @@ namespace ck_project.Controllers
         {
             ViewBag.addressnumber = db.addresses.Where(x => x.lead_number == id).Select(v => v.address_number).First();
 
-              try
+            try
             {
                 List<SelectListItem> CustomerInfo = new List<SelectListItem>();
                 CustomerInfo.AddRange(db.customers.Where(x => x.deleted != true).Select(a => new SelectListItem
@@ -622,7 +633,7 @@ namespace ck_project.Controllers
                 var StatusInfo = new List<SelectListItem>();
                 StatusInfo.AddRange(db.project_status.Where(x => x.deleted != true).Select(c => new SelectListItem
                 {
-                    Text = "update to " + c.project_status_name,
+                    Text =  c.project_status_name,
                     Selected = false,
                     Value = c.project_status_number.ToString()
                 }));
@@ -643,15 +654,7 @@ namespace ck_project.Controllers
                     Value = b.source_number.ToString()
                 }));
 
-                //var AddressInfo = new List<SelectListItem>();
-                //AddressInfo.AddRange(db.addresses.Where(x => x.deleted != true).Select(a => new SelectListItem
-                //{
-                //    Text = a.address_type,
-                //    Selected = false,
-                //    Value = a.address_number.ToString()
-                //}));
 
-                //var AddressCityInfo = new List<SelectListItem>();
 
                 var EmpInfo = new List<SelectListItem>();
                 EmpInfo.AddRange(db.employees.Where(x => x.deleted != true).Select(a => new SelectListItem
@@ -677,6 +680,15 @@ namespace ck_project.Controllers
                     Value = a.delivery_status_number.ToString()
                 }));
 
+                var TaxExemptInfo = new List<SelectListItem> {
+
+
+                  new SelectListItem() { Text = "Taxable", Value = "0" },
+                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+            };
+
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
+
 
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
@@ -698,13 +710,15 @@ namespace ck_project.Controllers
                 TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email","note" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
 
-                if (target.project_status.project_status_name == "Closed")
+            
+
+                if (form["project_status_number"].Equals("Closed") )
                 {
                     new GeneralHelper().SaveProjectTotal(target.lead_number);
                 }
-                //    db.SaveChanges(id);
-                //   db.SaveChanges(target.lead_number);
-                db.SaveChanges();
+                  // db.SaveChanges(id);
+                   db.SaveChanges(target.lead_number);
+               
           
                 ViewBag.m = " The lead was successfully updated " + " on " + System.DateTime.Now;
 
