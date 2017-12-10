@@ -53,12 +53,15 @@ textarea {
     padding: 0px 12px;
 }
 
-    /* lead page layout*/
-    /*body, html {
-    height: 100%;
-}*/
-    /* remove outer padding */
-    .main .row {
+.search_box {
+    height: 32px;
+    top:0;
+    padding: 0px 12px;
+    border-radius:4px;
+}
+
+/* remove outer padding */
+.main .row {
     padding: 0px;
     margin: 0px;
 }

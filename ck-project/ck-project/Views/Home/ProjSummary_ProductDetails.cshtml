@@ -22,16 +22,13 @@
                 var prodList = Model.ProductMapList1[key];
                 if (prodList.Count != 0)
                 {
-                    //get category
+                    //category
                     <tr style="background-color: rgb(128,128,128); color: white; border-right: 1px solid gray">
                         <td colspan="5" class="install_item_cat">@key</td>
                         <td colspan="5" style="padding-left: 100px;"></td>
                     </tr>
-                    int count = 0;
                     foreach (var prod in prodList)
                     {
-                        count++;
-                        double total = @prod.quantity * @prod.price;
                         <tr>
                             <td></td>
                             <td class="prod_item_text">@prod.manufacture</td>
@@ -42,7 +39,7 @@
                             <td class="prod_item_text">@prod.product_source</td>
                             <td class="prod_item_number">@prod.quantity</td>
                             <td class="prod_item_price">@String.Format("{0:C}", prod.price)</td>
-                            <td class="prod_item_price">@String.Format("{0:C}", total)</td>
+                            <td class="prod_item_price">@String.Format("{0:C}", prod.quantity * prod.price)</td>
                         </tr>
                     }
                 }
@@ -53,22 +50,15 @@
                 var prodList2 = Model.ProductMapList2[key2];
                 if (prodList2.Count != 0)
                 {
-                    int count2 = 0;
+                    //category
+                    <tr style="background-color: rgb(128,128,128); color: white; border-right: 1px solid gray">
+                        <td colspan="5" class="install_item_cat">@key2</td>
+                        <td colspan="5" style="padding-left: 100px;"></td>
+                    </tr>
                     foreach (var prod2 in prodList2)
                     {
-                        count2++;
-                        double total2 = @prod2.quantity * @prod2.price;
                         <tr>
-                            @{
-                                if (count2 == 1)
-                                {
-                                    <td class="prod_item_text">@key2</td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
-                            }
+                            <td></td>
                             <td class="prod_item_text">@prod2.manufacture</td>
                             <td class="prod_item_text">@prod2.model</td>
                             <td class="prod_item_text">@prod2.color</td>
@@ -77,7 +67,7 @@
                             <td class="prod_item_text">@prod2.product_source</td>
                             <td class="prod_item_number">@prod2.quantity</td>
                             <td class="prod_item_price">@String.Format("{0:C}", prod2.price)</td>
-                            <td class="prod_item_price">@String.Format("{0:C}", total2)</td>
+                            <td class="prod_item_price">@String.Format("{0:C}", prod2.quantity * prod2.price)</td>
                         </tr>
                     }
                 }

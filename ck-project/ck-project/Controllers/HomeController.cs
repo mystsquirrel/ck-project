@@ -21,42 +21,39 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult MainPage(string search, string searchby)
+        public ActionResult MainPage(string name, string status, string start, string end)
         {
-            var projStatus = new List<SelectListItem>();
-            projStatus.AddRange(db.project_status.Where(ps => ps.project_status_name != "closed").Select(b => new SelectListItem
+            var projStatusList = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "", Selected = true, Value = "" }
+            };
+
+            projStatusList.AddRange(db.project_status.Where(ps => ps.project_status_name != Constants.proj_Status_Closed).Select(b => new SelectListItem
             {
                 Text = b.project_status_name,
                 Selected = false,
                 Value = b.project_status_number.ToString()
             }));
-            ViewBag.projStatus = projStatus;
+            ViewBag.projStatusList = projStatusList;
 
             var identity = (ClaimsIdentity)User.Identity;
             var currUserIDStr = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
             try
             {
                 int currUserID = Int32.Parse(currUserIDStr);
-                if (searchby == "Status" && search != "")
-                {
-                    var result = (from l in db.leads
-                                  join s in db.project_status on l.project_status_number equals s.project_status_number
-                                  where l.emp_number == currUserID && l.deleted == false && s.project_status_name != "Closed" && s.project_status_name.StartsWith(search)
-                                  orderby l.Last_update_date
-                                  select l).ToList();
-                   HomeController.result = result;
-                    return View(result);
-                }
-                else
-                {
-                    var result = (from l in db.leads
-                                  join s in db.project_status on l.project_status_number equals s.project_status_number
-                                  where l.emp_number == currUserID && l.deleted == false && s.project_status_name != "Closed"
-                                  orderby l.Last_update_date
-                                  select l).ToList();
-                    HomeController.result = result;
-                    return View(result);
-                }
+                DateTime startDt = string.IsNullOrEmpty(start) ? DateTime.MinValue : DateTime.Parse(start);
+                DateTime endDt = string.IsNullOrEmpty(end) ? DateTime.MaxValue : DateTime.Parse(end);
+                TimeSpan ts = new TimeSpan(23, 59, 59);
+                endDt = endDt.Date + ts;
+                var result = db.leads.Where(l => l.emp_number == currUserID && l.deleted == false
+                                                && l.lead_date >= startDt && l.lead_date <= endDt
+                                                && (string.IsNullOrEmpty(status) || l.project_status.project_status_name == status)
+                                                && (string.IsNullOrEmpty(name) || l.project_name.StartsWith(name))).ToList();
+                ViewBag.result = result;
+                ViewBag.startDt = start;
+                ViewBag.endDt = end;
+                HomeController.result = result;
+                return View();
             }
             catch (FormatException e)
             {
@@ -105,11 +102,11 @@ namespace ck_project.Controllers
                         projSummary.TotalCost = db.total_cost.Where(c => c.lead_number == id).First();
                     }
                     projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
-                    projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
                     projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
+                    projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
+                    projSummary = projSummaryHelper.GetProductTotalMap(lead, projSummary);
                     projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
                     projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
-                    projSummary.ProductTotalMap = projSummaryHelper.GetProductTotalMap(lead);
                     projSummary.Lead = lead;
                 }
             }

@@ -74,14 +74,14 @@ namespace ck_project.Helpers
         {
             double operationalAdminExp = this.CalculateAvgMaterialCost(lead);
             double operationalAdExp = operationalAdminExp * helper.GetApplicableRate(Constants.rate_Name_Operational_Admin);
-            return Math.Round(operationalAdExp, 2);
+            return operationalAdExp;
         }
 
         public double CalculateOperationalExpForCreditCard(lead lead)
         {
             double expForCreditCard = this.CalculateContractTotalWithoutOperationCost(lead);
             double operationalExpCC = expForCreditCard * helper.GetApplicableRate(Constants.rate_Name_Operational_CreditCard);
-            return Math.Round(operationalExpCC, 2);
+            return operationalExpCC;
         }
 
         public double CalculateOperationalExpForInstallation(lead lead)
@@ -118,15 +118,15 @@ namespace ck_project.Helpers
                 }
 
                 double operationalExpenseForInstall =  expForInstallation * helper.GetApplicableRate(Constants.rate_Name_Operational_Installation);
-                return Math.Round(operationalExpenseForInstall, 2);
+                return operationalExpenseForInstall;
             }
 
-            return 0;
+            return 0.00;
         }
 
         public double CalculateAvgInstallLaborCost(lead lead)
         {
-            double avgInstallLaborCost = 0;
+            double avgInstallLaborCost = 0.00;
             if (lead.installations != null)
             {
                 foreach (var item in lead.installations)
@@ -154,12 +154,12 @@ namespace ck_project.Helpers
                 return Math.Round(this.CalculateOperationalAdminExpense(lead) + this.CalculateOperationalExpForCreditCard(lead) + this.CalculateOperationalExpForInstallation(lead), 2);
             }
 
-            return 0;
+            return 0.00;
         }
 
         public double CalculateTotalProjForBO(lead lead)
         {
-            return Math.Round((this.CalculateTotalOperationalExpense(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO), 2);
+            return (this.CalculateTotalOperationalExpense(lead) + this.CalculateContractTotalWithoutOperationCost(lead)) * helper.GetApplicableRate(Constants.rate_Name_BO);
         }
     }
 }

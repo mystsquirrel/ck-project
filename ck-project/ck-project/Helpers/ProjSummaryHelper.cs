@@ -159,7 +159,7 @@ namespace ck_project.Helpers
             return prodMap;
         }
 
-        public Dictionary<string, double> GetProductTotalMap(lead lead)
+        public ProjectSummary GetProductTotalMap(lead lead, ProjectSummary projectSummary)
         {
             Dictionary<string, double> prodTotalMap = new Dictionary<string, double>();
             if (lead.products != null)
@@ -177,7 +177,9 @@ namespace ck_project.Helpers
                     prodTotalMap.Add(cat, total);
                 }
             }
-            return prodTotalMap;
+            projectSummary.ProductTotalMap = prodTotalMap;
+
+            return projectSummary;
         }
 
         public ProjectSummary CalculateInstallationsData(lead lead, ProjectSummary projectSummary)
@@ -185,10 +187,10 @@ namespace ck_project.Helpers
             InstallationCalculationHelper calHelper = new InstallationCalculationHelper();
             foreach (var item in lead.installations)
             {
-                projectSummary.TwoWayMilesToJob = calHelper.CalculateBothWayMilesToJob(item.oneway_mileages_to_destination);
-                projectSummary.TotalInstallationDays = calHelper.CalculateTotalInstallationDays(item.installation_days, item.tile_installation_days);
-                projectSummary.PaidTravelTimeOneWay = calHelper.CalculatePaidTravelTimeOneWay(item.travel_time_one_way);
-                projectSummary.TotalApplicableTravelHours = calHelper.CalculateTotalApplicableTravelHours(item.installation_days, item.travel_time_one_way, item.recommendation);
+                projectSummary.TwoWayMilesToJob = Math.Round(calHelper.CalculateBothWayMilesToJob(item.oneway_mileages_to_destination), 2);
+                projectSummary.TotalInstallationDays = Math.Round(calHelper.CalculateTotalInstallationDays(item.installation_days, item.tile_installation_days), 2);
+                projectSummary.PaidTravelTimeOneWay = Math.Round(calHelper.CalculatePaidTravelTimeOneWay(item.travel_time_one_way), 2);
+                projectSummary.TotalApplicableTravelHours = Math.Round(calHelper.CalculateTotalApplicableTravelHours(item.installation_days, item.travel_time_one_way, item.recommendation), 2);
             }
                 return projectSummary;
         }

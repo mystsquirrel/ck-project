@@ -178,8 +178,8 @@ namespace ck_project.Controllers
                 target.hours = double.Parse(fo["hours"]);
                 target.task_number = int.Parse(fo["task_number"]);
                 target.m_cost = double.Parse(fo["m_cost"]);
-                target.labor_cost= helper.getInstallationLaborRate(idk)* target.hours;
-                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
+                target.labor_cost= helper.GetInstallationLaborRate(idk)* target.hours;
+                target.material_retail_cost = helper.GetInstallationMaterialRate(idk) * target.m_cost;
                 target.installation_number = iid;
                 try
                 {
@@ -207,8 +207,8 @@ namespace ck_project.Controllers
 
                     target.hours = double.Parse(fo["hours"]);
                     target.m_cost = double.Parse(fo["m_cost"]);
-                target.labor_cost = helper.getInstallationLaborRate(idk) * target.hours;
-                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
+                target.labor_cost = helper.GetInstallationLaborRate(idk) * target.hours;
+                target.material_retail_cost = helper.GetInstallationMaterialRate(idk) * target.m_cost;
                 db.tasks_installation.Add(target);
                     target.installation_number = iid;
                     try
@@ -262,8 +262,8 @@ namespace ck_project.Controllers
                     tasks_installation target = db.tasks_installation.Where(f => f.tasks_installation_number == tin).First();
                     target.hours = double.Parse(fo["item.hours"]);
                     target.m_cost = double.Parse(fo["item.m_cost"]);
-                target.labor_cost = helper.getInstallationLaborRate(idk) * target.hours;
-                target.material_retail_cost = helper.getInstallationMaterialRate(idk) * target.m_cost;
+                target.labor_cost = helper.GetInstallationLaborRate(idk) * target.hours;
+                target.material_retail_cost = helper.GetInstallationMaterialRate(idk) * target.m_cost;
                 db.SaveChanges(lid);
                 }
                 catch (Exception e)

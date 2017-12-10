@@ -8,7 +8,7 @@ namespace ck_project.Helpers
         public double CalculateMaterialRetailPrice(lead lead)
         {
             double totalMaterialCost = 0.0;
-            double materialRate = helper.getInstallationMaterialRate(lead);
+            double materialRate = helper.GetInstallationMaterialRate(lead);
             foreach (var item in lead.installations)
             {
                 foreach (var task in item.tasks_installation)
@@ -19,11 +19,11 @@ namespace ck_project.Helpers
 
             if (materialRate == 0)
             {
-                return totalMaterialCost;
+                return Math.Round(totalMaterialCost, 2);
             }
             else
             {
-                return totalMaterialCost * materialRate;
+                return Math.Round(totalMaterialCost * materialRate, 2);
             }
         }
 
@@ -128,22 +128,22 @@ namespace ck_project.Helpers
                 }
             }
 
-            return 0;
+            return 0.00;
         }
 
         public double CalculatePerDiem(double installationDays, string recommendation)
         {
             if (recommendation != null && recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return installationDays * 2 * helper.GetApplicableRate(Constants.rate_Name_Per_Diem);
+                return Math.Round(installationDays * 2 * helper.GetApplicableRate(Constants.rate_Name_Per_Diem), 2);
             }
 
-            return 0;
+            return 0.00;
         }
 
-        public double CalculateLaborOnlyExpense(double billableHours, double? overrideLaborRate)
+        public double CalculateLaborOnlyExpense(double billableHours, double laborRate)
         {
-            return billableHours * helper.getInstallationLaborRate(overrideLaborRate);
+            return Math.Round(billableHours * laborRate, 2);
         }
 
         public double CalculateTravelExpense(double installationsDays, double? traveltimeOneway, string recommendation)
@@ -155,20 +155,20 @@ namespace ck_project.Helpers
         {
             if (recommendation != null && recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return totalMiles * helper.GetApplicableRate(Constants.rate_Name_Mileage);
+                return Math.Round(totalMiles * helper.GetApplicableRate(Constants.rate_Name_Mileage), 2);
             }
 
-            return totalMiles;
+            return Math.Round(totalMiles, 2);
         }
 
         public double CalculateHotelExpense(double numberOfHotelNights, string recommendation)
         {
             if (recommendation != null && recommendation.Equals(Constants.install_recommendation_hotel))
             {
-                return numberOfHotelNights * helper.GetApplicableRate(Constants.rate_Name_Hotel);
+                return Math.Round(numberOfHotelNights * helper.GetApplicableRate(Constants.rate_Name_Hotel), 2);
             }
 
-            return 0;
+            return 0.00;
         }
 
         // include labor cost, travel cost, mileage expense, hotel expense, building permit cost, operational cost and per diem cost
@@ -215,7 +215,7 @@ namespace ck_project.Helpers
                     }
                 }
             }
-            return totalLaborCost;
+            return Math.Round(totalLaborCost, 2);
         }
 
         // only need buildling permit if the project is installed and jobsite is in the city
@@ -248,7 +248,7 @@ namespace ck_project.Helpers
                 }
             }
 
-            return buildingPermitCost;
+            return Math.Round(buildingPermitCost, 2);
         }
     }
 }

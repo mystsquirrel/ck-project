@@ -55,6 +55,7 @@ namespace ck_project.Helpers
         public const string install_recommendation_travel = "Travel";
 
         public const string proj_Status_Closed = "Closed";
+        public const string proj_Status_Open = "Open";
 
         public const string deliver_Status_Installed = "Installed";
         public const string deliver_Status_Pickup = "Pick-up";
