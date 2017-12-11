@@ -16,8 +16,10 @@ namespace ck_project.Controllers
         //main view
         public ActionResult View(int id,string msg=null) {
             List<string> pset = db.products.Where(a => a.lead_number == id && a.deleted==false).Select(e=> e.cat_anme).Distinct().ToList();
+            var lead = db.leads.Where(l => l.lead_number == id).First();
             ViewBag.lid = id;
-           
+            ViewBag.customerNbr = lead.customer_number;
+
             List<Pg> agent = new List<Pg>();
             foreach (var a in pset) {
                 agent.Add(new Pg { cat = a, lid = id });

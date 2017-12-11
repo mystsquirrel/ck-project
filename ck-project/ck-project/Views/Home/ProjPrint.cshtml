@@ -32,7 +32,10 @@
             else
             {
                 <tr>
-                    <td style="width:997px"><h2>Print Portal</h2></td>
+                    <td style="width:947px"><h2>Print Portal</h2></td>
+                    <td style="width:50px">
+                        <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = @ViewBag.lead.customer_number })'" class="btn btn-default" id="tabBtn" />
+                    </td>
                     <td style="width:50px">
                         <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="tabBtn" />
                     </td>

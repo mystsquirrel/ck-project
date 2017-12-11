@@ -25,7 +25,7 @@ namespace ck_project.Controllers
         {
             var projStatusList = new List<SelectListItem>
             {
-                new SelectListItem() { Text = "All Status", Selected = true, Value = "" }
+                new SelectListItem() { Text = "All", Selected = true, Value = "" }
             };
 
             projStatusList.AddRange(db.project_status.Where(ps => ps.project_status_name != Constants.proj_Status_Closed).Select(b => new SelectListItem

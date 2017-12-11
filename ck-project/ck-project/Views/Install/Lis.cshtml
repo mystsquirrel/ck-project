@@ -21,7 +21,10 @@
 <div class="container">
     <table>
         <tr>
-            <td style="width:997px"></td>
+            <td style="width:947px"></td>
+            <td style="width:50px">
+                <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = ViewBag.customerNbr })'" class="btn btn-default" id="tabBtn" />
+            </td>
             <td style="width:50px">
                 <input type="button" value="Lead" onclick="location.href='@Url.Action("Edit", "Lead", new { id = ViewBag.lid })'" class="btn btn-default" id="tabBtn" />
             </td>

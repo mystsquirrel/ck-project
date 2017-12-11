@@ -117,7 +117,7 @@ namespace ck_project.Controllers
                 al.Add(new SelectListItem { Text = e.emp_firstname + " " + e.emp_lastname, Value = e.emp_firstname });
             }
             ViewBag.emplist = al;
-            
+
 
             //no installation yet
             //if ( target==null) {
@@ -125,7 +125,9 @@ namespace ck_project.Controllers
             //    target = init(lid);
 
             //}
+            var lead = db.leads.Where(l => l.lead_number == lid).First();
             ViewBag.lid = lid;
+            ViewBag.customerNbr = lead.customer_number;
 
             return View(target);
 
