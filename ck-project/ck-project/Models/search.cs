@@ -14,6 +14,8 @@ namespace ck_project.Models
         [DataType(DataType.Date)]
         public DateTime end;
         public List<SelectListItem> Emp;
+       
+        public string name;
             
     }
 }

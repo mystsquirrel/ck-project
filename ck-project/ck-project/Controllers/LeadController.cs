@@ -760,19 +760,19 @@ namespace ck_project.Controllers
             switch (by)
             {
                 case "pn": //project name
-                    nresult = LeadController.lst.OrderByDescending(a => a.project_name).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.project_name).ToList();
                     break;
                 case "cn"://customer name
-                    nresult = LeadController.lst.OrderByDescending(a => a.customer.customer_firstname).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.customer.customer_firstname).ToList();
                     break;
                 case "sp"://sales person
-                    nresult = LeadController.lst.OrderByDescending(a => a.employee.emp_firstname).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.employee.emp_firstname).ToList();
                     break;
                 case "pt"://project type
-                    nresult = LeadController.lst.OrderByDescending(a => a.project_type.project_type_name).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.project_type.project_type_name).ToList();
                     break;
                 case"ps"://project status
-                    nresult = LeadController.lst.OrderByDescending(a => a.project_status.project_status_name).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.project_status.project_status_name).ToList();
                     break;
                 case "cd"://create date
                     nresult = LeadController.lst.OrderByDescending(a => a.lead_date).ToList();
@@ -781,11 +781,20 @@ namespace ck_project.Controllers
                     nresult = LeadController.lst.OrderByDescending(a => a.Last_update_date).ToList();
                     break;
                 case "br"://branch
-                    nresult = LeadController.lst.OrderByDescending(a => a.branch.branch_name).ToList();
+                    nresult = LeadController.lst.OrderBy(a => a.branch.branch_name).ToList();
                     break;
 
             }
 
+            var ClassInfo = new List<SelectListItem>();
+            ClassInfo.AddRange(db.project_status.Where(CCVV => CCVV.project_status_name != "closed").Select(b => new SelectListItem
+
+            {
+                Text = b.project_status_name,
+                Selected = false,
+                Value = b.project_status_number.ToString()
+            }));
+            ViewBag.lead_type = ClassInfo;
 
             return View("ListLead",nresult.ToPagedList(page?? 1,8));
         }

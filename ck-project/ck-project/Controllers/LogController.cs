@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace ck_project.Controllers
 {
@@ -10,10 +11,10 @@ namespace ck_project.Controllers
     {
         // GET: Log
         ckdatabase db = new ckdatabase();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(30).ToList();
-            return View(lis);
+            List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(60).ToList();
+            return View(lis.ToPagedList(page??1,20));
         }
         [HttpPost]
         public ActionResult Index(FormCollection fo) {
