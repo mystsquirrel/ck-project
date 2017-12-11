@@ -62,29 +62,29 @@
     <thead class="mdb-color darken-3">
         <tr>
             <th>
-                Project Name
+                @Html.ActionLink("Project Name","Sort",new { by="pn"})
             </th>
             <th>
-                Customer Name
+                @Html.ActionLink("Customer Name","Sort",new { by="cn"})
             </th>
             <th>
-                SalesPerson
+                @Html.ActionLink("SalesPerson","Sort",new { by="sp"})
             </th>
             <th>
-                Project Type
+                @Html.ActionLink("Project Type","Sort",new { by="pt"})
             </th>
             <th>
-                Project Status
+                @Html.ActionLink("Project Status", "Sort", new { by="ps"})
             </th>
             <th>
-                Create Date
+                @Html.ActionLink("Create Dated","Sort",new {by="cd" })
             </th>
             <th>
-                Last Update Date
+                @Html.ActionLink("Last Upadte Date","Sort",new { by="lud"})
             </th>
 
             <th>
-                Branch
+                @Html.ActionLink("Branch","Sort",new { by="br"})
             </th>
 
             <th></th>
