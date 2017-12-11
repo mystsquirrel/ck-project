@@ -13,7 +13,7 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
         public ActionResult Index(int? page)
         {
-            List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(60).ToList();
+            List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(300).ToList();
             return View(lis.ToPagedList(page??1,20));
         }
         [HttpPost]
@@ -21,6 +21,7 @@ namespace ck_project.Controllers
             DateTime start =DateTime.Parse( fo["start"]);
             DateTime end = DateTime.Parse(fo["end"]);
             string emp = fo["Emp"];
+            string leadname = fo["name"];
             List<lead_log_file> lis = db.lead_log_file.Where(r => r.emp_username == emp && r.update_date >= start.Date && r.update_date<=end.Date).ToList();
 
             return View(lis);
