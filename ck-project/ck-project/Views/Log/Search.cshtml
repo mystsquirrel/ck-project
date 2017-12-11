@@ -4,26 +4,59 @@
     Layout = null;
 }
 
-@using (Html.BeginForm("Index","Log",FormMethod.Post))
-{
+
+
+
+<div class="container">
+    <table>
+        <tr>
+            <td style="width:11320px"><h3>Leads Log</h3></td>
+            <td style="width:11300px" align="right"></td>
+        </tr>
+        <tr>
+            <td>This page displays all updates on leads.</td>
+            <td rowspan="2">
+                @using (Html.BeginForm("Index", "Log", FormMethod.Post))
+            {
+                    <b>Project Name: </b>
+                    @Html.TextBox("Search", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "Type project name here", @class = "search_box" });
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;Salesperson:</b>
+                    @Html.DropDownListFor(Model => Model.Emp, (List<SelectListItem>)Model.Emp, new { @class = "search_box" })
+                 
+                    <div style="float:left; padding-top:12px"><b>&nbsp;&nbsp;&nbsp;Update Date:&nbsp;</b></div>
+                    <div style="float:left; padding-right:10px; padding-top:4px"><input style="width:160px;" type="date" name="start" class="search_box" /></div>
+                    <div style="float:left; padding-right:20px; padding-top:4px"><input style="width:160px" type="date" name="end" class="search_box" /></div>
+                    <div style="padding-top:6px"><input type="submit" value="Search" class="btn btn-default" /></div>
+                }
+            </td>
+        </tr>
+
+    </table>
+    <div style="padding-top:15px"></div>
+
+
+
+
+
+    @*{
     <div class="form-group">
         <div class="col-md-10">
-            @Html.EditorFor(Model => Model.start,new { htmlAttributes = new { @class = "form-control",@type="date" } })
-            
+            @Html.EditorFor(Model => Model.start, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+
             @Html.ValidationMessageFor(model => model.start, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-10">
-            @Html.EditorFor(Model => Model.end, new { htmlAttributes = new { @class = "form-control",@type="date" } })
+            @Html.EditorFor(Model => Model.end, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
             @Html.ValidationMessageFor(model => model.end, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-10">
-            @Html.DropDownListFor(Model => Model.Emp, (List<SelectListItem>)Model.Emp, htmlAttributes: new { @class = "form-control" } )
+            @Html.DropDownListFor(Model => Model.Emp, (List<SelectListItem>)Model.Emp, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
 
@@ -37,10 +70,12 @@
 
     <div class="form-group">
         <div class="col-md-10">
-            <input type="submit" value="Search now" class="btn btn-default" style="width: 140px"/>
+            <input type="submit" value="Search now" class="btn btn-default" style="width: 140px" />
         </div>
     </div>
 
 
 
-}
+    }*@
+
+</div>

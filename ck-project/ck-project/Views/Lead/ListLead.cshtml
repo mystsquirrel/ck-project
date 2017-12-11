@@ -75,10 +75,10 @@
                 </th>
                    <th>
                     @Html.ActionLink("SalesPerson", "Sort", new { by = "sp" })
-                @*</th>
+                </th>
                 <th>
                     @Html.ActionLink("Project Type", "Sort", new { by = "pt" })
-                </th>*@
+                </th>
                 <th>
                     @Html.ActionLink("Project Status", "Sort", new { by = "ps" })
                 </th>
@@ -131,9 +131,9 @@
                 <td>
                     @Html.DisplayFor(model => item.project_type.project_type_name)
                 </td>
-                @*<td>
+                <td>
                     @Html.DisplayFor(model => item.project_status.project_status_name)
-                </td>*@
+                </td>
                 <td>
                     @*@Html.DisplayFor(model => Model.First().lead_date)*@
                     @item.lead_date.ToString("dd MMM yyyy")

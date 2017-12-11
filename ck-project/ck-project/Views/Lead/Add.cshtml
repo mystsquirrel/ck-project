@@ -33,14 +33,7 @@
 
         @Html.AntiForgeryToken()
 
-        <table>
-            <tr>
-                <td style="width:1150px"><h3>Leads</h3></td>
-                <td style="width:50px">
-                </td>
-            </tr>
-        </table>
-        <div style="padding-bottom:10px"></div>
+
 
         <div class="panel panel-default">
             <h3 class="panel-heading">
@@ -169,15 +162,6 @@
                             @Html.ValidationMessageFor(Tuple => Tuple.Item1.in_city, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    @*<div class='col-xs-4'>
-                            <div class="form-group">
-                                <label class='control-label'>Tax Exempt? *</label>
-                                @Html.EditorFor(Tuple => Tuple.Item1.tax_exempt, new { @Value = "True" })
-                                @Html.ValidationMessageFor(Tuple => Tuple.Item1.tax_exempt, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-
 
                 </div>
             </div>

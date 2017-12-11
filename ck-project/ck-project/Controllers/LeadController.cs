@@ -40,9 +40,6 @@ namespace ck_project.Controllers
                 statusNbr = Int32.Parse(Type);
             }
 
-            //public ActionResult ListLead(string search = null, String msg = null, int type = 3)
-            //{
-
             try
             {
                 ViewBag.m = msg;
@@ -723,10 +720,12 @@ namespace ck_project.Controllers
                 ViewBag.Customerslist = Leads_list;
                 lead target = Leads_list[0];
 
-                TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name", "tax_exempt", "phone_number", "second_phone_number", "email","note" }, form.ToValueProvider());
+                TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name",  "phone_number", "second_phone_number", "email","note" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
 
-            
+                target.tax_exempt = string.Equals(form["tax_exempt"], "1") ? true : false;
+
+
 
                 if (form["project_status_number"].Equals("Closed") )
                 {
@@ -787,9 +786,9 @@ namespace ck_project.Controllers
                 case "pt"://project type
                     nresult = LeadController.lst.OrderBy(a => a.project_type.project_type_name).ToList();
                     break;
-                //case"ps"://project status
-                //    nresult = LeadController.lst.OrderBy(a => a.project_status.project_status_name).ToList();
-                //    break;
+                case "ps"://project status
+                    nresult = LeadController.lst.OrderBy(a => a.project_status.project_status_name).ToList();
+                    break;
                 case "cd"://create date
                     nresult = LeadController.lst.OrderByDescending(a => a.lead_date).ToList();
                     break;
