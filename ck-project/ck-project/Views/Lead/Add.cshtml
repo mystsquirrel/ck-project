@@ -189,10 +189,14 @@
                         Address
                     </a>
                     &nbsp;&nbsp;
-                    @Html.ActionLink("Add another address", "Add", new { add = "2" }, new { @class = "btn btn-default", @style = "width: 170px" })
+                    @{ if (ViewBag.add == "2") { @Html.ActionLink("Remove the alternative address", "Add", new { add = "1" }, new { @class = "btn btn-default", @style = "width: 220px" })}
+                        else
+                        {  @Html.ActionLink("Add alternative address", "Add", new { add = "2" }, new { @class = "btn btn-default", @style = "width: 170px" })}
+                    }
+                   
 
                 </h3>
-
+                
                 <div id="collapseR" class="panel-collapse collapse in">
                     <div class="panel-body">
 
@@ -326,15 +330,6 @@
                         <input type="submit" value="Create" class="btn btn-default" id="passwordInfo" /> &nbsp;
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-0 col-md-10">
-                        @Html.ActionLink("Back to List", "ListLead")
-                    </div>
-                </div>
-
-                @*</div>*@
-
-
                             }
 
 
