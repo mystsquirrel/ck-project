@@ -93,16 +93,18 @@ namespace ck_project.Controllers
             doc.DocumentInformation.CreationDate = DateTime.Now;
 
             // save pdf document
-            //byte[] pdf = doc.Save();
-            string fileName = str + ".pdf";
-            doc.Save(System.Web.HttpContext.Current.Response, false, fileName);
+            byte[] pdf = doc.Save();
+            //string fileName = str + ".pdf";
+            //doc.Save(System.Web.HttpContext.Current.Response, false, fileName);
             // close pdf document
             doc.Close();
 
-            // return resulted pdf document
-            //FileResult fileResult = new FileContentResult(pdf, "application/pdf");
-            //fileResult.FileDownloadName = str + ".pdf";
-            return null;
+            //return resulted pdf document
+            FileResult fileResult = new FileContentResult(pdf, "application/pdf")
+            {
+                FileDownloadName = str + ".pdf"
+            };
+            return fileResult;
         }
     }
 }

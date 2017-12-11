@@ -20,7 +20,7 @@ namespace ck_project
         {
             var controllerContext = controller.ControllerContext;
 
-            var viewResult = ViewEngines.Engines.FindPartialView(controllerContext, viewName);
+            var viewResult = ViewEngines.Engines.FindView(controllerContext, viewName, null);
 
             StringWriter stringWriter;
 
