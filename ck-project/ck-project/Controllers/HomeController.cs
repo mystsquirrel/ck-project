@@ -48,7 +48,7 @@ namespace ck_project.Controllers
                 var result = db.leads.Where(l => l.emp_number == currUserID && l.deleted == false
                                                 && l.lead_date >= startDt && l.lead_date <= endDt
                                                 && (string.IsNullOrEmpty(status) || l.project_status.project_status_name == status)
-                                                && (string.IsNullOrEmpty(name) || l.project_name.StartsWith(name))).ToList();
+                                                && (string.IsNullOrEmpty(name) || l.project_name.Contains(name))).ToList();
                 ViewBag.result = result;
                 ViewBag.startDt = start;
                 ViewBag.endDt = end;

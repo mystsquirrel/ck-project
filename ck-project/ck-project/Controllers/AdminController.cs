@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,7 +10,25 @@ namespace ck_project.Controllers
     {
         ckdatabase db = new ckdatabase();
         private static List<lead> result = new List<lead>();
+
+
         public ActionResult AdminMainPage(string search, string searchby)
+        {
+            try
+            {
+                return RedirectToAction("ListLead", "Lead");
+            }
+
+            catch (Exception e)
+            {
+                ViewBag.m = " Something went wrong ... " + e.Message;
+                return RedirectToAction("ListLead", "Lead");
+            }
+        }
+
+
+
+        public ActionResult AdminMainPage1(string search, string searchby)
         {
             if (searchby == "Designer" && search != "")
             {
