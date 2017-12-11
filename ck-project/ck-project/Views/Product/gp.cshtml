@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<ck_project.product>
 
+@{
+    Layout = null;
+}
+
 @foreach (var item in Model)
 {
     using (Html.BeginForm("handle","Product",new {pid=item.product_number }))

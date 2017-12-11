@@ -13,10 +13,30 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
         ProjSummaryHelper projSummaryHelper = new ProjSummaryHelper();
         // GET: Printout
-        public ActionResult Index()
+        public ActionResult Proposal(int id)
         {
-            return View();
+            // get the data
+            var projSummary = new ProjectSummary
+            {
+                Branch = db.branches.ToList(),
+            };
+            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
+
+            if (lead != null)
+            {
+                projSummary.Lead = lead;
+                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
+                projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
+                projSummary = projSummaryHelper.GetProductTotalMap(lead, projSummary);
+                projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
+                projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
+                projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
+            }
+            return View(projSummary);
         }
+
+
 
         public ActionResult Convert(String url, int id, string str)
         {
@@ -68,7 +88,7 @@ namespace ck_project.Controllers
             doc.DocumentInformation.Subject = result.WebPageInformation.Description;
             doc.DocumentInformation.Keywords = result.WebPageInformation.Keywords;
 
-            doc.DocumentInformation.Author = "CreativeKitchen";
+            doc.DocumentInformation.Author = "CreativeKitchens";
             doc.DocumentInformation.CreationDate = DateTime.Now;
 
             // save pdf document

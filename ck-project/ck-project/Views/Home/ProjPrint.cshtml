@@ -56,7 +56,8 @@
         <label class="col-md-4 text-center">FOR INSTALLER</label>
         <label class="col-md-4 text-center">FOR INTERNAL</label>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Proposal" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "Proposal" })'" class="btn btn-default" id="printBtn" />
+            @*<input type="button" value="Proposal" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "Proposal" })'" class="btn btn-default" id="printBtn" />*@
+            <input type="button" value="Proposal" onclick="location.href='@Url.Action("Proposal", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
             <input type="button" value="Installation Details" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "InstallationDetailsForInstallers" })'" class="btn btn-default" id="printBtn" />

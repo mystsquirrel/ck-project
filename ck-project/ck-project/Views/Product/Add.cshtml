@@ -1,5 +1,9 @@
 ﻿@model ck_project.product
 
+@{
+    Layout = null;
+}
+
 <div>
 @using (Html.BeginForm("Add","Product",new { lid=ViewBag.lid}))
 {

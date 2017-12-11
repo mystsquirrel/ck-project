@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<ck_project.tasks_installation>
 
+@{
+    Layout = null;
+}
 
 @foreach (tasks_installation item in Model) {
 using (Html.BeginForm("savetask","Install",FormMethod.Post))
