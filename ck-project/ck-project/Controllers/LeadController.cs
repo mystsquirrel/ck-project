@@ -18,6 +18,7 @@ namespace ck_project.Controllers
     {
         //Creating the DB connecton
         ckdatabase db = new ckdatabase();
+        static List<lead> lst = new List<lead>();
 
         // GET: Lead
 
@@ -47,9 +48,10 @@ namespace ck_project.Controllers
                     Value = b.project_status_number.ToString()
                 }));
                 ViewBag.lead_type = ClassInfo;
-
-                return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && 
-                (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end2)).ToList().ToPagedList(page?? 1,8));
+                List<lead> result = db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type &&
+                  (x.project_status_number != 6 && x.deleted == false) && (x.lead_date >= start && x.lead_date <= end2)).ToList();
+                LeadController.lst = result;
+                return View(result.ToPagedList(page?? 1,8));
 
                 //return View(db.leads.Where(x => (x.project_name.Contains(search) || search == null) && x.project_status_number == type && (x.project_status_number != 6 && x.deleted == false)).ToList());
             }
@@ -751,6 +753,41 @@ namespace ck_project.Controllers
                 ViewBag.m = "The lead was not deleted ... " + e.Message;
                 return RedirectToAction("ListLead", new { search = "", msg = ViewBag.m });
             }
+        }
+         public ActionResult Sort(int? page, string by)
+        {
+            List<lead> nresult = new List<lead>();
+            switch (by)
+            {
+                case "pn": //project name
+                    nresult = LeadController.lst.OrderByDescending(a => a.project_name).ToList();
+                    break;
+                case "cn"://customer name
+                    nresult = LeadController.lst.OrderByDescending(a => a.customer.customer_firstname).ToList();
+                    break;
+                case "sp"://sales person
+                    nresult = LeadController.lst.OrderByDescending(a => a.employee.emp_firstname).ToList();
+                    break;
+                case "pt"://project type
+                    nresult = LeadController.lst.OrderByDescending(a => a.project_type.project_type_name).ToList();
+                    break;
+                case"ps"://project status
+                    nresult = LeadController.lst.OrderByDescending(a => a.project_status.project_status_name).ToList();
+                    break;
+                case "cd"://create date
+                    nresult = LeadController.lst.OrderByDescending(a => a.lead_date).ToList();
+                    break;
+                case "lud"://last update date
+                    nresult = LeadController.lst.OrderByDescending(a => a.Last_update_date).ToList();
+                    break;
+                case "br"://branch
+                    nresult = LeadController.lst.OrderByDescending(a => a.branch.branch_name).ToList();
+                    break;
+
+            }
+
+
+            return View("ListLead",nresult.ToPagedList(page?? 1,8));
         }
 
     }
