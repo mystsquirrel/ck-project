@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ck_project.lead_log_file>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ck_project.lead_log_file>
 
 
 @Html.Partial("_AdminMenu")
@@ -9,28 +11,28 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.emp_username)
+                @Html.DisplayNameFor(model => model.First().emp_username)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.table_name)
+                @Html.DisplayNameFor(model => model.First().table_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.column_name)
+                @Html.DisplayNameFor(model => model.First().column_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.action_name)
+                @Html.DisplayNameFor(model => model.First().action_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.update_date)
+                @Html.DisplayNameFor(model => model.First().update_date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.prvious_value)
+                @Html.DisplayNameFor(model => model.First().prvious_value)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.new_value)
+                @Html.DisplayNameFor(model => model.First().new_value)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.lead.project_name)
+                @Html.DisplayNameFor(model => model.First().lead.project_name)
             </th>
             <th></th>
         </tr>
@@ -68,4 +70,6 @@
             }
         }
     </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+     new { page, search = Request.QueryString["Search"], Type = Request.QueryString["type"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
 </div>
