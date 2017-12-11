@@ -25,7 +25,7 @@ namespace ck_project.Controllers
         {
             var projStatusList = new List<SelectListItem>
             {
-                new SelectListItem() { Text = "", Selected = true, Value = "" }
+                new SelectListItem() { Text = "All Status", Selected = true, Value = "" }
             };
 
             projStatusList.AddRange(db.project_status.Where(ps => ps.project_status_name != Constants.proj_Status_Closed).Select(b => new SelectListItem
@@ -45,9 +45,16 @@ namespace ck_project.Controllers
                 DateTime endDt = string.IsNullOrEmpty(end) ? DateTime.MaxValue : DateTime.Parse(end);
                 TimeSpan ts = new TimeSpan(23, 59, 59);
                 endDt = endDt.Date + ts;
+
+                int statusNbr = 0;
+                if (!string.IsNullOrEmpty(status))
+                {
+                    statusNbr = Int32.Parse(status);
+                }
+
                 var result = db.leads.Where(l => l.emp_number == currUserID && l.deleted == false
                                                 && l.lead_date >= startDt && l.lead_date <= endDt
-                                                && (string.IsNullOrEmpty(status) || l.project_status.project_status_name == status)
+                                                && (string.IsNullOrEmpty(status) || l.project_status_number == statusNbr)
                                                 && (string.IsNullOrEmpty(name) || l.project_name.Contains(name))).ToList();
                 ViewBag.result = result;
                 ViewBag.startDt = start;
