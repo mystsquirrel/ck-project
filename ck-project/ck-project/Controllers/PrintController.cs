@@ -3,6 +3,7 @@ using ck_project.Models;
 using SelectPdf;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ck_project.Controllers
@@ -92,15 +93,16 @@ namespace ck_project.Controllers
             doc.DocumentInformation.CreationDate = DateTime.Now;
 
             // save pdf document
-            byte[] pdf = doc.Save();
-
+            //byte[] pdf = doc.Save();
+            string fileName = str + ".pdf";
+            doc.Save(System.Web.HttpContext.Current.Response, false, fileName);
             // close pdf document
             doc.Close();
 
             // return resulted pdf document
-            FileResult fileResult = new FileContentResult(pdf, "application/pdf");
-            fileResult.FileDownloadName = str + ".pdf";
-            return fileResult;
+            //FileResult fileResult = new FileContentResult(pdf, "application/pdf");
+            //fileResult.FileDownloadName = str + ".pdf";
+            return null;
         }
     }
 }
