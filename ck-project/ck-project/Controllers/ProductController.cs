@@ -22,7 +22,7 @@ namespace ck_project.Controllers
 
             List<Pg> agent = new List<Pg>();
             foreach (var a in pset) {
-                agent.Add(new Pg { cat = a, lid = id });
+                agent.Add(new Pg { cat = a, lid = id ,uid=a.Split(' ')[0].Replace('/','_').Replace(',','C')});
             }
 
             return View(agent);

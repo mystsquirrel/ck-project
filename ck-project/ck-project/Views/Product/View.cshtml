@@ -1,8 +1,9 @@
 ﻿@model List<ck_project.Models.Pg>
 
-@Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
 }
 
 @{
@@ -70,13 +71,13 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion"
-                           href="#collapse@(item.cat)">
+                           href="#collapse@(item.uid)">
                             @item.cat
                         </a>
 
                     </h4>
                 </div>
-                <div id="collapse@(item.cat)" class="panel-collapse collapse">
+                <div id="collapse@(item.uid)" class="panel-collapse collapse">
                     <div class="panel-body">
 
 
@@ -88,11 +89,3 @@
         }
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#passwordInfo').click(function () {
-            // show when the button is clicked
-            toastr.info('Please contact your administrator to reset your password.');
-        });
-    });
-</script>
