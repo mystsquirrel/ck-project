@@ -4,6 +4,14 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
+    @if (ViewBag.msg != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.success('@ViewBag.msg');
+            });
+        </script>
+    }
 }
 
 @{
