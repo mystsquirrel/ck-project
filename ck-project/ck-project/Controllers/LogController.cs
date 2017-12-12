@@ -15,7 +15,9 @@ namespace ck_project.Controllers
 
         //string Emp = null, 
 
-        public ActionResult ListLog(int? page, FormCollection fo , string search = null, string Start = null, string end = null)
+
+
+        public ActionResult ListLog(int? page, FormCollection fo, string search = null, string Start = null, string end = null)
         {
 
             string Emp = fo["Emp"];
@@ -38,12 +40,12 @@ namespace ck_project.Controllers
                 }));
                 ViewBag.EmpInfo = EmpInfo;
 
-                    var result = db.lead_log_file.Where(l => l.update_date >= start && l.update_date <= end2  && 
-                    (string.IsNullOrEmpty(search) || l.lead.project_name.Contains(search))
-                  && (string.IsNullOrEmpty(Emp) || l.emp_username == Emp)).ToList();
+                var result = db.lead_log_file.Where(l => l.update_date >= start && l.update_date <= end2 &&
+                (string.IsNullOrEmpty(search) || l.lead.project_name.Contains(search))
+              && (string.IsNullOrEmpty(Emp) || l.emp_username == Emp)).ToList();
 
 
-                return View(result.ToPagedList(page ?? 1, 8));            
+                return View(result.ToPagedList(page ?? 1, 8));
             }
             catch (Exception e)
             {
@@ -78,16 +80,18 @@ namespace ck_project.Controllers
             //        a.Emp.Add(new SelectListItem {Text=b.emp_firstname+" "+b.emp_lastname, Value=b.emp_username });
             //    }
 
-          //  return View();
+            //  return View();
         }
         [HttpPost]
-        public ActionResult Vlog(FormCollection fo, string order="") {
+        public ActionResult Vlog(FormCollection fo, string order = "")
+        {
             ViewBag.order = String.IsNullOrEmpty(order) ? "name" : "";
             ViewBag.date = order == "date" ? "date_d" : "date";
             //default return top 30 changes sort by time
             var logs = from l in db.lead_log_file select l;
-            switch (order) {
-                case"name":
+            switch (order)
+            {
+                case "name":
                     logs = from nlog in logs where (nlog.emp_username == fo["name"]) select nlog;
                     break;
                 case "date":
@@ -103,10 +107,11 @@ namespace ck_project.Controllers
             return View(logs.ToList());
         }
 
-        public ActionResult Vlog() {
+        public ActionResult Vlog()
+        {
             return View();
         }
     }
 
-    
+
 }
