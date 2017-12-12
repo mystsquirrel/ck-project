@@ -986,7 +986,7 @@
             <td colspan="6" class="pam_cat_row_color" style="font-weight: bolder; text-align:center; border: 1px solid black;">CONTRACT TOTALS</td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align:right; padding-right:3px">Product / Merchandise</td>
+            <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Product / Merchandise</td>
             <td class="pam_item_price">
                 @{
                     if (Model.TotalCost != null)
@@ -997,7 +997,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align:right; padding-right:3px">Construction Materials</td>
+            <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Construction Materials</td>
             <td class="pam_item_price">
                 @{
                     if (Model.Lead != null && Model.Lead.installations != null)
@@ -1011,7 +1011,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align:right; padding-right:3px">Installation Labor</td>
+            <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Installation Labor</td>
             <td class="pam_item_price">
                 @{
                     if (Model.Lead != null && Model.Lead.installations != null)
@@ -1025,7 +1025,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align:right; padding-right:3px">Related Taxes, Permits & Fees</td>
+            <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Related Taxes, Permits & Fees</td>
             <td class="pam_item_price">
                 @{
                     if (Model.TotalCost != null)
@@ -1036,7 +1036,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan = "5" style="font-weight: bolder; text-align:right; padding-right:3px">TOTAL ORDER $</td>
+            <td colspan = "5" style="font-weight: bolder; text-align:right; padding-right:3px; border-left: 1px solid black;">TOTAL ORDER $</td>
             <td style = "width:150px; font-weight: bolder; border: 2px solid black; text-align:right; padding-right:3px" >
                 @{
                     if (Model.TotalCost != null)
