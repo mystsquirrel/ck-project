@@ -8,74 +8,13 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PrintController : Controller
     {
         ckdatabase db = new ckdatabase();
         ProjSummaryHelper projSummaryHelper = new ProjSummaryHelper();
-        // GET: Printout
-        public ActionResult Proposal(int id)
-        {
-            // get the data
-            var projSummary = new ProjectSummary
-            {
-                Branch = db.branches.ToList(),
-            };
-            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
-
-            if (lead != null)
-            {
-                projSummary.Lead = lead;
-                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
-                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
-                projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
-            }
-            return View(projSummary);
-        }
-
-        public ActionResult InstallationDetailsForInstallers(int id)
-        {
-            // get the data
-            var projSummary = new ProjectSummary
-            {
-                Branch = db.branches.ToList(),
-            };
-            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
-
-            if (lead != null)
-            {
-                projSummary.Lead = lead;
-                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
-                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
-                projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
-                projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
-            }
-            return View(projSummary);
-        }
-
-        public ActionResult InstallationDetailsInternal(int id)
-        {
-            // get the data
-            var projSummary = new ProjectSummary
-            {
-                Branch = db.branches.ToList(),
-            };
-            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
-
-            if (lead != null)
-            {
-                projSummary.Lead = lead;
-                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
-                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
-                projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
-                projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
-            }
-            return View(projSummary);
-        }
-
-
-
-        public ActionResult Convert(String url, int id, string str)
+        
+        public ActionResult Convert(string url, int id, string str)
         {
             // get the data
             var projSummary = new ProjectSummary
@@ -103,6 +42,7 @@ namespace ck_project.Controllers
             string htmlString = this.RenderView(str, projSummary);
 
             // get base url (to resolve relative links to external resources)
+            //this doesn't work with 'http' unless using the paid version
             var uri = new Uri(url);
             string baseUrl = uri.GetLeftPart(System.UriPartial.Authority);
 

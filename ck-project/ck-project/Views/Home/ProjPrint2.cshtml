@@ -59,31 +59,31 @@
         <label class="col-md-4 text-center">FOR INSTALLER</label>
         <label class="col-md-4 text-center">FOR INTERNAL</label>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Proposal" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "Proposal_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Proposal" onclick="location.href='@Url.Action("Proposal", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Installation Details" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "InstallationDetailsForInstallers_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Installation Details" onclick="location.href='@Url.Action("InstallationDetailsForInstallers", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Lead Entry" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "LeadEntry_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Lead Entry" onclick="location.href='@Url.Action("LeadEntry", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Products (Exhibit A)" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "ProductsExternal_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Products (Exhibit A)" onclick="location.href='@Url.Action("ProductsExternal", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 col-md-offset-4 column" align="center">
-            <input type="button" value="Products Ordering" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "ProductsInternal_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Products Ordering" onclick="location.href='@Url.Action("ProductsInternal", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Scope of Work (Exhibit B)" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "ScopeOfWork_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Scope of Work (Exhibit B)" onclick="location.href='@Url.Action("ScopeOfWork", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 col-md-offset-4 column" align="center">
-            <input type="button" value="Installation Details" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "InstallationDetailsInternal_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Installation Details" onclick="location.href='@Url.Action("InstallationDetailsInternal", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 column" align="center">
-            <input type="button" value="Owner Product Agreement" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "OwnerProductAgreement_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Owner Product Agreement" onclick="location.href='@Url.Action("OwnerProductAgreement", "Print", new { id = ViewBag.leadNumber })'" class="btn btn-default" id="printBtn" />
         </div>
         <div class="col-md-4 col-md-offset-4 column" align="center">
-            <input type="button" value="Sold Job Notice" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "SoldJobNotice_PDF" })'" class="btn btn-default" id="printBtn" />
+            <input type="button" value="Sold Job Notice" onclick="location.href='@Url.Action("Convert", "Print", new { url = HttpContext.Current.Request.Url, id = ViewBag.leadNumber, str = "SoldJobNotice" })'" class="btn btn-default" id="printBtn" />
         </div>
     </div>
 </div>
