@@ -3,32 +3,25 @@
     padding-bottom: 30px;
 }
 
-@media print {
-    body {
-        -webkit-print-color-adjust: exact;
-    }
-}
-
 body {
     font-size: 14px;
-    font-family: sans-serif;
     color: black;
     margin-top: 7px;
     margin-bottom: 7px;
     margin-left: 10px;
     margin-right: 10px;
-    width: 900px;
 }
 
 .wrapper {
-    width: 100%;
+    width: 95%;
     word-wrap: break-word;
     white-space: normal;
     text-align: justify;
+    padding-left: 3%;
 }
 
 .pic2 {
-    padding-top: 3%;
+    padding-top: 7%;
     padding-bottom: 5%;
 }
 
@@ -51,7 +44,7 @@ body {
 
 ul.a {
     list-style-type: circle;
-    margin-left: 5%;
+    margin-left:5%;
 }
 
 li {
@@ -61,8 +54,8 @@ li {
 .signature {
     border-top: 1px solid black;
     font-size: 18px;
-    color: lightgray !important;
-    text-align: center;
+    color: gray;
+    text-align:center;
 }
 
 /*Sold Job Notice section */
@@ -100,7 +93,7 @@ li {
     font-weight: bold;
     border: 1px solid black;
     text-align: center;
-    background-color: lightgray;
+    background-color:lightgray;
 }
 
 .apa_list_tr {
@@ -118,13 +111,13 @@ li {
 
 .apa_hcharge_cat {
     width: 20%;
-    text-align: right;
+    text-align:right;
 }
 
 .apa_hcharge_price {
     width: 20%;
     padding-left: 10px;
-    text-align: left;
+    text-align:left;
 }
 
 /* Scope of Work*/
@@ -141,21 +134,21 @@ li {
     border-top: 1.5px solid black;
     background-color: black;
     text-align: center;
-    color: white !important;
+    color: white;
 }
 
 /* Installation Details - Internal*/
 #idi_header1 {
     background-color: rgb(51,51,51);
-    padding-left: 1px;
+    padding-left:1px;
     color: white;
 }
 
 #idi_header2 {
     background-color: rgb(128,128,128);
     padding-left: 3px;
-    font-weight: 500;
-    font-size: 25px;
+    font-weight:500;
+    font-size:25px;
 }
 
 .table5_border_left {
@@ -231,7 +224,7 @@ li {
     text-align: right;
     padding-right: 3px;
     height: 19px;
-    width: 100px;
+    width:100px;
 }
 
 .item_text {
@@ -306,7 +299,7 @@ li {
 .pam_item_text {
     border: 1px solid gray;
     padding-left: 3px;
-    font-size: 13px;
+    font-size:13px;
 }
 
 .pam_item_text2 {
@@ -391,53 +384,53 @@ input[type="checkbox"]:checked {
     left: -9999px;
 }
 
-    input[type="checkbox"]:not(:checked) + label,
-    input[type="checkbox"]:checked + label {
-        position: relative;
-        padding-left: 25px;
-        cursor: pointer;
-    }
+input[type="checkbox"]:not(:checked) + label,
+input[type="checkbox"]:checked + label {
+position: relative;
+padding-left: 25px;
+cursor: pointer;
+}
 
-        /* checkbox aspect */
-        input[type="checkbox"]:not(:checked) + label:before,
-        input[type="checkbox"]:checked + label:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 2px;
-            width: 18px;
-            height: 18px;
-            border: 1px solid black;
-            background: #f8f8f8;
-            border-radius: 3px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
-        }
-        /* checked mark aspect */
-        input[type="checkbox"]:not(:checked) + label:after,
-        input[type="checkbox"]:checked + label:after {
-            content: '✔';
-            position: absolute;
-            top: 2px;
-            left: 4px;
-            font-size: 14px;
-            color: black;
-            transition: all .2s;
-            -webkit-transition: all .2s;
-            -moz-transition: all .2s;
-            -ms-transition: all .2s;
-            -o-transition: all .2s;
-        }
+/* checkbox aspect */
+input[type="checkbox"]:not(:checked) + label:before,
+input[type="checkbox"]:checked + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    background: #f8f8f8;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+}
+/* checked mark aspect */
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="checkbox"]:checked + label:after {
+    content: '✔';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 14px;
+    color: black;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+}
 
-        /* checked mark aspect changes */
-        input[type="checkbox"]:not(:checked) + label:after {
-            opacity: 0;
-            transform: scale(0);
-        }
+/* checked mark aspect changes */
+input[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+}
 
-        input[type="checkbox"]:checked + label:after {
-            opacity: 1;
-            transform: scale(1);
-        }
+input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+}
 /* disabled checkbox */
 input[type="checkbox"]:disabled:not(:checked) + label:before,
 input[type="checkbox"]:disabled:checked + label:before {

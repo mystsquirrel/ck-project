@@ -13,7 +13,7 @@
     @*<meta name="viewport" content="initial-scale=1.0">*@
     <title>Sale Contract Management System</title>
     <link href="~/Content/bootstrap.sandstone.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Print.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Print_PDF.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <table cellpadding=0 style="width:100%">
@@ -106,7 +106,7 @@
     <table style="empty-cells:show">
         <tr>
             <td style="width:381px; color:grey" align="right">Date & Time printed:</td>
-            <td style="width:300px; padding-left:3px; color:grey">@String.Format("{0:M/d/yyyy HH:mm}", DateTime.Now)</td>
+            <td style="width:354px; padding-left:3px; color:grey">@String.Format("{0:M/d/yyyy HH:mm}", DateTime.Now)</td>
             <td style="width:82px; border: 1px solid; border-top: none; border-color: rgb(0,176,80); padding-right: 3px; text-align: right;">
                 @{
                     if (Model.Lead != null && Model.Lead.installations != null)

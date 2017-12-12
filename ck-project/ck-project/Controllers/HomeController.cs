@@ -148,5 +148,22 @@ namespace ck_project.Controllers
 
             return View("Mainpage", pro);
         }
+
+        public ActionResult ProjPrint_PDF(int id)
+        {
+            // only recalculate if lead is not close
+            if (id != 0)
+            {
+                var lead = db.leads.Where(l => l.lead_number == id).First();
+                if (lead != null && !lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
+                {
+                    new GeneralHelper().SaveProjectTotal(lead.lead_number);
+                }
+                ViewBag.lead = lead;
+            }
+
+            ViewBag.leadNumber = id;
+            return View();
+        }
     }
 }

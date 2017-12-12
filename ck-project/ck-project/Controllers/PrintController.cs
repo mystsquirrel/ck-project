@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PrintController : Controller
     {
         ckdatabase db = new ckdatabase();
@@ -28,9 +28,45 @@ namespace ck_project.Controllers
                 projSummary.Lead = lead;
                 projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
                 projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
-                projSummary = projSummaryHelper.GetProductCategoryList(lead, projSummary);
-                projSummary = projSummaryHelper.GetProductTotalMap(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateProposalAmtDue(id, projSummary);
+            }
+            return View(projSummary);
+        }
+
+        public ActionResult InstallationDetailsForInstallers(int id)
+        {
+            // get the data
+            var projSummary = new ProjectSummary
+            {
+                Branch = db.branches.ToList(),
+            };
+            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
+
+            if (lead != null)
+            {
+                projSummary.Lead = lead;
+                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
+                projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
+                projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
+            }
+            return View(projSummary);
+        }
+
+        public ActionResult InstallationDetailsInternal(int id)
+        {
+            // get the data
+            var projSummary = new ProjectSummary
+            {
+                Branch = db.branches.ToList(),
+            };
+            var lead = db.leads.Where(l => l.lead_number == id).FirstOrDefault();
+
+            if (lead != null)
+            {
+                projSummary.Lead = lead;
+                projSummary = projSummaryHelper.SetCustomerData(lead, projSummary);
+                projSummary = projSummaryHelper.SetAddresses(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallCategoryCostMap(lead, projSummary);
                 projSummary = projSummaryHelper.CalculateInstallationsData(lead, projSummary);
             }
@@ -79,7 +115,7 @@ namespace ck_project.Controllers
             converter.Options.MarginBottom = 5;
 
             // create a new pdf document converting the html string
-            PdfDocument doc = converter.ConvertHtmlString(htmlString, baseUrl);
+            PdfDocument doc = converter.ConvertHtmlString(htmlString);
 
             // get conversion result (contains document info from the web page)
             HtmlToPdfResult result = converter.ConversionResult;
