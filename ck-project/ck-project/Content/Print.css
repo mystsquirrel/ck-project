@@ -171,20 +171,20 @@ li {
 }
 
 .table5_col2 {
-    width: 400px;
+    width: 420px;
     border: 1px solid black;
     padding-left: 3px
 }
 
 .table5_col3 {
-    width: 350px;
+    width: 410px;
     border: 1px solid black;
     padding-right: 3px;
     text-align: right;
 }
 
 .table5_col4 {
-    width: 150px;
+    width: 90px;
     border: 1px solid black;
     text-align: right;
     padding-right: 3px;
@@ -208,14 +208,14 @@ li {
 }
 
 .table5_col4_1 {
-    width: 75px;
+    width: 50px;
     border: 1px solid black;
     text-align: right;
     padding-right: 3px;
 }
 
 .table5_col4_2 {
-    width: 75px;
+    width: 50px;
     background-color: rgb(166,166,166);
 }
 

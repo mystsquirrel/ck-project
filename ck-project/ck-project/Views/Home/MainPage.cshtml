@@ -1,4 +1,9 @@
-﻿@{
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ck_project.lead>
+
+@{
     ViewBag.Title = "MainPage";
 }
 
@@ -8,9 +13,7 @@
     <table>
         <tr>
             <td style="width:720px"><h2>Projects</h2></td>
-            <td style="width:700px" align="right">
-                <div data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle-o" style="font-size:15px; color: blue;"></i> Help</div>
-            </td>
+            <td style="width:700px" align="right"></td>
         </tr>
         <tr>
             <td>This page displays the curent user's leads.</td>
@@ -41,18 +44,17 @@
                 <th>@Html.ActionLink("Project Name","Sort",new { by="pn"})</th>
                 <th>@Html.ActionLink("Customer", "Sort", new { by = "cu" })</th>
                 <th>@Html.ActionLink("Project Type", "Sort", new { by= "pt" })</th>
-                <th>Project Status</th>
-                <th>SalesPerson</th>
+                <th>@Html.ActionLink("Project Status", "Sort", new { by = "ps" })</th>
+                <th>@Html.ActionLink("SalesPerson", "Sort", new { by = "sp" })</th>
                 <th>@Html.ActionLink("Create Date", "Sort", new { by = "cd" })</th>
-                <th>@Html.ActionLink("Last Update Date", "Sort", new { by = "lmd" })</th>
+                <th>@Html.ActionLink("Last Update Date", "Sort", new { by = "lu" })</th>
             </tr>
         </thead>
         <tbody>
             @{
-                if (ViewBag.result != null)
+                if (Model != null)
                 {
-                    List<lead> leadlist = ViewBag.result;
-                    foreach (var item in leadlist)
+                    foreach (var item in Model)
                     {
                         <tr>
                             <td>
@@ -88,27 +90,5 @@
             }
         </tbody>
     </table>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Main Page</h4>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li>"Closed" projects can only be found in Archived screen.</li>
-                        <li>This screen only shows the top 10 latest projects that pertains to the current user.</li>
-                        <li>To search for a specific project, please go to Lead Management --> View Lead.</li>
-                        <li>To search by status, please use the search box.</li>
-                        <li>To return to a default search, please clear the search box.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.PagedListPager(Model, page => Url.Action("MainPage", new { page, search = Request.QueryString["name"], Type = Request.QueryString["status"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
 </div>

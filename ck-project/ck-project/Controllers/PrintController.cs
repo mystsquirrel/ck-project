@@ -14,7 +14,7 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
         ProjSummaryHelper projSummaryHelper = new ProjSummaryHelper();
         
-        public ActionResult Convert(string url, int id, string str)
+        public ActionResult Convert(string documentName, int id, string str)
         {
             // get the data
             var projSummary = new ProjectSummary
@@ -43,8 +43,8 @@ namespace ck_project.Controllers
 
             // get base url (to resolve relative links to external resources)
             //this doesn't work with 'http' unless using the paid version
-            var uri = new Uri(url);
-            string baseUrl = uri.GetLeftPart(System.UriPartial.Authority);
+            //var uri = new Uri(url);
+            //string baseUrl = uri.GetLeftPart(System.UriPartial.Authority);
 
             // set converter options
             converter.Options.PdfPageSize = PdfPageSize.Letter;
@@ -70,15 +70,14 @@ namespace ck_project.Controllers
 
             // save pdf document
             byte[] pdf = doc.Save();
-            //string fileName = str + ".pdf";
-            //doc.Save(System.Web.HttpContext.Current.Response, false, fileName);
+
             // close pdf document
             doc.Close();
 
             //return resulted pdf document
             FileResult fileResult = new FileContentResult(pdf, "application/pdf")
             {
-                FileDownloadName = str + ".pdf"
+                FileDownloadName = documentName + ".pdf"
             };
             return fileResult;
         }

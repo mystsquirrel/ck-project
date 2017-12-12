@@ -1,5 +1,6 @@
 ﻿using ck_project.Helpers;
 using ck_project.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace ck_project.Controllers
             return View();
         }
 
-        public ActionResult MainPage(string name, string status, string start, string end)
+        public ActionResult MainPage(int? page, string name, string status, string start, string end)
         {
             var projStatusList = new List<SelectListItem>
             {
@@ -56,11 +57,9 @@ namespace ck_project.Controllers
                                                 && l.lead_date >= startDt && l.lead_date <= endDt
                                                 && (string.IsNullOrEmpty(status) || l.project_status_number == statusNbr)
                                                 && (string.IsNullOrEmpty(name) || l.project_name.Contains(name))).ToList();
-                ViewBag.result = result;
-                ViewBag.startDt = start;
-                ViewBag.endDt = end;
+
                 HomeController.result = result;
-                return View();
+                return View(result.ToPagedList(page ?? 1, 10));
             }
             catch (FormatException e)
             {
@@ -121,49 +120,47 @@ namespace ck_project.Controllers
             return View(projSummary);
         }
 
-        public ActionResult Sort(string by) {
-            List<lead> pro = new List<lead>();
+        public ActionResult Sort(int? page, string by) {
+            List<lead> sortedList = new List<lead>();
             switch (by)
             {
-                case "pn":
-                    pro =HomeController.result.OrderBy(a => a.project_name).ToList();
+                case "pn":  //project name
+                    sortedList = HomeController.result.OrderBy(a => a.project_name).ToList();
                         break;
-                case "cu":
-                    pro = HomeController.result.OrderBy(a => a.customer.customer_firstname).ToList();
+                case "cu":  //customer
+                    sortedList = HomeController.result.OrderBy(a => a.customer.customer_firstname).ToList();
                     break;
-                case "pt":
-                    pro = HomeController.result.OrderBy(a => a.project_type_number).ToList();
+                case "pt":  //project type
+                    sortedList = HomeController.result.OrderBy(a => a.project_type_number).ToList();
                     break;
-                case "cd":
-                    pro = HomeController.result.OrderBy(a => a.lead_date).ToList();
+                case "ps":  //project status
+                    sortedList = HomeController.result.OrderBy(a => a.project_status_number).ToList();
                     break;
-                case "lmd":
-                    pro = HomeController.result.OrderBy(a => a.Last_update_date).ToList();
+                case "sp":  //salesperson
+                    sortedList = HomeController.result.OrderBy(a => a.lead_creator).ToList();
                     break;
-                case "de":
-                   pro = HomeController.result.OrderBy(a => a.employee.emp_firstname).ToList();
+                case "cd":  //created date
+                    sortedList = HomeController.result.OrderBy(a => a.lead_date).ToList();
                     break;
-
+                case "lu":  //last updated date
+                    sortedList = HomeController.result.OrderBy(a => a.Last_update_date).ToList();
+                    break;
             }
 
-            return View("Mainpage", pro);
-        }
-
-        public ActionResult ProjPrint_PDF(int id)
-        {
-            // only recalculate if lead is not close
-            if (id != 0)
+            var projStatusList = new List<SelectListItem>
             {
-                var lead = db.leads.Where(l => l.lead_number == id).First();
-                if (lead != null && !lead.project_status.project_status_name.Equals(Constants.proj_Status_Closed, StringComparison.OrdinalIgnoreCase))
-                {
-                    new GeneralHelper().SaveProjectTotal(lead.lead_number);
-                }
-                ViewBag.lead = lead;
-            }
+                new SelectListItem() { Text = "All", Selected = true, Value = "" }
+            };
 
-            ViewBag.leadNumber = id;
-            return View();
+            projStatusList.AddRange(db.project_status.Where(ps => ps.project_status_name != Constants.proj_Status_Closed).Select(b => new SelectListItem
+            {
+                Text = b.project_status_name,
+                Selected = false,
+                Value = b.project_status_number.ToString()
+            }));
+            ViewBag.projStatusList = projStatusList;
+
+            return View("MainPage", sortedList.ToPagedList(page ?? 1, 10));
         }
     }
 }
