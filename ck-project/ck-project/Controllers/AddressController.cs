@@ -70,13 +70,32 @@ namespace ck_project.Controllers
 
             };
             ViewBag.Sstate = Sstate;
+
+            List<address> lis = new List<address>();
             try
             {
                 address target = db.addresses.Where(t=> t.address_number==id).First();
+                lis.Add(target);
+                if (target.lead_number == null)
+                {
+                    //address for customer
+                    
 
 
+                }
+                else {
+                    //address for lead
+                    lis.Clear();
+                    foreach(address a in db.addresses.Where(y => y.lead_number == target.lead_number).ToList())
+                    {
+                        lis.Add(a);
+                    }
+                    if (lis.Count < 2) { lis.Add(new address {address_number=-2 }); }
 
-                return View(target);
+                }
+
+
+                return View(lis);
             }
             catch (Exception e)
             {
@@ -143,6 +162,7 @@ namespace ck_project.Controllers
 
             };
             ViewBag.Sstate = Sstate;
+            
             try
             {
                 //int lid = db.leads.Where(a => a.customer_number == id).Select(v => v.lead_number).First();
