@@ -83,7 +83,7 @@
             <td class="left_text">Home Phone:</td>
             <td class="left_data">
                 @{
-                    if (Model.Lead != null && Model.Lead.phone_number != null)
+                    if (Model.Lead != null && Model.Lead.phone_number != null && !Model.Lead.phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
                     }
@@ -92,7 +92,7 @@
             <td class="right_text">Cell/Alt Phone:</td>
             <td class="right_data">
                 @{
-                    if (Model.Lead != null && Model.Lead.second_phone_number != null)
+                    if (Model.Lead != null && Model.Lead.second_phone_number != null && Model.Lead.second_phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
                     }

@@ -155,9 +155,9 @@
         </tr>
         <tr>
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">PHONE#</td>
-            <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
+            <td style="width:120px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null && Model.Lead.phone_number != null)
+                    if (Model.Lead != null && Model.Lead.phone_number != null && !Model.Lead.phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
                     }
@@ -166,20 +166,20 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ALT#</td>
             <td colspan="2" style="width:200px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null && Model.Lead.second_phone_number != null)
+                    if (Model.Lead != null && Model.Lead.second_phone_number != null && !Model.Lead.second_phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
                     }
                 }
             </td>
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">PHONE#</td>
-            <td style="width:100px; border-bottom: 1px dotted gray; font-weight:bold">
+            <td style="width:120px; border-bottom: 1px dotted gray; font-weight:bold">
                 @{
-                    if (Model.Lead != null && Model.Lead.customer.phone_number != null)
+                    if (Model.Lead != null && Model.Lead.customer.phone_number != null && !Model.Lead.customer.phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.customer.phone_number))
                     }
-                    else if (Model.Lead.phone_number != null)
+                    else if (Model.Lead.phone_number != null && !Model.Lead.phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
                     }
@@ -188,13 +188,13 @@
             <td style="width:100px; text-align:right; padding-right: 3px; color:gray">ALT#</td>
             <td colspan="2" style="width:200px; border-bottom: 1px dotted gray; font-weight:bold; padding-left: 3px">
                 @{
-                    if (Model.Lead != null && Model.Lead.customer.second_phone_number != null)
+                    if (Model.Lead != null && Model.Lead.customer.second_phone_number != null && !Model.Lead.customer.second_phone_number.Equals(""))
                     {
                         @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.customer.second_phone_number))
                     }
-                    else if (@Model.Lead.second_phone_number != null)
+                    else if (Model.Lead.second_phone_number != null && !Model.Lead.second_phone_number.Equals(""))
                     {
-                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(@Model.Lead.second_phone_number))
+                        @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
                     }
                 }
             </td>

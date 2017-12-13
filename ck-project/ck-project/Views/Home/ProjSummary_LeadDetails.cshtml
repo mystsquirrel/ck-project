@@ -74,7 +74,7 @@
         <td class="le_title">Primary Phone:</td>
         <td class="le_data">
             @{
-                if (Model.Lead != null && Model.Lead.phone_number != null)
+                if (Model.Lead != null && Model.Lead.phone_number != null && !Model.Lead.phone_number.Equals(""))
                 {
                     @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.phone_number))
                 }
@@ -102,7 +102,7 @@
         <td class="le_title">Secondary Phone:</td>
         <td class="le_data">
             @{
-                if (Model.Lead != null && Model.Lead.second_phone_number != null)
+                if (Model.Lead != null && Model.Lead.second_phone_number != null && !Model.Lead.second_phone_number.Equals(""))
                 {
                     @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Lead.second_phone_number))
                 }
