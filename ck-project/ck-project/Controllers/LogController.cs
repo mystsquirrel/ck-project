@@ -17,10 +17,24 @@ namespace ck_project.Controllers
 
 
 
-        public ActionResult ListLog(int? page, FormCollection fo, string search = null, string Start = null, string end = null)
+        public ActionResult ListLog(int? page, FormCollection fo, string search = null, string Emp = null, string Start = null, string end = null)
         {
 
-            string Emp = fo["Emp"];
+            //target.email = form["Item1.email"];
+            //int a = Int32.Parse(form["class_number"]);
+
+            //var Emp1 = fo["item.emp_username"];
+            //var Emp2 = fo["emp_username"];
+            //string Emp3 = fo["item.emp_username"];
+            //string Emp4 = fo["emp_username"];
+            //var Emp5 = fo["Emp"];
+            //string Emp7 = fo["Emp"];
+        
+
+            
+            //      int a = Int32.Parse(fo["item.emp_username"]);
+            //int a2 = Int32.Parse(fo["emp_username"]);
+
             DateTime start = string.IsNullOrEmpty(Start) ? DateTime.MinValue : DateTime.Parse(Start);
             DateTime end2 = string.IsNullOrEmpty(end) ? DateTime.MaxValue : DateTime.Parse(end);
             TimeSpan ts = new TimeSpan(23, 59, 59);
@@ -34,7 +48,7 @@ namespace ck_project.Controllers
                 EmpInfo.AddRange(db.employees.Select(b => new SelectListItem
 
                 {
-                    Text = b.emp_firstname + b.emp_lastname,
+                    Text = b.emp_username,
                     Selected = false,
                     Value = b.emp_number.ToString()
                 }));
@@ -42,7 +56,7 @@ namespace ck_project.Controllers
 
                 var result = db.lead_log_file.Where(l => l.update_date >= start && l.update_date <= end2 &&
                 (string.IsNullOrEmpty(search) || l.lead.project_name.Contains(search))
-              && (string.IsNullOrEmpty(Emp) || l.emp_username == Emp)).ToList();
+              && (string.IsNullOrEmpty(Emp) || l.emp_username ==Emp)).ToList();
 
 
                 return View(result.ToPagedList(page ?? 1, 8));
@@ -58,29 +72,6 @@ namespace ck_project.Controllers
         public ActionResult Index(int? page)
         {
             return RedirectToAction("ListLog", "Log");
-            //    List<lead_log_file> lis = db.lead_log_file.OrderByDescending(x => x.update_date).Take(300).ToList();
-            //    return View(lis.ToPagedList(page??1,20));
-            //}
-            //[HttpPost]
-            //public ActionResult Index(FormCollection fo) {
-            //    DateTime start =DateTime.Parse( fo["start"]);
-            //    DateTime end = DateTime.Parse(fo["end"]);
-            //    string emp = fo["Emp"];
-            //    string leadname = fo["name"];
-            //    List<lead_log_file> lis = db.lead_log_file.Where(r => r.emp_username == emp && r.update_date >= start.Date && r.update_date<=end.Date).ToList();
-
-            //    return View(lis);
-            //}
-            //public ActionResult Search() {
-            //    var a = new ck_project.Models.Search();
-            //    a.start = DateTime.Today;
-            //    a.end = DateTime.Today.AddDays(1);
-            //    a.Emp = new List<SelectListItem>();
-            //    foreach (var b in db.employees.Where(q => q.deleted == false).ToList()) {
-            //        a.Emp.Add(new SelectListItem {Text=b.emp_firstname+" "+b.emp_lastname, Value=b.emp_username });
-            //    }
-
-            //  return View();
         }
         [HttpPost]
         public ActionResult Vlog(FormCollection fo, string order = "")
