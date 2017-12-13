@@ -475,7 +475,7 @@ namespace ck_project.Controllers
                 {
                     address1 = form["Item3.address1"],
                     //     address_type = form["Item2.address_type"],
-                    address_type = "ExtraAddress",
+                    address_type = "alternativeAddress",
                     city = form["Item3.city"],
                      state = form["state2"],
                    // state = form["state"],
