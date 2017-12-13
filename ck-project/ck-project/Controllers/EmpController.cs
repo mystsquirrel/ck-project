@@ -156,20 +156,20 @@ namespace ck_project.Controllers
                 //  double tempPhoneNumber = 0;
                 ViewBag.Error = null;
 
-                if (string.IsNullOrEmpty(target.emp_firstname))
-                {
-                    ViewBag.Error = "firstname is required";
-                }
-                else if (target.emp_firstname.Length > 35)
-                {
-                    ViewBag.Error = "firstname is 35";
-                }
-                else if (string.IsNullOrEmpty(target.phone_number))
-                {
-                    ViewBag.Error = "phone number is required";
-                }
+                //if (string.IsNullOrEmpty(target.emp_firstname))
+                //{
+                //    ViewBag.Error = "firstname is required";
+                //}
+                //else if (target.emp_firstname.Length > 35)
+                //{
+                //    ViewBag.Error = "firstname is 35";
+                //}
+                //else if (string.IsNullOrEmpty(target.phone_number))
+                //{
+                //    ViewBag.Error = "phone number is required";
+                //}
 
-                else
+                //else
                 {
                     target.emp_password = EncryptionHelper.Encrypt(target.emp_password);
                     db.employees.Add(target);
