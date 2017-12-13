@@ -71,7 +71,7 @@
         </div>
     }
     <div>
-        @Html.ActionLink("Edit address info", "Edit", "Address", new { id = Model.customer_number }, new { @class = "btn btn-default", @style = "width:140px" })
+        @Html.ActionLink("Edit address info", "Edit", "Address", new { id = ViewBag.addressnumber1,mode="c" }, new { @class = "btn btn-default", @style = "width:140px" })
     </div>
     <div>
         <a href="javascript:history.go(-1)">Go Back</a>

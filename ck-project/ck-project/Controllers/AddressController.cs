@@ -13,8 +13,10 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
 
 
-        public ActionResult Edit(int id) {
-
+        public ActionResult Edit(int id,string mode)
+        {
+            ViewBag.id = id;
+            ViewBag.mode = mode;
             var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
@@ -74,23 +76,24 @@ namespace ck_project.Controllers
             List<address> lis = new List<address>();
             try
             {
-                address target = db.addresses.Where(t=> t.address_number==id).First();
+                address target = db.addresses.Where(t => t.address_number == id).First();
                 lis.Add(target);
                 if (target.lead_number == null)
                 {
                     //address for customer
-                    
+
 
 
                 }
-                else {
+                else
+                {
                     //address for lead
                     lis.Clear();
-                    foreach(address a in db.addresses.Where(y => y.lead_number == target.lead_number).ToList())
+                    foreach (address a in db.addresses.Where(y => y.lead_number == target.lead_number).ToList())
                     {
                         lis.Add(a);
                     }
-                    if (lis.Count < 2) { lis.Add(new address {address_number=-2 }); }
+                    if (lis.Count < 2) { lis.Add(new address { address_number = -2 }); }
 
                 }
 
@@ -105,7 +108,7 @@ namespace ck_project.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(int id, FormCollection fo)
+        public ActionResult Edit(int id,string mode,FormCollection fo)
         {
             var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
@@ -162,50 +165,111 @@ namespace ck_project.Controllers
 
             };
             ViewBag.Sstate = Sstate;
-            
-            try
+
+            switch (fo["mode"])
             {
-                //int lid = db.leads.Where(a => a.customer_number == id).Select(v => v.lead_number).First();
-                //int addres_id = (int)db.customers.Where(a => a.customer_number == id).Select(s => s.address_number).FirstOrDefault();
-                //address target = db.addresses.Where(v => v.address_number == addres_id).FirstOrDefault();
-                address target = db.addresses.Where(r => r.address_number == id).First();
+                case "l"://lead add update mode
+                    address lad = db.addresses.Where(t => t.address_number == id).First();
+                    lad.address_type = "JobAddress";
+                    lad.state = fo["state"];
+                    lad.deleted = false;
+                    TryUpdateModel(lad, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
+                   lad.address1 = fo["item.address1"];
+                    lad.city = fo["item.city"];
+                   lad.county = fo["item.county"];
+                    lad.zipcode = fo["item.zipcode"];
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e) { ViewBag.m = e.Message; }
 
-                if (target.lead_number != null)
+                    break;
+                case "c"://customer add update mode
+                    address custadd = db.addresses.Where(r => r.address_number == id).First();
+                    custadd.address_type = "Billing";
+                    custadd.deleted = false;
+                    //TryUpdateModel(custadd, new string[] { "item.address1", "item.city", "item.county", "item.zipcode" }, fo.ToValueProvider());
+                    custadd.address1 = fo["item.address1"];
+                    custadd.city = fo["item.city"];
+                    custadd.county = fo["item.county"];
+                    custadd.zipcode = fo["item.zipcode"];
 
-                {
-                    int? lid = target.lead_number;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e) { ViewBag.m = e.Message; }
+                    break;
+                case "ll"://lead second add mode
+                    int? lid = db.addresses.Where(t => t.address_number == id).First().lead_number;
+                    if (int.Parse(fo["address_number"]) < 0)
+                    {
+                        //new  second address
+                        address n = new address();
+                        n.deleted = false;
+                        n.address_type = "Alternative";
+                        TryUpdateModel(n, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
+                        n.address1 = fo["item.address1"];
+                        n.city = fo["item.city"];
+                      n.county = fo["item.county"];
+                       n.zipcode = fo["item.zipcode"];
+                        n.lead_number = lid;
+                        try
+                        {
+                            db.addresses.Add(n);
+                            db.SaveChanges();
+                        }
+                        catch (Exception e) { ViewBag.m = e.Message; }
 
+                    }
+                    else {
+                        //update second
+                        int aid = int.Parse(fo["address_number"]);
+                        address q = db.addresses.Where(c => c.address_number == aid).First();
+                        TryUpdateModel(q, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
+                        q.address1 = fo["item.address1"];
+                       q.city = fo["item.city"];
+                       q.county = fo["item.county"];
+                       q.zipcode = fo["item.zipcode"];
+                        q.address_type = "Alternative";
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e) { ViewBag.m = e.Message; }
+
+                    }
+
+
+                    break;
+                case "b"://branch add update mode
+                    address target = db.addresses.Where(r => r.address_number == id).First();
                     target.deleted = false;
                     target.state = fo["state"];
-                    TryUpdateModel(target, new string[] { "address_type", "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                    db.SaveChanges((int)lid);
+                    target.address_type = "BranchAddress";
+                    TryUpdateModel(target, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
+                    target.address1 = fo["item.address1"];
+                   target.city = fo["item.city"];
+                    target.county = fo["item.county"];
+                    target.zipcode = fo["item.zipcode"];
+                    try {
+                        db.SaveChanges();
+                    } catch (Exception e) { ViewBag.m = e.Message; }
+                    break;
 
 
-                }
-
-                   else {
-                target.deleted = false;
-                    target.state = fo["state"];
-                    TryUpdateModel(target, new string[] { "address_type", "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                    db.SaveChanges();
-               }
-        
-
-          
-            
+            }
 
                 ViewBag.m = " The address was successfully updated on " + System.DateTime.Now;
-                return View(target);
+                return RedirectToAction("Edit", new { id = id,mode=mode });
             }
-            catch (Exception e)
-            {
-                ViewBag.m = e.Message;
-                return View();
-            }
+
+          
+
         }
+    }
 
-       
 
 
-}
-}
+

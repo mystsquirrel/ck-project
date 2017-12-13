@@ -12,9 +12,11 @@
 }
 @{foreach (var item in Model)
     {
-
+        string a = ViewBag.mode;
+        if (item.address_number < 0 && ViewBag.mode=="l") { a = "ll"; } else { a = "l"; }
+        if (item.address_type == "Alternative") { a = "ll"; }
         <div class="container">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("edit","address",FormMethod.Post,new {id=ViewBag.id,mode=a }))
             {
                 @Html.AntiForgeryToken()
 
@@ -32,6 +34,7 @@
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model=> item.address_number)
+                    @Html.Hidden("mode",a)
 
                     <div class='col-xs-4 '>
                         <div class="form-group">
@@ -84,8 +87,7 @@
                 </div>
             }
             <div>
-                <a href="javascript:history.go(-1)">Back to List</a>
-
+                <a href="javascript:history.go(-1)">Go Back</a>
             </div>
         </div>
 
