@@ -12,9 +12,10 @@
 }
 @{foreach (var item in Model)
     {
-
+        string a = null;
+        if (item.address_number < 0) { a = "ll"; } else { a = "l"; }
         <div class="container">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("edit","address",FormMethod.Post,new {id=ViewBag.id,mode=a }))
             {
                 @Html.AntiForgeryToken()
 
