@@ -250,7 +250,8 @@ namespace ck_project.Controllers
         //update task
         [HttpPost]
         public ActionResult savetask(FormCollection fo) {
-            string msg = "save success";
+            string msg = "The task was updated successfully at " + System.DateTime.Now; ;
+           
             int tin =int.Parse( fo["item.tasks_installation_number"]);
 
             GeneralHelper helper = new GeneralHelper();
