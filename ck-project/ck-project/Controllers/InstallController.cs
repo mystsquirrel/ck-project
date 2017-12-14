@@ -250,7 +250,8 @@ namespace ck_project.Controllers
         //update task
         [HttpPost]
         public ActionResult savetask(FormCollection fo) {
-            string msg = "save success";
+            string msg = "The task was updated successfully at " + System.DateTime.Now; ;
+           
             int tin =int.Parse( fo["item.tasks_installation_number"]);
 
             GeneralHelper helper = new GeneralHelper();
@@ -270,8 +271,8 @@ namespace ck_project.Controllers
                 }
                 catch (Exception e)
                 {
-                    msg = e.Message;
-                }
+                msg = "Sonething went wrong " + e.Message;
+            }
                 
             
             
@@ -284,7 +285,7 @@ namespace ck_project.Controllers
 
         public ActionResult Delete(int tin,int iid) {
             int lid = db.installations.Where(q => q.installation_number == iid).First().lead_number;
-            string msg = "delete success";
+            string msg = "The task was deleted successfully at " + System.DateTime.Now; ;
             try
             {
                 tasks_installation target = db.tasks_installation.Where(v => v.tasks_installation_number == tin).First();
@@ -294,7 +295,7 @@ namespace ck_project.Controllers
             } catch(Exception e)
             {
 
-                msg = e.Message;
+                msg = "Sonething went wrong "+e.Message;
             }
 
             return RedirectToAction("lis", new { lid = lid,msg=msg });
@@ -319,8 +320,9 @@ namespace ck_project.Controllers
 
                     
                     db.SaveChanges(lid);
-                    msg = "update succed";
-                }catch(Exception e){
+                    msg = "The task was updated successfully at " + System.DateTime.Now; ;
+                }
+                catch(Exception e){
                     msg = e.Message;
                 }
                

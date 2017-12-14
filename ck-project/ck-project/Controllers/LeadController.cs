@@ -73,19 +73,6 @@ namespace ck_project.Controllers
         }
 
 
-        //public ActionResult Details(int id)
-        //{try
-        //    {
-        //        return View(db.leads.Where(x => x.lead_number == id).ToList());
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ViewBag.m = e.Message;
-        //        return View();
-        //    }
-        //}
-        
-
         public ActionResult Add(int id, String msg = null, string add = null)
         {
             ViewBag.add = add;
@@ -584,15 +571,14 @@ namespace ck_project.Controllers
                     Selected = false,
                     Value = a.delivery_status_number.ToString()
                 }));
-
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable", Value = "0" },
-                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
             };
 
-                ViewBag.TaxExemptInfo = TaxExemptInfo;
+                
 
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
@@ -610,6 +596,8 @@ namespace ck_project.Controllers
                 List<lead> Leads_list = db.leads.Where(d => d.lead_number == id).ToList();
                 ViewBag.Customerslist = Leads_list;
                 lead target = Leads_list[0];
+                TaxExemptInfo.Where(a => bool.Parse(a.Value) == target.tax_exempt).First().Selected = true;
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
                 return View(target);
             }
             catch (Exception e)
@@ -696,11 +684,14 @@ namespace ck_project.Controllers
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable", Value = "0" },
-                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
             };
 
                 ViewBag.TaxExemptInfo = TaxExemptInfo;
+
+
+
 
 
                 //setting variable passing
@@ -731,7 +722,7 @@ namespace ck_project.Controllers
                 {
                     new GeneralHelper().SaveProjectTotal(target.lead_number);
                 }
-                  // db.SaveChanges(id);
+  
                    db.SaveChanges(target.lead_number);
                
           

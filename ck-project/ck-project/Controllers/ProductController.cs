@@ -132,7 +132,7 @@ namespace ck_project.Controllers
             target.price = Double.Parse(fo["item.price"]);
             target.product_source = fo["item.product_source"];
             target.quantity = int.Parse(fo["item.quantity"]);
-            target.cat_anme = fo["item.cat_anme"];
+            //target.cat_anme = fo["item.cat_anme"];
             if (ModelState.IsValid) {
                 db.SaveChanges(lid);
                 return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
