@@ -24,7 +24,7 @@ namespace ck_project.Helpers
         public double CalculateInstallationCost(lead lead)
         {
             double totalInstallCost = 0;
-            if (lead.installations != null)
+            if (lead.installations.Count != 0)
             {
                 foreach (var item in lead.installations)
                 {
@@ -33,6 +33,13 @@ namespace ck_project.Helpers
                         totalInstallCost += (double)item.total_installation_labor_cost;
                     }
                 }
+            }
+            else
+            {
+                // this is when there is no installation data
+                double buildingPermit = new InstallationCalculationHelper().CalculateBuildingPermit(lead);
+                double operationalExp = new FeeCalculationHelper().CalculateTotalOperationalExpense(lead);
+                totalInstallCost = buildingPermit + operationalExp;
             }
 
             return totalInstallCost;
@@ -49,21 +56,21 @@ namespace ck_project.Helpers
             return 0;
         }
 
-        public double CalculateBuildingPermitCost(lead lead)
-        {
-            double totalInstallCost = 0;
-            if (lead.installations != null)
-            {
-                foreach (var item in lead.installations)
-                {
-                    if (item.building_permit_cost != null)
-                    {
-                        totalInstallCost += (double)item.building_permit_cost;
-                    }
-                }
-            }
+        //public double CalculateBuildingPermitCost(lead lead)
+        //{
+        //    double totalInstallCost = 0;
+        //    if (lead.installations != null)
+        //    {
+        //        foreach (var item in lead.installations)
+        //        {
+        //            if (item.building_permit_cost != null)
+        //            {
+        //                totalInstallCost += (double)item.building_permit_cost;
+        //            }
+        //        }
+        //    }
 
-            return totalInstallCost;
-        }
+        //    return totalInstallCost;
+        //}
     }
 }

@@ -19,7 +19,7 @@ namespace ck_project.Helpers
                 }
             }
 
-            if (lead.installations != null)
+            if (lead.installations.Count != 0)
             {
                 foreach (var item in lead.installations)
                 {
@@ -38,7 +38,7 @@ namespace ck_project.Helpers
             double contractTotal = 0;
             contractTotal += this.CalculateRetailTotalOfAllMaterials(lead);
 
-            if (lead.installations != null)
+            if (lead.installations.Count != 0)
             {
                 foreach (var item in lead.installations)
                 {
@@ -51,6 +51,10 @@ namespace ck_project.Helpers
                         }
                     }
                 }
+            }
+            else
+            {
+                contractTotal += new InstallationCalculationHelper().CalculateBuildingPermit(lead);
             }
 
             return contractTotal;
@@ -87,7 +91,7 @@ namespace ck_project.Helpers
         public double CalculateOperationalExpForInstallation(lead lead)
         {
             double expForInstallation = this.CalculateAvgInstallLaborCost(lead);
-            if (lead.installations != null)
+            if (lead.installations.Count != 0)
             {
                 foreach (var item in lead.installations)
                 {
@@ -116,18 +120,20 @@ namespace ck_project.Helpers
                         expForInstallation += (double)item.building_permit_cost;
                     }
                 }
-
-                double operationalExpenseForInstall =  expForInstallation * helper.GetApplicableRate(Constants.rate_Name_Operational_Installation);
-                return operationalExpenseForInstall;
+            }
+            else
+            {
+                expForInstallation += new InstallationCalculationHelper().CalculateBuildingPermit(lead);
             }
 
-            return 0.00;
+            double operationalExpenseForInstall = expForInstallation * helper.GetApplicableRate(Constants.rate_Name_Operational_Installation);
+            return operationalExpenseForInstall;
         }
 
         public double CalculateAvgInstallLaborCost(lead lead)
         {
             double avgInstallLaborCost = 0.00;
-            if (lead.installations != null)
+            if (lead.installations.Count != 0)
             {
                 foreach (var item in lead.installations)
                 {

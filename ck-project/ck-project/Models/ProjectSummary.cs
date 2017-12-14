@@ -21,6 +21,7 @@ namespace ck_project.Models
         public double PaidTravelTimeOneWay { get; set; }
         public double TwoWayMilesToJob { get; set; }
         public double TotalApplicableTravelHours { get; set; }
+        public double OperationalExp { get; set; }
         public address JobsiteAddress { get; set; }
         public address AlternativeAddress { get; set; }
     }

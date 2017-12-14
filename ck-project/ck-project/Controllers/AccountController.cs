@@ -136,6 +136,26 @@ namespace ck_project.Controllers
             return this.RedirectToAction("Login", "Account");
         }
         #endregion
+
+        public ActionResult LogOffSession()
+        {
+            try
+            {
+                // Setting.    
+                var ctx = Request.GetOwinContext();
+                var authenticationManager = ctx.Authentication;
+                // Sign Out.    
+                authenticationManager.SignOut();
+            }
+            catch (Exception ex)
+            {
+                // Info    
+                throw ex;
+            }
+            // Info.    
+            return this.RedirectToAction("Login", "Account");
+        }
+
         #region Helpers    
         #region Sign In method.    
         /// <summary>  

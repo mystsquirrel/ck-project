@@ -1000,7 +1000,7 @@
             <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Construction Materials</td>
             <td class="pam_item_price">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -1014,13 +1014,27 @@
             <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Installation Labor</td>
             <td class="pam_item_price">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    double totalLaborCost = 0;
+                    if (Model.Lead != null)
                     {
-                        foreach (var item in Model.Lead.installations)
+                        if (Model.Lead.installations.Count != 0)
                         {
-                            @String.Format("{0:#,0.00}", item.total_installation_labor_cost)
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                totalLaborCost = item.total_installation_labor_cost == null ? 0 : (double)item.total_installation_labor_cost;
+                            }
+                        }
+                        else
+                        {
+                            if (Model.TotalCost != null && Model.TotalCost.building_permit_cost != null)
+                            {
+                                totalLaborCost += (double)Model.TotalCost.building_permit_cost;
+                            }
+
+                            totalLaborCost += Model.OperationalExp;
                         }
                     }
+                    @String.Format("{0:#,0.00}", totalLaborCost)
                 }
             </td>
         </tr>
@@ -1056,7 +1070,7 @@
                 if (Model.Lead.in_city)
                 {
                     @: In City <br />
-                    }
+                }
 
                 @Model.Lead.delivery_status.delivery_status_name
             }

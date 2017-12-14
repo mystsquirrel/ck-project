@@ -261,6 +261,10 @@
                                         @String.Format("{0:C}", item.total_travel_cost)
                                     }
                                 }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
                             }
                         </td>
                     </tr>
@@ -274,6 +278,10 @@
                                     {
                                         @String.Format("{0:C}", item.mileage_expense)
                                     }
+                                }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
                                 }
                             }
                         </td>
@@ -289,6 +297,10 @@
                                         @String.Format("{0:C}", item.hotel_expense)
                                     }
                                 }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
                             }
                         </td>
                     </tr>
@@ -303,6 +315,10 @@
                                         @String.Format("{0:C}", item.total_per_diem_cost)
                                     }
                                 }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
                             }
                         </td>
                     </tr>
@@ -314,22 +330,16 @@
                                 {
                                     @String.Format("{0:C}", Model.TotalCost.building_permit_cost)
                                 }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
                             }
                         </td>
                     </tr>
                     <tr>
                         <td style="width:750px">Operational Expense</td>
-                        <td style="width:100px" class="item_price">
-                            @{
-                                if (Model.Lead != null && Model.Lead.installations != null)
-                                {
-                                    foreach (var item in Model.Lead.installations)
-                                    {
-                                        @String.Format("{0:C}", item.total_operational_expenses)
-                                    }
-                                }
-                            }
-                        </td>
+                        <td style="width:100px" class="item_price">@String.Format("{0:C}", Model.OperationalExp)</td>
                     </tr>
                     <tr>
                         <td style="width:750px">Related Taxes, Permits and Fees</td>
@@ -339,6 +349,10 @@
                                 {
                                     @String.Format("{0:C}", Model.TotalCost.tax_cost)
                                 }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
                             }
                         </td>
                     </tr>
@@ -346,16 +360,22 @@
             </div>
             <div>
                 <table>
-                    @{
-                        if (Model.TotalCost != null)
-                        {
-                            <tr style="height: 20px"></tr>
-                            <tr>
-                                <td style="width:795px"><h4><b>Project Total</b></h4></td>
-                                <td id="total">@String.Format("{0:C}", Model.TotalCost.total_cost1)</td>
-                            </tr>
-                        }
-                    }
+                    <tr style="height: 20px"></tr>
+                    <tr>
+                        <td style="width:795px"><h4><b>Project Total</b></h4></td>
+                        <td id="total">
+                            @{
+                                if (Model.TotalCost != null)
+                                {
+                                    @String.Format("{0:C}", Model.TotalCost.total_cost1)
+                                }
+                                else
+                                {
+                                    @String.Format("{0:C}", 0)
+                                }
+                            }
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

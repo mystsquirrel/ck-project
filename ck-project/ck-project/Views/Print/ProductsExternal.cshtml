@@ -509,13 +509,28 @@
                     <td style="width:150px" class="pam_item_header">Price</td>
                 </tr>
 
-                count = 5;
-                foreach (var prod in miscList)
-                {
+                            count = 5;
+                            foreach (var prod in miscList)
+                            {
                     <tr>
                         <td class="pam_item_qty">@String.Format("{0:#,#}", prod.quantity)</td>
                         <td class="pam_item_text">@prod.manufacture</td>
-                        <td colspan="3" class="pam_item_text">@prod.model/@prod.color/@prod.Description</td>
+                        <td colspan="3" class="pam_item_text">
+                        @{
+                            if (prod.model != null) {
+                                @prod.model
+                            }
+
+                            if (prod.color != null) {
+                                @:&#47;@prod.color
+                            }
+
+                            if (prod.Description != null)
+                            {
+                                @:&#47;@prod.Description
+                            }
+                         }
+                        </td>
                         <td class="pam_item_price">@String.Format("{0:#,0.00}", prod.price * prod.quantity)</td>
                     </tr>
                     count--;
@@ -1001,13 +1016,15 @@
             <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Construction Materials</td>
             <td class="pam_item_price">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    double cmCost = 0;
+                    if (Model.Lead != null)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @String.Format("{0:#,0.00}", item.total_construction_materials_cost)
+                            cmCost = item.total_construction_materials_cost != null ? (double)item.total_construction_materials_cost : 0;
                         }
                     }
+                    @String.Format("{0:#,0.00}", cmCost)
                 }
             </td>
         </tr>
@@ -1015,18 +1032,32 @@
             <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Installation Labor</td>
             <td class="pam_item_price">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    double totalLaborCost = 0;
+                    if (Model.Lead != null)
                     {
-                        foreach (var item in Model.Lead.installations)
+                        if (Model.Lead.installations.Count != 0)
                         {
-                            @String.Format("{0:#,0.00}", item.total_installation_labor_cost)
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                totalLaborCost = item.total_installation_labor_cost == null ? 0 : (double)item.total_installation_labor_cost;
+                            }
+                        }
+                        else
+                        {
+                            if (Model.TotalCost != null && Model.TotalCost.building_permit_cost != null)
+                            {
+                                totalLaborCost += (double)Model.TotalCost.building_permit_cost;
+                            }
+
+                            totalLaborCost += Model.OperationalExp;
                         }
                     }
+                    @String.Format("{0:#,0.00}", totalLaborCost)
                 }
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Related Taxes, Permits & Fees</td>
+            <td colspan = "5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Related Taxes, Permits & Fees</td>
             <td class="pam_item_price">
                 @{
                     if (Model.TotalCost != null)
@@ -1037,8 +1068,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="font-weight: bolder; text-align:right; padding-right:3px; border-left: 1px solid black;">TOTAL ORDER $</td>
-            <td style="width:150px; font-weight: bolder; border: 2px solid black; text-align:right; padding-right:3px">
+            <td colspan = "5" style="font-weight: bolder; text-align:right; padding-right:3px; border-left: 1px solid black;">TOTAL ORDER $</td>
+            <td style = "width:150px; font-weight: bolder; border: 2px solid black; text-align:right; padding-right:3px" >
                 @{
                     if (Model.TotalCost != null)
                     {
@@ -1048,14 +1079,14 @@
             </td>
         </tr>
     </table>
-    <div style="clear:both; padding-top:20px; padding-bottom:20px; width:100%; padding-left: 27%" >
+    <div style = "clear:both; padding-top:20px; padding-bottom:20px; width:100%; padding-left: 27%" >
         <input type="checkbox" onclick="return false;"/>
-        <label style="padding-left:30px; padding-top:3px; font-weight:normal">Check Box if donations are being made to Habitat for Humanity</label>
+        <label style = "padding-left:30px; padding-top:3px; font-weight:normal" > Check Box if donations are being made to Habitat for Humanity</label>
     </div>
-    <table style="width: 100%">
+    <table style = "width: 100%" >
         <tr>
             <td style="width:500px; text-align: right">
-                @{ 
+                @{
                     if (Model.Lead != null)
                     {
                         @Model.Lead.branch.address.address1@:&#44;&nbsp;@Model.Lead.branch.address.city&#44;&nbsp;@Model.Lead.branch.address.state&nbsp;@Model.Lead.branch.address.zipcode
