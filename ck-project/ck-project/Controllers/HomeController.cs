@@ -51,6 +51,7 @@ namespace ck_project.Controllers
                 }
 
                 var result = db.leads.Where(l => l.emp_number == currUserID && l.deleted == false
+                                                && l.project_status.project_status_name != Constants.proj_Status_Closed
                                                 && l.lead_date >= startDt && l.lead_date <= endDt
                                                 && (string.IsNullOrEmpty(status) || l.project_status_number == statusNbr)
                                                 && (string.IsNullOrEmpty(name) || l.project_name.Contains(name))).ToList();

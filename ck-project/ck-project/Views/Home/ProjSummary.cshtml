@@ -345,7 +345,7 @@
                         <td style="width:750px">Related Taxes, Permits and Fees</td>
                         <td style="width:100px" class="item_price">
                             @{
-                                if (Model.TotalCost != null)
+                                if (Model.TotalCost != null && !Model.Lead.tax_exempt)
                                 {
                                     @String.Format("{0:C}", Model.TotalCost.tax_cost)
                                 }

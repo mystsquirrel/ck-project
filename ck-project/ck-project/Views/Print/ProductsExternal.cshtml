@@ -1057,12 +1057,30 @@
             </td>
         </tr>
         <tr>
-            <td colspan = "5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">Related Taxes, Permits & Fees</td>
+            <td colspan = "5" style="text-align:right; padding-right:3px; border-left: 1px solid black;">
+            @{
+                if (Model.Lead != null && Model.Lead.tax_exempt)
+                {
+                    @:Exempt from Tax
+                }
+                else
+                {
+                    @:Related Taxes, Permits & Fees
+                }
+            }
+            </td>
             <td class="pam_item_price">
                 @{
-                    if (Model.TotalCost != null)
+                    if (Model.Lead != null && Model.TotalCost != null)
                     {
-                        @String.Format("{0:#,0.00}", Model.TotalCost.tax_cost)
+                        if (!Model.Lead.tax_exempt)
+                        {
+                            @String.Format("{0:#,0.00}", Model.TotalCost.tax_cost)
+                        }
+                        else
+                        {
+                            @String.Format("{0:#,0.00}", 0)
+                        }
                     }
                 }
             </td>
