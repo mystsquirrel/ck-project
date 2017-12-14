@@ -44,7 +44,7 @@ namespace ck_project.Controllers
             {
                 ViewBag.m = msg;
                 var ClassInfo = new List<SelectListItem> {
-                    new SelectListItem() { Text = "All Statuses", Selected = true, Value = "" }
+                    new SelectListItem() { Text = "All", Selected = true, Value = "" }
                 };
                 ClassInfo.AddRange(db.project_status.Where(CCVV => CCVV.project_status_name != "closed").Select(b => new SelectListItem
                 
@@ -54,7 +54,7 @@ namespace ck_project.Controllers
                     Value = b.project_status_number.ToString()
                 }));
                 ViewBag.lead_type = ClassInfo;
-                var result = db.leads.Where(l => l.deleted == false
+                var result = db.leads.Where(l =>  (l.project_status_number != 6 && l.deleted == false)
                                       && l.lead_date >= start && l.lead_date <= end2
                                       && (string.IsNullOrEmpty(Type) || l.project_status_number == statusNbr)
                                       && (string.IsNullOrEmpty(search) || l.project_name.Contains(search))).ToList();
@@ -594,8 +594,6 @@ namespace ck_project.Controllers
                 ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
 
 
-
-               
                 TaxExemptInfo.Where(a => Convert.ToBoolean(a.Value) == target.tax_exempt).First().Selected = true;
                 ViewBag.TaxExemptInfo = TaxExemptInfo;
                 return View(target);
@@ -718,7 +716,7 @@ namespace ck_project.Controllers
 
 
 
-                if (form["project_status_number"].Equals("Closed") )
+
                 {
                     new GeneralHelper().SaveProjectTotal(target.lead_number);
                 }

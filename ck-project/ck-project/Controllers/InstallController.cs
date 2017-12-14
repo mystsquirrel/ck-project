@@ -170,7 +170,7 @@ namespace ck_project.Controllers
         [HttpPost]
         public ActionResult handler(FormCollection fo) {
             int iid = int.Parse(fo["installation_number"]);
-            string msg = "task create success";
+            string  msg = "The task was created successfully at " + System.DateTime.Now; ;
             int lid = db.installations.Where(a => a.installation_number == iid).First().lead_number;
             lead idk = db.leads.Where(d => d.lead_number == lid).First();
             GeneralHelper helper = new GeneralHelper();
@@ -320,7 +320,7 @@ namespace ck_project.Controllers
 
                     
                     db.SaveChanges(lid);
-                    msg = "The task was updated successfully at " + System.DateTime.Now; ;
+                    msg = "The installation was updated successfully at " + System.DateTime.Now; ;
                 }
                 catch(Exception e){
                     msg = e.Message;
@@ -339,7 +339,7 @@ namespace ck_project.Controllers
                     
                     db.installations.Add(target);
                     db.SaveChanges(lid);
-                    msg = "create succed";
+                    msg = "The installation was updated successfully at " + System.DateTime.Now; ;
                 } catch (Exception e) {
                     msg = e.Message;
                 }
