@@ -180,7 +180,7 @@ namespace ck_project.Controllers
                     lad.zipcode = fo["item.zipcode"];
                     try
                     {
-                        db.SaveChanges();
+                        db.SaveChanges((int)lad.lead_number);
                     }
                     catch (Exception e) { ViewBag.m = e.Message; }
 
@@ -235,7 +235,7 @@ namespace ck_project.Controllers
                         q.address_type = "Alternative";
                         try
                         {
-                            db.SaveChanges();
+                            db.SaveChanges((int)q.lead_number);
                         }
                         catch (Exception e) { ViewBag.m = e.Message; }
 
