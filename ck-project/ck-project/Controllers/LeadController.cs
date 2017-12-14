@@ -578,7 +578,7 @@ namespace ck_project.Controllers
                 new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
             };
 
-                ViewBag.TaxExemptInfo = TaxExemptInfo;
+                
 
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
@@ -596,6 +596,8 @@ namespace ck_project.Controllers
                 List<lead> Leads_list = db.leads.Where(d => d.lead_number == id).ToList();
                 ViewBag.Customerslist = Leads_list;
                 lead target = Leads_list[0];
+                TaxExemptInfo.Where(a => bool.Parse(a.Value) == target.tax_exempt).First().Selected = true;
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
                 return View(target);
             }
             catch (Exception e)

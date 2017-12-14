@@ -17,6 +17,8 @@ namespace ck_project.Controllers
         {
             ViewBag.id = id;
             ViewBag.mode = mode;
+            
+            int ? lid = db.addresses.Where(t => t.address_number == id).First().lead_number;
             var Sstate = new List<SelectListItem> {
                new SelectListItem() {Text="Alabama", Value="AL"},
         new SelectListItem() { Text="Alaska", Value="AK"},
@@ -72,33 +74,29 @@ namespace ck_project.Controllers
 
             };
             ViewBag.Sstate = Sstate;
+            //special for lead
+            if (mode == "ll") {
+                ViewBag.mode = "ll";
+                if (db.addresses.Any(e => e.lead_number == lid && e.address_type == "alternativeAddress"))
+                {
 
-            List<address> lis = new List<address>();
+                    //update ll
+                    address ll = db.addresses.Where(q => q.lead_number == lid && q.address_type == "alternativeAddress").First();
+                    Sstate.Where(v => v.Value == ll.state).First().Selected = true;
+                    return View(ll);
+                }
+                else {
+                    //new ll
+                    return View(new address { address_number = -2 });
+                }
+            }
+           //reguler address
             try
             {
                 address target = db.addresses.Where(t => t.address_number == id).First();
-                lis.Add(target);
-                if (target.lead_number == null)
-                {
-                    //address for customer
 
-
-
-                }
-                else
-                {
-                    //address for lead
-                    lis.Clear();
-                    foreach (address a in db.addresses.Where(y => y.lead_number == target.lead_number).ToList())
-                    {
-                        lis.Add(a);
-                    }
-                    if (lis.Count < 2) { lis.Add(new address { address_number = -2 }); }
-
-                }
-
-
-                return View(lis);
+                Sstate.Where(r => r.Value == target.state).First().Selected = true;
+                return View(target);
             }
             catch (Exception e)
             {
@@ -174,10 +172,10 @@ namespace ck_project.Controllers
                     lad.state = fo["state"];
                     lad.deleted = false;
                     TryUpdateModel(lad, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                   lad.address1 = fo["item.address1"];
-                    lad.city = fo["item.city"];
-                   lad.county = fo["item.county"];
-                    lad.zipcode = fo["item.zipcode"];
+                   //lad.address1 = fo["item.address1"];
+                   // lad.city = fo["item.city"];
+                   //lad.county = fo["item.county"];
+                   // lad.zipcode = fo["item.zipcode"];
                     try
                     {
                         db.SaveChanges();
@@ -189,11 +187,12 @@ namespace ck_project.Controllers
                     address custadd = db.addresses.Where(r => r.address_number == id).First();
                     custadd.address_type = "Billing";
                     custadd.deleted = false;
-                    //TryUpdateModel(custadd, new string[] { "item.address1", "item.city", "item.county", "item.zipcode" }, fo.ToValueProvider());
-                    custadd.address1 = fo["item.address1"];
-                    custadd.city = fo["item.city"];
-                    custadd.county = fo["item.county"];
-                    custadd.zipcode = fo["item.zipcode"];
+                    custadd.state = fo["state"];
+                    TryUpdateModel(custadd, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
+                    //custadd.address1 = fo["item.address1"];
+                    //custadd.city = fo["item.city"];
+                    //custadd.county = fo["item.county"];
+                    //custadd.zipcode = fo["item.zipcode"];
 
                     try
                     {
@@ -208,12 +207,13 @@ namespace ck_project.Controllers
                         //new  second address
                         address n = new address();
                         n.deleted = false;
-                        n.address_type = "Alternative";
+                        n.address_type = "alternativeAddress";
+                        n.state = fo["state"];
                         TryUpdateModel(n, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                        n.address1 = fo["item.address1"];
-                        n.city = fo["item.city"];
-                      n.county = fo["item.county"];
-                       n.zipcode = fo["item.zipcode"];
+                      //  n.address1 = fo["item.address1"];
+                      //  n.city = fo["item.city"];
+                      //n.county = fo["item.county"];
+                      // n.zipcode = fo["item.zipcode"];
                         n.lead_number = lid;
                         try
                         {
@@ -228,11 +228,12 @@ namespace ck_project.Controllers
                         int aid = int.Parse(fo["address_number"]);
                         address q = db.addresses.Where(c => c.address_number == aid).First();
                         TryUpdateModel(q, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                        q.address1 = fo["item.address1"];
-                       q.city = fo["item.city"];
-                       q.county = fo["item.county"];
-                       q.zipcode = fo["item.zipcode"];
-                        q.address_type = "Alternative";
+                       // q.address1 = fo["item.address1"];
+                       //q.city = fo["item.city"];
+                       //q.county = fo["item.county"];
+                       //q.zipcode = fo["item.zipcode"];
+                        q.address_type = "alternativeAddress";
+                        q.state = fo["state"];
                         try
                         {
                             db.SaveChanges();
@@ -249,10 +250,10 @@ namespace ck_project.Controllers
                     target.state = fo["state"];
                     target.address_type = "BranchAddress";
                     TryUpdateModel(target, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
-                    target.address1 = fo["item.address1"];
-                   target.city = fo["item.city"];
-                    target.county = fo["item.county"];
-                    target.zipcode = fo["item.zipcode"];
+                   // target.address1 = fo["item.address1"];
+                   //target.city = fo["item.city"];
+                   // target.county = fo["item.county"];
+                   // target.zipcode = fo["item.zipcode"];
                     try {
                         db.SaveChanges();
                     } catch (Exception e) { ViewBag.m = e.Message; }
