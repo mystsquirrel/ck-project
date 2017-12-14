@@ -104,8 +104,7 @@
         }
     </table>
 
-    @Html.PagedListPager(Model, page => Url.Action("ListLog",
-     new { page, search = Request.QueryString["Search"], Emp = Request.QueryString["Emp"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+    @Html.PagedListPager(Model, page => Url.Action("ListLog", new { page, search = Request.QueryString["Search"], Emp = Request.QueryString["Emp"], Start = Request.QueryString["start"], end = Request.QueryString["end"] }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
 
 </div>
 
