@@ -574,11 +574,13 @@ namespace ck_project.Controllers
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
-                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "false" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "true" }
             };
 
-                ViewBag.TaxExemptInfo = TaxExemptInfo;
+                List<lead> Leads_list = db.leads.Where(d => d.lead_number == id).ToList();
+                ViewBag.Customerslist = Leads_list;
+                lead target = Leads_list[0];
 
                 //setting variable passing
                 ViewBag.Customer_Info = CustomerInfo;
@@ -592,10 +594,8 @@ namespace ck_project.Controllers
                 ViewBag.DeliveryStatus_Info = DeliveryStatusInfo;
 
 
-
-                List<lead> Leads_list = db.leads.Where(d => d.lead_number == id).ToList();
-                ViewBag.Customerslist = Leads_list;
-                lead target = Leads_list[0];
+                TaxExemptInfo.Where(a => Convert.ToBoolean(a.Value) == target.tax_exempt).First().Selected = true;
+                ViewBag.TaxExemptInfo = TaxExemptInfo;
                 return View(target);
             }
             catch (Exception e)
@@ -682,8 +682,8 @@ namespace ck_project.Controllers
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
-                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "false" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "true" }
             };
 
                 ViewBag.TaxExemptInfo = TaxExemptInfo;
@@ -712,7 +712,7 @@ namespace ck_project.Controllers
                 TryUpdateModel(target, new string[] { "class_number", "project_status_number", "project_type_number", "emp_number", "branch_number", "delivery_status_number", "in_city", "source_number", "project_name",  "phone_number", "second_phone_number", "email","note" }, form.ToValueProvider());
                 target.Last_update_date = System.DateTime.Now;
 
-                target.tax_exempt = string.Equals(form["tax_exempt"], "1") ? true : false;
+                target.tax_exempt = string.Equals(form["tax_exempt"], "true") ? true : false;
 
 
 
