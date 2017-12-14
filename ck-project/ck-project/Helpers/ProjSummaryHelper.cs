@@ -184,6 +184,7 @@ namespace ck_project.Helpers
 
         public ProjectSummary CalculateInstallationsData(lead lead, ProjectSummary projectSummary)
         {
+            double operationExp = 0.0;
             InstallationCalculationHelper calHelper = new InstallationCalculationHelper();
             foreach (var item in lead.installations)
             {
@@ -191,8 +192,12 @@ namespace ck_project.Helpers
                 projectSummary.TotalInstallationDays = Math.Round(calHelper.CalculateTotalInstallationDays(item.installation_days, item.tile_installation_days), 2);
                 projectSummary.PaidTravelTimeOneWay = Math.Round(calHelper.CalculatePaidTravelTimeOneWay(item.travel_time_one_way), 2);
                 projectSummary.TotalApplicableTravelHours = Math.Round(calHelper.CalculateTotalApplicableTravelHours(item.installation_days, item.travel_time_one_way, item.recommendation), 2);
+                operationExp = item.total_operational_expenses != null ? (double)item.total_operational_expenses : 0;
             }
-                return projectSummary;
+
+            projectSummary.OperationalExp = operationExp == 0 ? new FeeCalculationHelper().CalculateTotalOperationalExpense(lead) : operationExp;
+
+            return projectSummary;
         }
 
         public ProjectSummary SetCustomerData(lead lead, ProjectSummary projectSummary)

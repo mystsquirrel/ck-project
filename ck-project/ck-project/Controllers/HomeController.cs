@@ -16,10 +16,7 @@ namespace ck_project.Controllers
         ckdatabase db = new ckdatabase();
         public ActionResult Index()
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            ViewBag.uid = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
-            ViewBag.role = identity.FindFirst(ClaimTypes.Role).Value;
-            return View();
+            return RedirectToAction("LogOffSession", "Account");
         }
 
         public ActionResult MainPage(int? page, string name, string status, string start, string end)

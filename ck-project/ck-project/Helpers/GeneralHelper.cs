@@ -134,6 +134,7 @@ namespace ck_project.Helpers
 
                 //set totalcost data
                 TotalCostHelper cHelper = new TotalCostHelper();
+                InstallationCalculationHelper installHelper = new InstallationCalculationHelper();
                 double buildingPermit = 0;
                 double installationCost = 0;
                 double materialCost = 0;
@@ -150,9 +151,17 @@ namespace ck_project.Helpers
                     {
                         lead_number = (int)lead.lead_number,
                         product_cost = cHelper.CalculateProductCost(lead),
-                        tax_cost = cHelper.CalculateApplicableTax(lead),
-                        building_permit_cost = buildingPermit
+                        building_permit_cost = buildingPermit,
+                        tax_cost = cHelper.CalculateApplicableTax(lead)
                     };
+
+                    // this is when there is no installation data
+                    if (installationCost == 0)
+                    {
+                        buildingPermit = installHelper.CalculateBuildingPermit(lead);
+                        installationCost = cHelper.CalculateInstallationCost(lead);
+                    }
+
                     total.total_cost1 = total.product_cost + materialCost + total.installation_cost + total.tax_cost;
                     List<total_cost> costList = new List<total_cost>
                     {
@@ -167,8 +176,8 @@ namespace ck_project.Helpers
                     {
                         item2.product_cost = cHelper.CalculateProductCost(lead);
                         item2.installation_cost = cHelper.CalculateInstallationCost(lead);
+                        item2.building_permit_cost = installHelper.CalculateBuildingPermit(lead);
                         item2.tax_cost = cHelper.CalculateApplicableTax(lead);
-                        item2.building_permit_cost = cHelper.CalculateBuildingPermitCost(lead);
                         item2.total_cost1 = item2.product_cost + materialCost + item2.installation_cost + item2.tax_cost;
                     }
                 }

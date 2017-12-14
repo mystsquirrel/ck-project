@@ -242,13 +242,13 @@ namespace ck_project.Helpers
                             buildingPermitCost += (double)item.total_construction_materials_cost;
                         }
                     }
-
-                    buildingPermitCost += new TotalCostHelper().CalculateProductCost(lead);
-                    return helper.GetBuildingPermitAmount(buildingPermitCost);
                 }
+
+                buildingPermitCost += new TotalCostHelper().CalculateProductCost(lead);
+                return Math.Round(helper.GetBuildingPermitAmount(buildingPermitCost), 2);
             }
 
-            return Math.Round(buildingPermitCost, 2);
+            return buildingPermitCost;
         }
     }
 }

@@ -237,7 +237,7 @@
             <td class ="table5_border_left"></td>
             <td class ="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -250,7 +250,7 @@
             <td class ="table5_col3">Total Estimated Hours</td>
             <td colspan="2" class="table5_col4">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -261,7 +261,7 @@
             </td>
             <td class ="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -278,7 +278,7 @@
             <td class ="table5_col3">Billable Hours</td>
             <td colspan="2" class="table5_col4">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -289,7 +289,7 @@
             </td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -305,7 +305,7 @@
             <td class ="table5_border_left"></td>
             <td class ="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -318,7 +318,7 @@
             <td class ="table5_col3">TRAVEL- Total Miles (Roundtrip x Days)</td>
             <td colspan="2" class="table5_col4">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -329,7 +329,7 @@
             </td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -345,7 +345,7 @@
             <td class ="table5_border_left"></td>
             <td class ="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -379,7 +379,7 @@
             </td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -405,12 +405,9 @@
             <td colspan="3" class="table5_col3_4_combine"></td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.TotalCost != null)
                     {
-                        foreach (var item in Model.Lead.installations)
-                        {
-                           @item.building_permit_cost
-                        }
+                        @Model.TotalCost.building_permit_cost
                     }
                 }
             </td>
@@ -421,7 +418,7 @@
             <td class="table5_border_left"></td>
             <td class="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -434,12 +431,9 @@
             <td colspan="3" class="table5_col3_4_combine"></td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.OperationalExp != 0)
                     {
-                        foreach (var item in Model.Lead.installations)
-                        {
-                            @item.total_operational_expenses
-                        }
+                        @Model.OperationalExp
                     }
                 }
             </td>
@@ -453,7 +447,7 @@
             <td colspan="3" class="table5_col3_4_combine"></td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -469,7 +463,7 @@
             <td class="table5_border_left"></td>
             <td class="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -485,7 +479,7 @@
             <td class="table5_border_left"></td>
             <td class="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -501,7 +495,7 @@
             <td class="table5_border_left"></td>
             <td class="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -514,7 +508,7 @@
             <td class="table5_col3">Installation Days (hours/8)</td>
             <td class="table5_col4_1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -526,13 +520,26 @@
             <td class="table5_col4_2"></td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
-                    {
-                        foreach (var item in Model.Lead.installations)
+                    double totalLaborCost = 0.00;
+                    if (Model.Lead != null) {
+                        if (Model.Lead.installations.Count != 0)
                         {
-                            @item.total_installation_labor_cost
+                            foreach (var item in Model.Lead.installations)
+                            {
+                                totalLaborCost = item.total_installation_labor_cost != null ? (double)item.total_installation_labor_cost : 0.00;
+                            }
+                        }
+                        else
+                        {
+                            if (Model.TotalCost != null && Model.TotalCost.building_permit_cost != null)
+                            {
+                                totalLaborCost += (double)Model.TotalCost.building_permit_cost;
+                            }
+
+                            totalLaborCost += Model.OperationalExp;
                         }
                     }
+                    @totalLaborCost
                 }
             </td>
             <td class="table5_col6">Installation Labor Expense</td>
@@ -542,7 +549,7 @@
             <td class="table5_border_left"></td>
             <td class="table5_col1">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -555,7 +562,7 @@
             <td class="table5_col3">Tile Installation Days (hours/8)</td>
             <td class="table5_col4">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {
@@ -579,7 +586,7 @@
             <td class="table5_col4_2"></td>
             <td class="table5_col5">
                 @{
-                    if (Model.Lead != null && Model.Lead.installations != null)
+                    if (Model.Lead != null && Model.Lead.installations.Count != 0)
                     {
                         foreach (var item in Model.Lead.installations)
                         {

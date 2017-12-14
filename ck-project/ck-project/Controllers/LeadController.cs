@@ -73,19 +73,6 @@ namespace ck_project.Controllers
         }
 
 
-        //public ActionResult Details(int id)
-        //{try
-        //    {
-        //        return View(db.leads.Where(x => x.lead_number == id).ToList());
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ViewBag.m = e.Message;
-        //        return View();
-        //    }
-        //}
-        
-
         public ActionResult Add(int id, String msg = null, string add = null)
         {
             ViewBag.add = add;
@@ -475,7 +462,7 @@ namespace ck_project.Controllers
                 {
                     address1 = form["Item3.address1"],
                     //     address_type = form["Item2.address_type"],
-                    address_type = "ExtraAddress",
+                    address_type = "alternativeAddress",
                     city = form["Item3.city"],
                      state = form["state2"],
                    // state = form["state"],
@@ -584,12 +571,11 @@ namespace ck_project.Controllers
                     Selected = false,
                     Value = a.delivery_status_number.ToString()
                 }));
-
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable", Value = "0" },
-                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
             };
 
                 
@@ -698,11 +684,14 @@ namespace ck_project.Controllers
                 var TaxExemptInfo = new List<SelectListItem> {
 
 
-                  new SelectListItem() { Text = "Taxable", Value = "0" },
-                new SelectListItem { Text = "Tax Exempt", Value = "1" }
+                  new SelectListItem() { Text = "Taxable",Selected = false, Value = "0" },
+                new SelectListItem { Text = "Tax Exempt",Selected = false, Value = "1" }
             };
 
                 ViewBag.TaxExemptInfo = TaxExemptInfo;
+
+
+
 
 
                 //setting variable passing
@@ -733,7 +722,7 @@ namespace ck_project.Controllers
                 {
                     new GeneralHelper().SaveProjectTotal(target.lead_number);
                 }
-                  // db.SaveChanges(id);
+  
                    db.SaveChanges(target.lead_number);
                
           

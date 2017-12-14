@@ -3,6 +3,22 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")    
+    @if (ViewBag.msg != null)
+     {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.success('@ViewBag.msg');
+            });
+        </script>
+     }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar-nav li").removeClass("active");//this will remove the active class from
+            //previously active menu item
+            $('#lead').addClass('active');
+        });
+    </script>
 }
 
 @{
@@ -21,7 +37,7 @@
 <div class="container">
     <table>
         <tr>
-            <td style="width:947px"></td>
+            <td style="width:947px"><h2>Installation</h2></td>
             <td style="width:50px">
                 <input type="button" value="Customer" onclick="location.href='@Url.Action("Edit", "Customers", new { id = ViewBag.customerNbr })'" class="btn btn-default" id="tabBtn" />
             </td>
@@ -45,8 +61,6 @@
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
-            <h4>installation</h4>
-            <br/>
             <h5>All field with star is required</h5>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -65,7 +79,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.statrt_date, "* Start Date",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.statrt_date, "Start Date*",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.statrt_date, new { htmlAttributes = new { @class = "form-control" } })
@@ -81,7 +95,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.total_tile_cost, "* Total Tile Cost",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.total_tile_cost, "Total Tile Cost*",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.total_tile_cost, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.total_tile_cost, "", new { @class = "text-danger" })
@@ -91,7 +105,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.estimated_date, "* Estimated Date",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.estimated_date, "Estimated Date*",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
 
                     @Html.EditorFor(model => model.estimated_date, new { htmlAttributes = new { @class = "form-control" } })
@@ -106,7 +120,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.oneway_mileages_to_destination, "*Mileages to destination",htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.oneway_mileages_to_destination, "Mileages to destination*",htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.oneway_mileages_to_destination, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.oneway_mileages_to_destination, "", new { @class = "text-danger" })

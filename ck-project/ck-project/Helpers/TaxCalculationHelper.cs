@@ -138,9 +138,9 @@ namespace ck_project.Helpers
                 string city = jobsiteAddress.city;
                 if (state != null && city != null)
                 {
-                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == Constants.rate_Name_BO && date <= t.end_date && date >= t.start_date && t.state == state && t.city == city).Any())
+                    if (db.taxes.Where(t => t.deleted == false && t.tax_anme == Constants.tax_Name_BO && date <= t.end_date && date >= t.start_date && t.state == state && t.city == city).Any())
                     {
-                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == Constants.rate_Name_BO && date <= t.end_date && date >= t.start_date && t.state == state && t.city == city).First();
+                        var taxData = db.taxes.Where(t => t.deleted == false && t.tax_anme == Constants.tax_Name_BO && date <= t.end_date && date >= t.start_date && t.state == state && t.city == city).First();
                         if (taxData != null)
                         {
                             if (currLead.in_city && currLead.delivery_status.delivery_status_name.Equals(Constants.deliver_Status_Installed))
