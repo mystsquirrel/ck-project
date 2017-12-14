@@ -13,7 +13,7 @@ namespace ck_project.Controllers
     public class CustomersController : Controller
     {
              
-        //Creating the DB connecton
+        //Creating the db connecton
         ckdatabase db = new ckdatabase();
         // GET: Customers
 
