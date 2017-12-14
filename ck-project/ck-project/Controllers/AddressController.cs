@@ -79,9 +79,11 @@ namespace ck_project.Controllers
                 ViewBag.mode = "ll";
                 if (db.addresses.Any(e => e.lead_number == lid && e.address_type == "alternativeAddress"))
                 {
-                    
+
                     //update ll
-                    return View(db.addresses.Where(q => q.lead_number == lid && q.address_type == "alternativeAddress").First());
+                    address ll = db.addresses.Where(q => q.lead_number == lid && q.address_type == "alternativeAddress").First();
+                    Sstate.Where(v => v.Value == ll.state).First().Selected = true;
+                    return View(ll);
                 }
                 else {
                     //new ll
@@ -92,8 +94,8 @@ namespace ck_project.Controllers
             try
             {
                 address target = db.addresses.Where(t => t.address_number == id).First();
-                
-               
+
+                Sstate.Where(r => r.Value == target.state).First().Selected = true;
                 return View(target);
             }
             catch (Exception e)
@@ -185,6 +187,7 @@ namespace ck_project.Controllers
                     address custadd = db.addresses.Where(r => r.address_number == id).First();
                     custadd.address_type = "Billing";
                     custadd.deleted = false;
+                    custadd.state = fo["state"];
                     TryUpdateModel(custadd, new string[] { "address1", "city", "county", "zipcode" }, fo.ToValueProvider());
                     //custadd.address1 = fo["item.address1"];
                     //custadd.city = fo["item.city"];
@@ -230,6 +233,7 @@ namespace ck_project.Controllers
                        //q.county = fo["item.county"];
                        //q.zipcode = fo["item.zipcode"];
                         q.address_type = "alternativeAddress";
+                        q.state = fo["state"];
                         try
                         {
                             db.SaveChanges();
