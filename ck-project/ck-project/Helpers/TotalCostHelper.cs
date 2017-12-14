@@ -48,29 +48,7 @@ namespace ck_project.Helpers
         public double CalculateApplicableTax(lead lead)
         {
             TaxCalculationHelper taxHelper = new TaxCalculationHelper(lead);
-            if (!lead.tax_exempt)
-            {
-                return taxHelper.CalculateStateTax() + taxHelper.CalculateCountyTax() + taxHelper.CalculateMunicipalTax() + taxHelper.CalculateBOTax();
-            }
-
-            return 0;
+            return taxHelper.CalculateStateTax() + taxHelper.CalculateCountyTax() + taxHelper.CalculateMunicipalTax() + taxHelper.CalculateBOTax();
         }
-
-        //public double CalculateBuildingPermitCost(lead lead)
-        //{
-        //    double totalInstallCost = 0;
-        //    if (lead.installations != null)
-        //    {
-        //        foreach (var item in lead.installations)
-        //        {
-        //            if (item.building_permit_cost != null)
-        //            {
-        //                totalInstallCost += (double)item.building_permit_cost;
-        //            }
-        //        }
-        //    }
-
-        //    return totalInstallCost;
-        //}
     }
 }

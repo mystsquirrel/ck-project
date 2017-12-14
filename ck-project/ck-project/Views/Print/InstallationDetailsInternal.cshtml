@@ -265,7 +265,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.installation_labor_only_cost
+                            if (item.installation_labor_only_cost != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.installation_labor_only_cost)
+                            }
                         }
                     }
                 }
@@ -293,7 +296,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.total_travel_cost
+                            if (item.total_travel_cost != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.total_travel_cost)
+                            }
                         }
                     }
                 }
@@ -322,7 +328,7 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                           @item.hotel_round_trip
+                           @item.total_miles
                         }
                     }
                 }
@@ -333,7 +339,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.mileage_expense
+                            if (item.mileage_expense != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.mileage_expense)
+                            }
                         }
                     }
                 }
@@ -383,7 +392,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.hotel_expense
+                            if (item.hotel_expense != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.hotel_expense)
+                            }
                         }
                     }
                 }
@@ -407,7 +419,7 @@
                 @{
                     if (Model.TotalCost != null)
                     {
-                        @Model.TotalCost.building_permit_cost
+                        @String.Format("{0:#,0.00}", Model.TotalCost.building_permit_cost)
                     }
                 }
             </td>
@@ -433,7 +445,7 @@
                 @{
                     if (Model.OperationalExp != 0)
                     {
-                        @Model.OperationalExp
+                        @String.Format("{0:#,0.00}", Model.OperationalExp)
                     }
                 }
             </td>
@@ -451,7 +463,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.total_per_diem_cost
+                            if (item.total_per_diem_cost != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.total_per_diem_cost)
+                            }
                         }
                     }
                 }
@@ -539,7 +554,7 @@
                             totalLaborCost += Model.OperationalExp;
                         }
                     }
-                    @totalLaborCost
+                    @String.Format("{0:#,0.00}", totalLaborCost)
                 }
             </td>
             <td class="table5_col6">Installation Labor Expense</td>
@@ -590,7 +605,10 @@
                     {
                         foreach (var item in Model.Lead.installations)
                         {
-                            @item.total_construction_materials_cost
+                            if (item.total_construction_materials_cost != null)
+                            {
+                                @String.Format("{0:#,0.00}", item.total_construction_materials_cost)
+                            }
                         }
                     }
                 }

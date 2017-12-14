@@ -162,7 +162,15 @@ namespace ck_project.Helpers
                         installationCost = cHelper.CalculateInstallationCost(lead);
                     }
 
-                    total.total_cost1 = total.product_cost + materialCost + total.installation_cost + total.tax_cost;
+                    if (lead.tax_exempt)
+                    {
+                        total.total_cost1 = total.product_cost + materialCost + total.installation_cost;
+                    }
+                    else
+                    {
+                        total.total_cost1 = total.product_cost + materialCost + total.installation_cost + total.tax_cost;
+                    }
+                    
                     List<total_cost> costList = new List<total_cost>
                     {
                         total
@@ -179,6 +187,15 @@ namespace ck_project.Helpers
                         item2.building_permit_cost = installHelper.CalculateBuildingPermit(lead);
                         item2.tax_cost = cHelper.CalculateApplicableTax(lead);
                         item2.total_cost1 = item2.product_cost + materialCost + item2.installation_cost + item2.tax_cost;
+
+                        if (lead.tax_exempt)
+                        {
+                            item2.total_cost1 = item2.product_cost + materialCost + item2.installation_cost;
+                        }
+                        else
+                        {
+                            item2.total_cost1 = item2.product_cost + materialCost + item2.installation_cost + item2.tax_cost;
+                        }
                     }
                 }
 
