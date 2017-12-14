@@ -7,6 +7,7 @@ using PagedList;
 
 namespace ck_project.Controllers
 {
+    [Authorize(Roles ="administrator")]
     public class LogController : Controller
     {
         // GET: Log

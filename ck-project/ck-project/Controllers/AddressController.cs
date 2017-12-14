@@ -17,6 +17,7 @@ namespace ck_project.Controllers
         {
             ViewBag.id = id;
             ViewBag.mode = mode;
+            ViewBag.title = "Edit Address";
 
             int? lid = db.addresses.Where(t => t.address_number == id).First().lead_number;
             var Sstate = new List<SelectListItem> {
@@ -77,6 +78,7 @@ namespace ck_project.Controllers
             //special for lead
             if (mode == "ll")
             {
+                ViewBag.title = "Edit Alternative Address";
                 ViewBag.mode = "ll";
                 if (db.addresses.Any(e => e.lead_number == lid && e.address_type == "alternativeAddress"))
                 {

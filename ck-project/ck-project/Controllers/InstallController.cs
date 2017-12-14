@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
+    [Authorize]
     public class InstallController : Controller
     { // GET: Install
         ckdatabase db = new ckdatabase();
