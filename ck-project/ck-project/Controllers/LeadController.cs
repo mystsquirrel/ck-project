@@ -716,7 +716,7 @@ namespace ck_project.Controllers
 
 
 
-                if (form["project_status_number"].Equals("Closed") )
+
                 {
                     new GeneralHelper().SaveProjectTotal(target.lead_number);
                 }
