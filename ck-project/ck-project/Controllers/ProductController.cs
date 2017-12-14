@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ck_project.Controllers
 {
-
+    [Authorize]
     public class ProductController : Controller
     {
         // GET: Product
