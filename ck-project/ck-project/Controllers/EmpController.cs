@@ -63,6 +63,8 @@ namespace ck_project.Controllers
                 ViewBag.Customerslist = Employees_list;
                 employee target = Employees_list[0];
                 target.emp_password = EncryptionHelper.Decrypt(target.emp_password);
+                branchtypes.Where(q =>int.Parse( q.Value )==target.branch.branch_number).First().Selected = true;
+                utype.Where(t => int.Parse(t.Value) == target.users_types.user_type_number).First().Selected = true;
                 return View(target);
             }
             catch (Exception e)
