@@ -319,7 +319,9 @@ namespace ck_project.Controllers
                     //target.total_tile_cost =double.Parse( fo[""]);
                     //target.estimated_date = DateTime.Parse(fo[""]);
 
-                    
+                    //recalculate labor cost and material retails cost when user add or remove override rate
+                    target.lead = new InstallationCalculationHelper().CalculateLaborAndMaterialsCostForAllTasks(target.lead);
+
                     db.SaveChanges(lid);
                     msg = "The installation was updated successfully at " + System.DateTime.Now; ;
                 }
@@ -337,7 +339,7 @@ namespace ck_project.Controllers
 
                     target.lead = db.leads.Where(h => h.lead_number == lid).First();
                     target.lead_number = lid;
-                    
+
                     db.installations.Add(target);
                     db.SaveChanges(lid);
                     msg = "The installation was updated successfully at " + System.DateTime.Now; ;

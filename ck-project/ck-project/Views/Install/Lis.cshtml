@@ -174,7 +174,7 @@ toastr.success('@ViewBag.msg');
                 <div class="panel panel-default">
                     <h3 class="panel-heading">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(a.Value)" style="color:#8B0000">
-                            @(a.Text)     @ck_project.Helpers.TaskHelper.Mainsun(Model.installation_number,a.Text) Tasks
+                            @(a.Text)  -  @ck_project.Helpers.TaskHelper.Mainsun(Model.installation_number, a.Text) task(s)
                         </a>
                     </h3>
                 </div>
@@ -189,7 +189,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#kitchen" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)     @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number,"KITCHEN",kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "KITCHEN", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -210,7 +210,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#framing" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)    @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "FRAMING", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "FRAMING", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -231,7 +231,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Doors_Windows" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)    @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "DOORS & WINDOWS", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "DOORS & WINDOWS", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -252,7 +252,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Mechanicals" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)    @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "MENCHANICALS", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "MENCHANICALS", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -273,7 +273,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Electrical" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)   @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "ELECTRICAL", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "ELECTRICAL", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -294,7 +294,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Finish" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)   @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "FINISHS", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "FINISHS", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -315,7 +315,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Cabinetry" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)   @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "CABINETRY INSTALL", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "CABINETRY INSTALL", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -336,7 +336,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Countertops" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)   @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "COUNTERTOPS", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "COUNTERTOPS", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -357,7 +357,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#Appliance" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)     @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "APPLIANCES AND FIXTURES", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "APPLIANCES AND FIXTURES", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -378,7 +378,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#372" href="#collapse@(a.Value+kitchen.Value)">
-                                                    GENERAL     @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "GENERAL", kitchen.Text)
+                                                    GENERAL  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "GENERAL", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -399,7 +399,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#BATH" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)     @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "BATH", kitchen.Text)
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "BATH", kitchen.Text) task(s)
                                                 </a>
                                             </h4>
                                         </div>
@@ -420,7 +420,7 @@ toastr.success('@ViewBag.msg');
                                         <div class="panel panel-default">
                                             <h4 class="panel-heading" align="center">
                                                 <a data-toggle="collapse" data-parent="#MISC" href="#collapse@(a.Value+kitchen.Value)">
-                                                    @(kitchen.Text)     @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "MISC", "Disclaimers")
+                                                    @(kitchen.Text)  -  @ck_project.Helpers.TaskHelper.Subsun(Model.installation_number, "MISC", "Disclaimers") task(s)
                                                 </a>
                                             </h4>
                                         </div>

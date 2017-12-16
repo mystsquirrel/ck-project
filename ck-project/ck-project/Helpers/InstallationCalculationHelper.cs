@@ -250,5 +250,27 @@ namespace ck_project.Helpers
 
             return buildingPermitCost;
         }
+
+        public lead CalculateLaborAndMaterialsCostForAllTasks(lead lead)
+        {
+            if (lead.installations.Count != 0)
+            {
+                foreach (var item in lead.installations)
+                {
+                    if (item.tasks_installation.Count != 0)
+                    {
+                        double laborRate = helper.GetInstallationLaborRate(lead);
+                        double materialRate = helper.GetInstallationMaterialRate(lead);
+                        foreach (var tasks in item.tasks_installation)
+                        {
+                            tasks.labor_cost = tasks.hours * laborRate;
+                            tasks.material_retail_cost = tasks.m_cost * materialRate;
+                        }
+                    }
+                }
+            }
+
+            return lead;
+        }
     }
 }

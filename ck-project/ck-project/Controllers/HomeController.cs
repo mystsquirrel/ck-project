@@ -62,9 +62,8 @@ namespace ck_project.Controllers
             catch (FormatException e)
             {
                 Console.WriteLine(e.Message);
+                return View(new List<lead>().ToPagedList(page ?? 1, 10));
             }
-            
-            return View();
         }
 
         public ActionResult ProjPrint(int id)
