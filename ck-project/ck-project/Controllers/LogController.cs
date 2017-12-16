@@ -57,12 +57,12 @@ namespace ck_project.Controllers
             catch (Exception e)
             {
                 ViewBag.m = "Something went wrong ... " + e.Message;
-                return View();
+                return View(new List<lead_log_file>().ToPagedList(page ??1,8));
             }
         }
 
 
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             return RedirectToAction("ListLog", "Log");
         }
