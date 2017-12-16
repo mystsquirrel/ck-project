@@ -263,6 +263,7 @@
     <Compile Include="Helpers\installconvert.cs" />
     <Compile Include="Helpers\ProjSummaryHelper.cs" />
     <Compile Include="Helpers\FeeCalculationHelper.cs" />
+    <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="Helpers\TaxCalculationHelper.cs" />
     <Compile Include="Helpers\Tracker.cs" />
     <Compile Include="Helpers\TotalCostHelper.cs" />
