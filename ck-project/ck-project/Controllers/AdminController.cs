@@ -26,43 +26,6 @@ namespace ck_project.Controllers
             }
         }
 
-
-
-        public ActionResult AdminMainPage1(string search, string searchby)
-        {
-            if (searchby == "Designer" && search != "")
-            {
-                List<lead> result = (from l in db.leads
-                              join e in db.employees on l.emp_number equals e.emp_number
-                              join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false && s.project_status_name != "Closed"
-                                    && (e.emp_firstname.StartsWith(search) || e.emp_lastname.StartsWith(search))
-                              orderby l.Last_update_date
-                              select l).ToList();
-                AdminController.result = result;
-                return View(result);
-            }
-            else if (searchby == "Status" && search != "")
-            {
-                List<lead> result = (from l in db.leads
-                              join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false && s.project_status_name != "Closed" && s.project_status_name.StartsWith(search)
-                              orderby l.Last_update_date
-                              select l).ToList();
-                AdminController.result = result;
-                return View(result);
-            }
-            else
-            {
-               List<lead> result = (from l in db.leads
-                              join s in db.project_status on l.project_status_number equals s.project_status_number
-                              where l.deleted == false && s.project_status_name != "Closed"
-                              orderby l.Last_update_date
-                              select l).ToList();
-                AdminController.result = result;
-                return View(result);
-            }
-        }
         public ActionResult Sort(string by)
         {
             List<lead> pro = new List<lead>();
